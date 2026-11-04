@@ -27,10 +27,10 @@ BENCH_V1 = "data/bench_v1"
 W = 960
 
 T1_PICK = [("063", "크게 느려짐", "직진"), ("053", "멈춤", "직진"), ("023", "그대로", "좌회전"), ("073", "크게 빨라짐", "우회전")]
-# reviewed-ok risk moments only (no "없음" items in v0). t3 reuses the hard t2_01 moment so task 3 has
-# one item the closest-looking rule gets wrong.
+# reviewed-ok risk moments only (no "없음" items in v0). The t2_01 moment was dropped from task 3 on review
+# (not a valid case from the ego-centric point of view).
 T2_FROM = ["t2_01", "t2_02", "t2_04"]
-T3_FROM = ["t3_03", "t3_07", "t3_01"]
+T3_FROM = ["t3_03", "t3_07"]
 
 SPEED_OPTS = ["멈춤", "그대로", "크게 느려짐", "크게 빨라짐"]
 DIR_OPTS = ["직진", "좌회전", "우회전"]
