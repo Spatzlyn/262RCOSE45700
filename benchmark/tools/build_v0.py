@@ -6,10 +6,10 @@ Task 1 ego motion (AI Hub 472, scenario 13 Validation): 2 s of front-camera fram
          멈춤 max < 4 km/h | 크게 느려짐/빨라짐 change >= 8 km/h and >= 30 % | 그대로 change <= 3 km/h
          좌/우회전 heading change > 20 deg (heading grows on left turns) | 직진 <= 4 deg; anything between is not used
 Task 2 pick the riskiest pedestrian (AI Hub 597 pedestrian-accident blackbox clips, bb_1_*):
-       frames from the clip start to "now" (5 fps) + the "now" frame with numbered boxes -> number or 없음
-Task 3 box the riskiest pedestrian: same kind of input without boxes -> [x1, y1, x2, y2] on the key frame or 없음
-Tasks 2/3 reuse the reviewed moments of data/bench_v1 (accident pedestrian in the late part of its visible
-span, numbering shuffled; "없음" = before the accident pedestrian appears, same clips/camera).
+       frames from the clip start to "now" (5 fps) + the "now" frame with numbered boxes -> number
+Task 3 box the riskiest pedestrian: same kind of input without boxes -> [x1, y1, x2, y2] on the key frame
+Tasks 2/3 reuse reviewed risk moments of data/bench_v1 (accident pedestrian in the late part of its visible
+span, numbering shuffled). v0 has no "없음" (no risky pedestrian) items.
 
 Run from the project root:  python scripts/build_hpbench.py repo/262RCOSE45700/benchmark
 """
@@ -27,8 +27,10 @@ BENCH_V1 = "data/bench_v1"
 W = 960
 
 T1_PICK = [("063", "크게 느려짐", "직진"), ("053", "멈춤", "직진"), ("023", "그대로", "좌회전"), ("073", "크게 빨라짐", "우회전")]
-T2_FROM = ["t2_01", "t2_02", "t2_08"]          # reviewed ok: hard risk, risk, 없음
-T3_FROM = ["t3_03", "t3_07", "t3_10"]          # reviewed ok: risk, risk, 없음 (different clips from task 2)
+# reviewed-ok risk moments only (no "없음" items in v0). t3 reuses the hard t2_01 moment so task 3 has
+# one item the closest-looking rule gets wrong.
+T2_FROM = ["t2_01", "t2_02", "t2_04"]
+T3_FROM = ["t3_03", "t3_07", "t3_01"]
 
 SPEED_OPTS = ["멈춤", "그대로", "크게 느려짐", "크게 빨라짐"]
 DIR_OPTS = ["직진", "좌회전", "우회전"]
@@ -126,16 +128,15 @@ def build_t23(items, gold):
             if task == 2:
                 n_ped = len(s["evidence"]["boxes"])
                 q = (f"다음은 내 차 블랙박스로 처음부터 지금까지 {secs}초 동안 찍은 사진(0.2초 간격)과, 지금 장면에 보행자 "
-                     "번호를 붙인 사진(key frame)입니다. 번호가 붙은 보행자 중 내 차에 가장 위험한 보행자는 몇 번입니까? "
-                     "위험한 보행자가 없으면 '없음'이라고 답하세요.")
-                opts = [str(i) for i in range(1, n_ped + 1)] + ["없음"]
-                fmt = '"<번호>" 또는 "없음"'
+                     "번호를 붙인 사진(key frame)입니다. 번호가 붙은 보행자 중 내 차에 가장 위험한 보행자는 몇 번입니까?")
+                opts = [str(i) for i in range(1, n_ped + 1)]
+                fmt = '"<번호>"'
             else:
                 q = (f"다음은 내 차 블랙박스로 처음부터 지금까지 {secs}초 동안 찍은 사진(0.2초 간격)과, 지금 장면 사진"
                      f"(key frame, {ww}x{hh})입니다. key frame에서 내 차에 가장 위험한 보행자를 [x1, y1, x2, y2] 픽셀 "
-                     "좌표로 표시하세요. 위험한 보행자가 없으면 '없음'이라고 답하세요.")
+                     "좌표로 표시하세요.")
                 opts = None
-                fmt = '[x1, y1, x2, y2] (key frame 픽셀 좌표) 또는 "없음"'
+                fmt = '[x1, y1, x2, y2] (key frame 픽셀 좌표)'
             items.append({"id": iid, "task": task,
                           "task_name": "pick_risky_pedestrian" if task == 2 else "box_risky_pedestrian",
                           "frames": frames, "frame_interval_s": 0.2, "key_frame": key_rel,

@@ -6,15 +6,16 @@ Usage:
 predictions.jsonl: one line per item, {"id": "t1_01", "answer": ...}
   answer may be structured (dict / int / list) or the model's raw text; raw text is parsed:
     task 1  speed and direction option words, e.g. "크게 느려짐, 직진" or {"speed": ..., "direction": ...}
-    task 2  a pedestrian number or "없음"
-    task 3  four numbers [x1, y1, x2, y2] on the key frame, or "없음"
-  missing or unparsable answers count as wrong (and are reported separately).
+    task 2  a pedestrian number
+    task 3  four numbers [x1, y1, x2, y2] on the key frame
+  missing or unparsable answers count as wrong (and are reported separately). Every task-2/3 item has a
+  risky pedestrian, so an answer like "없음" is simply wrong.
 
 Metrics
   task 1  speed accuracy, direction accuracy, both correct
-  task 2  accuracy (all / risk items / hard risk items / 없음 items)
-          hard = the pedestrian lowest in the image (closest-looking) is not the answer
-  task 3  risk items: mean IoU (0 when no box), Acc@IoU>=0.5; 없음 items: accuracy of answering 없음
+  task 2  accuracy (all / hard items); hard = the pedestrian lowest in the image (closest-looking) is
+          not the answer
+  task 3  mean IoU (0 when no box), Acc@IoU>=0.5 (all / hard items)
 Only the Python standard library is used.
 """
 import argparse, json, os, re, sys
@@ -107,37 +108,31 @@ def evaluate(gold, preds):
     rep["task1"] = {"speed": ratio(sp, len(t1)), "direction": ratio(dr, len(t1)), "both": ratio(both, len(t1))}
 
     t2 = [g for g in gold if g["task"] == 2]
-    res = {"all": [0, 0], "risk": [0, 0], "hard": [0, 0], "none": [0, 0]}
+    res = {"all": [0, 0], "hard": [0, 0]}
     for g in t2:
         p = parse_t2(pred.get(g["id"]))
         if p is None:
             rep["unparsable"].append(g["id"])
-        ok = p == g["answer"] if g["answer"] == "없음" else p == int(g["answer"])
-        groups = ["all", "none"] if g["answer"] == "없음" else ["all", "risk"] + (["hard"] if g["meta"].get("hard") else [])
-        for k in groups:
+        ok = p == int(g["answer"])
+        for k in ["all"] + (["hard"] if g["meta"].get("hard") else []):
             res[k][0] += ok; res[k][1] += 1
         rep["per_item"].append({"id": g["id"], "pred": p, "gold": g["answer"], "correct": ok})
     rep["task2"] = {k: ratio(*v) for k, v in res.items()}
 
     t3 = [g for g in gold if g["task"] == 3]
-    ious, hit50, none_ok, n_risk, n_none = [], 0, 0, 0, 0
+    ious, hard_ious = [], []
     for g in t3:
         p = parse_t3(pred.get(g["id"]))
         if p is None:
             rep["unparsable"].append(g["id"])
-        if g["answer"] == "없음":
-            n_none += 1
-            ok = p == "없음"
-            none_ok += ok
-            rep["per_item"].append({"id": g["id"], "pred": p, "gold": "없음", "correct": ok})
-        else:
-            n_risk += 1
-            v = iou(p, g["answer"]) if isinstance(p, list) else 0.0
-            ious.append(v); hit50 += v >= 0.5
-            rep["per_item"].append({"id": g["id"], "pred": p, "gold": g["answer"], "iou": round(v, 4),
-                                    "correct": v >= 0.5})
-    rep["task3"] = {"risk_mean_iou": round(sum(ious) / len(ious), 4) if ious else None,
-                    "risk_acc_at_iou_0.5": ratio(hit50, n_risk), "none": ratio(none_ok, n_none)}
+        v = iou(p, g["answer"]) if isinstance(p, list) else 0.0
+        ious.append(v)
+        if g["meta"].get("hard"):
+            hard_ious.append(v)
+        rep["per_item"].append({"id": g["id"], "pred": p, "gold": g["answer"], "iou": round(v, 4), "correct": v >= 0.5})
+    rep["task3"] = {"mean_iou": round(sum(ious) / len(ious), 4) if ious else None,
+                    "acc_at_iou_0.5": ratio(sum(v >= 0.5 for v in ious), len(ious)),
+                    "hard_acc_at_iou_0.5": ratio(sum(v >= 0.5 for v in hard_ious), len(hard_ious))}
     return rep
 
 

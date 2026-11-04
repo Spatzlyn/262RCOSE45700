@@ -27,7 +27,7 @@
   #list .row.sel { background:var(--chip); border-left:3px solid var(--accent); }
   .muted { color:var(--muted); font-size:13px; }
   .chip { display:inline-block; padding:1px 8px; border-radius:10px; background:var(--chip); font-size:12px; margin-right:4px; }
-  .ok { color:var(--ok); } .bad { color:var(--bad); } .warn { color:var(--warn); }
+  .warn { color:var(--warn); }
   section { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:14px; }
   section h2 { font-size:14px; margin:0 0 8px; color:var(--muted); font-weight:600; }
   .media { display:flex; flex-wrap:wrap; gap:14px; }
@@ -44,7 +44,6 @@
   table { border-collapse:collapse; font-size:14px; }
   td, th { border:1px solid var(--line); padding:4px 10px; text-align:left; }
   pre { background:var(--chip); padding:10px; border-radius:6px; overflow:auto; font-size:13px; margin:6px 0 0; }
-  #summary td:nth-child(n+2) { text-align:right; }
   .hidden { display:none; }
   #err { color:var(--bad); padding:16px; }
 </style>
@@ -68,7 +67,6 @@
 <main>
   <nav id="list"></nav>
   <div>
-    <section id="summaryBox" class="hidden"><h2>예측 채점 요약 (예측이 있는 문항 기준 — 공식 점수는 evaluator/evaluate.py)</h2><table id="summary"></table></section>
     <section>
       <div class="muted" id="where"></div>
       <div class="q" id="question"></div>
@@ -109,7 +107,7 @@ async function loadJsonl(path) {
   return (await r.text()).split(/\r?\n/).filter(l => l.trim()).map(l => JSON.parse(l));
 }
 
-// ---------- answer parsing / scoring (same rules as evaluator/evaluate.py) ----------
+// ---------- answer parsing (same rules as evaluator/evaluate.py; scoring is left to the evaluator) ----------
 const SPEED = ["크게 느려짐", "크게 빨라짐", "그대로", "멈춤"], DIR = ["좌회전", "우회전", "직진"];
 const isNone = a => typeof a === "string" && /없음|none|no pedestrian/i.test(a);
 const firstOpt = (t, opts) => { let best = null, pos = 1e9; for (const o of opts) { const i = t.indexOf(o); if (i >= 0 && i < pos) { pos = i; best = o; } } return best; };
@@ -128,29 +126,15 @@ function parse(task, a) {
   if (typeof a === "string") { if (isNone(a)) return "없음"; const n = a.match(/-?\d+(?:\.\d+)?/g); return n && n.length >= 4 ? n.slice(0, 4).map(Number) : null; }
   return null;
 }
-function iou(a, b) {
-  const p = [Math.min(a[0], a[2]), Math.min(a[1], a[3]), Math.max(a[0], a[2]), Math.max(a[1], a[3])];
-  const ix = Math.max(0, Math.min(p[2], b[2]) - Math.max(p[0], b[0])), iy = Math.max(0, Math.min(p[3], b[3]) - Math.max(p[1], b[1]));
-  const inter = ix * iy, u = (p[2] - p[0]) * (p[3] - p[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter;
-  return u > 0 ? inter / u : 0;
-}
-function score(item) {
-  if (!(item.id in PRED)) return null;
-  const g = GOLD[item.id].answer, p = parse(item.task, PRED[item.id]);
-  if (item.task === 1) return { p, ok: !!p && p.speed === g.speed && p.direction === g.direction, part: p ? (p.speed === g.speed) + (p.direction === g.direction) : 0 };
-  if (item.task === 2) return { p, ok: g === "없음" ? p === "없음" : p === +g };
-  if (g === "없음") return { p, ok: p === "없음" };
-  const v = Array.isArray(p) ? iou(p, g) : 0;
-  return { p, ok: v >= 0.5, iou: v };
+function predicted(item) {
+  return item.id in PRED ? { p: parse(item.task, PRED[item.id]) } : null;
 }
 
 // ---------- rendering ----------
 function renderList() {
   $("list").innerHTML = list.map((it, k) => {
-    const g = GOLD[it.id], s = score(it);
-    const tags = [g.meta.kind === "none" ? "없음" : "", g.meta.hard ? "어려움" : ""].filter(Boolean).map(t => `<span class="chip">${t}</span>`).join("");
-    const mark = s === null ? "" : s.ok ? '<span class="ok">✔</span>' : '<span class="bad">✘</span>';
-    return `<div class="row ${k === cur ? "sel" : ""}" data-k="${k}"><span>${it.id} ${tags}</span>${mark}</div>`;
+    const tag = GOLD[it.id].meta.hard ? '<span class="chip">어려움</span>' : "";
+    return `<div class="row ${k === cur ? "sel" : ""}" data-k="${k}"><span>${it.id} ${tag}</span></div>`;
   }).join("") || '<div class="row muted">문항 없음</div>';
   for (const r of $("list").querySelectorAll(".row[data-k]")) r.onclick = () => { cur = +r.dataset.k; show(); };
 }
@@ -171,7 +155,7 @@ function boxSvg(b, color, label) {
 function show() {
   stop();
   if (!list.length) { $("question").textContent = "이 과제의 문항이 없습니다."; return; }
-  const it = list[cur], g = GOLD[it.id], showGold = $("showGold").checked, s = score(it);
+  const it = list[cur], g = GOLD[it.id], showGold = $("showGold").checked, s = predicted(it);
   renderList();
   $("where").innerHTML = `<b>${it.id}</b> · 과제 ${it.task} (${it.task_name}) · 입력 ${it.frames.length}장, ${it.frame_interval_s}초 간격`;
   $("question").textContent = it.question;
@@ -199,17 +183,15 @@ function show() {
     let svg = "";
     if (it.task === 3 && showGold && Array.isArray(g.answer)) svg += boxSvg(g.answer, "#22c55e", "정답");
     if (it.task === 3 && s && Array.isArray(s.p)) svg += boxSvg(s.p, "#3b82f6", "예측");
-    if (it.task === 2 && showGold && g.answer !== "없음") svg += boxSvg(g.meta.pedestrian_boxes[g.answer - 1], "#22c55e", "");
+    if (it.task === 2 && showGold) svg += boxSvg(g.meta.pedestrian_boxes[g.answer - 1], "#22c55e", "");
     $("keySvg").innerHTML = svg;
   }
 
-  // answer panel
+  // answer panel (prediction shown as-is, no right/wrong judgement)
   let html = "";
   if (s) {
     const pv = s.p === null ? '<span class="warn">읽을 수 없음</span>' : JSON.stringify(s.p);
-    html += `<div>예측: ${pv} → ${s.ok ? '<span class="ok">맞음</span>' : '<span class="bad">틀림</span>'}` +
-            (s.iou !== undefined ? ` (IoU ${s.iou.toFixed(2)})` : "") + `</div>` +
-            `<div class="muted">원문: ${JSON.stringify(PRED[it.id])}</div>`;
+    html += `<div>예측: ${pv}</div><div class="muted">원문: ${JSON.stringify(PRED[it.id])}</div>`;
   }
   if (showGold) {
     html += `<div style="margin-top:6px">정답: <b>${JSON.stringify(g.answer)}</b></div><pre>${JSON.stringify(g.meta, null, 1)}</pre>`;
@@ -230,21 +212,6 @@ function play() {
 }
 function stop() { if (timer) clearInterval(timer); timer = null; $("play").textContent = "▶ 재생"; }
 
-function summarize() {
-  const rows = [];
-  for (const t of [1, 2, 3]) {
-    const its = ITEMS.filter(x => x.task === t && x.id in PRED);
-    if (!its.length) continue;
-    const sc = its.map(score), ok = sc.filter(s => s.ok).length;
-    let extra = "";
-    if (t === 2) { const hard = its.filter(x => GOLD[x.id].meta.hard); extra = `어려운 문항 ${hard.filter(x => score(x).ok).length}/${hard.length}`; }
-    if (t === 3) { const r = its.filter(x => GOLD[x.id].answer !== "없음").map(score); extra = r.length ? `평균 IoU ${(r.reduce((a, s) => a + s.iou, 0) / r.length).toFixed(2)}` : ""; }
-    rows.push(`<tr><td>과제 ${t}</td><td>${ok}/${its.length}</td><td>${(ok / its.length * 100).toFixed(0)}%</td><td>${extra}</td></tr>`);
-  }
-  $("summary").innerHTML = "<tr><th>과제</th><th>맞음</th><th>정확도</th><th>비고</th></tr>" + rows.join("");
-  $("summaryBox").classList.toggle("hidden", !rows.length);
-}
-
 function refilter() { const t = +$("task").value; list = ITEMS.filter(x => !t || x.task === t); cur = 0; show(); }
 
 $("task").onchange = e => { e.target.blur(); refilter(); };
@@ -258,7 +225,7 @@ $("predFile").onchange = async e => {
   PRED = {};
   for (const l of (await f.text()).split(/\r?\n/)) { if (!l.trim()) continue; const p = JSON.parse(l); PRED[p.id] = p.answer; }
   $("predName").textContent = `${f.name} (${Object.keys(PRED).length}개)`;
-  summarize(); show();
+  show();
 };
 document.onkeydown = e => {
   if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;

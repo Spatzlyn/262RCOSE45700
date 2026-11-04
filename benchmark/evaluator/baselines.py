@@ -1,12 +1,11 @@
 """Reference predictions for sanity checks and comparison (no model involved).
 
-Usage: python evaluator/baselines.py --kind {gold,random,always_none,closest} --out preds.jsonl
+Usage: python evaluator/baselines.py --kind {gold,random,closest} --out preds.jsonl
 
-  gold         the gold answers (evaluator must give 100 %)
-  random       uniform random option / random pedestrian box (seeded)
-  always_none  "없음" for tasks 2-3, "그대로, 직진" for task 1
-  closest      task 2-3: the pedestrian lowest in the key frame (looks closest); task 1: "그대로, 직진"
-               -> the rule a VLM has to beat for tasks 2-3
+  gold     the gold answers (evaluator must give 100 %)
+  random   uniform random option / random pedestrian box (seeded)
+  closest  task 2-3: the pedestrian lowest in the key frame (looks closest); task 1: "그대로, 직진"
+           -> the rule a VLM has to beat for tasks 2-3
 Baselines 'random' and 'closest' read pedestrian boxes from gold meta, i.e. they get the candidate boxes
 for free; they are lower bounds for judgement, not for detection.
 """
@@ -26,22 +25,18 @@ def predict(g, kind, rng):
         if kind == "random":
             return {"speed": rng.choice(SPEED), "direction": rng.choice(DIRECTION)}
         return {"speed": "그대로", "direction": "직진"}
-    if kind == "always_none" or not boxes:
-        return "없음"
     if kind == "random":
-        k = rng.randrange(len(boxes) + 1)                 # last choice = 없음
-        if k == len(boxes):
-            return "없음"
-        return k + 1 if t == 2 else boxes[k]
-    if kind == "closest":
+        k = rng.randrange(len(boxes))
+    elif kind == "closest":
         k = max(range(len(boxes)), key=lambda i: boxes[i][3])
-        return k + 1 if t == 2 else boxes[k]
-    raise ValueError(kind)
+    else:
+        raise ValueError(kind)
+    return k + 1 if t == 2 else boxes[k]
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kind", required=True, choices=["gold", "random", "always_none", "closest"])
+    ap.add_argument("--kind", required=True, choices=["gold", "random", "closest"])
     ap.add_argument("--out", required=True)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()
