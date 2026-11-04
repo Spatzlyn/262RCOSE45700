@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benchmark Viewer</title>
+<style>
+  :root { --bg:#f6f7f9; --panel:#fff; --text:#1d2330; --muted:#677084; --line:#dde1e8;
+          --accent:#2563eb; --ok:#15803d; --bad:#b91c1c; --warn:#a16207; --chip:#eef1f6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121417; --panel:#1b1e23; --text:#e7e9ee; --muted:#99a1b3; --line:#2c313a;
+            --accent:#60a5fa; --ok:#4ade80; --bad:#f87171; --warn:#facc15; --chip:#262a31; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.55 system-ui, "Malgun Gothic", sans-serif; }
+  header { position:sticky; top:0; z-index:2; background:var(--panel); border-bottom:1px solid var(--line);
+           padding:10px 16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  header h1 { font-size:16px; margin:0 12px 0 0; }
+  select, button { font:inherit; padding:4px 10px; border:1px solid var(--line); border-radius:6px;
+                   background:var(--panel); color:var(--text); cursor:pointer; }
+  label { color:var(--muted); font-size:14px; display:flex; align-items:center; gap:4px; }
+  main { display:grid; grid-template-columns:260px 1fr; gap:16px; padding:16px; max-width:1500px; margin:0 auto; }
+  @media (max-width:900px) { main { grid-template-columns:1fr; } #list { max-height:220px; } }
+  #list { background:var(--panel); border:1px solid var(--line); border-radius:8px; overflow:auto; max-height:calc(100vh - 110px); }
+  #list .row { padding:8px 12px; border-bottom:1px solid var(--line); cursor:pointer; display:flex; justify-content:space-between; gap:8px; }
+  #list .row:hover { background:var(--chip); }
+  #list .row.sel { background:var(--chip); border-left:3px solid var(--accent); }
+  .muted { color:var(--muted); font-size:13px; }
+  .chip { display:inline-block; padding:1px 8px; border-radius:10px; background:var(--chip); font-size:12px; margin-right:4px; }
+  .ok { color:var(--ok); } .bad { color:var(--bad); } .warn { color:var(--warn); }
+  section { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:14px 16px; margin-bottom:14px; }
+  section h2 { font-size:14px; margin:0 0 8px; color:var(--muted); font-weight:600; }
+  .media { display:flex; flex-wrap:wrap; gap:14px; }
+  .media figure { margin:0; flex:1 1 420px; min-width:0; }
+  .stage { position:relative; width:100%; }
+  .stage img { width:100%; display:block; border-radius:6px; background:#000; }
+  .stage svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  figcaption { font-size:13px; color:var(--muted); margin-top:4px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  input[type=range] { flex:1; min-width:120px; }
+  .q { font-size:16px; }
+  .opts span { display:inline-block; border:1px solid var(--line); border-radius:6px; padding:2px 10px; margin:4px 6px 0 0; }
+  .opts span.gold { border-color:var(--ok); color:var(--ok); font-weight:600; }
+  .opts span.pred { outline:2px dashed var(--accent); }
+  table { border-collapse:collapse; font-size:14px; }
+  td, th { border:1px solid var(--line); padding:4px 10px; text-align:left; }
+  pre { background:var(--chip); padding:10px; border-radius:6px; overflow:auto; font-size:13px; margin:6px 0 0; }
+  #summary td:nth-child(n+2) { text-align:right; }
+  .hidden { display:none; }
+  #err { color:var(--bad); padding:16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>보행자 위험 판단 벤치마크</h1>
+  <select id="task">
+    <option value="0">전체 과제</option>
+    <option value="1">1 내 차 움직임</option>
+    <option value="2">2 위험 보행자 고르기</option>
+    <option value="3">3 위험 보행자 박스</option>
+  </select>
+  <button id="prev" title="이전 (←)">◀</button>
+  <button id="next" title="다음 (→)">▶</button>
+  <label><input type="checkbox" id="showGold"> 정답 보기</label>
+  <label title="evaluator/baselines.py 또는 모델 출력 jsonl">예측 파일 <input type="file" id="predFile" accept=".jsonl,.json"></label>
+  <span class="muted" id="predName"></span>
+</header>
+<div id="err" class="hidden"></div>
+<main>
+  <nav id="list"></nav>
+  <div>
+    <section id="summaryBox" class="hidden"><h2>예측 채점 요약 (예측이 있는 문항 기준 — 공식 점수는 evaluator/evaluate.py)</h2><table id="summary"></table></section>
+    <section>
+      <div class="muted" id="where"></div>
+      <div class="q" id="question"></div>
+      <div class="opts" id="options"></div>
+      <div class="muted" id="format"></div>
+    </section>
+    <section>
+      <h2>입력</h2>
+      <div class="media">
+        <figure>
+          <div class="stage"><img id="frame" alt="frame"></div>
+          <figcaption>
+            <button id="play">▶ 재생</button>
+            <input type="range" id="slider" min="0" value="0">
+            <span id="fcap"></span>
+          </figcaption>
+        </figure>
+        <figure id="keyFig">
+          <div class="stage"><img id="key" alt="key frame"><svg id="keySvg"></svg></div>
+          <figcaption>key frame (지금 장면)</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section id="answerBox">
+      <h2>정답 / 예측</h2>
+      <div id="answer"></div>
+    </section>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const DATA = "../data/";
+let ITEMS = [], GOLD = {}, PRED = {}, list = [], cur = 0, fi = 0, timer = null;
+
+async function loadJsonl(path) {
+  const r = await fetch(path);
+  if (!r.ok) throw new Error(`${path} 를 읽지 못했습니다 (${r.status})`);
+  return (await r.text()).split(/\r?\n/).filter(l => l.trim()).map(l => JSON.parse(l));
+}
+
+// ---------- answer parsing / scoring (same rules as evaluator/evaluate.py) ----------
+const SPEED = ["크게 느려짐", "크게 빨라짐", "그대로", "멈춤"], DIR = ["좌회전", "우회전", "직진"];
+const isNone = a => typeof a === "string" && /없음|none|no pedestrian/i.test(a);
+const firstOpt = (t, opts) => { let best = null, pos = 1e9; for (const o of opts) { const i = t.indexOf(o); if (i >= 0 && i < pos) { pos = i; best = o; } } return best; };
+function parse(task, a) {
+  if (a === undefined || a === null) return null;
+  if (task === 1) {
+    if (typeof a === "string") { try { a = JSON.parse(a); } catch { return { speed: firstOpt(a, SPEED), direction: firstOpt(a, DIR) }; } }
+    return typeof a === "object" ? { speed: a.speed ?? null, direction: a.direction ?? null } : null;
+  }
+  if (task === 2) {
+    if (typeof a === "number") return a;
+    if (typeof a === "string") { if (isNone(a)) return "없음"; const m = a.match(/\d+/); return m ? +m[0] : null; }
+    return null;
+  }
+  if (Array.isArray(a) && a.length === 4) return a.map(Number);
+  if (typeof a === "string") { if (isNone(a)) return "없음"; const n = a.match(/-?\d+(?:\.\d+)?/g); return n && n.length >= 4 ? n.slice(0, 4).map(Number) : null; }
+  return null;
+}
+function iou(a, b) {
+  const p = [Math.min(a[0], a[2]), Math.min(a[1], a[3]), Math.max(a[0], a[2]), Math.max(a[1], a[3])];
+  const ix = Math.max(0, Math.min(p[2], b[2]) - Math.max(p[0], b[0])), iy = Math.max(0, Math.min(p[3], b[3]) - Math.max(p[1], b[1]));
+  const inter = ix * iy, u = (p[2] - p[0]) * (p[3] - p[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter;
+  return u > 0 ? inter / u : 0;
+}
+function score(item) {
+  if (!(item.id in PRED)) return null;
+  const g = GOLD[item.id].answer, p = parse(item.task, PRED[item.id]);
+  if (item.task === 1) return { p, ok: !!p && p.speed === g.speed && p.direction === g.direction, part: p ? (p.speed === g.speed) + (p.direction === g.direction) : 0 };
+  if (item.task === 2) return { p, ok: g === "없음" ? p === "없음" : p === +g };
+  if (g === "없음") return { p, ok: p === "없음" };
+  const v = Array.isArray(p) ? iou(p, g) : 0;
+  return { p, ok: v >= 0.5, iou: v };
+}
+
+// ---------- rendering ----------
+function renderList() {
+  $("list").innerHTML = list.map((it, k) => {
+    const g = GOLD[it.id], s = score(it);
+    const tags = [g.meta.kind === "none" ? "없음" : "", g.meta.hard ? "어려움" : ""].filter(Boolean).map(t => `<span class="chip">${t}</span>`).join("");
+    const mark = s === null ? "" : s.ok ? '<span class="ok">✔</span>' : '<span class="bad">✘</span>';
+    return `<div class="row ${k === cur ? "sel" : ""}" data-k="${k}"><span>${it.id} ${tags}</span>${mark}</div>`;
+  }).join("") || '<div class="row muted">문항 없음</div>';
+  for (const r of $("list").querySelectorAll(".row[data-k]")) r.onclick = () => { cur = +r.dataset.k; show(); };
+}
+
+function drawFrame() {
+  const it = list[cur];
+  $("frame").src = DATA + it.frames[fi];
+  $("slider").value = fi;
+  const t = (fi * it.frame_interval_s).toFixed(1), total = ((it.frames.length - 1) * it.frame_interval_s).toFixed(1);
+  $("fcap").textContent = `${fi + 1} / ${it.frames.length} · ${t}s / ${total}s`;
+}
+
+function boxSvg(b, color, label) {
+  return `<rect x="${b[0]}" y="${b[1]}" width="${b[2] - b[0]}" height="${b[3] - b[1]}" fill="none" stroke="${color}" stroke-width="4"/>` +
+         (label ? `<text x="${b[0]}" y="${Math.max(16, b[1] - 6)}" fill="${color}" font-size="20" font-weight="700">${label}</text>` : "");
+}
+
+function show() {
+  stop();
+  if (!list.length) { $("question").textContent = "이 과제의 문항이 없습니다."; return; }
+  const it = list[cur], g = GOLD[it.id], showGold = $("showGold").checked, s = score(it);
+  renderList();
+  $("where").innerHTML = `<b>${it.id}</b> · 과제 ${it.task} (${it.task_name}) · 입력 ${it.frames.length}장, ${it.frame_interval_s}초 간격`;
+  $("question").textContent = it.question;
+  $("format").textContent = "답 형식: " + it.answer_format;
+
+  // options with gold / prediction marks
+  const goldVals = it.task === 1 ? [g.answer.speed, g.answer.direction] : [String(g.answer)];
+  const predVals = !s || !s.p ? [] : it.task === 1 ? [s.p.speed, s.p.direction] : [String(s.p)];
+  const optLine = (opts) => opts.map(o => `<span class="${showGold && goldVals.includes(o) ? "gold" : ""} ${predVals.includes(o) ? "pred" : ""}">${o}</span>`).join("");
+  $("options").innerHTML = it.options === null ? "" :
+    Array.isArray(it.options) ? optLine(it.options) :
+    Object.entries(it.options).map(([k, v]) => `<div><span class="muted">${k === "speed" ? "속도" : "방향"}</span> ${optLine(v)}</div>`).join("");
+
+  // frames
+  $("slider").max = it.frames.length - 1;
+  fi = it.frames.length - 1;
+  drawFrame();
+
+  // key frame + boxes (gold box in green, predicted box in blue for task 3)
+  $("keyFig").classList.toggle("hidden", !it.key_frame);
+  if (it.key_frame) {
+    $("key").src = DATA + it.key_frame;
+    const [w, h] = it.key_frame_size;
+    $("keySvg").setAttribute("viewBox", `0 0 ${w} ${h}`);
+    let svg = "";
+    if (it.task === 3 && showGold && Array.isArray(g.answer)) svg += boxSvg(g.answer, "#22c55e", "정답");
+    if (it.task === 3 && s && Array.isArray(s.p)) svg += boxSvg(s.p, "#3b82f6", "예측");
+    if (it.task === 2 && showGold && g.answer !== "없음") svg += boxSvg(g.meta.pedestrian_boxes[g.answer - 1], "#22c55e", "");
+    $("keySvg").innerHTML = svg;
+  }
+
+  // answer panel
+  let html = "";
+  if (s) {
+    const pv = s.p === null ? '<span class="warn">읽을 수 없음</span>' : JSON.stringify(s.p);
+    html += `<div>예측: ${pv} → ${s.ok ? '<span class="ok">맞음</span>' : '<span class="bad">틀림</span>'}` +
+            (s.iou !== undefined ? ` (IoU ${s.iou.toFixed(2)})` : "") + `</div>` +
+            `<div class="muted">원문: ${JSON.stringify(PRED[it.id])}</div>`;
+  }
+  if (showGold) {
+    html += `<div style="margin-top:6px">정답: <b>${JSON.stringify(g.answer)}</b></div><pre>${JSON.stringify(g.meta, null, 1)}</pre>`;
+  }
+  $("answer").innerHTML = html || '<span class="muted">"정답 보기"를 켜거나 예측 파일을 불러오세요.</span>';
+}
+
+function play() {
+  const it = list[cur];
+  if (timer) return stop();
+  $("play").textContent = "⏸ 정지";
+  if (fi >= it.frames.length - 1) fi = 0;
+  timer = setInterval(() => {
+    drawFrame();
+    if (fi >= it.frames.length - 1) return stop();
+    fi++;
+  }, it.frame_interval_s * 1000);
+}
+function stop() { if (timer) clearInterval(timer); timer = null; $("play").textContent = "▶ 재생"; }
+
+function summarize() {
+  const rows = [];
+  for (const t of [1, 2, 3]) {
+    const its = ITEMS.filter(x => x.task === t && x.id in PRED);
+    if (!its.length) continue;
+    const sc = its.map(score), ok = sc.filter(s => s.ok).length;
+    let extra = "";
+    if (t === 2) { const hard = its.filter(x => GOLD[x.id].meta.hard); extra = `어려운 문항 ${hard.filter(x => score(x).ok).length}/${hard.length}`; }
+    if (t === 3) { const r = its.filter(x => GOLD[x.id].answer !== "없음").map(score); extra = r.length ? `평균 IoU ${(r.reduce((a, s) => a + s.iou, 0) / r.length).toFixed(2)}` : ""; }
+    rows.push(`<tr><td>과제 ${t}</td><td>${ok}/${its.length}</td><td>${(ok / its.length * 100).toFixed(0)}%</td><td>${extra}</td></tr>`);
+  }
+  $("summary").innerHTML = "<tr><th>과제</th><th>맞음</th><th>정확도</th><th>비고</th></tr>" + rows.join("");
+  $("summaryBox").classList.toggle("hidden", !rows.length);
+}
+
+function refilter() { const t = +$("task").value; list = ITEMS.filter(x => !t || x.task === t); cur = 0; show(); }
+
+$("task").onchange = e => { e.target.blur(); refilter(); };
+$("prev").onclick = () => { cur = (cur - 1 + list.length) % list.length; show(); };
+$("next").onclick = () => { cur = (cur + 1) % list.length; show(); };
+$("showGold").onchange = show;
+$("play").onclick = play;
+$("slider").oninput = e => { stop(); fi = +e.target.value; drawFrame(); };
+$("predFile").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  PRED = {};
+  for (const l of (await f.text()).split(/\r?\n/)) { if (!l.trim()) continue; const p = JSON.parse(l); PRED[p.id] = p.answer; }
+  $("predName").textContent = `${f.name} (${Object.keys(PRED).length}개)`;
+  summarize(); show();
+};
+document.onkeydown = e => {
+  if (e.target.tagName === "SELECT" || e.target.tagName === "INPUT") return;
+  if (e.key === "ArrowLeft") $("prev").onclick();
+  if (e.key === "ArrowRight") $("next").onclick();
+  if (e.key === " ") { e.preventDefault(); play(); }
+};
+
+(async () => {
+  try {
+    ITEMS = await loadJsonl(DATA + "items.jsonl");
+    for (const g of await loadJsonl(DATA + "gold.jsonl")) GOLD[g.id] = g;
+    refilter();
+  } catch (err) {
+    $("err").classList.remove("hidden");
+    $("err").textContent = err.message + " — benchmark 폴더에서 `python -m http.server` 로 띄운 뒤 /viewer/ 로 여세요.";
+  }
+})();
+</script>
+</body>
+</html>

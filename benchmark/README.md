@@ -37,8 +37,22 @@ benchmark/
 ├─ evaluator/
 │  ├─ evaluate.py     # 채점 (표준 라이브러리만 사용)
 │  └─ baselines.py    # 비교 기준 예측 생성
+├─ viewer/index.html  # 문항 둘러보기 대시보드
 └─ tools/build_v0.py  # 문항 생성 스크립트 (AI Hub 원본 데이터가 로컬에 있어야 실행됨)
 ```
+
+## 대시보드로 둘러보기
+
+```bash
+cd benchmark
+python -m http.server 8000
+```
+브라우저에서 `http://localhost:8000/viewer/` 를 엽니다. (파일을 더블클릭해서 열면 브라우저 보안 때문에 데이터를 못 읽습니다.)
+
+- 왼쪽 목록에서 문항 선택, 위쪽에서 과제별로 거르기, ← → 키로 이동
+- 입력 프레임을 **재생**(스페이스바)하거나 슬라이더로 넘겨보기, 오른쪽에 key frame
+- **정답 보기**: 정답 보기·박스(초록)와 근거(meta) 표시
+- **예측 파일**: `baselines.py`나 모델 출력 jsonl을 불러오면 문항마다 맞음/틀림, 과제 3은 예측 박스(파랑)와 IoU, 위쪽에 요약 표
 
 ### items.jsonl (모델에 주는 것)
 ```json
