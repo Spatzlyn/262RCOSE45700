@@ -1,0 +1,21 @@
+{
+  "evaluator_modified": false,
+  "original_draft_score": {
+    "objects": "3/16",
+    "relations": "0/4",
+    "action": false
+  },
+  "rerun_draft_score": {
+    "objects": "3/16",
+    "relations": "0/4",
+    "action": false
+  },
+  "all_64_ious_independently_verified": true,
+  "exhaustive_assignment": {
+    "matched": 3,
+    "iou_sum": 2.2766016112573775
+  },
+  "diagnostic_output_equal": true,
+  "action_output_equal": true,
+  "change_reason": null
+}

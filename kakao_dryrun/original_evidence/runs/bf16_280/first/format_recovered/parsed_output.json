@@ -1,0 +1,130 @@
+{
+  "item_id": "sample_front_001",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Not applicable",
+      "sidewalk_left": "A",
+      "sidewalk_right": "A"
+    },
+    "objects": [
+      {
+        "object_id": "obj_1",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.36,
+          0.3,
+          0.48,
+          0.43
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_2",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.58,
+          0.29,
+          0.73,
+          0.45
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_3",
+        "class": "truck",
+        "bbox_xyxy_norm": [
+          0.51,
+          0.19,
+          0.61,
+          0.39
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_4",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.22,
+          0.18,
+          0.79
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "보이는 Actor나 Obstacle의 지면 접촉 부분이 C와 겹치는 부분이 관측되지 않았습니다.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "obstacle_ids": []
+        }
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "C와 연결된 출입구 경계가 명확하게 관측되지 않았습니다.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "entrance_candidate_id": null
+        }
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "진행 판단에 필요한 영역을 가리는 Object가 관측되지 않았습니다.",
+        "region_ids": [],
+        "roles": {
+          "occluder_ids": [],
+          "occluded_region_id": null
+        }
+      },
+      "R4": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "Object의 배치가 통행 공간을 제한하는 것으로 판단되지 않았습니다.",
+        "region_ids": [],
+        "roles": {
+          "restricting_object_ids": []
+        }
+      }
+    },
+    "actions": [
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "reason": "모든 R1-R4 관계가 A로 판정되어 전방 주시 및 모니터링이 필요합니다."
+      }
+    ],
+    "unknowns": [],
+    "regions": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}

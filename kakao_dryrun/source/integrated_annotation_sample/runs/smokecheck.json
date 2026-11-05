@@ -1,0 +1,228 @@
+{
+  "item_id": "sample_front_001",
+  "mode": "sample_smokecheck",
+  "reference_status": "Draft",
+  "independent_source_groups": 1,
+  "relation_matches": 4,
+  "relations_compared": 4,
+  "relations": {
+    "R1": {
+      "expected": "P",
+      "predicted": "P",
+      "match": true
+    },
+    "R2": {
+      "expected": "U",
+      "predicted": "U",
+      "match": true
+    },
+    "R3": {
+      "expected": "P",
+      "predicted": "P",
+      "match": true
+    },
+    "R4": {
+      "expected": "P",
+      "predicted": "P",
+      "match": true
+    }
+  },
+  "action_rules": {
+    "pass": true,
+    "matched_required_groups": 4,
+    "required_groups": 4,
+    "errors": []
+  },
+  "diagnostics": {
+    "grounding": {
+      "objects": {
+        "mapping": {
+          "F_742182": "F_742182",
+          "F_742183": "F_742183",
+          "F_742184": "F_742184",
+          "F_742185": "F_742185",
+          "F_742186": "F_742186",
+          "F_742187": "F_742187",
+          "F_742188": "F_742188",
+          "F_742189": "F_742189",
+          "F_742190": "F_742190",
+          "F_742191": "F_742191",
+          "F_added_001": "F_added_001",
+          "F_added_002": "F_added_002",
+          "F_added_003": "F_added_003",
+          "F_added_004": "F_added_004",
+          "F_added_005": "F_added_005",
+          "F_added_006": "F_added_006"
+        },
+        "pairs": [
+          {
+            "prediction_id": "F_742182",
+            "reference_id": "F_742182",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742183",
+            "reference_id": "F_742183",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742184",
+            "reference_id": "F_742184",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742185",
+            "reference_id": "F_742185",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742186",
+            "reference_id": "F_742186",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742187",
+            "reference_id": "F_742187",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742188",
+            "reference_id": "F_742188",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742189",
+            "reference_id": "F_742189",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742190",
+            "reference_id": "F_742190",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_742191",
+            "reference_id": "F_742191",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_001",
+            "reference_id": "F_added_001",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_002",
+            "reference_id": "F_added_002",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_003",
+            "reference_id": "F_added_003",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_004",
+            "reference_id": "F_added_004",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_005",
+            "reference_id": "F_added_005",
+            "iou": 1.0
+          },
+          {
+            "prediction_id": "F_added_006",
+            "reference_id": "F_added_006",
+            "iou": 1.0
+          }
+        ],
+        "matched_count": 16,
+        "unmatched_prediction_ids": [],
+        "unmatched_reference_ids": [],
+        "unmeasurable_prediction_ids": [],
+        "unmeasurable_reference_ids": [],
+        "iou_threshold": 0.5,
+        "assignment": "maximum_cardinality_then_total_iou"
+      },
+      "regions": {
+        "mapping": {
+          "F_entrance_left_candidates": "F_entrance_left_candidates"
+        },
+        "pairs": [
+          {
+            "prediction_id": "F_entrance_left_candidates",
+            "reference_id": "F_entrance_left_candidates",
+            "iou": 1.0
+          }
+        ],
+        "matched_count": 1,
+        "unmatched_prediction_ids": [
+          "F_hidden_road_ahead"
+        ],
+        "unmatched_reference_ids": [
+          "F_hidden_road_ahead"
+        ],
+        "unmeasurable_prediction_ids": [
+          "F_hidden_road_ahead"
+        ],
+        "unmeasurable_reference_ids": [
+          "F_hidden_road_ahead"
+        ],
+        "iou_threshold": 0.5,
+        "assignment": "maximum_cardinality_then_total_iou"
+      }
+    },
+    "evidence": {
+      "R1": {
+        "status": "matched",
+        "reason": "Geometry-matched entity sets and evidence roles match an accepted alternative",
+        "relation_state_matches": true,
+        "accepted_alternatives": 15
+      },
+      "R2": {
+        "status": "matched",
+        "reason": "Geometry-matched entity sets and evidence roles match an accepted alternative",
+        "relation_state_matches": true,
+        "accepted_alternatives": 1
+      },
+      "R3": {
+        "status": "deferred",
+        "reason": "Reference geometry is unobservable/unmeasurable: F_hidden_road_ahead",
+        "relation_state_matches": true,
+        "accepted_alternatives": 1
+      },
+      "R4": {
+        "status": "matched",
+        "reason": "Geometry-matched entity sets and evidence roles match an accepted alternative",
+        "relation_state_matches": true,
+        "accepted_alternatives": 1
+      }
+    },
+    "benchmark": {
+      "eligible": false,
+      "V3": null,
+      "V4": null,
+      "blockers": [
+        "reference_not_reviewed",
+        "independent_human_review_incomplete",
+        "reference_not_benchmark_eligible",
+        "object_coverage_incomplete",
+        "evidence_reference_not_fully_measurable",
+        "production_benchmark_aggregation_not_implemented"
+      ]
+    },
+    "interpretation": "Draft matching diagnostics only. Unmatched predictions are not false positives while reference coverage is incomplete."
+  },
+  "not_measured": [
+    "benchmark_V3",
+    "benchmark_V4",
+    "free_text_factuality",
+    "footprint_truth",
+    "unobservable_region_geometry",
+    "future_prediction",
+    "ego_motion",
+    "generalization",
+    "confidence_interval"
+  ],
+  "interpretation": "Draft comparison for pipeline debugging. Not a human-reviewed benchmark score."
+}

@@ -1,0 +1,11 @@
+{
+  "run": "qlora_280_5step_v2",
+  "steps": 5,
+  "loss_first": 1.1774322986602783,
+  "loss_last": 1.1210620403289795,
+  "trainable_parameters": 2269184,
+  "updated_tensors": 132,
+  "total_tensors": 132,
+  "saved_state_exact": true,
+  "saved_tensor_count": 132
+}

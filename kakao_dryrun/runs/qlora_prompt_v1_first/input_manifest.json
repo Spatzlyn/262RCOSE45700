@@ -1,0 +1,6 @@
+{
+  "images/view_F.png": "fb095a57435ed5cc1f3f6181dba8474a59e17678054d08a4e76b5da0207f2598",
+  "prompts/system.txt": "47a56e34d492ffbb0fe2d21e7b7ae8907ceeb7acbb217858597add3a22e741cc",
+  "data/items.jsonl": "42faa97a38f7e6c121ba50a3a34e7bcf03c67a5b6d798f9f1f32a3598c2c7a63",
+  "schema/prediction.schema.json": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f"
+}

@@ -1,0 +1,1370 @@
+{
+  "repository": "Spatzlyn/262RCOSE45700",
+  "branch": "dry_run_v1",
+  "source_results_preserved": true,
+  "evaluator_modified": false,
+  "GT_modified": false,
+  "scope": "Dry-run quality, failure analysis, data readiness, raw outputs, prompts and CPU evaluation",
+  "excluded": [
+    "training_throughput_20261105",
+    "AWS bundles",
+    "GPU memory/latency/throughput reports",
+    "allocator-budget experiments",
+    "model/adapter weights",
+    "runtime/cache",
+    "credentials"
+  ],
+  "files": [
+    {
+      "published_path": "source/integrated_annotation_sample/README.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/README.md",
+      "original_sha256": "6c1e24333a48543431b194dd822b7c6b582557ed8855cb3a8b407c614cfc1f87",
+      "published_sha256": "6c1e24333a48543431b194dd822b7c6b582557ed8855cb3a8b407c614cfc1f87",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/ANNOTATION_GUIDELINE.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/ANNOTATION_GUIDELINE.md",
+      "original_sha256": "126dfefa1e102050b1e3a5484a8f0e94eabcd7c06b85d1160a4877a38d3f00a5",
+      "published_sha256": "126dfefa1e102050b1e3a5484a8f0e94eabcd7c06b85d1160a4877a38d3f00a5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/MANIFEST.sha256",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/MANIFEST.sha256",
+      "original_sha256": "b0fb54474cd5e3af6ecc8e5e3e5f4680978f246877c82b98f87c27a28bd18930",
+      "published_sha256": "b0fb54474cd5e3af6ecc8e5e3e5f4680978f246877c82b98f87c27a28bd18930",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/CHANGELOG.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/CHANGELOG.md",
+      "original_sha256": "bf40fa0264b4cda2058db4e56c0ac0e72d807dade156279cf6454aba73bafd29",
+      "published_sha256": "bf40fa0264b4cda2058db4e56c0ac0e72d807dade156279cf6454aba73bafd29",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/sample.html",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/sample.html",
+      "original_sha256": "d1f9d47aadb3f3172752bc64ed0576fe66ed68c17c2ba0d647ce47a0b8833d48",
+      "published_sha256": "d1f9d47aadb3f3172752bc64ed0576fe66ed68c17c2ba0d647ce47a0b8833d48",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/source/source_F.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/source/source_F.json",
+      "original_sha256": "0a101be692d577d36d5292dd6da378bbd2dcae588cfa58a59c02f4e91ddd0609",
+      "published_sha256": "0a101be692d577d36d5292dd6da378bbd2dcae588cfa58a59c02f4e91ddd0609",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/source/source_B.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/source/source_B.json",
+      "original_sha256": "9726f59c80c4aae3040165c7e0c0ef963cf41252c49c0313490711fe8dccebd1",
+      "published_sha256": "9726f59c80c4aae3040165c7e0c0ef963cf41252c49c0313490711fe8dccebd1",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/source/source_R.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/source/source_R.json",
+      "original_sha256": "0d443ff931adfcc1a10d7159ac5b52b0861b3d4608b9defa6b6175ef2055c933",
+      "published_sha256": "0d443ff931adfcc1a10d7159ac5b52b0861b3d4608b9defa6b6175ef2055c933",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/source/source_L.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/source/source_L.json",
+      "original_sha256": "198f5155d41076c989e35919a2daa17c17ad40816751f9576e6777010534958a",
+      "published_sha256": "198f5155d41076c989e35919a2daa17c17ad40816751f9576e6777010534958a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/images/view_R.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/images/view_R.png",
+      "original_sha256": "8a67a86dfd404f9ab5cbd9eae125716a6ee271a20c19626acff9c1eb77643fdc",
+      "published_sha256": "8a67a86dfd404f9ab5cbd9eae125716a6ee271a20c19626acff9c1eb77643fdc",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/images/view_B.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/images/view_B.png",
+      "original_sha256": "1290d10242bb81eb6e01a5f4b04ddb5759f18fc25cc4a739b777d53cfb7f31e9",
+      "published_sha256": "1290d10242bb81eb6e01a5f4b04ddb5759f18fc25cc4a739b777d53cfb7f31e9",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/images/view_F.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/images/view_F.png",
+      "original_sha256": "fb095a57435ed5cc1f3f6181dba8474a59e17678054d08a4e76b5da0207f2598",
+      "published_sha256": "fb095a57435ed5cc1f3f6181dba8474a59e17678054d08a4e76b5da0207f2598",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/images/view_L.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/images/view_L.png",
+      "original_sha256": "208a306e813a7cfd6886163f7f7b0838225ae8a2f5af44ab8d12f378f465d412",
+      "published_sha256": "208a306e813a7cfd6886163f7f7b0838225ae8a2f5af44ab8d12f378f465d412",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/data/annotation_policy.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/data/annotation_policy.json",
+      "original_sha256": "33f7ac8708732491198e7433fe59d44c89c8fa10ee9ddaad92595e5c4501adc3",
+      "published_sha256": "33f7ac8708732491198e7433fe59d44c89c8fa10ee9ddaad92595e5c4501adc3",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/data/items.jsonl",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/data/items.jsonl",
+      "original_sha256": "42faa97a38f7e6c121ba50a3a34e7bcf03c67a5b6d798f9f1f32a3598c2c7a63",
+      "published_sha256": "42faa97a38f7e6c121ba50a3a34e7bcf03c67a5b6d798f9f1f32a3598c2c7a63",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/data/source_mapping.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/data/source_mapping.json",
+      "original_sha256": "2021c2d9891b63cfa929683290a3a29bf8c5fac1f3ea4d3e630baeddacbcde7c",
+      "published_sha256": "2021c2d9891b63cfa929683290a3a29bf8c5fac1f3ea4d3e630baeddacbcde7c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/data/references.jsonl",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/data/references.jsonl",
+      "original_sha256": "a6361ba864486be7c5e1c2bce082a2d013573690d2a84aba6ea35751204be692",
+      "published_sha256": "a6361ba864486be7c5e1c2bce082a2d013573690d2a84aba6ea35751204be692",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/data/annotations.jsonl",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/data/annotations.jsonl",
+      "original_sha256": "a82a508629d7b40425fa18f965ef7e2cb6416459354ffc872cfe454cf1d4be23",
+      "published_sha256": "a82a508629d7b40425fa18f965ef7e2cb6416459354ffc872cfe454cf1d4be23",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/request_input_audit.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/request_input_audit.json",
+      "original_sha256": "39c13f8b5ff49cd4ee8f34d1919fec49016302951e9b5a925fd2bc0e6df414f5",
+      "published_sha256": "39c13f8b5ff49cd4ee8f34d1919fec49016302951e9b5a925fd2bc0e6df414f5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/package_validation.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/package_validation.json",
+      "original_sha256": "80a9ceb14c9e878e5af4ccec108392ae071126faba38c4a5686d7eb3c29aca38",
+      "published_sha256": "80a9ceb14c9e878e5af4ccec108392ae071126faba38c4a5686d7eb3c29aca38",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/html_validation.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/html_validation.json",
+      "original_sha256": "af25c36f96fcce5370d05133e70966b7d2ab24b53cea13212a698ab8930d9aa2",
+      "published_sha256": "af25c36f96fcce5370d05133e70966b7d2ab24b53cea13212a698ab8930d9aa2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/revision_validation.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/revision_validation.json",
+      "original_sha256": "90ca8a91f6613d0048a2c88ecac4148cf7eb66572a129592d28d3f71cd036b6f",
+      "published_sha256": "90ca8a91f6613d0048a2c88ecac4148cf7eb66572a129592d28d3f71cd036b6f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/smokecheck.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/smokecheck.json",
+      "original_sha256": "e48663d7ea4654230fc125a7b246b73bf04509acb2a623c71d20c21faf9fb62d",
+      "published_sha256": "e48663d7ea4654230fc125a7b246b73bf04509acb2a623c71d20c21faf9fb62d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/runs/source_preservation.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/runs/source_preservation.json",
+      "original_sha256": "44b494e8c2c3d270ac2332041ee5376b5cfbd360bc849762bc12c1de4db3b986",
+      "published_sha256": "44b494e8c2c3d270ac2332041ee5376b5cfbd360bc849762bc12c1de4db3b986",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/prompts/system.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/prompts/system.txt",
+      "original_sha256": "47a56e34d492ffbb0fe2d21e7b7ae8907ceeb7acbb217858597add3a22e741cc",
+      "published_sha256": "47a56e34d492ffbb0fe2d21e7b7ae8907ceeb7acbb217858597add3a22e741cc",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/expected/prediction.example.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/expected/prediction.example.json",
+      "original_sha256": "b8d9a32bc315f57ea861242d7f3dd7ec34e140318311b9a4dc456f17f34472d5",
+      "published_sha256": "b8d9a32bc315f57ea861242d7f3dd7ec34e140318311b9a4dc456f17f34472d5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/scripts/build_request.py",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/scripts/build_request.py",
+      "original_sha256": "d9323961ae203955f04f7f10666a81e2d23ef8617130b2cd25f2fdab33b38407",
+      "published_sha256": "d9323961ae203955f04f7f10666a81e2d23ef8617130b2cd25f2fdab33b38407",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/scripts/test_evaluation.py",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/scripts/test_evaluation.py",
+      "original_sha256": "b6473c791620ae8c7a84ac289997d85f980cd23c986abf4add2ac28947a69ebf",
+      "published_sha256": "b6473c791620ae8c7a84ac289997d85f980cd23c986abf4add2ac28947a69ebf",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/scripts/render_sample.py",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/scripts/render_sample.py",
+      "original_sha256": "57a9e78e2d8fb87afe4c9e609568008c7ea179114ac784a1dc58be67b35581d3",
+      "published_sha256": "57a9e78e2d8fb87afe4c9e609568008c7ea179114ac784a1dc58be67b35581d3",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/scripts/validate.py",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/scripts/validate.py",
+      "original_sha256": "376cb6329b785548593d035429118dafc53189382130bf318c694f6acfdcd770",
+      "published_sha256": "376cb6329b785548593d035429118dafc53189382130bf318c694f6acfdcd770",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/scripts/evaluate.py",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/scripts/evaluate.py",
+      "original_sha256": "593ce52108b4702c73f29b9e807637b8275e41b66c2db6aa59218b8944882325",
+      "published_sha256": "593ce52108b4702c73f29b9e807637b8275e41b66c2db6aa59218b8944882325",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/annotations/view_B.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/annotations/view_B.json",
+      "original_sha256": "f72c47273a1adf34b54be11bfe17e94298e98e425c7f4363a3d63047f9067e56",
+      "published_sha256": "f72c47273a1adf34b54be11bfe17e94298e98e425c7f4363a3d63047f9067e56",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/annotations/view_F.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/annotations/view_F.json",
+      "original_sha256": "845f143937ee24c1963d9677b2911ffd7c426d0e2ae40e8e97472eee0db30de5",
+      "published_sha256": "845f143937ee24c1963d9677b2911ffd7c426d0e2ae40e8e97472eee0db30de5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/annotations/view_L.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/annotations/view_L.json",
+      "original_sha256": "ff3a4f2ac4da86ad80aafc909af19607b3470642ebb435284693f97faee4eeba",
+      "published_sha256": "ff3a4f2ac4da86ad80aafc909af19607b3470642ebb435284693f97faee4eeba",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/annotations/view_R.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/annotations/view_R.json",
+      "original_sha256": "4ec239b3da2cb0265ebde71dc13c718255e6a59faa1700a6a3e1e2c050303062",
+      "published_sha256": "4ec239b3da2cb0265ebde71dc13c718255e6a59faa1700a6a3e1e2c050303062",
+      "transformation": "none"
+    },
+    {
+      "published_path": "source/integrated_annotation_sample/schema/prediction.schema.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/source/integrated_annotation_sample/schema/prediction.schema.json",
+      "original_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+      "published_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "prompts/system_prompt.diff",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/prompts/system_prompt.diff",
+      "original_sha256": "89f59f686ba6d626f6aeba19a333f53df28c4a3bc4960003e8252778407d6445",
+      "published_sha256": "89f59f686ba6d626f6aeba19a333f53df28c4a3bc4960003e8252778407d6445",
+      "transformation": "none"
+    },
+    {
+      "published_path": "prompts/original_system_full.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/prompts/original_system_full.txt",
+      "original_sha256": "7f2248e234e988cf085ad512406aeb5fab569f4a4533cd8ff3d7b23957399890",
+      "published_sha256": "7f2248e234e988cf085ad512406aeb5fab569f4a4533cd8ff3d7b23957399890",
+      "transformation": "none"
+    },
+    {
+      "published_path": "prompts/modified_system_full.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/prompts/modified_system_full.txt",
+      "original_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+      "published_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+      "transformation": "none"
+    },
+    {
+      "published_path": "prompts/required_fields_v1.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/prompts/required_fields_v1.txt",
+      "original_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+      "published_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/action_analysis.csv",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/action_analysis.csv",
+      "original_sha256": "8f682c8a071e48ec2e1347d00e48517befb0cdd1fa3b8256ecb9813edbd9da4e",
+      "published_sha256": "8f682c8a071e48ec2e1347d00e48517befb0cdd1fa3b8256ecb9813edbd9da4e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/relation_analysis.csv",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/relation_analysis.csv",
+      "original_sha256": "58bb0fcc0f9aba544363dc495cab9f9101adfaca050bfdb925646699d55d2bba",
+      "published_sha256": "58bb0fcc0f9aba544363dc495cab9f9101adfaca050bfdb925646699d55d2bba",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/object_matching_16.csv",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/object_matching_16.csv",
+      "original_sha256": "2521067924f7742a2463f31730b85139faa2a7679b0cb2af9c794f0261723282",
+      "published_sha256": "2521067924f7742a2463f31730b85139faa2a7679b0cb2af9c794f0261723282",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/object_iou_matrix_64.csv",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/object_iou_matrix_64.csv",
+      "original_sha256": "1030353767df086491eb239874b2f385a37f6fc5e355165176d59d09a1b90b0c",
+      "published_sha256": "1030353767df086491eb239874b2f385a37f6fc5e355165176d59d09a1b90b0c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/object_matching.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/object_matching.md",
+      "original_sha256": "b592b98a1993f6c399fbfb26acfce4cf2b1f13275a232243fe1ad17ab30d5b23",
+      "published_sha256": "b592b98a1993f6c399fbfb26acfce4cf2b1f13275a232243fe1ad17ab30d5b23",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/relation_action_analysis.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/relation_action_analysis.md",
+      "original_sha256": "9d52cb29e5de9e850d502c9a8092a89ef9d2ea509e275802123f1d931d5d2cb5",
+      "published_sha256": "9d52cb29e5de9e850d502c9a8092a89ef9d2ea509e275802123f1d931d5d2cb5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/human_review.csv",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/human_review.csv",
+      "original_sha256": "6eaa86606f3ef68199b72cdc5f9bccd37afcf50ce3c312dedeebe507d5176083",
+      "published_sha256": "6eaa86606f3ef68199b72cdc5f9bccd37afcf50ce3c312dedeebe507d5176083",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/human_review.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/human_review.md",
+      "original_sha256": "044bc7b56d5d363ca0a4cd94fd59dde3c705747c6b782fea46951bfa9d6ced3c",
+      "published_sha256": "044bc7b56d5d363ca0a4cd94fd59dde3c705747c6b782fea46951bfa9d6ced3c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/output_schema_comparison.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/output_schema_comparison.md",
+      "original_sha256": "5dec49c2dd31072edd1b5166058cd1112dd23e0f05dc305d798da35f6905ca37",
+      "published_sha256": "5dec49c2dd31072edd1b5166058cd1112dd23e0f05dc305d798da35f6905ca37",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/bf16_280_vs_nf4_280.diff",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/bf16_280_vs_nf4_280.diff",
+      "original_sha256": "62898936c676c33c8c655235c4aa22605679b8b29cfd251a295e50bbbd512966",
+      "published_sha256": "62898936c676c33c8c655235c4aa22605679b8b29cfd251a295e50bbbd512966",
+      "transformation": "none"
+    },
+    {
+      "published_path": "reports/nf4_280_vs_qlora_280_reloaded.diff",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/nf4_280_vs_qlora_280_reloaded.diff",
+      "original_sha256": "ed39c5a30be717d81ed458f443da539e1b90178df17d0f04da699cec5b044782",
+      "published_sha256": "ed39c5a30be717d81ed458f443da539e1b90178df17d0f04da699cec5b044782",
+      "transformation": "none"
+    },
+    {
+      "published_path": "figures/coordinates_original.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/figures/coordinates_original.png",
+      "original_sha256": "21270267ce5199fc4470715138e32f321c4fadf8aef715890d07b6556a1d2fd2",
+      "published_sha256": "21270267ce5199fc4470715138e32f321c4fadf8aef715890d07b6556a1d2fd2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "figures/object_crops_16.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/figures/object_crops_16.png",
+      "original_sha256": "f61e61bc01c8368ba235bec52794aa8def1bf7ccd400ae781d383e2174376e80",
+      "published_sha256": "f61e61bc01c8368ba235bec52794aa8def1bf7ccd400ae781d383e2174376e80",
+      "transformation": "none"
+    },
+    {
+      "published_path": "figures/object_error_examples.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/figures/object_error_examples.png",
+      "original_sha256": "2ebd14cd337c5326696a8dc21d99bb5ed92f91676760fb65e1ccd312d494935d",
+      "published_sha256": "2ebd14cd337c5326696a8dc21d99bb5ed92f91676760fb65e1ccd312d494935d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "figures/relation_action_errors.png",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/figures/relation_action_errors.png",
+      "original_sha256": "4d8323a36a2cd595ab6726c2e1e95ac9a5b5ab8e208858173aa7f19fe8797f9e",
+      "published_sha256": "4d8323a36a2cd595ab6726c2e1e95ac9a5b5ab8e208858173aa7f19fe8797f9e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/coordinates.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/coordinates.json",
+      "original_sha256": "1b07179c532dc7d5af8b9c7c2dba61e773f27fb5790542ee370389148cd310fb",
+      "published_sha256": "1b07179c532dc7d5af8b9c7c2dba61e773f27fb5790542ee370389148cd310fb",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/denominator.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/denominator.json",
+      "original_sha256": "37b06e8f1a000974a2b781f0aa108be4ac62a0a198fcecb3f734469be55f5010",
+      "published_sha256": "37b06e8f1a000974a2b781f0aa108be4ac62a0a198fcecb3f734469be55f5010",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/evaluator_check.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/evaluator_check.json",
+      "original_sha256": "d2553070afb7945d5375e36887f07d9d9cf1f4c1a0124544a0c97e15c9967593",
+      "published_sha256": "d2553070afb7945d5375e36887f07d9d9cf1f4c1a0124544a0c97e15c9967593",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/evaluator_tests.log",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/evaluator_tests.log",
+      "original_sha256": "ed3aee6c859c74c2159416d4f903c7f345f3d9a5ed0f7323de3a518da2b77c03",
+      "published_sha256": "ed3aee6c859c74c2159416d4f903c7f345f3d9a5ed0f7323de3a518da2b77c03",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/human_review.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/human_review.json",
+      "original_sha256": "f8661239be8873c280cbf0e1a5bc1fc0c3a579e1cc0730cedd8fcbfcb0a77678",
+      "published_sha256": "f8661239be8873c280cbf0e1a5bc1fc0c3a579e1cc0730cedd8fcbfcb0a77678",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/object_matching_16.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/object_matching_16.json",
+      "original_sha256": "342acadbc716ee5f791c2efec669722f3b9e0193bd77855cfdb454037f9c9ebb",
+      "published_sha256": "342acadbc716ee5f791c2efec669722f3b9e0193bd77855cfdb454037f9c9ebb",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/processor_coordinate_verification.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/processor_coordinate_verification.json",
+      "original_sha256": "0c2a357b3a0ed738abaef857f43fed7ef9335dafbec707210682e45ce1dfc879",
+      "published_sha256": "0c2a357b3a0ed738abaef857f43fed7ef9335dafbec707210682e45ce1dfc879",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/relation_analysis.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/relation_analysis.json",
+      "original_sha256": "4eb80e32a7a4b95811294613d15997a72fc1765ff281fed4607637f9a6642885",
+      "published_sha256": "4eb80e32a7a4b95811294613d15997a72fc1765ff281fed4607637f9a6642885",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/source_manifest_check.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/source_manifest_check.json",
+      "original_sha256": "c69fc8e5c9b2f151d276e4d919c03a6c0642b288cae329de8e1c213e2bd9537a",
+      "published_sha256": "c69fc8e5c9b2f151d276e4d919c03a6c0642b288cae329de8e1c213e2bd9537a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/training_mask_portable.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/training_mask_portable.json",
+      "original_sha256": "1426d59121f3e5a5d4accd8650d754aa210f1f855c5eb8acff27d6b08b7db2b4",
+      "published_sha256": "1426d59121f3e5a5d4accd8650d754aa210f1f855c5eb8acff27d6b08b7db2b4",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/training_tokens_and_mask.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/training_tokens_and_mask.json",
+      "original_sha256": "408fe41aa00264232878e9fee96c49db713f742b6355982f26f222fe1a9b0897",
+      "published_sha256": "408fe41aa00264232878e9fee96c49db713f742b6355982f26f222fe1a9b0897",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/input_and_model_verification.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/input_and_model_verification.json",
+      "original_sha256": "3ace06e18da51273ea931a3a9e48625805120dce42d2b5d9e6f00c4773b63c4f",
+      "published_sha256": "3ace06e18da51273ea931a3a9e48625805120dce42d2b5d9e6f00c4773b63c4f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "environment/model_chat_template.jinja",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/environment/model_chat_template.jinja",
+      "original_sha256": "0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5",
+      "published_sha256": "0a2c8073c878ab1da004bee933a998606537bbb62016310352c7285c3f01c5b5",
+      "transformation": "none"
+    },
+    {
+      "published_path": "environment/model_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/environment/model_config.json",
+      "original_sha256": "33b10c02df3c2e8536cf323d29d53262aaa2f4d11dbe19bc729373fbe90295d4",
+      "published_sha256": "33b10c02df3c2e8536cf323d29d53262aaa2f4d11dbe19bc729373fbe90295d4",
+      "transformation": "none"
+    },
+    {
+      "published_path": "environment/model_file_hashes.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/environment/model_file_hashes.json",
+      "original_sha256": "29d2ce55e45497e3bf8baa919678a45594d0bf0615d0686e87e69a4bbec84e37",
+      "published_sha256": "29d2ce55e45497e3bf8baa919678a45594d0bf0615d0686e87e69a4bbec84e37",
+      "transformation": "none"
+    },
+    {
+      "published_path": "environment/model_processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/environment/model_processor_config.json",
+      "original_sha256": "32bdf45d2ad4cc29a0822ddd157a182de76644f0419a6228d151495256e9813c",
+      "published_sha256": "32bdf45d2ad4cc29a0822ddd157a182de76644f0419a6228d151495256e9813c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "environment/runtime.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/environment/runtime.json",
+      "original_sha256": "80e15b465ac0f4a00ea133df45659f47b546ae2a5ec15826aba13942323afb54",
+      "published_sha256": "5e59532bed7e851af1ca9c1198541843b174371d970fc344881e211483bc13a3",
+      "transformation": "Keep model/runtime versions; omit local environment installation notes."
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/config.json",
+      "original_sha256": "d96d8aa2826260d96e46524c202d50f4ec0f8bb528250fdbac002b1b2c5f5d06",
+      "published_sha256": "e78c9c817a331cc2beacedab35f5323389a297dc2ee4dc8bf999bf8826d6365c",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/messages.json",
+      "original_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "published_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/status.json",
+      "original_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "published_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/input_leakage_audit.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/input_leakage_audit.json",
+      "original_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "published_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/prompt.txt",
+      "original_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "published_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/decoded_output.txt",
+      "original_sha256": "4787ab1a05d2295373ca97e712b2a476122844256d85e4ccd87cda1985dd222f",
+      "published_sha256": "4787ab1a05d2295373ca97e712b2a476122844256d85e4ccd87cda1985dd222f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/metrics.json",
+      "original_sha256": "2ed3a93d308eadb3b38782789eedddb6e662ac04cd03d0889cbb6e6a46b2b51f",
+      "published_sha256": "2ed3a93d308eadb3b38782789eedddb6e662ac04cd03d0889cbb6e6a46b2b51f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/generated_ids.json",
+      "original_sha256": "8f58f1283ec2e8ffece2e09452115a443a229a910e3b25b45f3e46404f03007a",
+      "published_sha256": "8f58f1283ec2e8ffece2e09452115a443a229a910e3b25b45f3e46404f03007a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/raw_output.txt",
+      "original_sha256": "40cf1e28dc9103fae584cacf6d1b0f8cf65316fe5a865b216b4dc75120f85086",
+      "published_sha256": "40cf1e28dc9103fae584cacf6d1b0f8cf65316fe5a865b216b4dc75120f85086",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/strict_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/strict_metrics.json",
+      "original_sha256": "1ca0ed15db48a42cee3a5d5ebdf7affe75db28908835f4b3e7d42823ede68b2b",
+      "published_sha256": "1ca0ed15db48a42cee3a5d5ebdf7affe75db28908835f4b3e7d42823ede68b2b",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/format_recovered/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/format_recovered/decoded_output.txt",
+      "original_sha256": "d7a38f3962be13594933f772e135c82807b5ec3a5434b83cfd3ac936783eddd9",
+      "published_sha256": "d7a38f3962be13594933f772e135c82807b5ec3a5434b83cfd3ac936783eddd9",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/format_recovered/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/format_recovered/metrics.json",
+      "original_sha256": "61104d6f74c98168662b747d3deb2e476a2310dd35c5be0366616b864d44e02c",
+      "published_sha256": "61104d6f74c98168662b747d3deb2e476a2310dd35c5be0366616b864d44e02c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/format_recovered/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/format_recovered/parsed_output.json",
+      "original_sha256": "4f25c0d3b4d2993da381854935f9bec65aac542965ef5a555aac22350a92f66e",
+      "published_sha256": "4f25c0d3b4d2993da381854935f9bec65aac542965ef5a555aac22350a92f66e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/format_recovered/package_evaluator_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/format_recovered/package_evaluator_metrics.json",
+      "original_sha256": "af573534d7736a734d1340ce80b096806b8aba63648611dd988d482a1d387f33",
+      "published_sha256": "af573534d7736a734d1340ce80b096806b8aba63648611dd988d482a1d387f33",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/bf16_280/first/format_recovered/package_evaluator.log",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/bf16_280/first/format_recovered/package_evaluator.log",
+      "original_sha256": "af573534d7736a734d1340ce80b096806b8aba63648611dd988d482a1d387f33",
+      "published_sha256": "af573534d7736a734d1340ce80b096806b8aba63648611dd988d482a1d387f33",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/config.json",
+      "original_sha256": "e55150a37e2c187ba6aa039012fc19e3fd7505164c71d09421ce80c54b020443",
+      "published_sha256": "4c9dbcee45efca90ad5274046e7690ec390775aaeea868200c74e4a9da8d3827",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/messages.json",
+      "original_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "published_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/status.json",
+      "original_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "published_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/input_leakage_audit.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/input_leakage_audit.json",
+      "original_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "published_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/prompt.txt",
+      "original_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "published_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/decoded_output.txt",
+      "original_sha256": "6afecf8e2474b0534496c27bef2a9adaa9691212107d0382b7b92358db8ec1d4",
+      "published_sha256": "6afecf8e2474b0534496c27bef2a9adaa9691212107d0382b7b92358db8ec1d4",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/metrics.json",
+      "original_sha256": "8cde7819da73a37da388ce683555e1a532ddb6b309afaa4ad1d07cec6403ec08",
+      "published_sha256": "8cde7819da73a37da388ce683555e1a532ddb6b309afaa4ad1d07cec6403ec08",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/generated_ids.json",
+      "original_sha256": "08726d18ef69cdd4f253129e12b7959435f19880843e2225df37d80c7e353830",
+      "published_sha256": "08726d18ef69cdd4f253129e12b7959435f19880843e2225df37d80c7e353830",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/raw_output.txt",
+      "original_sha256": "46061836baa13733d8cf0825cba5edab57e6b8061eff432cce6f85bed18a2bad",
+      "published_sha256": "46061836baa13733d8cf0825cba5edab57e6b8061eff432cce6f85bed18a2bad",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/strict_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/strict_metrics.json",
+      "original_sha256": "1ca0ed15db48a42cee3a5d5ebdf7affe75db28908835f4b3e7d42823ede68b2b",
+      "published_sha256": "1ca0ed15db48a42cee3a5d5ebdf7affe75db28908835f4b3e7d42823ede68b2b",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/format_recovered/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/format_recovered/decoded_output.txt",
+      "original_sha256": "2d776dc5970f020d13b6262062713e176b7c102afe443a801a5eee5e2c1a4095",
+      "published_sha256": "2d776dc5970f020d13b6262062713e176b7c102afe443a801a5eee5e2c1a4095",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/format_recovered/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/format_recovered/metrics.json",
+      "original_sha256": "87c23c01b6bedbe29dd133f734f0ef48cc5e05683a4f940e5c700e69da5a3c38",
+      "published_sha256": "87c23c01b6bedbe29dd133f734f0ef48cc5e05683a4f940e5c700e69da5a3c38",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/format_recovered/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/format_recovered/parsed_output.json",
+      "original_sha256": "a3e4b347c8b9149dafaf940226c16d14b74be7bbf62134bdfc7d8c96a983a78d",
+      "published_sha256": "a3e4b347c8b9149dafaf940226c16d14b74be7bbf62134bdfc7d8c96a983a78d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/nf4_280/first/format_recovered/package_evaluator.log",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/nf4_280/first/format_recovered/package_evaluator.log",
+      "original_sha256": "1041451bc340478431b337770833349f3376eb566a03881a073a7755a9d3c29f",
+      "published_sha256": "1041451bc340478431b337770833349f3376eb566a03881a073a7755a9d3c29f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/config.json",
+      "original_sha256": "9cb1a92841cc6007c8e225808f5c3fb5d80d714bbd971cc2897eed5d11049930",
+      "published_sha256": "d333817f9930c320d821de2469141b4d84160492648a01d79e8b6c54c6427ed1",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/messages.json",
+      "original_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "published_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/status.json",
+      "original_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "published_sha256": "53dddd8f0ea486b29129de0c9e33df604c40582bb7f031621db8dcf96e422439",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/input_leakage_audit.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/input_leakage_audit.json",
+      "original_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "published_sha256": "268fad7def1af6a7f78692f048e7270683f0c66d55da38c60a119246331631a2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/prompt.txt",
+      "original_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "published_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/decoded_output.txt",
+      "original_sha256": "69ae7086c467d96746b52c569f8e0a9d42deb3e165376e54cd4b2d7080838fd2",
+      "published_sha256": "69ae7086c467d96746b52c569f8e0a9d42deb3e165376e54cd4b2d7080838fd2",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/metrics.json",
+      "original_sha256": "3413fbb8cd122c7911b89afe6e6b8e168f2d1675bb5f61e3f4ba70e0eb98cf83",
+      "published_sha256": "3413fbb8cd122c7911b89afe6e6b8e168f2d1675bb5f61e3f4ba70e0eb98cf83",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/generated_ids.json",
+      "original_sha256": "390c6ae04427bb074e6d0f5992aa2bde77d9fc79ea709e6810ba22e3169cb5a0",
+      "published_sha256": "390c6ae04427bb074e6d0f5992aa2bde77d9fc79ea709e6810ba22e3169cb5a0",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/raw_output.txt",
+      "original_sha256": "60b418b19cfa5c18e71381174cb5e79fd5c724a1a2edb49f9cb3bcb3f217725c",
+      "published_sha256": "60b418b19cfa5c18e71381174cb5e79fd5c724a1a2edb49f9cb3bcb3f217725c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/strict_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/strict_metrics.json",
+      "original_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "published_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/format_recovered/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/format_recovered/decoded_output.txt",
+      "original_sha256": "24f10b9762e5324e82e7cdb0be5fcbf184974df6762776095f5410360ce5860c",
+      "published_sha256": "24f10b9762e5324e82e7cdb0be5fcbf184974df6762776095f5410360ce5860c",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/format_recovered/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/format_recovered/metrics.json",
+      "original_sha256": "8fc0c17d0654ad39869ddc09e6b03aa9151f26c7f2dd2e18492f19630c8e2284",
+      "published_sha256": "8fc0c17d0654ad39869ddc09e6b03aa9151f26c7f2dd2e18492f19630c8e2284",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/format_recovered/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/format_recovered/parsed_output.json",
+      "original_sha256": "52a0af021d4c510b465df431d4b3b9373cbd805a418546d9b478ce2086611e07",
+      "published_sha256": "52a0af021d4c510b465df431d4b3b9373cbd805a418546d9b478ce2086611e07",
+      "transformation": "none"
+    },
+    {
+      "published_path": "original_evidence/runs/qlora_280_reloaded/first/format_recovered/package_evaluator.log",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_reloaded/first/format_recovered/package_evaluator.log",
+      "original_sha256": "1041451bc340478431b337770833349f3376eb566a03881a073a7755a9d3c29f",
+      "published_sha256": "1041451bc340478431b337770833349f3376eb566a03881a073a7755a9d3c29f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/config.json",
+      "original_sha256": "ac419bb8a33aa9c0d775d201d4f7e389e81f0d3c126f36384a1a166f33faeb5c",
+      "published_sha256": "148cc9774f745450dd9225334049266f8994b5f52d9e999809c4f4aa41fbfd1a",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/messages.json",
+      "original_sha256": "36389973e9edb331af90a918aa527a90c3cbda024bf70fbd8bbc288b363c7d5d",
+      "published_sha256": "ad18887f69a46fe8d302377e37e5e901b858cdc48d5cce74291921922d901b2a",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/status.json",
+      "original_sha256": "59de7f94e63936ae33b91252f82aefadd9e025120f134c5b9e3a230994def992",
+      "published_sha256": "59de7f94e63936ae33b91252f82aefadd9e025120f134c5b9e3a230994def992",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/prompt.txt",
+      "original_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+      "published_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/first/decoded_output.txt",
+      "original_sha256": "a53580c680726656968a72d3b8eb9cf6e1b195b240a5fa65b9adbfd55fff5694",
+      "published_sha256": "a53580c680726656968a72d3b8eb9cf6e1b195b240a5fa65b9adbfd55fff5694",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/first/metrics.json",
+      "original_sha256": "f266c0ddde3ee0729547af1f692dc1987593c6a8e1b94a1e203c785559e1b11e",
+      "published_sha256": "f266c0ddde3ee0729547af1f692dc1987593c6a8e1b94a1e203c785559e1b11e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/first/generated_ids.json",
+      "original_sha256": "bb98270ab199125fc7f4a8e32f7aab48d9f96842e062294869f0965d57808e60",
+      "published_sha256": "bb98270ab199125fc7f4a8e32f7aab48d9f96842e062294869f0965d57808e60",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/first/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/first/parsed_output.json",
+      "original_sha256": "e0519c91d82c0ec6693faf952727b6493eb597da33f75c162501ae914135be88",
+      "published_sha256": "e0519c91d82c0ec6693faf952727b6493eb597da33f75c162501ae914135be88",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_prompt_v1_first/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_prompt_v1_first/first/raw_output.txt",
+      "original_sha256": "048522d00754e4fd63c329b21ccc034eaa41fb05a703cb35637288cb4e585ae8",
+      "published_sha256": "048522d00754e4fd63c329b21ccc034eaa41fb05a703cb35637288cb4e585ae8",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/config.json",
+      "original_sha256": "698684f258526758b9834b0b45aa5bd94fbc622c3660428948c93b424b24df90",
+      "published_sha256": "f7d6dfd4d3490ca2129f3a2391e40e5309175301502691e41fe20065567dbffa",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/messages.json",
+      "original_sha256": "36389973e9edb331af90a918aa527a90c3cbda024bf70fbd8bbc288b363c7d5d",
+      "published_sha256": "ad18887f69a46fe8d302377e37e5e901b858cdc48d5cce74291921922d901b2a",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/status.json",
+      "original_sha256": "59de7f94e63936ae33b91252f82aefadd9e025120f134c5b9e3a230994def992",
+      "published_sha256": "59de7f94e63936ae33b91252f82aefadd9e025120f134c5b9e3a230994def992",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/prompt.txt",
+      "original_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+      "published_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/adapter_reload_check.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/adapter_reload_check.json",
+      "original_sha256": "648f42df9839c5c0a676c857e6c39ed1005cee43e11ae5db1b22c773bb5d5b43",
+      "published_sha256": "648f42df9839c5c0a676c857e6c39ed1005cee43e11ae5db1b22c773bb5d5b43",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/first/decoded_output.txt",
+      "original_sha256": "cf624d77c14e0a6316e2f7deccd07b60fabe6bdddf379c1331c04515b403728f",
+      "published_sha256": "cf624d77c14e0a6316e2f7deccd07b60fabe6bdddf379c1331c04515b403728f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/first/metrics.json",
+      "original_sha256": "2793f4d0c3328841535ef7ddd8c613fed9b6a4e452c3738832f397b641e89c8d",
+      "published_sha256": "2793f4d0c3328841535ef7ddd8c613fed9b6a4e452c3738832f397b641e89c8d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/first/generated_ids.json",
+      "original_sha256": "889c790261e96754f66d50d25f38cc0cc9078bbdf311b2bb3b6c37fcedfba0c6",
+      "published_sha256": "889c790261e96754f66d50d25f38cc0cc9078bbdf311b2bb3b6c37fcedfba0c6",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/first/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/first/parsed_output.json",
+      "original_sha256": "b75871852490ad25af6b81d76110c4e17e6734a464fa924e2e8a9acc11ca12ab",
+      "published_sha256": "b75871852490ad25af6b81d76110c4e17e6734a464fa924e2e8a9acc11ca12ab",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_prompt_v1_first/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_prompt_v1_first/first/raw_output.txt",
+      "original_sha256": "b8044931caa83a6bcc4a6af169a0a7b54d279d551d0e7331e49422f688d96f0d",
+      "published_sha256": "b8044931caa83a6bcc4a6af169a0a7b54d279d551d0e7331e49422f688d96f0d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/retry_context.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/retry_context.json",
+      "original_sha256": "60315ccc49453e82156d5aad77c9a89f5bc933f010b8259c91510d85f7c7e2f1",
+      "published_sha256": "cfacec94e56a798eee43ca3e941146b29ae2912c659aa8e81d8807f9fb9f2c59",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/config.json",
+      "original_sha256": "fe9c50bf906c34910eab1db51ab87b07831dc547b4405e1c9b933f0a79ea0b02",
+      "published_sha256": "cba3c466263b83ad73cd351bd7372bf51bab8553ec07aa8f242f8757e24a7562",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/messages.json",
+      "original_sha256": "694114e0fea7ca26e149248a3cce673189cb3b415bbdae2ad6fd306d32f4494b",
+      "published_sha256": "33cd7833ddb31018a78657cb9cfb009c8c14bc265e7aa848fe672eb7abb9f059",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/status.json",
+      "original_sha256": "e6523a2d623a3c32086964fda17cc5dad029340f7a88a27400f1cc0771280d7a",
+      "published_sha256": "e6523a2d623a3c32086964fda17cc5dad029340f7a88a27400f1cc0771280d7a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/prompt.txt",
+      "original_sha256": "d2ecf6d0e7a644fe6f9f3293e6ba43a9521ddc9c1ba276a2bb809ebc63153974",
+      "published_sha256": "d2ecf6d0e7a644fe6f9f3293e6ba43a9521ddc9c1ba276a2bb809ebc63153974",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/decoded_output.txt",
+      "original_sha256": "0a1954a56aed6cd5c1f6c62ac2f2f188c811ced65ba8456b7188b1fabff16083",
+      "published_sha256": "0a1954a56aed6cd5c1f6c62ac2f2f188c811ced65ba8456b7188b1fabff16083",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/metrics.json",
+      "original_sha256": "e0e983c70a2407481000cc283ad8b3f6216841e63f905252979b30bed15ea356",
+      "published_sha256": "e0e983c70a2407481000cc283ad8b3f6216841e63f905252979b30bed15ea356",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/generated_ids.json",
+      "original_sha256": "0064dc02f1c1d272f7b4db31c9bbecbb51c0f04f5d62d19b32ec78a250b9998e",
+      "published_sha256": "0064dc02f1c1d272f7b4db31c9bbecbb51c0f04f5d62d19b32ec78a250b9998e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/raw_output.txt",
+      "original_sha256": "bc21e49351f8791026e0f40c08f5f95396f1133deb6f10900f5afce876d7bb47",
+      "published_sha256": "bc21e49351f8791026e0f40c08f5f95396f1133deb6f10900f5afce876d7bb47",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/strict_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/strict_metrics.json",
+      "original_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "published_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/format_recovered/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/format_recovered/decoded_output.txt",
+      "original_sha256": "88dd1ff8416cf975e6d83b19bef9dcd8c073f3539a8e7a6fc4aac01def8f61cf",
+      "published_sha256": "88dd1ff8416cf975e6d83b19bef9dcd8c073f3539a8e7a6fc4aac01def8f61cf",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/format_recovered/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/format_recovered/metrics.json",
+      "original_sha256": "8e31514ee802ff2be709f703ccd62fe239bba2c7a6e6422cd6c7fb2538c39268",
+      "published_sha256": "8e31514ee802ff2be709f703ccd62fe239bba2c7a6e6422cd6c7fb2538c39268",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/nf4_original_failure_retry/first/format_recovered/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/nf4_original_failure_retry/first/format_recovered/parsed_output.json",
+      "original_sha256": "fffd089b8fa9e4f333cebf22ae0f72672f2bb0d3ebc3e074b63b9e901ca87949",
+      "published_sha256": "fffd089b8fa9e4f333cebf22ae0f72672f2bb0d3ebc3e074b63b9e901ca87949",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/processor_config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/processor_config.json",
+      "original_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "published_sha256": "19c5946a2e11255d83b85a0f37aa0a1a19a7a8a0d75ecc6844ad1a7ba5a8b372",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/retry_context.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/retry_context.json",
+      "original_sha256": "285bd19339091527d68e8b3035eb1a9b3aaf5ff3ba9402aa56387fb18c21cdc1",
+      "published_sha256": "0c91e3807074927e3273c1aa07b17a96fd6ff290336ef8bedf44fdff7b7bd3c2",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/config.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/config.json",
+      "original_sha256": "e255c10bf041e8b54b72c409d035cb0a5cdf44b2eb7a93d34c1aa5ca3062af80",
+      "published_sha256": "b5bd1c258bdb9f3fddc427e9da5e2cd973fcf204d587478e130cb1fc7dff4c82",
+      "transformation": "Select model/prompt/decode settings; omit resource telemetry, device identifiers and local paths."
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/messages.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/messages.json",
+      "original_sha256": "f04f2f61e252e44c19e0ebf71f75e8f03113daff253817e138ad7858fa6f8855",
+      "published_sha256": "99c7c27c5ef5f01ccf1f14a93f3324eb64d4f47b3f574a99bde9d7a877d9a67f",
+      "transformation": "Replace machine-local image/run paths with package-relative paths; message text unchanged."
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/status.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/status.json",
+      "original_sha256": "e6523a2d623a3c32086964fda17cc5dad029340f7a88a27400f1cc0771280d7a",
+      "published_sha256": "e6523a2d623a3c32086964fda17cc5dad029340f7a88a27400f1cc0771280d7a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/input_manifest.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/input_manifest.json",
+      "original_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "published_sha256": "58c5e999f1aa96da672223e53069ce391baaaebc6f68fbc6cd47263dbffdac9d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/prompt.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/prompt.txt",
+      "original_sha256": "a57a00db33fde10dc0ce6cc23b7c28611c1a8dc638e052bf6345991ade73f88a",
+      "published_sha256": "a57a00db33fde10dc0ce6cc23b7c28611c1a8dc638e052bf6345991ade73f88a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/adapter_reload_check.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/adapter_reload_check.json",
+      "original_sha256": "648f42df9839c5c0a676c857e6c39ed1005cee43e11ae5db1b22c773bb5d5b43",
+      "published_sha256": "648f42df9839c5c0a676c857e6c39ed1005cee43e11ae5db1b22c773bb5d5b43",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/decoded_output.txt",
+      "original_sha256": "c9e814620d71dcc9e5283fae2a85bd93c1eb9cd0e741b4d730c387b788ec7bad",
+      "published_sha256": "c9e814620d71dcc9e5283fae2a85bd93c1eb9cd0e741b4d730c387b788ec7bad",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/metrics.json",
+      "original_sha256": "b045e087f919bf0fce7ca72fee695ba868a422504f3e22a1a8e589e16ba45850",
+      "published_sha256": "b045e087f919bf0fce7ca72fee695ba868a422504f3e22a1a8e589e16ba45850",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/generated_ids.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/generated_ids.json",
+      "original_sha256": "55ecc7a8c5b62f634aa86e568a47303baf055acbb4fd0b2a7f75b475760c1a83",
+      "published_sha256": "55ecc7a8c5b62f634aa86e568a47303baf055acbb4fd0b2a7f75b475760c1a83",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/raw_output.txt",
+      "original_sha256": "54a6ab5466f57f390d2d83cefde072da427963a3bcb4613a865afe35d74c7e4f",
+      "published_sha256": "54a6ab5466f57f390d2d83cefde072da427963a3bcb4613a865afe35d74c7e4f",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/strict_metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/strict_metrics.json",
+      "original_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "published_sha256": "150fe91d3d4a0e3579608c7bd8cacb2fad6ec4c15e33a99bd7bf3a149387286d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/format_recovered/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/format_recovered/decoded_output.txt",
+      "original_sha256": "af5c32ce0d9b1089f8bd4e05631bbdcd6a958f0ff347e4e26cb1c11ebdc2c6b8",
+      "published_sha256": "af5c32ce0d9b1089f8bd4e05631bbdcd6a958f0ff347e4e26cb1c11ebdc2c6b8",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/format_recovered/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/format_recovered/metrics.json",
+      "original_sha256": "01d6b6ec746f938080634fdf71d8861cdf7f267f21abec7fcbd2a7e20657dd2a",
+      "published_sha256": "01d6b6ec746f938080634fdf71d8861cdf7f267f21abec7fcbd2a7e20657dd2a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "runs/qlora_original_failure_retry/first/format_recovered/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/runs/qlora_original_failure_retry/first/format_recovered/parsed_output.json",
+      "original_sha256": "c589c65ceaa06314751df7c2f5982c6473969c46945e1bc0c1bee47f000ee904",
+      "published_sha256": "c589c65ceaa06314751df7c2f5982c6473969c46945e1bc0c1bee47f000ee904",
+      "transformation": "none"
+    },
+    {
+      "published_path": "representative_inference/raw_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/representative_inference/raw_output.txt",
+      "original_sha256": "048522d00754e4fd63c329b21ccc034eaa41fb05a703cb35637288cb4e585ae8",
+      "published_sha256": "048522d00754e4fd63c329b21ccc034eaa41fb05a703cb35637288cb4e585ae8",
+      "transformation": "none"
+    },
+    {
+      "published_path": "representative_inference/decoded_output.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/representative_inference/decoded_output.txt",
+      "original_sha256": "a53580c680726656968a72d3b8eb9cf6e1b195b240a5fa65b9adbfd55fff5694",
+      "published_sha256": "a53580c680726656968a72d3b8eb9cf6e1b195b240a5fa65b9adbfd55fff5694",
+      "transformation": "none"
+    },
+    {
+      "published_path": "representative_inference/parsed_output.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/representative_inference/parsed_output.json",
+      "original_sha256": "e0519c91d82c0ec6693faf952727b6493eb597da33f75c162501ae914135be88",
+      "published_sha256": "e0519c91d82c0ec6693faf952727b6493eb597da33f75c162501ae914135be88",
+      "transformation": "none"
+    },
+    {
+      "published_path": "representative_inference/metrics.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/representative_inference/metrics.json",
+      "original_sha256": "f266c0ddde3ee0729547af1f692dc1987593c6a8e1b94a1e203c785559e1b11e",
+      "published_sha256": "f266c0ddde3ee0729547af1f692dc1987593c6a8e1b94a1e203c785559e1b11e",
+      "transformation": "none"
+    },
+    {
+      "published_path": "representative_inference/provenance.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/representative_inference/provenance.json",
+      "original_sha256": "5345c606230a0dfb888e8c675ee6ba6e1f1a0a405e529846851611e806617dd8",
+      "published_sha256": "5345c606230a0dfb888e8c675ee6ba6e1f1a0a405e529846851611e806617dd8",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/target.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/target.json",
+      "original_sha256": "5d0b0137596b64dee599f9e9f4d99a9031ee30c34c595df052d04c256c1c78a0",
+      "published_sha256": "5d0b0137596b64dee599f9e9f4d99a9031ee30c34c595df052d04c256c1c78a0",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/target_id_mapping.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/target_id_mapping.json",
+      "original_sha256": "1110b038c6b307bcd17cf5986895be5bab0221ee53d26d748679f1caa2ed007a",
+      "published_sha256": "1110b038c6b307bcd17cf5986895be5bab0221ee53d26d748679f1caa2ed007a",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/mask_audit.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/mask_audit.json",
+      "original_sha256": "d73b6bc42e3bb72b58401c2cf9e6fe252336c90a8e740316dd4db5e29f2c729d",
+      "published_sha256": "d73b6bc42e3bb72b58401c2cf9e6fe252336c90a8e740316dd4db5e29f2c729d",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/parameter_updates.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/parameter_updates.json",
+      "original_sha256": "91a09432d3257575673be322cddbd9da408a07dd5df9f0d9c2e761a6b420facf",
+      "published_sha256": "91a09432d3257575673be322cddbd9da408a07dd5df9f0d9c2e761a6b420facf",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/adapter_save_check.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/adapter_save_check.json",
+      "original_sha256": "fa8fbe9f4718f7fed205e3437beaf317d02c6f427a9fb0bccebdabc46dfc64c6",
+      "published_sha256": "fa8fbe9f4718f7fed205e3437beaf317d02c6f427a9fb0bccebdabc46dfc64c6",
+      "transformation": "none"
+    },
+    {
+      "published_path": "training_audit/supervised_target_decoded.txt",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/original_evidence/runs/qlora_280_5step_v2/supervised_target_decoded.txt",
+      "original_sha256": "1ec2deea14bf6b380711c43f639156a35c57e3d6fb63b323f304de8a76a0e64b",
+      "published_sha256": "1ec2deea14bf6b380711c43f639156a35c57e3d6fb63b323f304de8a76a0e64b",
+      "transformation": "none"
+    },
+    {
+      "published_path": "audit/training_verification.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/training_verification.json",
+      "original_sha256": "f99446884221151cc1ac3c380f04003fcb3ce2c9b78468f7f91be39f7e7bd659",
+      "published_sha256": "e75aea9353807b0b817a5cc149e3359317290acac971d7f3b079c45fba719be6",
+      "transformation": "Original training smoke target/update verification only; resource-budget experiment and telemetry omitted."
+    },
+    {
+      "published_path": "audit/attempt_protocol.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/attempt_protocol.json",
+      "original_sha256": "496b3e8e8593bbf8299b364f3c868c9df79c00a1adfccfe467fa158c55e4b0f9",
+      "published_sha256": "88820cabf60a7ae8f6d9dc3d34c1a5942a4315aa1bbb7d36fefb113153eed930",
+      "transformation": "Make retry-parent paths relative."
+    },
+    {
+      "published_path": "audit/output_comparison.json",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/audit/output_comparison.json",
+      "original_sha256": "362fcd53debb7eee31e83ac661ec42f015970e69fe450d49b92587b60be697ea",
+      "published_sha256": "31a6ebf992b2ff8e4a8e68138deacf8e824abe808dd9c851fb547f5ab8040205",
+      "transformation": "Omit generation latency; retain all quality/schema results unchanged."
+    },
+    {
+      "published_path": "reports/improvement_plan.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/improvement_plan.md",
+      "original_sha256": "0f7495ba6726a9dc0c194c2237e0e4eae4463b7a10940230ac51d6720e83a851",
+      "published_sha256": "efca08036de40b7f724543c14221200169c5c2169547b9d2fa3d9512c83de4dd",
+      "transformation": "Omit resource planning row; keep data/GT/model improvements."
+    },
+    {
+      "published_path": "data_readiness.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/data_readiness.md",
+      "original_sha256": "11d5d28a7bd895642ba8a14ad82916423770252f1fcfce049acbc5de8a239d6e",
+      "published_sha256": "7e68a9a130e087436668a775110cac953e422a5a5e1a18d45b866136f21ed678",
+      "transformation": "Clarify historical source directory and quality-only scope."
+    },
+    {
+      "published_path": "reports/qlora_audit.md",
+      "source_path": "outputs/kakao_dryrun/audit_20261105_low_scores/reports/qlora_audit.md",
+      "original_sha256": "8d42aee7658f9038bdcbc5f3f03ac240fb1a24a31043bb743b90a1e2356bd66c",
+      "published_sha256": "5c778e9a4f2b3e98878a74681f20cbe609d5f4dafe364cba531700ffbc67142d",
+      "transformation": "Retain target/mask/update/reload evidence; remove resource table and allocator-cap experiment."
+    },
+    {
+      "published_path": "provenance.json",
+      "source_path": "outputs/kakao_dryrun/dry_run_results/provenance.json",
+      "original_sha256": "879b95b194e1c140a9eed3473c252c0c76025f4543d517813a693d35f2d18d77",
+      "published_sha256": "879b95b194e1c140a9eed3473c252c0c76025f4543d517813a693d35f2d18d77",
+      "transformation": "none"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "image_seq_length": 280,
+  "audio_seq_length": 750,
+  "audio_ms_per_token": 40,
+  "feature_extractor": {
+    "feature_size": 128,
+    "sampling_rate": 16000,
+    "padding_value": 0.0,
+    "padding_side": "right",
+    "return_attention_mask": true,
+    "feature_extractor_type": "Gemma4AudioFeatureExtractor",
+    "fft_length": 512,
+    "frame_length": 320,
+    "hop_length": 160,
+    "min_frequency": 0.0,
+    "max_frequency": 8000.0,
+    "preemphasis": 0.0,
+    "preemphasis_htk_flavor": true,
+    "fft_overdrive": false,
+    "dither": 0.0,
+    "input_scale_factor": 1.0,
+    "mel_floor": 0.001,
+    "per_bin_mean": null,
+    "per_bin_stddev": null
+  },
+  "image_processor": {
+    "do_convert_rgb": true,
+    "do_normalize": false,
+    "do_rescale": true,
+    "do_resize": true,
+    "image_mean": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "image_processor_type": "Gemma4ImageProcessor",
+    "image_seq_length": 280,
+    "image_std": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "max_soft_tokens": 280,
+    "patch_size": 16,
+    "pooling_kernel_size": 3,
+    "resample": 3,
+    "rescale_factor": 0.00392156862745098
+  },
+  "video_processor": {
+    "do_convert_rgb": true,
+    "do_normalize": true,
+    "do_rescale": true,
+    "do_resize": true,
+    "do_sample_frames": true,
+    "image_mean": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "image_std": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "max_soft_tokens": 70,
+    "num_frames": 32,
+    "patch_size": 16,
+    "pooling_kernel_size": 3,
+    "resample": 3,
+    "rescale_factor": 0.00392156862745098,
+    "return_metadata": false,
+    "video_processor_type": "Gemma4VideoProcessor"
+  },
+  "processor_class": "Gemma4Processor"
+}

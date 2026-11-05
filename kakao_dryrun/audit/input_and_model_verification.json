@@ -1,0 +1,65 @@
+[
+  {
+    "run": "bf16_280",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+    "messages_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "nf4_280",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+    "messages_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "qlora_280_reloaded",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "0aed2c06f22940ac2c5c70ab25339c712f923a6024cf29375813a9d58e857a80",
+    "messages_sha256": "964a8b99892ba248a3d182606122fc345269c88781e81dcca0caa0523a6bb7a6",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "nf4_prompt_v1_first",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+    "messages_sha256": "36389973e9edb331af90a918aa527a90c3cbda024bf70fbd8bbc288b363c7d5d",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "qlora_prompt_v1_first",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "f279ca5cc375b3d0da56503e13c4aeada9aefe9c36b3ca1d55f13a83f262f025",
+    "messages_sha256": "36389973e9edb331af90a918aa527a90c3cbda024bf70fbd8bbc288b363c7d5d",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "nf4_original_failure_retry",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "d2ecf6d0e7a644fe6f9f3293e6ba43a9521ddc9c1ba276a2bb809ebc63153974",
+    "messages_sha256": "694114e0fea7ca26e149248a3cce673189cb3b415bbdae2ad6fd306d32f4494b",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  },
+  {
+    "run": "qlora_original_failure_retry",
+    "gt_identifier_hits": [],
+    "image_count": 1,
+    "prompt_sha256": "a57a00db33fde10dc0ce6cc23b7c28611c1a8dc638e052bf6345991ade73f88a",
+    "messages_sha256": "f04f2f61e252e44c19e0ebf71f75e8f03113daff253817e138ad7858fa6f8855",
+    "model_id": "google/gemma-4-E4B-it",
+    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+  }
+]

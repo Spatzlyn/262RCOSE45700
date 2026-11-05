@@ -1,0 +1,89 @@
+{
+  "all_passed": true,
+  "runs_checked": 7,
+  "GT_or_evaluator_changed": false,
+  "writes_performed": false,
+  "results": [
+    {
+      "run": "bf16_280",
+      "strict_schema": false,
+      "after_fence_schema": true,
+      "quality": {
+        "objects": 3,
+        "relations": 0,
+        "action": false
+      },
+      "schema_errors": []
+    },
+    {
+      "run": "nf4_280",
+      "strict_schema": false,
+      "after_fence_schema": false,
+      "quality": {
+        "objects": null,
+        "relations": null,
+        "action": null
+      },
+      "schema_errors": [
+        "$.track1.regions: required field missing"
+      ]
+    },
+    {
+      "run": "qlora_280_reloaded",
+      "strict_schema": false,
+      "after_fence_schema": false,
+      "quality": {
+        "objects": null,
+        "relations": null,
+        "action": null
+      },
+      "schema_errors": [
+        "$.track1.regions: required field missing"
+      ]
+    },
+    {
+      "run": "nf4_prompt_v1_first",
+      "strict_schema": true,
+      "after_fence_schema": true,
+      "quality": {
+        "objects": 4,
+        "relations": 0,
+        "action": false
+      },
+      "schema_errors": []
+    },
+    {
+      "run": "qlora_prompt_v1_first",
+      "strict_schema": true,
+      "after_fence_schema": true,
+      "quality": {
+        "objects": 3,
+        "relations": 0,
+        "action": false
+      },
+      "schema_errors": []
+    },
+    {
+      "run": "nf4_original_failure_retry",
+      "strict_schema": false,
+      "after_fence_schema": true,
+      "quality": {
+        "objects": 2,
+        "relations": 0,
+        "action": false
+      },
+      "schema_errors": []
+    },
+    {
+      "run": "qlora_original_failure_retry",
+      "strict_schema": false,
+      "after_fence_schema": true,
+      "quality": {
+        "objects": 2,
+        "relations": 0,
+        "action": false
+      },
+      "schema_errors": []
+    }
+  ]
+}

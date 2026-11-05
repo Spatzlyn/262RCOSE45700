@@ -1,0 +1,22 @@
+{
+  "version": "integrated-sample-0.2",
+  "schema_validation": "passed",
+  "regression_tests": {
+    "passed": 30,
+    "failed": 0
+  },
+  "independent_checks": {
+    "box_iou_analytic_cases": 300,
+    "global_matching_exhaustive_cases": 50,
+    "source_image_and_json_byte_preservation": "passed",
+    "view_json_equals_jsonl": "passed"
+  },
+  "model_called": false,
+  "human_review_completed": false,
+  "formal_benchmark_metrics_available": false,
+  "default_evaluation_gate": "rejects unless --allow-draft; no benchmark output",
+  "notes": [
+    "R3 hidden geometry diagnostic deferred",
+    "C width/depth and object coverage require independent review"
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "images/view_R.png",
+    "sha256": "8a67a86dfd404f9ab5cbd9eae125716a6ee271a20c19626acff9c1eb77643fdc",
+    "unchanged": true
+  },
+  {
+    "file": "images/view_B.png",
+    "sha256": "1290d10242bb81eb6e01a5f4b04ddb5759f18fc25cc4a739b777d53cfb7f31e9",
+    "unchanged": true
+  },
+  {
+    "file": "images/view_F.png",
+    "sha256": "fb095a57435ed5cc1f3f6181dba8474a59e17678054d08a4e76b5da0207f2598",
+    "unchanged": true
+  },
+  {
+    "file": "images/view_L.png",
+    "sha256": "208a306e813a7cfd6886163f7f7b0838225ae8a2f5af44ab8d12f378f465d412",
+    "unchanged": true
+  },
+  {
+    "file": "source/source_L.json",
+    "sha256": "198f5155d41076c989e35919a2daa17c17ad40816751f9576e6777010534958a",
+    "unchanged": true
+  },
+  {
+    "file": "source/source_B.json",
+    "sha256": "9726f59c80c4aae3040165c7e0c0ef963cf41252c49c0313490711fe8dccebd1",
+    "unchanged": true
+  },
+  {
+    "file": "source/source_R.json",
+    "sha256": "0d443ff931adfcc1a10d7159ac5b52b0861b3d4608b9defa6b6175ef2055c933",
+    "unchanged": true
+  },
+  {
+    "file": "source/source_F.json",
+    "sha256": "0a101be692d577d36d5292dd6da378bbd2dcae588cfa58a59c02f4e91ddd0609",
+    "unchanged": true
+  }
+]

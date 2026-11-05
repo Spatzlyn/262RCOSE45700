@@ -1,0 +1,47 @@
+{
+  "version": "integrated-sample-0.2",
+  "based_on": "Kakao_Road_VLM_Integrated_3Tracks_KO.tex",
+  "serialization_status": "Integrated Proposal을 실행 예시로 표현한 Sample Schema. 기존 GitHub Evaluator의 Drop-in Schema가 아닙니다.",
+  "status_definition": {
+    "Draft": "AI가 작성하거나 가져온 값을 통합한 상태. Human Review 미완료.",
+    "Reviewed": "별도 검수자가 근거와 정답을 확인한 상태. 이 패키지에는 해당 표본이 없습니다.",
+    "Missing": "정답 생성에 필요한 입력 또는 Annotation이 없음.",
+    "U": "Annotation이 선택한 Unknown 값. 입력만으로 해당 관계를 결정할 수 없음."
+  },
+  "counts": {
+    "images": 4,
+    "source_instances": 18,
+    "primary_track1_items": 1,
+    "source_groups": 1,
+    "reviewed_track1_items": 0,
+    "eligible_track2_items": 0,
+    "eligible_track3_items": 0,
+    "added_instances": 17,
+    "total_draft_instances": 35
+  },
+  "split": "sample_only; Train/Dev/Test에 중복 등록하지 않습니다.",
+  "excluded_from_model_input": [
+    "source/*.json",
+    "annotations/*.json",
+    "data/annotations.jsonl",
+    "data/references.jsonl",
+    "expected/*",
+    "data/source_mapping.json"
+  ],
+  "source_category_note": "Source integer category ID에 중복 이름이 있으므로 aliases를 모두 보존합니다.",
+  "normalization_note": "Personal Mobility는 Image에 보이는 형태에 따라 powered_two_wheeler Draft로 정규화했습니다. 원본 category를 변경하지 않았습니다.",
+  "scope_note": "원본 Source 18개를 보존하고 누락 가시 객체 17개를 보완했습니다. 전체 범위·원거리·가림 대상의 완전성은 검수 전이며 공식 Detection Recall은 산출하지 않습니다.",
+  "weather_note": "Source weather=clear를 보존하며 Image의 흐린 하늘·강우 미관측과 별도 관리합니다.",
+  "license_note": "사용자가 제공한 원본을 보존했습니다. Source license는 null이며 재배포 허가를 새로 부여하지 않습니다.",
+  "guideline_version": "pilot-guideline-0.2-draft",
+  "guideline_file": "ANNOTATION_GUIDELINE.md",
+  "roadside_action_rule": "roadside는 보이는 배치이며 정차 상태가 아닙니다. 현재 R1 Actor 점유의 조건부 대응을 면제하지 않습니다.",
+  "speed_bump_policy": "Object로 보존하고 semantic_role=road_feature. R1의 Actor/Obstacle 점유 대상에서 제외.",
+  "unresolved_candidate_policy": "불명확한 cone·먼 차량 등은 review_candidates에 별도로 기록하며 Object 정답 수에 넣지 않습니다.",
+  "model_output_excludes": [
+    "time_of_day",
+    "analysis_attributes",
+    "reference_C_geometry",
+    "annotation_review_metadata"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "reference_ID_leaks": [],
+  "uses_original_image": true,
+  "candidate_objects_supplied": false,
+  "GT_C_polygon_supplied": false,
+  "input_whitelist": [
+    "F original image",
+    "system prompt",
+    "output schema",
+    "item task fields"
+  ],
+  "pass": true
+}

@@ -1,0 +1,144 @@
+```json
+{
+  "item_id": "sample_front_001",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Not applicable",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "pred_obj_1",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.23,
+          0.18,
+          0.41
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "pred_obj_2",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.35,
+          0.28,
+          0.48,
+          0.48
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "pred_obj_3",
+        "class": "truck",
+        "bbox_xyxy_norm": [
+          0.51,
+          0.27,
+          0.61,
+          0.47
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "pred_obj_4",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.58,
+          0.28,
+          0.73,
+          0.48
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "pred_obj_5",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.27,
+          0.35,
+          0.38,
+          0.43
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "주변에 차량이나 장애물이 도로를 점유하고 있지 않음.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "obstacle_ids": []
+        }
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "확인된 출입구가 없음.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "entrance_candidate_id": null
+        }
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "진행 판단에 필요한 영역을 가리는 객체가 없음.",
+        "region_ids": [],
+        "roles": {
+          "occluder_ids": [],
+          "occluded_region_id": null
+        }
+      },
+      "R4": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "통행 공간을 제한하는 배치가 없음.",
+        "region_ids": [],
+        "roles": {
+          "restricting_object_ids": []
+        }
+      }
+    },
+    "actions": [
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "reason": "모든 관계가 확인되지 않았으나, 전방 도로를 따라 진행하려는 의도이므로 주변 상황을 주시함."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
+```<turn|>

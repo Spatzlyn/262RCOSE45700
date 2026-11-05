@@ -1,0 +1,10 @@
+{
+  "json_parse_success": false,
+  "schema_valid": false,
+  "format_repair": false,
+  "retry_count": 0,
+  "official_benchmark": null,
+  "quality_independent_scenes": 1,
+  "human_reviewed_scenes": 0,
+  "error": "Expecting value: line 1 column 1 (char 0)"
+}

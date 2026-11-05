@@ -1,0 +1,13 @@
+{
+  "prediction_file": "expected/prediction.example.json",
+  "validation_invokes_model": false,
+  "items": 1,
+  "annotated_views": 4,
+  "annotated_objects": 35,
+  "reference_statuses": [
+    "Draft"
+  ],
+  "valid": true,
+  "errors": [],
+  "scope": "structure_coordinates_references_only; visual_truth_not_verified"
+}

@@ -1,0 +1,35 @@
+test_forbidden_advance_fails (__main__.ActionRegressionTests.test_forbidden_advance_fails) ... ok
+test_missing_occlusion_action_fails (__main__.ActionRegressionTests.test_missing_occlusion_action_fails) ... ok
+test_required_actions_pass (__main__.ActionRegressionTests.test_required_actions_pass) ... ok
+test_unresolved_action_must_name_unresolved_relation (__main__.ActionRegressionTests.test_unresolved_action_must_name_unresolved_relation) ... ok
+test_draft_and_incomplete_reference_never_produce_benchmark_scores (__main__.EvidenceDiagnosticTests.test_draft_and_incomplete_reference_never_produce_benchmark_scores) ... ok
+test_dry_run_does_not_promote_itself_by_changing_status_flags (__main__.EvidenceDiagnosticTests.test_dry_run_does_not_promote_itself_by_changing_status_flags) ... ok
+test_evidence_is_invariant_to_model_ids (__main__.EvidenceDiagnosticTests.test_evidence_is_invariant_to_model_ids) ... ok
+test_matching_id_string_cannot_rescue_wrong_geometry (__main__.EvidenceDiagnosticTests.test_matching_id_string_cannot_rescue_wrong_geometry) ... ok
+test_unobservable_region_is_deferred_not_a_fake_match (__main__.EvidenceDiagnosticTests.test_unobservable_region_is_deferred_not_a_fake_match) ... ok
+test_wrong_occluder_is_mismatch_even_if_hidden_region_is_unmeasurable (__main__.EvidenceDiagnosticTests.test_wrong_occluder_is_mismatch_even_if_hidden_region_is_unmeasurable) ... ok
+test_concave_polygon_iou (__main__.GeometryMatchingTests.test_concave_polygon_iou) ... ok
+test_geometry_identity_and_disjoint_boxes (__main__.GeometryMatchingTests.test_geometry_identity_and_disjoint_boxes) ... ok
+test_id_rename_does_not_change_matching (__main__.GeometryMatchingTests.test_id_rename_does_not_change_matching) ... ok
+test_maximum_cardinality_precedes_local_iou (__main__.GeometryMatchingTests.test_maximum_cardinality_precedes_local_iou) ... ok
+test_maximum_total_iou_breaks_equal_cardinality_ties (__main__.GeometryMatchingTests.test_maximum_total_iou_breaks_equal_cardinality_ties) ... ok
+test_missing_geometry_is_not_a_match (__main__.GeometryMatchingTests.test_missing_geometry_is_not_a_match) ... ok
+test_polygon_iou_preserves_shape_instead_of_using_its_box (__main__.GeometryMatchingTests.test_polygon_iou_preserves_shape_instead_of_using_its_box) ... ok
+test_wrong_class_and_wrong_box_do_not_match (__main__.GeometryMatchingTests.test_wrong_class_and_wrong_box_do_not_match) ... ok
+test_actor_cannot_be_mislabeled_as_obstacle_role (__main__.PredictionValidationTests.test_actor_cannot_be_mislabeled_as_obstacle_role) ... ok
+test_analysis_only_time_of_day_is_rejected (__main__.PredictionValidationTests.test_analysis_only_time_of_day_is_rejected) ... ok
+test_dangling_object_id_is_rejected (__main__.PredictionValidationTests.test_dangling_object_id_is_rejected) ... ok
+test_dangling_region_id_is_rejected (__main__.PredictionValidationTests.test_dangling_region_id_is_rejected) ... ok
+test_nonfinite_region_coordinate_is_rejected (__main__.PredictionValidationTests.test_nonfinite_region_coordinate_is_rejected) ... ok
+test_polygon_outside_declared_bbox_is_rejected (__main__.PredictionValidationTests.test_polygon_outside_declared_bbox_is_rejected) ... ok
+test_reference_driving_area_cannot_be_model_output (__main__.PredictionValidationTests.test_reference_driving_area_cannot_be_model_output) ... ok
+test_region_with_short_box_and_valid_polygon_returns_error (__main__.PredictionValidationTests.test_region_with_short_box_and_valid_polygon_returns_error) ... ok
+test_role_ids_must_match_evidence_list (__main__.PredictionValidationTests.test_role_ids_must_match_evidence_list) ... ok
+test_self_intersecting_region_is_rejected (__main__.PredictionValidationTests.test_self_intersecting_region_is_rejected) ... ok
+test_unknown_role_key_is_rejected (__main__.PredictionValidationTests.test_unknown_role_key_is_rejected) ... ok
+test_valid_fixture_and_model_local_ids (__main__.PredictionValidationTests.test_valid_fixture_and_model_local_ids) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.014s
+
+OK

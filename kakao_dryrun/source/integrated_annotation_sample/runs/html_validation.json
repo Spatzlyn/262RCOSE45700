@@ -1,0 +1,11 @@
+{
+  "views": 4,
+  "object_boxes": 35,
+  "embedded_images_original": true,
+  "reference_json_matches": true,
+  "prediction_json_matches": true,
+  "unique_html_ids": true,
+  "external_resources": 0,
+  "browser_interaction_validation": "not_run; browser executable unavailable and runtime download failed",
+  "verification_scope": "HTML structure, embedded data, JavaScript syntax and SVG overlays; not browser layout or interactive execution"
+}

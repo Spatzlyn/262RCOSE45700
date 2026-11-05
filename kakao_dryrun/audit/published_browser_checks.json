@@ -1,0 +1,11 @@
+{
+  "all_7_run_views_checked": true,
+  "baseline_gt_boxes": 16,
+  "baseline_prediction_boxes": 4,
+  "invalid_schema_quality_NA": true,
+  "modified_nf4_object_match": 4,
+  "layer_toggles_checked": true,
+  "all_links_exist": true,
+  "mobile_no_page_horizontal_overflow": true,
+  "browser_errors": []
+}

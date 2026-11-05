@@ -1,0 +1,35 @@
+test_forbidden_advance_fails (test_evaluation.ActionRegressionTests.test_forbidden_advance_fails) ... ok
+test_missing_occlusion_action_fails (test_evaluation.ActionRegressionTests.test_missing_occlusion_action_fails) ... ok
+test_required_actions_pass (test_evaluation.ActionRegressionTests.test_required_actions_pass) ... ok
+test_unresolved_action_must_name_unresolved_relation (test_evaluation.ActionRegressionTests.test_unresolved_action_must_name_unresolved_relation) ... ok
+test_draft_and_incomplete_reference_never_produce_benchmark_scores (test_evaluation.EvidenceDiagnosticTests.test_draft_and_incomplete_reference_never_produce_benchmark_scores) ... ok
+test_dry_run_does_not_promote_itself_by_changing_status_flags (test_evaluation.EvidenceDiagnosticTests.test_dry_run_does_not_promote_itself_by_changing_status_flags) ... ok
+test_evidence_is_invariant_to_model_ids (test_evaluation.EvidenceDiagnosticTests.test_evidence_is_invariant_to_model_ids) ... ok
+test_matching_id_string_cannot_rescue_wrong_geometry (test_evaluation.EvidenceDiagnosticTests.test_matching_id_string_cannot_rescue_wrong_geometry) ... ok
+test_unobservable_region_is_deferred_not_a_fake_match (test_evaluation.EvidenceDiagnosticTests.test_unobservable_region_is_deferred_not_a_fake_match) ... ok
+test_wrong_occluder_is_mismatch_even_if_hidden_region_is_unmeasurable (test_evaluation.EvidenceDiagnosticTests.test_wrong_occluder_is_mismatch_even_if_hidden_region_is_unmeasurable) ... ok
+test_concave_polygon_iou (test_evaluation.GeometryMatchingTests.test_concave_polygon_iou) ... ok
+test_geometry_identity_and_disjoint_boxes (test_evaluation.GeometryMatchingTests.test_geometry_identity_and_disjoint_boxes) ... ok
+test_id_rename_does_not_change_matching (test_evaluation.GeometryMatchingTests.test_id_rename_does_not_change_matching) ... ok
+test_maximum_cardinality_precedes_local_iou (test_evaluation.GeometryMatchingTests.test_maximum_cardinality_precedes_local_iou) ... ok
+test_maximum_total_iou_breaks_equal_cardinality_ties (test_evaluation.GeometryMatchingTests.test_maximum_total_iou_breaks_equal_cardinality_ties) ... ok
+test_missing_geometry_is_not_a_match (test_evaluation.GeometryMatchingTests.test_missing_geometry_is_not_a_match) ... ok
+test_polygon_iou_preserves_shape_instead_of_using_its_box (test_evaluation.GeometryMatchingTests.test_polygon_iou_preserves_shape_instead_of_using_its_box) ... ok
+test_wrong_class_and_wrong_box_do_not_match (test_evaluation.GeometryMatchingTests.test_wrong_class_and_wrong_box_do_not_match) ... ok
+test_actor_cannot_be_mislabeled_as_obstacle_role (test_evaluation.PredictionValidationTests.test_actor_cannot_be_mislabeled_as_obstacle_role) ... ok
+test_analysis_only_time_of_day_is_rejected (test_evaluation.PredictionValidationTests.test_analysis_only_time_of_day_is_rejected) ... ok
+test_dangling_object_id_is_rejected (test_evaluation.PredictionValidationTests.test_dangling_object_id_is_rejected) ... ok
+test_dangling_region_id_is_rejected (test_evaluation.PredictionValidationTests.test_dangling_region_id_is_rejected) ... ok
+test_nonfinite_region_coordinate_is_rejected (test_evaluation.PredictionValidationTests.test_nonfinite_region_coordinate_is_rejected) ... ok
+test_polygon_outside_declared_bbox_is_rejected (test_evaluation.PredictionValidationTests.test_polygon_outside_declared_bbox_is_rejected) ... ok
+test_reference_driving_area_cannot_be_model_output (test_evaluation.PredictionValidationTests.test_reference_driving_area_cannot_be_model_output) ... ok
+test_region_with_short_box_and_valid_polygon_returns_error (test_evaluation.PredictionValidationTests.test_region_with_short_box_and_valid_polygon_returns_error) ... ok
+test_role_ids_must_match_evidence_list (test_evaluation.PredictionValidationTests.test_role_ids_must_match_evidence_list) ... ok
+test_self_intersecting_region_is_rejected (test_evaluation.PredictionValidationTests.test_self_intersecting_region_is_rejected) ... ok
+test_unknown_role_key_is_rejected (test_evaluation.PredictionValidationTests.test_unknown_role_key_is_rejected) ... ok
+test_valid_fixture_and_model_local_ids (test_evaluation.PredictionValidationTests.test_valid_fixture_and_model_local_ids) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.014s
+
+OK

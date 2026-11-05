@@ -1,0 +1,44 @@
+{
+  "sequence_length": 6040,
+  "prompt_masked_tokens": 3851,
+  "prompt_components": {
+    "chat_control_and_separators": 21,
+    "system_rules": 1674,
+    "json_schema": 1647,
+    "id_coordinate_instruction": 61,
+    "image_soft_token_placeholders": 264,
+    "task_question": 184
+  },
+  "image_tokens_within_prompt": 264,
+  "supervised_tokens": 2189,
+  "assistant_json_tokens": 2187,
+  "assistant_json_components": {
+    "json_structural_boundary": 5,
+    "item_id": 12,
+    "track1.attributes": 28,
+    "track1.objects": 1155,
+    "track1.relations": 497,
+    "track1.actions": 226,
+    "track1.unknowns": 97,
+    "track1.regions": 129,
+    "track2": 17,
+    "track3": 21
+  },
+  "supervised_terminator_tokens": 2,
+  "terminator_ids": [
+    106,
+    107
+  ],
+  "terminator_decoded": "<turn|>\n",
+  "real_padding_tokens": 0,
+  "truncated": false,
+  "reencoded_exact_original_ids": true,
+  "offset_attribution_rule": "Each token assigned by first character offset; boundary BPE tokens are assigned once. Image token ID overrides text span.",
+  "source_target_equals_saved_target_after_id_rename_only": true,
+  "mask_prompt_image_padding_all_excluded": true,
+  "selected_logits_exact_causal_shift": true,
+  "first_selected_position": 3850,
+  "last_selected_position": 6038,
+  "selected_label_first_token": 14937,
+  "all_supervised_ids_equal_input_ids": true
+}

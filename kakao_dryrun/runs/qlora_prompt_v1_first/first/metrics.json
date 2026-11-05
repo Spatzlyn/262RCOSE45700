@@ -1,0 +1,172 @@
+{
+  "json_parse_success": true,
+  "schema_valid": true,
+  "format_repair": false,
+  "retry_count": 0,
+  "official_benchmark": null,
+  "quality_independent_scenes": 1,
+  "human_reviewed_scenes": 0,
+  "schema_errors": [],
+  "mode": "draft_diagnostic_only",
+  "relations": {
+    "R1": {
+      "expected_draft": "P",
+      "predicted": "A",
+      "match": false
+    },
+    "R2": {
+      "expected_draft": "U",
+      "predicted": "A",
+      "match": false
+    },
+    "R3": {
+      "expected_draft": "P",
+      "predicted": "A",
+      "match": false
+    },
+    "R4": {
+      "expected_draft": "P",
+      "predicted": "A",
+      "match": false
+    }
+  },
+  "relation_matches": 0,
+  "relations_compared": 4,
+  "action_rules": {
+    "pass": false,
+    "matched_required_groups": 0,
+    "required_groups": 4,
+    "errors": [
+      "action pair outside reference allowed set",
+      "required action group 1 not met",
+      "required action group 2 not met",
+      "required action group 3 not met",
+      "required action group 4 not met",
+      "action based_on R1 disagrees with reference relation",
+      "action based_on R2 disagrees with reference relation",
+      "action based_on R3 disagrees with reference relation",
+      "action based_on R4 disagrees with reference relation"
+    ]
+  },
+  "diagnostics": {
+    "grounding": {
+      "objects": {
+        "mapping": {
+          "obj_1": "F_742186",
+          "obj_3": "F_742190",
+          "obj_4": "F_742189"
+        },
+        "pairs": [
+          {
+            "prediction_id": "obj_1",
+            "reference_id": "F_742186",
+            "iou": 0.6844648944
+          },
+          {
+            "prediction_id": "obj_3",
+            "reference_id": "F_742190",
+            "iou": 0.6832168176
+          },
+          {
+            "prediction_id": "obj_4",
+            "reference_id": "F_742189",
+            "iou": 0.9179517407
+          }
+        ],
+        "matched_count": 3,
+        "unmatched_prediction_ids": [
+          "obj_2",
+          "obj_5"
+        ],
+        "unmatched_reference_ids": [
+          "F_742182",
+          "F_742183",
+          "F_742184",
+          "F_742185",
+          "F_742187",
+          "F_742188",
+          "F_742191",
+          "F_added_001",
+          "F_added_002",
+          "F_added_003",
+          "F_added_004",
+          "F_added_005",
+          "F_added_006"
+        ],
+        "unmeasurable_prediction_ids": [],
+        "unmeasurable_reference_ids": [],
+        "iou_threshold": 0.5,
+        "assignment": "maximum_cardinality_then_total_iou"
+      },
+      "regions": {
+        "mapping": {},
+        "pairs": [],
+        "matched_count": 0,
+        "unmatched_prediction_ids": [],
+        "unmatched_reference_ids": [
+          "F_entrance_left_candidates",
+          "F_hidden_road_ahead"
+        ],
+        "unmeasurable_prediction_ids": [],
+        "unmeasurable_reference_ids": [
+          "F_hidden_road_ahead"
+        ],
+        "iou_threshold": 0.5,
+        "assignment": "maximum_cardinality_then_total_iou"
+      }
+    },
+    "evidence": {
+      "R1": {
+        "status": "mismatch",
+        "reason": "Object geometry/class assignment or object evidence roles differ",
+        "relation_state_matches": false,
+        "accepted_alternatives": 15
+      },
+      "R2": {
+        "status": "mismatch",
+        "reason": "Object geometry/class assignment or object evidence roles differ",
+        "relation_state_matches": false,
+        "accepted_alternatives": 1
+      },
+      "R3": {
+        "status": "mismatch",
+        "reason": "Object geometry/class assignment or object evidence roles differ",
+        "relation_state_matches": false,
+        "accepted_alternatives": 1
+      },
+      "R4": {
+        "status": "mismatch",
+        "reason": "Object geometry/class assignment or object evidence roles differ",
+        "relation_state_matches": false,
+        "accepted_alternatives": 1
+      }
+    },
+    "benchmark": {
+      "eligible": false,
+      "V3": null,
+      "V4": null,
+      "blockers": [
+        "reference_not_reviewed",
+        "independent_human_review_incomplete",
+        "reference_not_benchmark_eligible",
+        "object_coverage_incomplete",
+        "production_benchmark_aggregation_not_implemented"
+      ]
+    },
+    "interpretation": "Draft matching diagnostics only. Unmatched predictions are not false positives while reference coverage is incomplete."
+  },
+  "track2": {
+    "score": null,
+    "denominator": 0,
+    "reason": "missing temporal input and event reference"
+  },
+  "track3": {
+    "score": null,
+    "denominator": 0,
+    "reason": "missing sequence and GNSS/INS"
+  },
+  "strict_json_parse_success": true,
+  "strict_schema_valid": true,
+  "final_schema_valid": true,
+  "parse_evaluate_s": 0.0028848424553871155
+}

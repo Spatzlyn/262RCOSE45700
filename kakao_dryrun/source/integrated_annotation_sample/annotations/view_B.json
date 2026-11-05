@@ -1,0 +1,752 @@
+{
+  "schema_version": "integrated-sample-0.2",
+  "scene_id": "sample_scene_001",
+  "source_group_id": "sample_group_001",
+  "view": "B",
+  "image_path": "images/view_B.png",
+  "image_size": {
+    "width": 1920,
+    "height": 1080
+  },
+  "annotation_status": "Draft",
+  "annotation_author": "AI_assisted_visual_annotation",
+  "human_review_completed": false,
+  "input_type": "single_image",
+  "summary": "후방 교차부, lift truck, scooter 탑승자와 speed bump가 보입니다. 자차 전방 진행 영역은 이 시야에서 지정하지 않습니다.",
+  "time": {
+    "capture_token": "19033645",
+    "capture_timestamp": null,
+    "frame_index": null,
+    "decision_reference": "images/view_B.png",
+    "multiview_synchronization": "unverified",
+    "temporal_sequence_available": false,
+    "note": "Token은 촬영 시각으로 해석하지 않습니다. info.date_created는 Annotation export time입니다."
+  },
+  "source_metadata": {
+    "company": "K",
+    "scenario": "B13",
+    "sensor": "C",
+    "time": "day",
+    "weather": "clear",
+    "road": "R03"
+  },
+  "source_original_image_path": "230914_3/230914_115413_K/230914_115413_K(9)/image_B/CK_B13_R03_day_clear_19033645_B.png",
+  "source_codebook_available": false,
+  "source_annotations_complete": false,
+  "attribute_coordinate_frame": "image_left_right; F만 ego_forward_left_right와 대응",
+  "attributes": {
+    "traffic_direction": {
+      "value": "Unknown",
+      "evidence": "이 도로에 적용되는 통행 방향 표지를 판독할 수 없습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "direction_match": {
+      "value": null,
+      "evidence": "이 측면·후방 시야에는 전방 Intent의 비교 기준이 지정되지 않았습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "time_of_day": {
+      "value": "Day",
+      "evidence": "자연광 아래 도로와 건물의 색·형태가 식별됩니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "sidewalk_left": {
+      "value": "U",
+      "evidence": "이미지 왼쪽 건물 전면 공간과 연속적인 보행 전용 Sidewalk의 경계를 확정하기 어렵습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "sidewalk_right": {
+      "value": "U",
+      "evidence": "이미지 오른쪽 건물 전면 공간과 연속적인 보행 전용 Sidewalk의 경계를 확정하기 어렵습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "centerline": {
+      "value": "A",
+      "evidence": "F/B는 보이는 도로 구간에 Centerline이 없습니다. L/R은 도로 전체 폭이 보이지 않아 Unknown입니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "alignment": {
+      "value": "Unknown",
+      "evidence": "F의 평가 구간은 대체로 직선입니다. 다른 시야에서는 자차 전방 정렬을 판단하지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "surface": {
+      "value": "Dry",
+      "evidence": "보이는 노면에 젖은 광택·고인 물·눈이 확인되지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "rain": {
+      "value": "A",
+      "evidence": "이미지에서 강우 흔적이 확인되지 않습니다. 촬영 장소 전체의 기상 관측값은 아닙니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "snow": {
+      "value": "A",
+      "evidence": "보이는 평가 영역에 강설·적설이 확인되지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "fog": {
+      "value": "A",
+      "evidence": "건물·도로의 윤곽을 가리는 안개가 확인되지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "low_light": {
+      "value": "A",
+      "evidence": "평가에 필요한 가까운 도로와 객체가 주간 밝기에서 식별됩니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "glare": {
+      "value": "A",
+      "evidence": "주요 평가 영역을 덮는 강한 광학적 눈부심이 확인되지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    },
+    "backlight": {
+      "value": "U",
+      "evidence": "단일 이미지에서 광원 방향과 Backlight의 영향을 확정하지 않습니다.",
+      "source": "image",
+      "annotation_status": "Draft",
+      "input_available": true
+    }
+  },
+  "objects": [
+    {
+      "object_id": "B_541843",
+      "class": "truck",
+      "class_provenance": "image_visual_normalization_draft",
+      "bbox_xyxy_norm": [
+        0.173437,
+        0.313889,
+        0.379688,
+        0.678704
+      ],
+      "bbox_xywh_pixels": [
+        333.0,
+        339.0,
+        396.0,
+        394.0
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "geometry_provenance": "provided_source_annotation",
+      "source_category_id": 8,
+      "source_category_aliases": [
+        "TruckBus",
+        "TruckBus-b"
+      ],
+      "source_annotation_id": 541843,
+      "source_annotation_path": "source/source_B.json",
+      "segmentation_encoding": "COCO_compressed_RLE",
+      "segmentation_location": "source/source_B.json:annotations[id=541843].segmentation",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image이므로 이동·정차 여부를 판정할 시간 근거가 없습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "왼쪽 lift truck. 적재 장비까지 Source Box에 포함됩니다.",
+      "annotation_status": "Draft",
+      "semantic_role": "actor",
+      "placement": "roadside",
+      "truncated": "A",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "왼쪽 lift truck. 적재 장비까지 Source Box에 포함됩니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "image_visual_normalization_draft",
+          "evidence": "왼쪽 lift truck. 적재 장비까지 Source Box에 포함됩니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "provided_source_annotation",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      }
+    },
+    {
+      "object_id": "B_541844",
+      "class": "powered_two_wheeler",
+      "class_provenance": "image_visual_normalization_draft",
+      "bbox_xyxy_norm": [
+        0.432292,
+        0.446296,
+        0.480729,
+        0.640741
+      ],
+      "bbox_xywh_pixels": [
+        830.0,
+        482.0,
+        93.0,
+        210.0
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "geometry_provenance": "provided_source_annotation",
+      "source_category_id": 99,
+      "source_category_aliases": [
+        "Personal Mobility"
+      ],
+      "source_annotation_id": 541844,
+      "source_annotation_path": "source/source_B.json",
+      "segmentation_encoding": "COCO_compressed_RLE",
+      "segmentation_location": "source/source_B.json:annotations[id=541844].segmentation",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image이므로 이동·정차 여부를 판정할 시간 근거가 없습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "scooter와 탑승자가 하나의 Source instance로 표시되어 있습니다. 별도 pedestrian instance가 아닙니다.",
+      "annotation_status": "Draft",
+      "semantic_role": "actor",
+      "placement": "travel_space",
+      "truncated": "A",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "scooter와 탑승자가 하나의 Source instance로 표시되어 있습니다. 별도 pedestrian instance가 아닙니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "image_visual_normalization_draft",
+          "evidence": "scooter와 탑승자가 하나의 Source instance로 표시되어 있습니다. 별도 pedestrian instance가 아닙니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "provided_source_annotation",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      }
+    },
+    {
+      "object_id": "B_541845",
+      "class": "speed_bump",
+      "class_provenance": "image_visual_normalization_draft",
+      "bbox_xyxy_norm": [
+        0.315104,
+        0.602778,
+        0.8125,
+        0.687963
+      ],
+      "bbox_xywh_pixels": [
+        605.0,
+        651.0,
+        955.0,
+        92.0
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "geometry_provenance": "provided_source_annotation",
+      "source_category_id": 52,
+      "source_category_aliases": [
+        "Speed bump"
+      ],
+      "source_annotation_id": 541845,
+      "source_annotation_path": "source/source_B.json",
+      "segmentation_encoding": "COCO_compressed_RLE",
+      "segmentation_location": "source/source_B.json:annotations[id=541845].segmentation",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image이므로 이동·정차 여부를 판정할 시간 근거가 없습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "가까운 교차부 앞의 황백색 speed bump.",
+      "annotation_status": "Draft",
+      "semantic_role": "road_feature",
+      "placement": "travel_space",
+      "truncated": "A",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "가까운 교차부 앞의 황백색 speed bump. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "image_visual_normalization_draft",
+          "evidence": "가까운 교차부 앞의 황백색 speed bump.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "provided_source_annotation",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      }
+    },
+    {
+      "object_id": "B_541846",
+      "class": "speed_bump",
+      "class_provenance": "image_visual_normalization_draft",
+      "bbox_xyxy_norm": [
+        0.477083,
+        0.522222,
+        0.563542,
+        0.532407
+      ],
+      "bbox_xywh_pixels": [
+        916.0,
+        564.0,
+        166.0,
+        11.0
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "geometry_provenance": "provided_source_annotation",
+      "source_category_id": 52,
+      "source_category_aliases": [
+        "Speed bump"
+      ],
+      "source_annotation_id": 541846,
+      "source_annotation_path": "source/source_B.json",
+      "segmentation_encoding": "COCO_compressed_RLE",
+      "segmentation_location": "source/source_B.json:annotations[id=541846].segmentation",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image이므로 이동·정차 여부를 판정할 시간 근거가 없습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "먼 도로 쪽에 일부 보이는 speed bump.",
+      "annotation_status": "Draft",
+      "semantic_role": "road_feature",
+      "placement": "travel_space",
+      "truncated": "A",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "먼 도로 쪽에 일부 보이는 speed bump. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "image_visual_normalization_draft",
+          "evidence": "먼 도로 쪽에 일부 보이는 speed bump.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "provided_source_annotation",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      }
+    },
+    {
+      "object_id": "B_added_001",
+      "class": "truck",
+      "semantic_role": "actor",
+      "placement": "roadside",
+      "truncated": "A",
+      "class_provenance": "AI_visual_addition_draft",
+      "bbox_xyxy_norm": [
+        0.539062,
+        0.427778,
+        0.583854,
+        0.525926
+      ],
+      "bbox_xywh_pixels": [
+        1035,
+        462,
+        86,
+        106
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "bbox_extent": "visible_extent_only",
+      "geometry_provenance": "AI_visual_addition",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image만으로 이동·정차 여부를 결정하지 않습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "교차부 건너편 건물 옆 흰색 냉장/탑차의 보이는 전체 범위입니다. 한 장으로 정차·이동을 확정하지 않습니다.",
+      "annotation_status": "Draft",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "교차부 건너편 건물 옆 흰색 냉장/탑차의 보이는 전체 범위입니다. 한 장으로 정차·이동을 확정하지 않습니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "AI_visual_addition_draft",
+          "evidence": "교차부 건너편 건물 옆 흰색 냉장/탑차의 보이는 전체 범위입니다. 한 장으로 정차·이동을 확정하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "AI_visual_addition",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      },
+      "geometry_review": {
+        "status": "Draft",
+        "source": "image",
+        "evidence": "원본 이미지 확대 관찰로 작성한 근사 Box입니다. 독립 검수 전입니다.",
+        "input_available": true
+      }
+    },
+    {
+      "object_id": "B_added_002",
+      "class": "powered_two_wheeler",
+      "semantic_role": "actor",
+      "placement": "roadside",
+      "truncated": "A",
+      "class_provenance": "AI_visual_addition_draft",
+      "bbox_xyxy_norm": [
+        0.598437,
+        0.47963,
+        0.619271,
+        0.52963
+      ],
+      "bbox_xywh_pixels": [
+        1149,
+        518,
+        40,
+        54
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "bbox_extent": "visible_extent_only",
+      "geometry_provenance": "AI_visual_addition",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image만으로 이동·정차 여부를 결정하지 않습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "건너편 흰 탑차 오른쪽 건물 앞에 별도로 보이는 scooter입니다. 일부 가림과 작은 해상도로 외곽은 근사한 Draft입니다.",
+      "annotation_status": "Draft",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "건너편 흰 탑차 오른쪽 건물 앞에 별도로 보이는 scooter입니다. 일부 가림과 작은 해상도로 외곽은 근사한 Draft입니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "AI_visual_addition_draft",
+          "evidence": "건너편 흰 탑차 오른쪽 건물 앞에 별도로 보이는 scooter입니다. 일부 가림과 작은 해상도로 외곽은 근사한 Draft입니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "AI_visual_addition",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      },
+      "geometry_review": {
+        "status": "Draft",
+        "source": "image",
+        "evidence": "원본 이미지 확대 관찰로 작성한 근사 Box입니다. 독립 검수 전입니다.",
+        "input_available": true
+      }
+    },
+    {
+      "object_id": "B_added_003",
+      "class": "stored_items",
+      "semantic_role": "obstacle",
+      "placement": "roadside",
+      "truncated": "A",
+      "class_provenance": "AI_visual_addition_draft",
+      "bbox_xyxy_norm": [
+        0.772917,
+        0.544444,
+        0.794271,
+        0.588889
+      ],
+      "bbox_xywh_pixels": [
+        1484,
+        588,
+        41,
+        48
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "bbox_extent": "visible_extent_only",
+      "geometry_provenance": "AI_visual_addition",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image만으로 이동·정차 여부를 결정하지 않습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "오른쪽 전신주 뒤 건물 앞에 쌓인 흰 용기/포장 묶음입니다. 개별 용기 수·내용물은 확정하지 않습니다.",
+      "annotation_status": "Draft",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "오른쪽 전신주 뒤 건물 앞에 쌓인 흰 용기/포장 묶음입니다. 개별 용기 수·내용물은 확정하지 않습니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "AI_visual_addition_draft",
+          "evidence": "오른쪽 전신주 뒤 건물 앞에 쌓인 흰 용기/포장 묶음입니다. 개별 용기 수·내용물은 확정하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "AI_visual_addition",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      },
+      "geometry_review": {
+        "status": "Draft",
+        "source": "image",
+        "evidence": "원본 이미지 확대 관찰로 작성한 근사 Box입니다. 독립 검수 전입니다.",
+        "input_available": true
+      },
+      "instance_granularity": "visible_cluster"
+    },
+    {
+      "object_id": "B_added_004",
+      "class": "other",
+      "semantic_role": "obstacle",
+      "placement": "roadside",
+      "truncated": "A",
+      "class_provenance": "AI_visual_addition_draft",
+      "bbox_xyxy_norm": [
+        0.884896,
+        0.578704,
+        0.916146,
+        0.699074
+      ],
+      "bbox_xywh_pixels": [
+        1699,
+        625,
+        60,
+        130
+      ],
+      "bbox_coordinate_convention": "half_open_xyxy_after_conversion",
+      "bbox_extent": "visible_extent_only",
+      "geometry_provenance": "AI_visual_addition",
+      "motion": {
+        "value": "Unknown",
+        "evidence": "Single Image만으로 이동·정차 여부를 결정하지 않습니다.",
+        "source": "image",
+        "annotation_status": "Draft"
+      },
+      "observation": "오른쪽 점포 앞 주황색 이동식 표지 시설물입니다. 하단 받침은 자차 차체에 가려져 cone인지 확정하지 않고 other로 보존합니다.",
+      "annotation_status": "Draft",
+      "field_metadata": {
+        "semantic_role": {
+          "source": "image_and_class_mapping",
+          "evidence": "차량·이륜차는 actor, 이동식 적치·cone은 obstacle, speed_bump는 road_feature로 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "placement": {
+          "source": "image",
+          "evidence": "오른쪽 점포 앞 주황색 이동식 표지 시설물입니다. 하단 받침은 자차 차체에 가려져 cone인지 확정하지 않고 other로 보존합니다. 이 값은 화면상 배치이며 정차 여부나 전방 C와의 관계를 뜻하지 않습니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "truncated": {
+          "source": "image",
+          "evidence": "보이는 대상 외곽이 화면 경계에서 잘리는 것은 확인되지 않습니다. 가림은 화면 잘림과 구분합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "class": {
+          "source": "AI_visual_addition_draft",
+          "evidence": "오른쪽 점포 앞 주황색 이동식 표지 시설물입니다. 하단 받침은 자차 차체에 가려져 cone인지 확정하지 않고 other로 보존합니다.",
+          "status": "Draft",
+          "input_available": true
+        },
+        "bbox": {
+          "source": "AI_visual_addition",
+          "evidence": "원본 Box 또는 가시 범위 보완 Box이며 Human Review 미완료입니다.",
+          "status": "Draft",
+          "input_available": true
+        }
+      },
+      "geometry_review": {
+        "status": "Draft",
+        "source": "image",
+        "evidence": "원본 이미지 확대 관찰로 작성한 근사 Box입니다. 독립 검수 전입니다.",
+        "input_available": true
+      }
+    }
+  ],
+  "regions": [],
+  "track1": {
+    "status": "missing_input",
+    "role": "auxiliary_view_annotation",
+    "reason": "이 시야 단독에는 ego-forward Driving Area와 입력 조건별 Reference가 없습니다.",
+    "relations": null,
+    "conditional_actions": null
+  },
+  "track2": {
+    "status": "missing_input",
+    "annotation_status": "Missing",
+    "target_object_id": null,
+    "reason": "과거 Sequence, 미래 Event Time·Target Reference가 제공되지 않았습니다."
+  },
+  "track3": {
+    "status": "missing_input",
+    "annotation_status": "Missing",
+    "speed_change": null,
+    "direction_change": null,
+    "reason": "시간 순서가 있는 Sequence와 Ego Motion 측정 Reference가 제공되지 않았습니다."
+  },
+  "review_required": [
+    "Imported Box와 통합 Class를 원본 이미지에서 검수합니다.",
+    "Sidewalk의 적용 정의와 관측 범위를 확인합니다.",
+    "Motion Unknown과 Track-level Missing을 구분합니다.",
+    "추가한 AI Box, 적치 군집 단위, roadside 배치, 화면 잘림을 독립 검수하고 미확정 후보와 평가 대상 범위를 확인합니다."
+  ],
+  "annotation_coverage": {
+    "status": "partial_draft",
+    "source_complete": false,
+    "coverage_complete": false,
+    "added_objects_count": 4,
+    "original_source_objects_count": 4,
+    "note": "명확히 식별되는 누락 대상을 AI Draft로 보완했습니다. 평가 범위·작은 객체·개별 instance 분리와 가림은 독립 검수가 필요하여 완전한 검출 정답으로 선언하지 않습니다.",
+    "object_coverage_complete": false
+  },
+  "review_candidates": [
+    {
+      "candidate_id": "B_review_001",
+      "bbox_xyxy_norm": [
+        0.583333,
+        0.493519,
+        0.695312,
+        0.531481
+      ],
+      "reason": "교차부 건너편 주황색 세로 시설물은 일반 traffic cone보다 bollard/이동식 통제시설로 보입니다. Class 범위·개별 분리 후 보완해야 합니다.",
+      "status": "Draft"
+    },
+    {
+      "candidate_id": "B_review_002",
+      "reason": "교차부 뒤와 좌측 truck 뒤의 작은 차량·시설물은 해상도·가림으로 개별 외곽을 확정하지 않았습니다.",
+      "status": "Draft"
+    }
+  ],
+  "guideline_version": "pilot-guideline-0.2-draft"
+}

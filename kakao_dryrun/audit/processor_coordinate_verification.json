@@ -1,0 +1,23 @@
+{
+  "source": "runs/nf4_prompt_v1_first/input_audit.json",
+  "processed_resolution_hw_from_positions": [
+    576,
+    1056
+  ],
+  "declared_processed_resolution_hw": [
+    576,
+    1056
+  ],
+  "valid_patch_count": 2376,
+  "padding_patch_count": 144,
+  "padding_coordinates": [
+    [
+      -1,
+      -1
+    ]
+  ],
+  "visual_soft_tokens": 264,
+  "patch_size": 16,
+  "coordinate_mapping": "x_proc=x_norm*1056; y_proc=y_norm*576; x_orig=x_proc*1920/1056; y_orig=y_proc*1080/576; no offset",
+  "source_processor_sha256": "5d280d5448b1c219183a27e95b6aa7178b350275772d07881c91c65f13fa815e"
+}

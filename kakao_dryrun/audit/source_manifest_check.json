@@ -1,0 +1,146 @@
+{
+  "files": 35,
+  "pass": true,
+  "rows": [
+    {
+      "path": "ANNOTATION_GUIDELINE.md",
+      "match": true
+    },
+    {
+      "path": "CHANGELOG.md",
+      "match": true
+    },
+    {
+      "path": "README.md",
+      "match": true
+    },
+    {
+      "path": "annotations/view_B.json",
+      "match": true
+    },
+    {
+      "path": "annotations/view_F.json",
+      "match": true
+    },
+    {
+      "path": "annotations/view_L.json",
+      "match": true
+    },
+    {
+      "path": "annotations/view_R.json",
+      "match": true
+    },
+    {
+      "path": "data/annotation_policy.json",
+      "match": true
+    },
+    {
+      "path": "data/annotations.jsonl",
+      "match": true
+    },
+    {
+      "path": "data/items.jsonl",
+      "match": true
+    },
+    {
+      "path": "data/references.jsonl",
+      "match": true
+    },
+    {
+      "path": "data/source_mapping.json",
+      "match": true
+    },
+    {
+      "path": "expected/prediction.example.json",
+      "match": true
+    },
+    {
+      "path": "images/view_B.png",
+      "match": true
+    },
+    {
+      "path": "images/view_F.png",
+      "match": true
+    },
+    {
+      "path": "images/view_L.png",
+      "match": true
+    },
+    {
+      "path": "images/view_R.png",
+      "match": true
+    },
+    {
+      "path": "prompts/system.txt",
+      "match": true
+    },
+    {
+      "path": "runs/html_validation.json",
+      "match": true
+    },
+    {
+      "path": "runs/package_validation.json",
+      "match": true
+    },
+    {
+      "path": "runs/request_input_audit.json",
+      "match": true
+    },
+    {
+      "path": "runs/revision_validation.json",
+      "match": true
+    },
+    {
+      "path": "runs/smokecheck.json",
+      "match": true
+    },
+    {
+      "path": "runs/source_preservation.json",
+      "match": true
+    },
+    {
+      "path": "sample.html",
+      "match": true
+    },
+    {
+      "path": "schema/prediction.schema.json",
+      "match": true
+    },
+    {
+      "path": "scripts/build_request.py",
+      "match": true
+    },
+    {
+      "path": "scripts/evaluate.py",
+      "match": true
+    },
+    {
+      "path": "scripts/render_sample.py",
+      "match": true
+    },
+    {
+      "path": "scripts/test_evaluation.py",
+      "match": true
+    },
+    {
+      "path": "scripts/validate.py",
+      "match": true
+    },
+    {
+      "path": "source/source_B.json",
+      "match": true
+    },
+    {
+      "path": "source/source_F.json",
+      "match": true
+    },
+    {
+      "path": "source/source_L.json",
+      "match": true
+    },
+    {
+      "path": "source/source_R.json",
+      "match": true
+    }
+  ]
+}

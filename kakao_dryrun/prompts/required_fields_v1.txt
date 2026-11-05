@@ -1,0 +1,6 @@
+출력 형식 최종 점검 (위 명세의 의미와 enum은 그대로 유지하십시오):
+설명문이나 Markdown code fence 없이 JSON object 하나만 출력하십시오. 첫 문자는 {, 마지막 문자는 }이어야 합니다. 들여쓰기와 불필요한 공백을 줄이고 reason/evidence 문장은 짧게 쓰십시오. 간결함을 위해 필수 key를 생략하지 마십시오.
+최상위 필수 key는 item_id, track1, track2, track3입니다. 각 하위 구조는 위 JSON Schema의 required와 enum을 그대로 따르십시오.
+track1의 objects와 regions는 서로 다른 필수 배열입니다. regions key는 항상 출력하십시오. 실제로 선언할 Region이 없으면 regions: []로 표현하십시오. Region을 선언한다면 해당 Region의 모든 필수 필드와 geometry를 명세에 맞추십시오. 관측할 수 없는 geometry를 지어내지 마십시오.
+출력하기 전에 track1의 attributes, objects, regions, relations, actions, unknowns가 모두 존재하는지 확인하십시오. relations에는 R1, R2, R3, R4가 모두 있어야 합니다. Object/Region ID 참조는 이번 출력에서 직접 선언한 ID만 사용하십시오.
+모든 값과 판단은 제공된 이미지, 질문, 명세로부터 직접 결정하십시오. 필수 key의 존재 확인은 정답이나 상태를 미리 정하는 규칙이 아닙니다. 보이지 않는 대상과 근거를 생성하지 마십시오. Track 2·3은 입력 가용성에 따라 명세대로 출력하십시오.

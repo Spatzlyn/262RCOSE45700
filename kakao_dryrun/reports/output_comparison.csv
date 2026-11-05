@@ -1,0 +1,8 @@
+run,attempt,strict_json,strict_schema,format_recovery,after_fence_schema,schema_errors,regions_present,region_count,object_count,object_match,relation_match,action_pass,output_tokens,input_tokens,raw_path,metrics_path
+bf16_280,기존 첫 출력,False,False,True,True,,True,0,4,3,0,False,1010,3851,original_evidence/runs/bf16_280/first/raw_output.txt,original_evidence/runs/bf16_280/first/metrics.json
+nf4_280,기존 첫 출력,False,False,True,False,$.track1.regions: required field missing,False,,5,,,,1080,3851,original_evidence/runs/nf4_280/first/raw_output.txt,original_evidence/runs/nf4_280/first/metrics.json
+qlora_280_reloaded,기존 첫 출력,False,False,True,False,$.track1.regions: required field missing,False,,5,,,,1093,3851,original_evidence/runs/qlora_280_reloaded/first/raw_output.txt,original_evidence/runs/qlora_280_reloaded/first/metrics.json
+nf4_prompt_v1_first,수정 prompt 첫 출력,True,True,False,True,,True,0,5,4,0,False,933,4178,runs/nf4_prompt_v1_first/first/raw_output.txt,runs/nf4_prompt_v1_first/first/metrics.json
+qlora_prompt_v1_first,수정 prompt 첫 출력,True,True,False,True,,True,0,5,3,0,False,933,4178,runs/qlora_prompt_v1_first/first/raw_output.txt,runs/qlora_prompt_v1_first/first/metrics.json
+nf4_original_failure_retry,기존 실패의 model retry #1,False,False,True,True,,True,0,5,2,0,False,1086,5339,runs/nf4_original_failure_retry/first/raw_output.txt,runs/nf4_original_failure_retry/first/metrics.json
+qlora_original_failure_retry,기존 실패의 model retry #1,False,False,True,True,,True,0,5,2,0,False,1099,5352,runs/qlora_original_failure_retry/first/raw_output.txt,runs/qlora_original_failure_retry/first/metrics.json

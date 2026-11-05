@@ -1,0 +1,21 @@
+{
+  "item_id": "sample_front_001",
+  "items_count": 1,
+  "view": "F",
+  "object_denominator": 16,
+  "source_box_count": 10,
+  "added_box_count": 6,
+  "region_count_excluded": 3,
+  "all_views_object_counts": {
+    "F": 16,
+    "B": 8,
+    "L": 3,
+    "R": 8
+  },
+  "excluded_other_view_objects": 19,
+  "filters": "All F annotation objects, no class/size/ROI/C-overlap filter. Regions, review_candidates, other views excluded.",
+  "scope": "Draft diagnostic count; not official Recall/F1",
+  "source_only_matches": "3/10",
+  "added_only_matches": "0/6",
+  "R1_named_evidence_subset_matches": "3/4; subset diagnostic only"
+}

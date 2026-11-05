@@ -1,0 +1,42 @@
+{
+  "name": "qlora_original_failure_retry",
+  "quant": "nf4",
+  "soft_tokens": 280,
+  "max_new_tokens": 4096,
+  "model_id": "google/gemma-4-E4B-it",
+  "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+  "dtype": "bfloat16",
+  "attention_backend": {
+    "text_config": "sdpa",
+    "vision_config": "sdpa",
+    "audio_config": "eager"
+  },
+  "cpu_offload": false,
+  "batch_size": 1,
+  "image_count": 1,
+  "enable_thinking": false,
+  "do_sample": false,
+  "seed": 42,
+  "quantization": {
+    "load_in_4bit": true,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_use_double_quant": true,
+    "bnb_4bit_compute_dtype": "bfloat16"
+  },
+  "source": "https://huggingface.co/google/gemma-4-E4B-it",
+  "quality_scope": "one scene, Draft diagnostic only",
+  "script_sha256": {
+    "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+    "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+  },
+  "prompt_revision": "required_fields_v1",
+  "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+  "attempt_kind": "retry",
+  "model_parameter_count": 5725926688,
+  "processor_class": "Gemma4Processor",
+  "image_processor_class": "Gemma4ImageProcessor",
+  "torch_version": "2.9.1+cu128",
+  "cuda_version": "12.8",
+  "adapter_source_run": "qlora_280_5step_v2",
+  "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+}

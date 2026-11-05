@@ -1,0 +1,46 @@
+[
+  {
+    "run": "nf4_original_failure_retry",
+    "attempt_kind": "retry",
+    "model_retry_count": 1,
+    "retry_parent": "original_evidence/runs/nf4_280",
+    "strict_schema_success": false,
+    "whole_fence_removed": true,
+    "final_schema_success": true,
+    "parser_model_requeries": 0,
+    "note": "metrics.retry_count is local to parser (0); protocol model retry count is recorded separately here."
+  },
+  {
+    "run": "nf4_prompt_v1_first",
+    "attempt_kind": "first_modified_prompt_attempt",
+    "model_retry_count": 0,
+    "retry_parent": null,
+    "strict_schema_success": true,
+    "whole_fence_removed": false,
+    "final_schema_success": true,
+    "parser_model_requeries": 0,
+    "note": "metrics.retry_count is local to parser (0); protocol model retry count is recorded separately here."
+  },
+  {
+    "run": "qlora_original_failure_retry",
+    "attempt_kind": "retry",
+    "model_retry_count": 1,
+    "retry_parent": "original_evidence/runs/qlora_280_reloaded",
+    "strict_schema_success": false,
+    "whole_fence_removed": true,
+    "final_schema_success": true,
+    "parser_model_requeries": 0,
+    "note": "metrics.retry_count is local to parser (0); protocol model retry count is recorded separately here."
+  },
+  {
+    "run": "qlora_prompt_v1_first",
+    "attempt_kind": "first_modified_prompt_attempt",
+    "model_retry_count": 0,
+    "retry_parent": null,
+    "strict_schema_success": true,
+    "whole_fence_removed": false,
+    "final_schema_success": true,
+    "parser_model_requeries": 0,
+    "note": "metrics.retry_count is local to parser (0); protocol model retry count is recorded separately here."
+  }
+]

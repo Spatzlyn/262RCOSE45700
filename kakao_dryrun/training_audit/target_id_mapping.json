@@ -1,0 +1,20 @@
+{
+  "F_742182": "train_obj_1",
+  "F_742183": "train_obj_2",
+  "F_742184": "train_obj_3",
+  "F_742185": "train_obj_4",
+  "F_742186": "train_obj_5",
+  "F_742187": "train_obj_6",
+  "F_742188": "train_obj_7",
+  "F_742189": "train_obj_8",
+  "F_742190": "train_obj_9",
+  "F_742191": "train_obj_10",
+  "F_added_001": "train_obj_11",
+  "F_added_002": "train_obj_12",
+  "F_added_003": "train_obj_13",
+  "F_added_004": "train_obj_14",
+  "F_added_005": "train_obj_15",
+  "F_added_006": "train_obj_16",
+  "F_entrance_left_candidates": "train_region_1",
+  "F_hidden_road_ahead": "train_region_2"
+}

@@ -1,0 +1,18 @@
+{
+  "run_id": "20261105_200733_KST",
+  "created_at": "2026-11-05T20:07:34.147644+09:00",
+  "git_revision": null,
+  "git_revision_reason": "Source directory is not a Git repository",
+  "inputs": [
+    {
+      "filename": "Kakao_Road_VLM_Benchmark_Spec_Final.pdf",
+      "size_bytes": 347072,
+      "sha256": "450a3d85bc816d787196663e3ebef57a599950aeb9d5afffe6993e421e08b430"
+    },
+    {
+      "filename": "Integrated_Annotation_DryRun (1).zip",
+      "size_bytes": 14366951,
+      "sha256": "647beb9bd8b3386da139e06656fd5b8bb2f31e3efdccb70642fe11d690f6af69"
+    }
+  ]
+}

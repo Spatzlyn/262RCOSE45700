@@ -1,0 +1,12 @@
+{
+  "all_exported_source_files_unchanged": true,
+  "source_files_checked": 193,
+  "resource_experiment_artifacts_excluded": true,
+  "weights_cache_credentials_excluded": true,
+  "credential_pattern_findings": 0,
+  "new_files_only_under": [
+    "README.md",
+    "kakao_dryrun/"
+  ],
+  "main_base_commit": "97792acf7cd73434578f66b1a42179ef384f9da1"
+}

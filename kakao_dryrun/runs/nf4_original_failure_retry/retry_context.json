@@ -1,0 +1,8 @@
+{
+  "parent_run": "original_evidence/runs/nf4_280",
+  "validation_errors_only": [
+    "$.track1.regions: required field missing"
+  ],
+  "parent_output_sha256": "6afecf8e2474b0534496c27bef2a9adaa9691212107d0382b7b92358db8ec1d4",
+  "retry_number": 1
+}

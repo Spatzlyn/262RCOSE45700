@@ -1,0 +1,9 @@
+{
+  "source_run": "runs/nf4_prompt_v1_first",
+  "selection_rule": "First completed modified-prompt base NF4 run; selected for strict schema success, not maximum semantic score.",
+  "semantic_quality": "Draft object 4/16, relation 0/4, Action=False",
+  "edited": false,
+  "retry_count": 0,
+  "parser_fill": false,
+  "raw_sha256": "048522d00754e4fd63c329b21ccc034eaa41fb05a703cb35637288cb4e585ae8"
+}

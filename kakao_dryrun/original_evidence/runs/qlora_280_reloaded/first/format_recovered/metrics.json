@@ -1,0 +1,16 @@
+{
+  "json_parse_success": true,
+  "schema_valid": false,
+  "format_repair": false,
+  "retry_count": 0,
+  "official_benchmark": null,
+  "quality_independent_scenes": 1,
+  "human_reviewed_scenes": 0,
+  "schema_errors": [
+    "$.track1.regions: required field missing"
+  ],
+  "strict_json_parse_success": true,
+  "strict_schema_valid": false,
+  "final_schema_valid": false,
+  "parse_evaluate_s": 0.0006376989185810089
+}

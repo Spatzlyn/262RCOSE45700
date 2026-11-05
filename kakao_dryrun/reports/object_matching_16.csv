@@ -1,0 +1,17 @@
+﻿number,gt_id,gt_class,origin,placement,gt_pixels_xyxy,matched_prediction,matched_class,matched_iou,best_geometry_prediction,best_geometry_class,best_geometry_iou,best_same_class_iou,unmatched_reason,observation
+1,F_742182,powered_two_wheeler,Source Box / Draft class,roadside,"354.00,373.00,450.00,512.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,좌측 건물 전면 가까이 있는 scooter. 정차·이동 상태는 확인되지 않습니다.
+2,F_742183,truck,Source Box / Draft class,roadside,"1847.00,366.00,1920.00,484.00",—,—,,—,—,0.0,0.0,동일 class의 해당 위치 Box 없음 / IoU < 0.5,화면 오른쪽 가장자리에 일부만 보이는 truck.
+3,F_742184,bicycle,Source Box / Draft class,roadside,"1843.00,545.00,1919.00,686.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,화면 오른쪽 가장자리에 일부만 보이는 bicycle.
+4,F_742185,powered_two_wheeler,Source Box / Draft class,roadside,"501.00,338.00,562.00,453.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,좌측 건물 전면 가까이 있는 delivery scooter.
+5,F_742186,truck,Source Box / Draft class,roadside,"0.00,93.00,346.00,881.00",—,—,,obj_4,car,0.7803161789,0.0,class mismatch; geometry는 threshold 통과,왼쪽 전경의 pickup과 위로 뻗은 적재물. Source Box는 적재물까지 포함합니다.
+6,F_742187,truck,Source Box / Draft class,roadside,"580.00,284.00,713.00,453.00",—,—,,obj_1,car,0.0540662611,0.0,동일 class의 해당 위치 Box 없음 / IoU < 0.5,왼쪽 앞 도로 가장자리에 배치된 truck.
+7,F_742188,car,Source Box / Draft class,travel_space,"703.00,327.00,914.00,471.00",obj_1,car,0.8592400784,obj_1,car,0.8592400784,0.8592400784,match: class 일치 + IoU ≥ 0.5,전방의 검은 sedan. 차량 앞면이 카메라 쪽을 향하지만 이동 방향·속도는 확인되지 않습니다.
+8,F_742189,car,Source Box / Draft class,roadside,"1113.00,297.00,1403.00,519.00",obj_2,car,0.7730119922,obj_2,car,0.7730119922,0.7730119922,match: class 일치 + IoU ≥ 0.5,오른쪽 도로 가장자리에 배치된 SUV.
+9,F_742190,truck,Source Box / Draft class,roadside,"988.00,208.00,1211.00,469.00",obj_3,truck,0.6443495406,obj_3,truck,0.6443495406,0.6443495406,match: class 일치 + IoU ≥ 0.5,오른쪽 앞의 box truck.
+10,F_742191,speed_bump,Source Box / Draft class,travel_space,"911.00,388.00,1000.00,400.00",—,—,,obj_3,truck,0.0059018087,,동일 class 예측 없음; 해당 대상 누락,차량들 사이로 일부 보이는 황백색 speed bump.
+11,F_added_001,pedestrian,AI-added Draft Box/class,unknown,"540.00,353.00,567.00,429.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,배달 scooter 뒤쪽에 머리·얼굴·상체 일부가 보이는 별도 사람입니다. 발·하체는 가려져 있고 정확한 접지 위치와 출입구 경계 관계는 미확정입니다.
+12,F_added_002,stored_items,AI-added Draft Box/class,roadside,"1407.00,366.00,1521.00,518.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,오른쪽 건물 앞의 흰 포장재·상자와 검은 판재가 붙어 있는 적치 군집입니다. 개별 조각 대신 연속된 하나의 적치 군집을 기록했습니다.
+13,F_added_003,bag_or_bundle,AI-added Draft Box/class,roadside,"1628.00,421.00,1698.00,500.00",—,—,,—,—,0.0,,동일 class 예측 없음; 해당 대상 누락,오른쪽 건물 앞 봉투 또는 덮개로 싸인 묶음입니다. 내용물을 쓰레기라고 단정하지 않습니다.
+14,F_added_004,car,AI-added Draft Box/class,unknown,"712.00,323.00,760.00,379.00",—,—,,obj_1,car,0.0814912486,0.0814912486,동일 class의 해당 위치 Box 없음 / IoU < 0.5,전방 sedan 왼쪽 뒤의 흰 차량입니다. 소형 트럭·sedan에 가려져 접지 부위를 충분히 확인하지 못합니다.
+15,F_added_005,car,AI-added Draft Box/class,unknown,"890.00,324.00,939.00,368.00",—,—,,obj_1,car,0.0419879443,0.0419879443,동일 class의 해당 위치 Box 없음 / IoU < 0.5,전방 sedan 오른쪽 뒤에 보이는 후면 방향의 밝은 차량입니다. 주변 차량과의 가림 때문에 Footprint 검수가 필요합니다.
+16,F_added_006,car,AI-added Draft Box/class,unknown,"926.00,325.00,984.00,379.00",—,—,,obj_3,truck,0.0058451093,0.0,동일 class의 해당 위치 Box 없음 / IoU < 0.5,오른쪽 box truck 왼쪽 뒤에 보이는 전면 방향의 밝은 차량입니다. 원거리이며 일부가 가려져 정확한 접지 범위는 추가 검수합니다.

@@ -1,0 +1,112 @@
+{
+"item_id": "sample_front_001",
+"track1": {
+"attributes": {
+"traffic_direction": "Two-way",
+"direction_match": "Not applicable",
+"sidewalk_left": "P",
+"sidewalk_right": "P"
+},
+"objects": [
+{
+"object_id": "obj_1",
+"class": "truck",
+"bbox_xyxy_norm": [0.0, 0.23, 0.20, 0.77],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+},
+{
+"object_id": "obj_2",
+"class": "car",
+"bbox_xyxy_norm": [0.29, 0.30, 0.47, 0.47],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+},
+{
+"object_id": "obj_3",
+"class": "truck",
+"bbox_xyxy_norm": [0.51, 0.20, 0.61, 0.47],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+},
+{
+"object_id": "obj_4",
+"class": "car",
+"bbox_xyxy_norm": [0.58, 0.28, 0.73, 0.47],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+},
+{
+"object_id": "obj_5",
+"class": "car",
+"bbox_xyxy_norm": [0.72, 0.33, 0.81, 0.47],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"}
+],
+"relations": {
+"R1": {
+"state": "A",
+"object_ids": [],
+"reason": "주변 차량의 지면 접촉부가 C와 겹치는 것이 명확히 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"actor_ids": [],
+"obstacle_ids": []
+}
+},
+"R2": {
+"state": "A",
+"object_ids": [],
+"reason": "C와 연결된 출입구에 Actor가 명확히 위치하지 않음.",
+"region_ids": [],
+"roles": {
+"actor_ids": [],
+"entrance_candidate_id": null
+}
+},
+"R3": {
+"state": "A",
+"object_ids": [],
+"reason": "진행 판단에 필요한 영역이 가려진 객체에 의해 가려지지 않음.",
+"region_ids": [],
+"roles": {
+"occluder_ids": [],
+"occluded_region_id": null
+}
+},
+"R4": {
+"state": "A",
+"object_ids": [],
+"reason": "통행 공간을 제한하는 객체의 배치가 명확히 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"restricting_object_ids": []
+}
+}
+},
+"actions": [
+{
+"code": "MONITOR_AHEAD",
+"condition": "no_condition",
+"based_on": ["R1", "R2", "R3", "R4"],
+"reason": "모든 관계가 A로 판정되어 전방 주시 상태 유지."
+}
+],
+"unknowns": [],
+"regions": []
+},
+"track2": {
+"status": "missing_input",
+"target_object_id": null
+},
+"track3": {
+"status": "missing_input",
+"speed_change": null,
+"direction_change": null
+}
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "view": "F",
+    "original_image_filename": "CK_B13_R03_day_clear_19033645_F.png",
+    "image_path": "images/view_F.png",
+    "original_json_filename": "CK_B13_R03_day_clear_19033645_F.png.json",
+    "source_annotation_path": "source/source_F.json",
+    "image_sha256": "fb095a57435ed5cc1f3f6181dba8474a59e17678054d08a4e76b5da0207f2598",
+    "source_json_sha256": "0a101be692d577d36d5292dd6da378bbd2dcae588cfa58a59c02f4e91ddd0609"
+  },
+  {
+    "view": "B",
+    "original_image_filename": "CK_B13_R03_day_clear_19033645_B(1).png",
+    "image_path": "images/view_B.png",
+    "original_json_filename": "CK_B13_R03_day_clear_19033645_B.png(2).json",
+    "source_annotation_path": "source/source_B.json",
+    "image_sha256": "1290d10242bb81eb6e01a5f4b04ddb5759f18fc25cc4a739b777d53cfb7f31e9",
+    "source_json_sha256": "9726f59c80c4aae3040165c7e0c0ef963cf41252c49c0313490711fe8dccebd1"
+  },
+  {
+    "view": "L",
+    "original_image_filename": "CK_B13_R03_day_clear_19033645_L.png",
+    "image_path": "images/view_L.png",
+    "original_json_filename": "CK_B13_R03_day_clear_19033645_L.png.json",
+    "source_annotation_path": "source/source_L.json",
+    "image_sha256": "208a306e813a7cfd6886163f7f7b0838225ae8a2f5af44ab8d12f378f465d412",
+    "source_json_sha256": "198f5155d41076c989e35919a2daa17c17ad40816751f9576e6777010534958a"
+  },
+  {
+    "view": "R",
+    "original_image_filename": "CK_B13_R03_day_clear_19033645_R.png",
+    "image_path": "images/view_R.png",
+    "original_json_filename": "CK_B13_R03_day_clear_19033645_R.png.json",
+    "source_annotation_path": "source/source_R.json",
+    "image_sha256": "8a67a86dfd404f9ab5cbd9eae125716a6ee271a20c19626acff9c1eb77643fdc",
+    "source_json_sha256": "0d443ff931adfcc1a10d7159ac5b52b0861b3d4608b9defa6b6175ef2055c933"
+  }
+]

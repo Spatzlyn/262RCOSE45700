@@ -1,0 +1,11 @@
+{
+  "prefix_exact_match": true,
+  "prompt_all_minus100": true,
+  "image_tokens_all_minus100": true,
+  "padding_synthetic_test_pass": true,
+  "real_padding_tokens": 0,
+  "selected_start": 3850,
+  "target_first_id": 14937,
+  "first_selected_shift_label": 14937,
+  "no_truncation": true
+}
