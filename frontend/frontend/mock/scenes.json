@@ -1,0 +1,4894 @@
+{
+  "test_version": "test-v0.1 (frozen 2026-11-04)",
+  "scenes": [
+    {
+      "scene_id": "S-0001",
+      "source_group": "G1",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "보행자 2명이 통행 경로 중앙을 걷고 있음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.44,
+              0.5,
+              0.5,
+              0.72
+            ]
+          },
+          {
+            "id": "o2",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.51,
+              0.49,
+              0.57,
+              0.71
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "o2"
+            ]
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1=P 움직일 수 있는 Actor 점유",
+              "alts": [
+                [
+                  "YIELD_IF_OCCUPIED",
+                  "while_corridor_occupied"
+                ],
+                [
+                  "HOLD_UNTIL_CLEAR",
+                  "while_corridor_occupied"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "while_corridor_occupied"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "while_corridor_occupied"
+            ],
+            [
+              "YIELD_IF_OCCUPIED",
+              "while_corridor_occupied"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.43,
+                0.5,
+                0.51,
+                0.73
+              ]
+            },
+            {
+              "id": "o2",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.5,
+                0.48,
+                0.58,
+                0.72
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "o2"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "HOLD_UNTIL_CLEAR",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "경로 중앙에 보행자 2명이 있어 해소될 때까지 보류한다.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.44,
+                0.5,
+                0.5,
+                0.72
+              ]
+            },
+            {
+              "id": "o2",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.51,
+                0.49,
+                0.57,
+                0.71
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "o2"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "YIELD_IF_OCCUPIED",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "경로 중앙에 보행자 2명. 점유 동안 양보.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "o2"
+              ],
+              "pred_evidence": [
+                "o1",
+                "o2"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R1": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.72
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 0.69
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "o2"
+              ],
+              "pred_evidence": [
+                "o1",
+                "o2"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R1": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0002",
+      "source_group": "G2",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "우측 길가 차량 두 대가 건물 출입구를 가리고, 그 사이로 어린이 상반신이 보임",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.62,
+              0.48,
+              0.8,
+              0.68
+            ],
+            "placement": "roadside"
+          },
+          {
+            "id": "o2",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.8,
+              0.47,
+              0.97,
+              0.66
+            ],
+            "placement": "roadside"
+          },
+          {
+            "id": "o3",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.76,
+              0.52,
+              0.81,
+              0.6
+            ]
+          }
+        ],
+        "regions": [
+          {
+            "id": "z1",
+            "class": "occluded_entrance",
+            "bbox": [
+              0.7,
+              0.3,
+              0.86,
+              0.6
+            ]
+          }
+        ],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "o2",
+              "z1"
+            ]
+          },
+          {
+            "code": "R4",
+            "state": "P",
+            "evidence": [
+              "o1"
+            ]
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R3=P",
+              "alts": [
+                [
+                  "VERIFY_BEFORE_ADVANCE",
+                  "before_entering_occluded_area"
+                ]
+              ]
+            },
+            {
+              "why": "R4=P",
+              "alts": [
+                [
+                  "VERIFY_PASSAGE",
+                  "before_passing_restricted_section"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "before_entering_occluded_area"
+            ],
+            [
+              "VERIFY_BEFORE_ADVANCE",
+              "before_entering_occluded_area"
+            ],
+            [
+              "VERIFY_PASSAGE",
+              "before_passing_restricted_section"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.61,
+                0.47,
+                0.81,
+                0.69
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.8,
+                0.46,
+                0.98,
+                0.67
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "양측에 주차 차량이 있으나 통과 폭은 충분하다. 관찰하며 진행.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.62,
+                0.48,
+                0.8,
+                0.68
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.8,
+                0.47,
+                0.97,
+                0.66
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o3",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.75,
+                0.51,
+                0.82,
+                0.61
+              ]
+            }
+          ],
+          "regions": [
+            {
+              "id": "z1",
+              "class": "occluded_entrance",
+              "bbox": [
+                0.7,
+                0.31,
+                0.86,
+                0.6
+              ]
+            }
+          ],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "o2",
+                "z1"
+              ]
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "VERIFY_BEFORE_ADVANCE",
+              "condition": "before_entering_occluded_area",
+              "based_on": [
+                "R3"
+              ]
+            },
+            {
+              "code": "VERIFY_PASSAGE",
+              "condition": "before_passing_restricted_section",
+              "based_on": [
+                "R4"
+              ]
+            }
+          ],
+          "explanation": "길가 차량 사이에 보행자 일부가 보이고 출입구는 가려져 있다. 가려진 영역 앞에서 확인 후 진행, 좁아진 구간은 통과 가능성 확인.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "A",
+              "ok": false,
+              "gt_evidence": [
+                "o1",
+                "o2",
+                "z1"
+              ],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            }
+          },
+          "diag": [
+            "action",
+            "bias",
+            "evidence"
+          ],
+          "fail_reasons": [
+            "forbidden",
+            "missing_required"
+          ],
+          "evidence_match": {
+            "R3": false,
+            "R4": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.82
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 0.85
+              }
+            ],
+            "missed": [
+              "o3",
+              "z1"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            false,
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "금지 대응",
+            "필요 대응 누락"
+          ],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "o2",
+                "z1"
+              ],
+              "pred_evidence": [
+                "o1",
+                "o2",
+                "z1"
+              ]
+            },
+            "R4": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R3": true,
+            "R4": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              },
+              {
+                "gt": "o3",
+                "pred": "o3",
+                "iou": 0.57
+              },
+              {
+                "gt": "z1",
+                "pred": "z1",
+                "iou": 0.97
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true,
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0003",
+      "source_group": "G2",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "보행자 1명이 좌측 길가 차량 바깥쪽을 걸어 C와 겹침",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.05,
+              0.5,
+              0.26,
+              0.7
+            ],
+            "placement": "roadside"
+          },
+          {
+            "id": "o2",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.3,
+              0.5,
+              0.36,
+              0.7
+            ]
+          }
+        ],
+        "regions": [
+          {
+            "id": "z1",
+            "class": "occluded_entrance",
+            "bbox": [
+              0.02,
+              0.28,
+              0.16,
+              0.55
+            ]
+          }
+        ],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "P",
+            "evidence": [
+              "o2"
+            ]
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "z1"
+            ]
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1=P 움직일 수 있는 Actor 점유",
+              "alts": [
+                [
+                  "YIELD_IF_OCCUPIED",
+                  "while_corridor_occupied"
+                ],
+                [
+                  "HOLD_UNTIL_CLEAR",
+                  "while_corridor_occupied"
+                ]
+              ]
+            },
+            {
+              "why": "R3=P",
+              "alts": [
+                [
+                  "VERIFY_BEFORE_ADVANCE",
+                  "before_entering_occluded_area"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "while_corridor_occupied"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "before_entering_occluded_area"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "while_corridor_occupied"
+            ],
+            [
+              "VERIFY_BEFORE_ADVANCE",
+              "before_entering_occluded_area"
+            ],
+            [
+              "YIELD_IF_OCCUPIED",
+              "while_corridor_occupied"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.04,
+                0.49,
+                0.27,
+                0.71
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "REDUCE_SPEED_IF_MOVING",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "주택가 좁은 골목이라 보행자가 갑자기 나올 수 있어 감속한다.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.05,
+                0.5,
+                0.26,
+                0.7
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.29,
+                0.5,
+                0.37,
+                0.71
+              ]
+            }
+          ],
+          "regions": [
+            {
+              "id": "z1",
+              "class": "occluded_entrance",
+              "bbox": [
+                0.02,
+                0.28,
+                0.16,
+                0.55
+              ]
+            }
+          ],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o2"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "YIELD_IF_OCCUPIED",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            },
+            {
+              "code": "VERIFY_BEFORE_ADVANCE",
+              "condition": "before_entering_occluded_area",
+              "based_on": [
+                "R3"
+              ]
+            }
+          ],
+          "explanation": "좌측 보행자가 C와 겹친다. 양보. 길가 차량이 출입구를 가려 확인 후 진행.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o2"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "A",
+              "ok": false,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action",
+            "bias",
+            "evidence",
+            "explain"
+          ],
+          "fail_reasons": [
+            "missing_required"
+          ],
+          "evidence_match": {
+            "R1": false,
+            "R3": false
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.83
+              }
+            ],
+            "missed": [
+              "o2",
+              "z1"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            false,
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "필요 대응 누락"
+          ],
+          "explain_ok": false,
+          "explain_note": "실제 보행자를 관측했다는 진술 없이 장소 상식만으로 판정"
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o2"
+              ],
+              "pred_evidence": [
+                "o2"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R1": true,
+            "R3": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 0.71
+              },
+              {
+                "gt": "z1",
+                "pred": "z1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true,
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0004",
+      "source_group": "G3",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "보행자·차량 없음. 전봇대와 화분만 있음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "pole",
+            "kind": "Obstacle",
+            "bbox": [
+              0.7,
+              0.3,
+              0.73,
+              0.68
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1–R4 모두 A",
+              "alts": [
+                [
+                  "MONITOR_AHEAD",
+                  "no_condition"
+                ],
+                [
+                  "ADVANCE_WITH_MONITORING",
+                  "no_condition"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ],
+            [
+              "MONITOR_AHEAD",
+              "no_condition"
+            ]
+          ],
+          "forbidden": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.69,
+                0.4,
+                0.74,
+                0.68
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "MONITOR_AHEAD",
+              "condition": "while_actor_near_entrance",
+              "based_on": [
+                "R2"
+              ]
+            }
+          ],
+          "explanation": "우측에 보행자가 서 있어 출입구 주변을 관찰한다.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "C 안과 출입구 주변에 Actor 없음. 관찰하며 진행.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "P",
+              "ok": false,
+              "gt_evidence": [],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action",
+            "bias",
+            "evidence",
+            "explain"
+          ],
+          "fail_reasons": [
+            "missing_required",
+            "unsupported"
+          ],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [],
+            "missed": [
+              "o1"
+            ],
+            "extra": [
+              "o1"
+            ]
+          },
+          "groups_hit": [
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "필요 대응 누락",
+            "근거가 확인되지 않은 대응"
+          ],
+          "explain_ok": false,
+          "explain_note": "전봇대를 보행자로 단정"
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [],
+            "missed": [
+              "o1"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0005",
+      "source_group": "G3",
+      "conditions": [
+        "주간",
+        "보도 없음",
+        "일방통행"
+      ],
+      "scene": "보행자가 C 한가운데 근거리에 정면으로 서 있음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.45,
+              0.46,
+              0.55,
+              0.84
+            ]
+          },
+          {
+            "id": "o2",
+            "class": "sign_oneway",
+            "kind": "Obstacle",
+            "bbox": [
+              0.08,
+              0.2,
+              0.12,
+              0.26
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "One-way",
+          "direction_match": "Consistent"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "P",
+            "evidence": [
+              "o1"
+            ]
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1=P 움직일 수 있는 Actor 점유",
+              "alts": [
+                [
+                  "YIELD_IF_OCCUPIED",
+                  "while_corridor_occupied"
+                ],
+                [
+                  "HOLD_UNTIL_CLEAR",
+                  "while_corridor_occupied"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "while_corridor_occupied"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "while_corridor_occupied"
+            ],
+            [
+              "YIELD_IF_OCCUPIED",
+              "while_corridor_occupied"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.45,
+                0.46,
+                0.55,
+                0.84
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "REDUCE_SPEED_IF_MOVING",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "C 중앙 보행자. 감속.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.45,
+                0.46,
+                0.55,
+                0.84
+              ]
+            },
+            {
+              "id": "o2",
+              "class": "sign_oneway",
+              "kind": "Obstacle",
+              "bbox": [
+                0.08,
+                0.2,
+                0.12,
+                0.26
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "One-way",
+            "direction_match": "Consistent"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "HOLD_UNTIL_CLEAR",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "C 중앙 근거리 보행자. 해소될 때까지 보류.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action"
+          ],
+          "fail_reasons": [
+            "missing_required"
+          ],
+          "evidence_match": {
+            "R1": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [
+              "o2"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "필요 대응 누락"
+          ],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R1": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0006",
+      "source_group": "G4",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "우측 길가 차량 1대, 통행 공간 제한 없음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.66,
+              0.5,
+              0.88,
+              0.68
+            ],
+            "placement": "roadside"
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1–R4 모두 A",
+              "alts": [
+                [
+                  "MONITOR_AHEAD",
+                  "no_condition"
+                ],
+                [
+                  "ADVANCE_WITH_MONITORING",
+                  "no_condition"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ],
+            [
+              "MONITOR_AHEAD",
+              "no_condition"
+            ]
+          ],
+          "forbidden": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.65,
+                0.5,
+                0.89,
+                0.69
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "MONITOR_AHEAD",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "우측 길가 차량 1대, 좌측 여유. 전방 관찰.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.66,
+                0.5,
+                0.88,
+                0.68
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "관찰하며 진행.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.87
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0007",
+      "source_group": "G5",
+      "conditions": [
+        "야간",
+        "보도 없음"
+      ],
+      "scene": "야간. 우측 어두운 영역은 식별 불가, 길가 차량 1대가 영역을 가림",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.64,
+              0.5,
+              0.86,
+              0.68
+            ],
+            "placement": "roadside"
+          }
+        ],
+        "regions": [
+          {
+            "id": "z1",
+            "class": "occluded_area",
+            "bbox": [
+              0.86,
+              0.35,
+              1.0,
+              0.75
+            ]
+          }
+        ],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "U",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "z1"
+            ]
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R3=P",
+              "alts": [
+                [
+                  "VERIFY_BEFORE_ADVANCE",
+                  "before_entering_occluded_area"
+                ]
+              ]
+            },
+            {
+              "why": "R1·R2·R3 중 U",
+              "alts": [
+                [
+                  "VERIFY_BEFORE_ADVANCE",
+                  "before_resolving_uncertainty"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "before_entering_occluded_area"
+            ],
+            [
+              "VERIFY_BEFORE_ADVANCE",
+              "before_entering_occluded_area"
+            ],
+            [
+              "VERIFY_BEFORE_ADVANCE",
+              "before_resolving_uncertainty"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.63,
+                0.49,
+                0.87,
+                0.69
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "야간이지만 경로에 장애 없음. 관찰하며 진행.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.64,
+                0.5,
+                0.86,
+                0.68
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [
+            {
+              "id": "z1",
+              "class": "occluded_area",
+              "bbox": [
+                0.86,
+                0.35,
+                1.0,
+                0.75
+              ]
+            }
+          ],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "U",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "VERIFY_BEFORE_ADVANCE",
+              "condition": "before_entering_occluded_area",
+              "based_on": [
+                "R3"
+              ]
+            },
+            {
+              "code": "VERIFY_BEFORE_ADVANCE",
+              "condition": "before_resolving_uncertainty",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "조도 부족으로 C 우측 점유 여부를 판정할 수 없고, 길가 차량이 우측 영역을 가린다. 확인 후 진행.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "U",
+              "pred": "A",
+              "ok": false,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "A",
+              "ok": false,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action",
+            "bias",
+            "evidence"
+          ],
+          "fail_reasons": [
+            "forbidden",
+            "missing_required"
+          ],
+          "evidence_match": {
+            "R3": false
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.83
+              }
+            ],
+            "missed": [
+              "z1"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            false,
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "금지 대응",
+            "필요 대응 누락"
+          ],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "U",
+              "pred": "U",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R3": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "z1",
+                "pred": "z1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true,
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0008",
+      "source_group": "G4",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "맞은편 차량과 길가 차량으로 통행 공간 부족",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.44,
+              0.47,
+              0.58,
+              0.62
+            ]
+          },
+          {
+            "id": "o2",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.08,
+              0.5,
+              0.3,
+              0.7
+            ],
+            "placement": "roadside"
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "P",
+            "evidence": [
+              "o1"
+            ]
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "o2"
+            ]
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1=P 움직일 수 있는 Actor 점유",
+              "alts": [
+                [
+                  "YIELD_IF_OCCUPIED",
+                  "while_corridor_occupied"
+                ],
+                [
+                  "HOLD_UNTIL_CLEAR",
+                  "while_corridor_occupied"
+                ]
+              ]
+            },
+            {
+              "why": "R4=P",
+              "alts": [
+                [
+                  "VERIFY_PASSAGE",
+                  "before_passing_restricted_section"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "while_corridor_occupied"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "while_corridor_occupied"
+            ],
+            [
+              "VERIFY_PASSAGE",
+              "before_passing_restricted_section"
+            ],
+            [
+              "YIELD_IF_OCCUPIED",
+              "while_corridor_occupied"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": false,
+          "objects": [],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [],
+          "actions": [],
+          "explanation": null,
+          "raw_excerpt": "{\"objects\":[{\"id\":\"o1\",\"class\":\"vehicle\",\"bbox\":[0.44,0.47,0.58"
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.44,
+                0.47,
+                0.58,
+                0.62
+              ]
+            },
+            {
+              "id": "o2",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.08,
+                0.5,
+                0.3,
+                0.7
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "o2"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "HOLD_UNTIL_CLEAR",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            },
+            {
+              "code": "VERIFY_PASSAGE",
+              "condition": "before_passing_restricted_section",
+              "based_on": [
+                "R4"
+              ]
+            }
+          ],
+          "explanation": "맞은편 차량이 C를 점유하고 교행 공간이 없다. 보류 후 통과 가능성 확인.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {},
+          "diag": [
+            "action"
+          ],
+          "fail_reasons": [
+            "invalid"
+          ],
+          "evidence_match": {},
+          "pass": false,
+          "boxes": {
+            "matched": [],
+            "missed": [],
+            "extra": []
+          },
+          "explain_ok": null,
+          "fail_labels": [
+            "형식 오류"
+          ]
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "o2"
+              ],
+              "pred_evidence": [
+                "o1",
+                "o2"
+              ]
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R1": true,
+            "R4": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true,
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0009",
+      "source_group": "G1",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "양측 길가 차량이 있으나 통행 공간 제한 없음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.04,
+              0.5,
+              0.24,
+              0.69
+            ],
+            "placement": "roadside"
+          },
+          {
+            "id": "o2",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.74,
+              0.5,
+              0.95,
+              0.69
+            ],
+            "placement": "roadside"
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1–R4 모두 A",
+              "alts": [
+                [
+                  "MONITOR_AHEAD",
+                  "no_condition"
+                ],
+                [
+                  "ADVANCE_WITH_MONITORING",
+                  "no_condition"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ],
+            [
+              "MONITOR_AHEAD",
+              "no_condition"
+            ]
+          ],
+          "forbidden": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.04,
+                0.5,
+                0.24,
+                0.69
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.74,
+                0.5,
+                0.95,
+                0.69
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "o2"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "VERIFY_PASSAGE",
+              "condition": "before_passing_restricted_section",
+              "based_on": [
+                "R4"
+              ]
+            }
+          ],
+          "explanation": "양측 주차로 통과 폭이 좁아 통과 가능성 확인.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.04,
+                0.5,
+                0.24,
+                0.69
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.74,
+                0.5,
+                0.95,
+                0.69
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "MONITOR_AHEAD",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "양측 길가 차량에도 통행 공간 충분. 전방 관찰.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "P",
+              "ok": false,
+              "gt_evidence": [],
+              "pred_evidence": [
+                "o1",
+                "o2"
+              ]
+            }
+          },
+          "diag": [
+            "action",
+            "bias"
+          ],
+          "fail_reasons": [
+            "missing_required",
+            "unsupported"
+          ],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "필요 대응 누락",
+            "근거가 확인되지 않은 대응"
+          ],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0010",
+      "source_group": "G5",
+      "conditions": [
+        "주간",
+        "보도 없음",
+        "일방통행"
+      ],
+      "scene": "골목 출입부 우측 모서리에 보행자. 출입구 주변",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.8,
+              0.46,
+              0.86,
+              0.66
+            ]
+          },
+          {
+            "id": "o2",
+            "class": "sign_oneway",
+            "kind": "Obstacle",
+            "bbox": [
+              0.9,
+              0.18,
+              0.94,
+              0.24
+            ]
+          }
+        ],
+        "regions": [
+          {
+            "id": "z1",
+            "class": "entrance",
+            "bbox": [
+              0.74,
+              0.4,
+              0.92,
+              0.66
+            ]
+          }
+        ],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "One-way",
+          "direction_match": "Consistent"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "P",
+            "evidence": [
+              "o1",
+              "z1"
+            ]
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R2=P",
+              "alts": [
+                [
+                  "MONITOR_AHEAD",
+                  "while_actor_near_entrance"
+                ],
+                [
+                  "REDUCE_SPEED_IF_MOVING",
+                  "while_actor_near_entrance"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "MONITOR_AHEAD",
+              "while_actor_near_entrance"
+            ],
+            [
+              "REDUCE_SPEED_IF_MOVING",
+              "while_actor_near_entrance"
+            ]
+          ],
+          "forbidden": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "crosswalk",
+              "kind": "Obstacle",
+              "bbox": [
+                0.3,
+                0.7,
+                0.7,
+                0.8
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "전방 횡단보도에 보행자 없음. 관찰하며 진행.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.79,
+                0.46,
+                0.87,
+                0.67
+              ]
+            }
+          ],
+          "regions": [
+            {
+              "id": "z1",
+              "class": "entrance",
+              "bbox": [
+                0.74,
+                0.4,
+                0.92,
+                0.66
+              ]
+            }
+          ],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "One-way",
+            "direction_match": "Consistent"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "P",
+              "evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "REDUCE_SPEED_IF_MOVING",
+              "condition": "while_actor_near_entrance",
+              "based_on": [
+                "R2"
+              ]
+            }
+          ],
+          "explanation": "출입구 주변 보행자. 이동 중이면 감속.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "P",
+              "pred": "A",
+              "ok": false,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action",
+            "bias",
+            "evidence"
+          ],
+          "fail_reasons": [
+            "forbidden",
+            "missing_required"
+          ],
+          "evidence_match": {
+            "R2": false
+          },
+          "boxes": {
+            "matched": [],
+            "missed": [
+              "o1",
+              "o2",
+              "z1"
+            ],
+            "extra": [
+              "o1"
+            ]
+          },
+          "groups_hit": [
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "금지 대응",
+            "필요 대응 누락"
+          ],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1",
+                "z1"
+              ],
+              "pred_evidence": [
+                "o1",
+                "z1"
+              ]
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R2": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 0.71
+              },
+              {
+                "gt": "z1",
+                "pred": "z1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [
+              "o2"
+            ],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0011",
+      "source_group": "G3",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "합류부, 보행자가 벽면에 붙어 C 밖에 서 있음",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "pedestrian",
+            "kind": "Actor",
+            "bbox": [
+              0.9,
+              0.48,
+              0.95,
+              0.66
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": {
+          "required_groups": [
+            {
+              "why": "R1–R4 모두 A",
+              "alts": [
+                [
+                  "MONITOR_AHEAD",
+                  "no_condition"
+                ],
+                [
+                  "ADVANCE_WITH_MONITORING",
+                  "no_condition"
+                ]
+              ]
+            }
+          ],
+          "allowed": [
+            [
+              "ADVANCE_WITH_MONITORING",
+              "no_condition"
+            ],
+            [
+              "MONITOR_AHEAD",
+              "no_condition"
+            ]
+          ],
+          "forbidden": [
+            [
+              "HOLD_UNTIL_CLEAR",
+              "no_condition"
+            ]
+          ]
+        }
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.9,
+                0.48,
+                0.95,
+                0.66
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "MONITOR_AHEAD",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "보행자가 벽 옆에 멈춰 서서 차량을 기다리고 있다. 전방 관찰.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "pedestrian",
+              "kind": "Actor",
+              "bbox": [
+                0.9,
+                0.48,
+                0.95,
+                0.66
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "YIELD_IF_OCCUPIED",
+              "condition": "while_corridor_occupied",
+              "based_on": [
+                "R1"
+              ]
+            }
+          ],
+          "explanation": "보행자에게 양보.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "explain"
+          ],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            true
+          ],
+          "pass": true,
+          "fail_labels": [],
+          "explain_ok": false,
+          "explain_note": "'멈춰 서서 기다리고 있다'는 정지 이미지로 관측 불가한 움직임 단정"
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [
+            "action"
+          ],
+          "fail_reasons": [
+            "contradiction",
+            "missing_required",
+            "unsupported"
+          ],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "groups_hit": [
+            false
+          ],
+          "pass": false,
+          "fail_labels": [
+            "관계 판정과의 모순",
+            "필요 대응 누락",
+            "근거가 확인되지 않은 대응"
+          ],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0012",
+      "source_group": "G6",
+      "conditions": [
+        "주간",
+        "보도 없음"
+      ],
+      "scene": "공사 적치물이 우측 절반을 막음. 작업자 유무 불명확",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "construction",
+            "kind": "Obstacle",
+            "bbox": [
+              0.55,
+              0.45,
+              0.95,
+              0.7
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "Unknown",
+          "direction_match": "Unknown"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "U",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "P",
+            "evidence": [
+              "o1"
+            ]
+          }
+        ],
+        "source": "사진",
+        "review_status": "Draft",
+        "actions": null
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "construction",
+              "kind": "Obstacle",
+              "bbox": [
+                0.55,
+                0.45,
+                0.95,
+                0.7
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "U",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "VERIFY_PASSAGE",
+              "condition": "before_passing_restricted_section",
+              "based_on": [
+                "R4"
+              ]
+            }
+          ],
+          "explanation": "우측 적치물. 통과 가능성 확인.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "construction",
+              "kind": "Obstacle",
+              "bbox": [
+                0.55,
+                0.45,
+                0.95,
+                0.7
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            },
+            {
+              "code": "R4",
+              "state": "P",
+              "evidence": [
+                "o1"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "code": "VERIFY_BEFORE_ADVANCE",
+              "condition": "before_entering_occluded_area",
+              "based_on": [
+                "R3"
+              ]
+            },
+            {
+              "code": "VERIFY_PASSAGE",
+              "condition": "before_passing_restricted_section",
+              "based_on": [
+                "R4"
+              ]
+            }
+          ],
+          "explanation": "적치물 뒤 확인 후 진행.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": "정답 검수 미완료 (Draft) — R3 판정 검수자 간 불일치",
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "U",
+              "pred": "U",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R4": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "pass": null,
+          "fail_labels": [],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "U",
+              "pred": "P",
+              "ok": false,
+              "gt_evidence": [],
+              "pred_evidence": [
+                "o1"
+              ]
+            },
+            "R4": {
+              "gt": "P",
+              "pred": "P",
+              "ok": true,
+              "gt_evidence": [
+                "o1"
+              ],
+              "pred_evidence": [
+                "o1"
+              ]
+            }
+          },
+          "diag": [
+            "bias"
+          ],
+          "fail_reasons": [],
+          "evidence_match": {
+            "R4": true
+          },
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "pass": null,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    },
+    {
+      "scene_id": "S-0013",
+      "source_group": "G5",
+      "conditions": [
+        "주간",
+        "보도 없음",
+        "일방통행"
+      ],
+      "scene": "일방통행 표지가 진행 방향과 반대. 길가 차량 1대",
+      "C": [
+        [
+          0.42,
+          0.52
+        ],
+        [
+          0.58,
+          0.52
+        ],
+        [
+          0.92,
+          1.0
+        ],
+        [
+          0.08,
+          1.0
+        ]
+      ],
+      "reference": {
+        "objects": [
+          {
+            "id": "o1",
+            "class": "vehicle",
+            "kind": "Actor",
+            "bbox": [
+              0.66,
+              0.5,
+              0.88,
+              0.68
+            ],
+            "placement": "roadside"
+          },
+          {
+            "id": "o2",
+            "class": "sign_oneway_reverse",
+            "kind": "Obstacle",
+            "bbox": [
+              0.5,
+              0.18,
+              0.54,
+              0.24
+            ]
+          }
+        ],
+        "regions": [],
+        "scene": {
+          "sidewalk_left": "A",
+          "sidewalk_right": "A",
+          "traffic_direction": "One-way",
+          "direction_match": "Conflicting"
+        },
+        "relations": [
+          {
+            "code": "R1",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R2",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R3",
+            "state": "A",
+            "evidence": []
+          },
+          {
+            "code": "R4",
+            "state": "A",
+            "evidence": []
+          }
+        ],
+        "source": "사진",
+        "review_status": "Reviewed",
+        "actions": null
+      },
+      "predictions": {
+        "base": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.66,
+                0.5,
+                0.88,
+                0.68
+              ],
+              "placement": "roadside"
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "Unknown",
+            "direction_match": "Unknown"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "ADVANCE_WITH_MONITORING",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "관찰하며 진행.",
+          "raw_excerpt": null
+        },
+        "tuned": {
+          "valid": true,
+          "objects": [
+            {
+              "id": "o1",
+              "class": "vehicle",
+              "kind": "Actor",
+              "bbox": [
+                0.66,
+                0.5,
+                0.88,
+                0.68
+              ],
+              "placement": "roadside"
+            },
+            {
+              "id": "o2",
+              "class": "sign_oneway_reverse",
+              "kind": "Obstacle",
+              "bbox": [
+                0.5,
+                0.18,
+                0.54,
+                0.24
+              ]
+            }
+          ],
+          "regions": [],
+          "scene": {
+            "sidewalk_left": "A",
+            "sidewalk_right": "A",
+            "traffic_direction": "One-way",
+            "direction_match": "Conflicting"
+          },
+          "relations": [
+            {
+              "code": "R1",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R2",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R3",
+              "state": "A",
+              "evidence": []
+            },
+            {
+              "code": "R4",
+              "state": "A",
+              "evidence": []
+            }
+          ],
+          "actions": [
+            {
+              "code": "MONITOR_AHEAD",
+              "condition": "no_condition",
+              "based_on": []
+            }
+          ],
+          "explanation": "일방통행 표지가 진행 방향과 반대다. 전방 관찰.",
+          "raw_excerpt": null
+        }
+      },
+      "missing": null,
+      "scoring": {
+        "base": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              }
+            ],
+            "missed": [
+              "o2"
+            ],
+            "extra": []
+          },
+          "pass": null,
+          "fail_labels": [],
+          "explain_ok": true
+        },
+        "tuned": {
+          "relations": {
+            "R1": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R2": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R3": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            },
+            "R4": {
+              "gt": "A",
+              "pred": "A",
+              "ok": true,
+              "gt_evidence": [],
+              "pred_evidence": []
+            }
+          },
+          "diag": [],
+          "fail_reasons": [],
+          "evidence_match": {},
+          "boxes": {
+            "matched": [
+              {
+                "gt": "o1",
+                "pred": "o1",
+                "iou": 1.0
+              },
+              {
+                "gt": "o2",
+                "pred": "o2",
+                "iou": 1.0
+              }
+            ],
+            "missed": [],
+            "extra": []
+          },
+          "pass": null,
+          "fail_labels": [],
+          "explain_ok": true
+        }
+      }
+    }
+  ]
+}
