@@ -1,215 +1,278 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>F3→F5 오류 근거 확인</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: navy rail (팀 프로토타입과 같은 톤) + content. F3 list → F5 detail. GT = green solid, 예측 = violet dashed, C = red dashed, highlight = yellow. */
-:root{--bg:#f4f5f8;--panel:#fff;--panel-2:#f8f9fb;--fg:#18213a;--muted:#6b7385;--line:#e2e5ec;--line-2:#cdd2dc;
- --navy:#1b2742;--navy-2:#26345a;--yellow:#ffdf3d;--yellow-ink:#1b2742;
- --gt:#1f7a46;--gt-soft:#e1f2e7;--pred:#6d3fb0;--pred-soft:#eee6f8;--c:#d0402f;--hl:#ffc400;
- --pass:#1f7a46;--pass-soft:#e1f2e7;--fail:#b8332b;--fail-soft:#fae4e2;--warn:#8d6100;--warn-soft:#fbf0d2;--u:#3f5878;--u-soft:#e5ecf5;--mock:#a6560a;--mock-soft:#fdebd6;--real:#0d5f8a;--real-soft:#dcf0fa;
- --font:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+/* v2 (11/15): 글 줄이고 UI 위주. 상단 바 + F3 카드 목록 → F5 (이미지 | 관계·근거·대응). 설명·원문은 접힘/범례로 이동.
+   색: GT 초록 실선 · 예측 보라 점선 · C 빨강 점선 · 선택 근거 노랑. U는 오류색 아님. */
+:root{--bg:#f3f4f7;--panel:#fff;--soft:#f7f8fa;--fg:#161d33;--muted:#6c7488;--line:#e3e6ed;--line2:#cfd4de;
+ --navy:#1b2742;--yellow:#ffdf3d;--gt:#1f7a46;--gt-s:#e3f3e9;--pred:#6d3fb0;--pred-s:#efe8f9;--c:#d0402f;--hl:#ffc400;
+ --ok:#1f7a46;--ok-s:#e3f3e9;--bad:#b8332b;--bad-s:#fbe6e4;--warn:#8a5f00;--warn-s:#fbf0d2;--u:#3f5878;--u-s:#e5ecf5;--mock:#a6560a;--mock-s:#fdebd6;--real:#0d5f8a;--real-s:#dcf0fa;
+ --font:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.55}
-.shell{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100%}
-@media (max-width:880px){.shell{grid-template-columns:1fr}}
-.rail{background:var(--navy);color:#dfe5f2;padding:22px 14px;display:flex;flex-direction:column;gap:6px;min-height:100vh;position:sticky;top:0;align-self:start}
-@media (max-width:880px){.rail{position:static;min-height:0;flex-direction:row;flex-wrap:wrap;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
-.logo{display:flex;gap:10px;align-items:center;padding:0 6px 16px}
-.logo b{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--yellow);color:var(--navy);font-weight:700}
-.logo span{font-weight:600;line-height:1.2}.logo small{display:block;color:#9aa6c2;font-weight:400;font-size:11.5px}
-.nav{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:9px;color:#c8d0e3;cursor:pointer;border:0;background:transparent;font:inherit;text-align:left;width:100%}
-.nav .k{font-family:var(--mono);font-size:11px;border:1px solid #4a5a82;border-radius:5px;padding:0 5px;color:#9aa6c2}
-.nav:hover{background:var(--navy-2)}.nav.cur{background:var(--yellow);color:var(--yellow-ink);font-weight:600}.nav.cur .k{border-color:var(--yellow-ink);color:var(--yellow-ink)}
-.nav.off{opacity:.45;cursor:default}.nav.off:hover{background:transparent}
-.railnote{margin-top:auto;font-size:11.5px;color:#9aa6c2;padding:12px 6px 0;border-top:1px solid #34436a;display:grid;gap:6px}
-.main{padding:22px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:grid;gap:16px;align-content:start;max-width:1280px;width:100%}
-@media (min-width:881px){.main{padding-left:32px;padding-right:32px}}
-.eyebrow{font-size:11px;letter-spacing:.14em;color:#8a6d00;font-weight:600;text-transform:uppercase}
-h1{margin:2px 0 0;font-size:22px;font-weight:700;text-wrap:balance}h2{margin:0;font-size:15px;font-weight:600}
-h3{margin:0;font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.sub{color:var(--muted);font-size:13px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp{flex:1}
-.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:500;white-space:nowrap;line-height:1.5}
-.pill.real{background:var(--real-soft);color:var(--real)}.pill.mock{background:var(--mock-soft);color:var(--mock)}
-.pill.pass{background:var(--pass-soft);color:var(--pass)}.pill.fail{background:var(--fail-soft);color:var(--fail)}.pill.warn{background:var(--warn-soft);color:var(--warn)}
-.pill.gt{background:var(--gt-soft);color:var(--gt)}.pill.pred{background:var(--pred-soft);color:var(--pred)}
-.pill.dim{background:var(--panel-2);color:var(--muted);border:1px solid var(--line)}.pill.na{border:1px dashed var(--line-2);color:var(--muted)}
-.pill.P{background:var(--fg);color:#fff}.pill.A{background:var(--panel-2);color:var(--muted);border:1px solid var(--line-2)}.pill.U{background:var(--u-soft);color:var(--u)}
-.mono{font-family:var(--mono);font-size:12px}.muted{color:var(--muted)}.small{font-size:12px}.num{font-variant-numeric:tabular-nums}
-button.f,button.b{font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line-2);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:12.5px}
-button.f:hover,button.b:hover{border-color:var(--navy)}button.f.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-button.b:disabled{opacity:.45;cursor:default}
-button:focus-visible{outline:2px solid var(--hl);outline-offset:2px}
-.filters{display:grid;gap:8px}.filters .row .lbl{min-width:82px;font-size:12px;color:var(--muted)}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-size:11.5px;color:var(--muted);font-weight:600;background:var(--panel-2)}tr:last-child td{border-bottom:0}
-.tablewrap{overflow-x:auto;padding:0}.tablewrap table{min-width:820px}
-tr.r{cursor:pointer}tr.r:hover td{background:#fbf6dc}
-.banner{border-left:4px solid var(--warn);background:var(--warn-soft);border-radius:0 10px 10px 0;padding:10px 14px;font-size:13px;display:grid;gap:4px}
-.banner.fail{border-color:var(--fail);background:var(--fail-soft)}.banner.real{border-color:var(--real);background:var(--real-soft)}
-.grid2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
-@media (max-width:1100px){.grid2{grid-template-columns:1fr}}
-.stage{position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#7c8794;border:1px solid var(--line)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5}
+button,select{font:inherit;color:inherit}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--hl);outline-offset:2px}
+.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:10px 24px}
+.top .logo{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--yellow);color:var(--navy);font-weight:700}
+.steps{display:flex;gap:4px;align-items:center}
+.step{border:0;background:transparent;color:#aab4cd;padding:5px 10px;border-radius:7px;cursor:pointer;font-size:13px}
+.step b{font-family:var(--mono);font-weight:500;font-size:11px;margin-right:5px;opacity:.8}
+.step.cur{background:var(--yellow);color:var(--navy);font-weight:600}.step.off{opacity:.4;cursor:default}
+.sp{flex:1}
+.help{position:relative}.help summary{list-style:none;cursor:pointer;border:1px solid #4a5a82;border-radius:7px;padding:4px 10px;font-size:12.5px;color:#dfe5f2}
+.help summary::-webkit-details-marker{display:none}
+.help .pop{position:absolute;right:0;top:calc(100% + 8px);width:340px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 12px 32px rgba(22,29,51,.18);display:grid;grid-template-columns:auto 1fr;gap:8px 10px;font-size:12.5px;align-items:center}
+.help .pop>.pill,.help .pop>.st,.help .pop>.ly{justify-self:start}
+.help .pop h4{grid-column:1/-1;margin:4px 0 0;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.main{max-width:1240px;margin:0 auto;padding:20px 24px 56px;display:grid;gap:14px}
+h1{margin:0;font-size:20px;font-weight:700}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:500;white-space:nowrap;line-height:1.6}
+.pill.real{background:var(--real-s);color:var(--real)}.pill.mock{background:var(--mock-s);color:var(--mock)}
+.pill.ok{background:var(--ok-s);color:var(--ok)}.pill.bad{background:var(--bad-s);color:var(--bad)}.pill.warn{background:var(--warn-s);color:var(--warn)}
+.pill.na{border:1px dashed var(--line2);color:var(--muted)}.pill.dim{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.pill.gt{background:var(--gt-s);color:var(--gt)}.pill.pred{background:var(--pred-s);color:var(--pred)}
+.st{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--mono)}
+.st.P{background:var(--fg);color:#fff}.st.A{background:var(--panel);color:var(--muted);border:1px solid var(--line2)}.st.U{background:var(--u-s);color:var(--u)}.st.X{border:1px dashed var(--line2);color:var(--muted)}
+.mono{font-family:var(--mono);font-size:12px}.muted{color:var(--muted)}.small{font-size:12px}
+.btn{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:12.5px}
+.btn:hover{border-color:var(--navy)}.btn:disabled{opacity:.4;cursor:default}
+
+/* F3 */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{padding:12px 14px}.stat b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}.stat span{font-size:12px;color:var(--muted)}
+.bar{padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sel{border:1px solid var(--line2);border-radius:8px;padding:6px 8px;background:var(--panel);font-size:13px;cursor:pointer}
+.sel.on{border-color:var(--navy);background:#fffbe6;font-weight:600}
+.tog{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.item{display:grid;grid-template-columns:104px minmax(0,1fr) auto minmax(150px,auto) 16px;gap:14px;align-items:center;padding:10px 14px;cursor:pointer;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.item:hover{border-color:var(--navy);box-shadow:0 2px 10px rgba(22,29,51,.07)}
+.thumb{width:104px;aspect-ratio:16/9;border-radius:7px;overflow:hidden;background:#8d9aa6;position:relative}
+.thumb img,.thumb svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.item .t{display:grid;gap:3px;min-width:0}.item .d{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:12.5px}
+.rels{display:grid;grid-template-columns:repeat(4,auto);gap:5px}
+.rc{display:grid;gap:2px;justify-items:center;padding:4px 7px;border-radius:8px;border:1px solid var(--line);min-width:62px}
+.rc i{font-style:normal;font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+.rc .v{display:flex;gap:3px;align-items:center;font-size:11px;color:var(--muted)}
+.rc.bad{border-color:var(--bad);background:var(--bad-s)}.rc.bad i{color:var(--bad);font-weight:600}
+.res{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.empty{padding:44px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
+@media (max-width:900px){.item{grid-template-columns:84px minmax(0,1fr)}.thumb{width:84px}.rels,.res{grid-column:1/-1;justify-content:flex-start}.item>.chev{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* F5 */
+.verdict{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);border-left-width:5px}
+.verdict.bad{border-left-color:var(--bad)}.verdict.ok{border-left-color:var(--ok)}.verdict.warn{border-left-color:var(--warn)}.verdict.na{border-left-color:var(--line2)}
+.verdict b{font-size:15px}
+.grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}}
+.left{display:grid;gap:8px;position:sticky;top:64px}@media (max-width:1000px){.left{position:static}}
+.stage{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#7c8794;border:1px solid var(--line)}
 .stage img,.stage svg{position:absolute;inset:0;width:100%;height:100%}
-.stage .tag{position:absolute;left:10px;top:10px}
-.layers{position:absolute;right:10px;top:10px;display:flex;gap:4px}
-.layers button{font:inherit;font-size:11.5px;padding:3px 9px;border-radius:7px;border:1px solid rgba(255,255,255,.5);background:rgba(27,39,66,.55);color:#fff;cursor:pointer}
-.layers button.on{background:var(--navy);border-color:var(--yellow)}
-.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);align-items:center}
-.legend i{display:inline-block;width:18px;height:11px;border:2px solid;margin-right:5px;vertical-align:-1px;border-radius:2px}
-.legend i.c{border-color:var(--c);border-style:dashed}.legend i.g{border-color:var(--gt)}.legend i.p{border-color:var(--pred);border-style:dashed}.legend i.h{border-color:var(--hl);background:rgba(255,196,0,.25)}
+.layers{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ly{display:flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--panel);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12.5px}
+.ly i{width:16px;height:10px;border:2px solid;border-radius:2px}.ly.off{opacity:.45}
+.ly .c{border-color:var(--c);border-style:dashed}.ly .g{border-color:var(--gt)}.ly .p{border-color:var(--pred);border-style:dashed}
+.right{display:grid;gap:12px;min-width:0}
+.sec{padding:14px;display:grid;gap:10px}
+.sec h2{margin:0;font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center}
+.sec h2 span{font-weight:400;color:var(--muted);font-size:12px}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.tab{border:1px solid var(--line-2);border-radius:10px;padding:8px 10px;background:var(--panel);cursor:pointer;text-align:left;font:inherit;display:grid;gap:4px}
-.tab .n{font-family:var(--mono);font-size:11px;color:var(--muted)}.tab.on{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy);background:#fffbe6}
-.tab .v{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (max-width:600px){.cmp{grid-template-columns:1fr}}
-.side{border:1px solid var(--line);border-radius:10px;padding:12px;display:grid;gap:8px;min-width:0;position:relative;background:var(--panel)}
-.side::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;border-radius:10px 10px 0 0}.side.gt::before{background:var(--gt)}.side.pred::before{background:var(--pred)}
-.chip{font:inherit;font-family:var(--mono);font-size:11.5px;border-radius:6px;padding:2px 7px;cursor:pointer;border:1px solid var(--line-2);background:var(--panel-2);color:var(--fg)}
-.chip.gt{border-color:var(--gt);color:var(--gt)}.chip.pred{border-color:var(--pred);color:var(--pred);border-style:dashed}.chip.on{background:var(--hl);color:var(--navy);border-color:var(--hl)}
-.chips{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-.side .pill,.side>.chips{justify-self:start}.side>.row{justify-self:stretch}
-.acts{display:grid;gap:6px}.act{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
-.code{font-family:var(--mono);font-size:11px;color:var(--muted)}
-details.raw summary{cursor:pointer;color:var(--muted);font-size:12px}details.raw ul{margin:6px 0 0;padding-left:18px;font-size:12px;color:var(--muted)}
-.keytable>.pill{justify-self:start}.keytable{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:12.5px;align-items:center}
-.reason{font-size:12px;color:var(--muted)}
+.tab{border:1px solid var(--line2);border-radius:10px;padding:8px 6px;background:var(--panel);cursor:pointer;display:grid;gap:5px;justify-items:center}
+.tab .n{font-size:11.5px;color:var(--muted)}.tab .n b{font-family:var(--mono);color:var(--fg);margin-right:3px}
+.tab .v{display:flex;gap:4px;align-items:center;color:var(--muted);font-size:11px}
+.tab.bad{background:var(--bad-s);border-color:#e8b5b0}.tab.on{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side{border-radius:10px;padding:10px;display:grid;gap:8px;align-content:start;min-width:0;background:var(--soft);border-top:3px solid}
+.side.gt{border-color:var(--gt)}.side.pred{border-color:var(--pred)}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11.5px;border-radius:6px;padding:2px 7px;cursor:pointer;border:1px solid var(--line2);background:var(--panel)}
+.chip.gt{border-color:var(--gt);color:var(--gt)}.chip.pred{border-color:var(--pred);color:var(--pred);border-style:dashed}.chip.on{background:var(--hl);color:var(--navy);border-color:var(--hl);border-style:solid}
+.need{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;font-size:13px}
+.mark{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:700}
+.mark.y{background:var(--ok-s);color:var(--ok)}.mark.n{background:var(--bad-s);color:var(--bad)}.mark.q{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.cond{color:var(--muted);font-size:12px}
+.or{color:var(--muted);font-size:11.5px;margin:0 4px}
+.out{border-top:1px dashed var(--line2);padding-top:10px;display:grid;gap:6px}
+details.more{border-top:1px solid var(--line);padding-top:8px}
+details.more summary{cursor:pointer;font-size:12.5px;color:var(--muted)}
+details.more .body{margin-top:8px;display:grid;gap:6px;font-size:12px}
+details.more ul{margin:0;padding-left:18px;color:var(--muted)}
+.why{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.why.open{display:block}
 </style>
 
-<div class="shell">
-  <nav class="rail">
-    <div class="logo"><b>R</b><span>생활도로 VLM<small>F3 → F5 초안 · 11/13</small></span></div>
-    <button class="nav off" title="기존 프로토타입 참고"><span class="k">F1</span>평가 실행</button>
-    <button class="nav off" title="기존 프로토타입 참고"><span class="k">F2</span>평가 리포트</button>
-    <button class="nav" data-v="errors" onclick="go('errors')"><span class="k">F3</span>오류 목록</button>
-    <button class="nav off" title="기존 프로토타입 참고"><span class="k">F4</span>모델 비교</button>
-    <button class="nav" data-v="scene" onclick="go('scene')"><span class="k">F5</span>장면 상세</button>
-    <div class="railnote"><div>이번 주 연결 범위: <b style="color:#fff">F3 → F5</b></div><div>F1·F2·F4는 팀 기존 프로토타입(frontend/frontend/prototype)을 참고</div>
-      <div><span class="pill real">실제 Run</span> dry_run_v1 · Base NF4 · Draft 정답</div><div><span class="pill mock">예시</span> 화면 흐름 확인용 가상 값</div></div>
+<header class="top">
+  <span class="logo">R</span><b>생활도로 VLM</b>
+  <nav class="steps">
+    <button class="step off" title="팀 프로토타입 참고"><b>F1</b>실행</button>
+    <button class="step off" title="팀 프로토타입 참고"><b>F2</b>리포트</button>
+    <button class="step" data-v="errors" onclick="go('errors')"><b>F3</b>오류 목록</button>
+    <button class="step off" title="팀 프로토타입 참고"><b>F4</b>비교</button>
+    <button class="step" data-v="scene" onclick="go('scene')"><b>F5</b>장면 상세</button>
   </nav>
-  <main class="main" id="app"></main>
-</div>
+  <span class="sp"></span>
+  <details class="help"><summary>범례 ?</summary><div class="pop" id="legend"></div></details>
+</header>
+<main class="main" id="app"></main>
 
 <script>
 const D=__DATA__;
-const ACT=D.meta.actions, COND=D.meta.conditions, REL=D.meta.relations;
-const FAIL={missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과의 모순',invalid:'형식 오류'};
-const S=D.scenes;
-const st={view:'errors',sid:S[0].scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:{kind:null,rel:null,fail:null,review:null,onlyFail:true}};
-const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const ACT=D.meta.actions, COND=D.meta.conditions, REL=D.meta.relations, S=D.scenes;
+const FAIL={missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과 모순',invalid:'형식 오류',unclassified:'분류 미정'};
+const F0=()=>({kind:'',rel:'',fail:'',review:'',onlyFail:true});
+const st={view:'errors',sid:S[0].scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const pill=(t,c='')=>`<span class="pill ${c}">${t}</span>`;
-const pau=v=>v==null?pill('N/A','na'):pill(v,v);
+const sv=v=>v==null?'<span class="st X">–</span>':`<span class="st ${v}">${v}</span>`;
 const kindPill=s=>s.kind==='real'?pill('실제 Run','real'):pill('예시','mock');
-const revPill=r=>r==='Reviewed'?pill('Reviewed','pass'):r==='Missing'?pill('Missing · 미작성','warn'):pill('Draft · 검수 전','warn');
-const actLbl=c=>ACT[c]||`${esc(c)} ${pill('미등록 Code','fail')}`, condLbl=c=>COND[c]||esc(c);
-const pair=a=>`<span class="act"><b>${actLbl(a.code)}</b><span class="code">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · based_on '+a.based_on.join(','):''}</span></span>`;
+const revPill=r=>r==='Reviewed'?pill('Reviewed','ok'):r==='Missing'?pill('Missing','warn'):pill('Draft','warn');
+const failPills=s=>failCodes(s).map(c=>pill(FAIL[c],c==='unclassified'?'warn':'bad')).join('');
+const actLbl=c=>ACT[c]||esc(c), condLbl=c=>COND[c]||esc(c);
 function go(v,patch={}){Object.assign(st,patch);st.view=v;render();window.scrollTo({top:0});}
 function failCodes(s){return [...new Set(s.scoring.errors.map(e=>e.code||'unclassified'))];}
 function relMismatch(s){return Object.entries(s.scoring.relations||{}).filter(([k,v])=>v.ok===false).map(([k])=>k);}
+function isBad(s){return s.scoring.pass===false||relMismatch(s).length>0||!s.pred.valid;}
 function list(){const f=st.f;return S.filter(s=>{
-  const fc=failCodes(s), rm=relMismatch(s), bad=s.scoring.pass===false||rm.length>0||!s.pred.valid;
-  if(f.onlyFail&&!bad&&s.review_status!=='Missing')return false;
+  if(f.onlyFail&&!isBad(s)&&s.review_status!=='Missing')return false;
   if(f.kind&&s.kind!==f.kind)return false;
-  if(f.rel&&!rm.includes(f.rel))return false;
-  if(f.fail&&!fc.includes(f.fail))return false;
+  if(f.rel&&!relMismatch(s).includes(f.rel))return false;
+  if(f.fail&&!failCodes(s).includes(f.fail))return false;
   if(f.review&&s.review_status!==f.review)return false;return true;});}
-function render(){document.querySelectorAll('.nav[data-v]').forEach(n=>n.classList.toggle('cur',n.dataset.v===st.view));(st.view==='errors'?F3:F5)();}
+/* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
+function result(s){return s.review_status==='Missing'?pill('채점 제외','na'):!s.pred.valid?pill('Invalid','bad'):s.scoring.pass==null?pill('N/A','na'):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
+function render(){document.querySelectorAll('.step[data-v]').forEach(n=>n.classList.toggle('cur',n.dataset.v===st.view));(st.view==='errors'?F3:F5)();}
+function backdrop(s){const n=s.conditions.includes('야간');return `<svg viewBox="0 0 1000 562.5" preserveAspectRatio="none"><rect width="1000" height="562.5" fill="${n?'#2b3040':'#cfd8e0'}"/><rect y="170" width="1000" height="400" fill="${n?'#3a3e48':'#b9b3a6'}"/><polygon points="420,170 580,170 1000,562.5 0,562.5" fill="${n?'#4a4f58':'#8d9aa6'}"/>${s.gt.objects.map(o=>{const b=o.bbox;return `<rect x="${b[0]*1000+8}" y="${b[1]*562.5+4}" width="${Math.max(4,(b[2]-b[0])*1000-16)}" height="${Math.max(4,(b[3]-b[1])*562.5-6)}" rx="5" fill="${o.class==='pedestrian'?'#d94a3d':o.role==='obstacle'?'#8a7a5a':'#5b6773'}"/>`;}).join('')}</svg>`;}
+
+document.getElementById('legend').innerHTML=`
+  <h4>관계 값</h4>
+  <span class="st P">P</span><span>성립</span><span class="st A">A</span><span>불성립</span>
+  <span class="st U">U</span><span>사진만으로 판단 불가 — <b>정답 값</b> (오류 아님)</span>
+  <h4>빈 값</h4>
+  ${pill('Missing','warn')}<span>정답 미작성 · 채점 제외</span>${pill('Invalid','bad')}<span>모델 출력 형식 오류</span>${pill('N/A','na')}<span>이 장면엔 해당 없음</span>
+  <h4>데이터</h4>
+  ${pill('Draft','warn')}<span>검수 전 정답 · 공식 점수 아님</span>${pill('실제 Run','real')}<span>실제 모델 실행 결과</span>${pill('예시','mock')}<span>화면 확인용 가상 값</span>
+  <h4>이미지</h4>
+  <span class="ly" style="padding:2px 6px"><i class="c"></i></span><span>C 평가 영역 · 모델엔 안 줌</span>
+  <span class="ly" style="padding:2px 6px"><i class="g"></i></span><span>GT (정답)</span>
+  <span class="ly" style="padding:2px 6px"><i class="p"></i></span><span>예측 (모델)</span>`;
 
 /* ---------------- F3 ---------------- */
+function setF(k,v){st.f[k]=v;render();}
 function F3(){
   const L=list(),f=st.f;
-  const b=(on,t,fn)=>`<button class="f ${on?'on':''}" onclick="${fn}">${t}</button>`;
-  const set=(k,v)=>`st.f.${k}=st.f.${k}===${JSON.stringify(v).replace(/"/g,"'")}?null:${JSON.stringify(v).replace(/"/g,"'")};render()`;
+  const sel=(k,ph,opts)=>`<select class="sel ${f[k]?'on':''}" aria-label="${ph}" onchange="setF('${k}',this.value)"><option value="">${ph}</option>${opts.map(([v,t])=>`<option value="${v}" ${f[k]===v?'selected':''}>${t}</option>`).join('')}</select>`;
+  const n=fn=>L.filter(fn).length;
   document.getElementById('app').innerHTML=`
-  <div><div class="eyebrow">F3 · Error List</div><h1>어디서 판단이 달라졌나요?</h1><div class="sub">관계 코드·실패 사유·검수 상태로 좁히고, 장면을 누르면 F5에서 근거를 확인합니다.</div></div>
-  <div class="card filters">
-    <div class="row"><span class="lbl">데이터</span>${b(f.kind==='real','실제 Run',set('kind','real'))}${b(f.kind==='mock','예시',set('kind','mock'))}<span class="sp"></span><label class="small muted"><input type="checkbox" id="onlyFail" ${f.onlyFail?'checked':''} onchange="st.f.onlyFail=this.checked;render()"> 실패·불일치·Missing만</label></div>
-    <div class="row"><span class="lbl">관계 불일치</span>${Object.keys(REL).map(k=>b(f.rel===k,`${k} ${REL[k].label}`,set('rel',k))).join('')}</div>
-    <div class="row"><span class="lbl">실패 사유</span>${Object.entries(FAIL).map(([k,v])=>b(f.fail===k,v,set('fail',k))).join('')}${b(f.fail==='unclassified','분류 미정 (백엔드 원문)',set('fail','unclassified'))}</div>
-    <div class="row"><span class="lbl">검수 상태</span>${['Draft','Reviewed','Missing'].map(r=>b(f.review===r,r,set('review',r))).join('')}<span class="sp"></span><button class="f" onclick="st.f={kind:null,rel:null,fail:null,review:null,onlyFail:true};render()">필터 초기화</button></div>
+  <h1>오류 목록</h1>
+  <div class="stats">
+    <div class="card stat"><b>${L.length}</b><span>문항</span></div>
+    <div class="card stat"><b>${n(s=>s.scoring.pass===false&&s.pred.valid)}</b><span>대응 실패</span></div>
+    <div class="card stat"><b>${n(s=>relMismatch(s).length>0)}</b><span>관계 불일치</span></div>
+    <div class="card stat"><b>${n(s=>!s.pred.valid||s.review_status==='Missing')}</b><span>Invalid · Missing</span></div>
   </div>
-  ${L.length?`<div class="card tablewrap"><table><tr><th>문항</th><th>데이터</th><th>검수</th><th>장면</th><th>대응 채점</th><th>실패 사유</th><th>관계 불일치</th></tr>
-    ${L.map(s=>{const fc=failCodes(s),rm=relMismatch(s);return `<tr class="r" onclick="go('scene',{sid:'${s.scene_id}',rel:'${rm[0]||'R1'}',hl:new Set()})">
-      <td class="mono">${s.scene_id}</td><td>${kindPill(s)}</td><td>${revPill(s.review_status)}</td><td class="small" style="max-width:300px">${esc(s.scene)}</td>
-      <td>${s.review_status==='Missing'?pill('채점 제외','na'):!s.pred.valid?pill('Invalid','fail'):s.scoring.pass==null?pill('N/A · 방향 충돌','na'):s.scoring.pass?pill('통과','pass'):pill('실패','fail')}</td>
-      <td><div class="chips">${fc.map(c=>pill(FAIL[c]||'분류 미정',c==='unclassified'?'warn':'fail')).join('')||'<span class="muted">—</span>'}</div></td>
-      <td class="mono small">${rm.join(' ')||'—'}</td></tr>`;}).join('')}</table></div>`
-  :`<div class="card" style="text-align:center;padding:40px 16px"><b>조건에 맞는 문항이 없습니다</b><div class="sub">필터를 줄이거나 초기화하세요.</div><div style="margin-top:10px"><button class="b" onclick="st.f={kind:null,rel:null,fail:null,review:null,onlyFail:true};render()">필터 초기화</button></div></div>`}
-  <div class="sub small">${L.length}건 · 실패 사유는 백엔드 채점 결과를 사용합니다. 백엔드 원문이 5개 사유 중 어디에 해당하는지 정해지지 않은 경우 "분류 미정"으로 표시합니다.</div>`;
+  <div class="card bar">
+    ${sel('kind','데이터 전체',[['real','실제 Run'],['mock','예시']])}
+    ${sel('rel','관계 전체',Object.keys(REL).map(k=>[k,`${k} ${REL[k].label} 불일치`]))}
+    ${sel('fail','실패 사유 전체',Object.entries(FAIL).map(([k,v])=>[k,v]))}
+    ${sel('review','검수 전체',[['Draft','Draft'],['Reviewed','Reviewed'],['Missing','Missing']])}
+    <span class="sp"></span>
+    <label class="tog"><input type="checkbox" ${f.onlyFail?'checked':''} onchange="setF('onlyFail',this.checked)">오류만</label>
+    <button class="btn" onclick="st.f=F0();render()">초기화</button>
+  </div>
+  ${L.length?L.map(s=>{const rm=relMismatch(s);return `<button class="item" onclick="go('scene',{sid:'${s.scene_id}',rel:'${rm[0]||'R1'}',hl:new Set()})">
+    <span class="thumb">${s.image?`<img src="${s.image}" alt="">`:backdrop(s)}</span>
+    <span class="t"><span class="row"><b class="mono">${esc(s.scene_id)}</b>${kindPill(s)}${revPill(s.review_status)}</span><span class="d" title="${esc(s.scene)}">${esc(s.scene)}</span></span>
+    <span class="rels">${['R1','R2','R3','R4'].map(k=>{const x=s.scoring.relations[k];return `<span class="rc ${x&&x.ok===false?'bad':''}" title="${k} ${REL[k].label}"><i>${k}</i><span class="v">${x?sv(x.gt)+'→'+sv(x.pred):sv(null)}</span></span>`;}).join('')}</span>
+    <span class="res">${result(s)}${s.pred.valid?failPills(s):''}</span>
+    <span class="chev muted">›</span></button>`;}).join('')
+  :`<div class="card empty"><b>조건에 맞는 문항이 없어요</b><button class="btn" onclick="st.f=F0();render()">필터 초기화</button></div>`}`;
 }
 
 /* ---------------- F5 ---------------- */
 function svgFor(s){
   const W=1000,H=562.5,L=st.layers,hl=st.hl,any=hl.size>0;
-  const rect=(b,cls,id,lab,pos)=>{if(!b)return'';const x=b[0]*W,y=b[1]*H,w=(b[2]-b[0])*W,h=(b[3]-b[1])*H,on=hl.has(id);
-    const col=cls==='gt'?'var(--gt)':'var(--pred)',dash=cls==='gt'?'':'stroke-dasharray="8 5"';
-    return `<g opacity="${any&&!on?.28:1}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${on?'rgba(255,196,0,.22)':'none'}" stroke="${on?'var(--hl)':col}" stroke-width="${on?5:2.5}" ${dash}/><text x="${pos==='b'?x+w-3:x+3}" y="${pos==='b'?y+h+15:y-5}" text-anchor="${pos==='b'?'end':'start'}" font-size="13" font-weight="700" fill="${on?'#ffc400':col}" stroke="rgba(0,0,0,.55)" stroke-width="3" paint-order="stroke">${esc(id)}</text></g>`;};
+  const rect=(b,cls,id,pos,thin)=>{if(!b)return'';const x=b[0]*W,y=b[1]*H,w=(b[2]-b[0])*W,h=(b[3]-b[1])*H,on=hl.has(id);
+    const col=cls==='gt'?'var(--gt)':'var(--pred)',dash=thin?'stroke-dasharray="3 4"':cls==='gt'?'':'stroke-dasharray="8 5"';
+    /* 라벨은 강조된 Box에만: 평소엔 박스만 보여서 사진이 덜 복잡함 */
+    return `<g opacity="${any&&!on?.25:1}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${on?'rgba(255,196,0,.22)':'none'}" stroke="${on?'var(--hl)':col}" stroke-width="${on?5:thin?1.6:2.5}" ${dash}/>${on?`<text x="${pos==='b'?x+w-3:x+3}" y="${pos==='b'?y+h+15:y-5}" text-anchor="${pos==='b'?'end':'start'}" font-size="13" font-weight="700" fill="#ffc400" stroke="rgba(0,0,0,.6)" stroke-width="3" paint-order="stroke">${esc(id)}</text>`:''}</g>`;};
   let g='';
-  if(L.c&&s.C)g+=`<polygon points="${s.C.map(p=>p[0]*W+','+p[1]*H).join(' ')}" fill="rgba(208,64,47,.12)" stroke="var(--c)" stroke-width="2.5" stroke-dasharray="9 6"/>`;
-  if(L.gt){s.gt.regions.forEach(r=>{if(r.bbox)g+=rect(r.bbox,'gt',r.id,null,'t').replace('stroke-width="2.5"','stroke-width="1.6" stroke-dasharray="3 4"');});s.gt.objects.forEach(o=>g+=rect(o.bbox,'gt',o.id,null,'t'));}
-  if(L.pred&&s.pred.valid){(s.pred.regions||[]).forEach(r=>g+=rect(r.bbox,'pred',r.id,null,'b'));s.pred.objects.forEach(o=>g+=rect(o.bbox,'pred',o.id,null,'b'));}
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+  if(L.c&&s.C)g+=`<polygon points="${s.C.map(p=>p[0]*W+','+p[1]*H).join(' ')}" fill="rgba(208,64,47,.10)" stroke="var(--c)" stroke-width="2.5" stroke-dasharray="9 6"/>`;
+  if(L.gt){s.gt.regions.forEach(r=>g+=rect(r.bbox,'gt',r.id,'t',true));s.gt.objects.forEach(o=>g+=rect(o.bbox,'gt',o.id,'t'));}
+  if(L.pred&&s.pred.valid){(s.pred.regions||[]).forEach(r=>g+=rect(r.bbox,'pred',r.id,'b'));s.pred.objects.forEach(o=>g+=rect(o.bbox,'pred',o.id,'b'));}
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${g}</svg>`;
 }
-function mockBackdrop(s){const n=s.conditions.includes('야간');return `<svg viewBox="0 0 1000 562.5" preserveAspectRatio="none"><rect width="1000" height="562.5" fill="${n?'#2b3040':'#cfd8e0'}"/><rect y="170" width="1000" height="400" fill="${n?'#3a3e48':'#b9b3a6'}"/><polygon points="420,170 580,170 1000,562.5 0,562.5" fill="${n?'#4a4f58':'#8d9aa6'}"/>${s.gt.objects.map(o=>{const b=o.bbox;return `<rect x="${b[0]*1000+8}" y="${b[1]*562.5+4}" width="${Math.max(4,(b[2]-b[0])*1000-16)}" height="${Math.max(4,(b[3]-b[1])*562.5-6)}" rx="5" fill="${o.class==='pedestrian'?'#d94a3d':o.role==='obstacle'?'#8a7a5a':'#5b6773'}"/>`;}).join('')}<text x="10" y="552" font-size="12" fill="#fff" opacity=".75" font-family="monospace">placeholder · 실제 사진 아님</text></svg>`;}
-function chipsFor(ids,side){return ids&&ids.length?`<div class="chips">${ids.map(id=>`<button class="chip ${side} ${st.hl.has(id)?'on':''}" onclick="toggleHl(['${id}'])">${esc(id)}</button>`).join('')}</div>`:'<span class="muted small">근거 ID 없음</span>';}
-function toggleHl(ids){const allOn=ids.every(i=>st.hl.has(i));if(allOn&&st.hl.size===ids.length)st.hl=new Set();else st.hl=new Set(ids);render();}
+const arr=ids=>JSON.stringify(ids).replace(/"/g,"'");
+function chipsFor(ids,side){return ids&&ids.length?`<div class="chips">${ids.map(id=>`<button class="chip ${side} ${st.hl.has(id)?'on':''}" onclick="toggleHl(['${id}'])">${esc(id)}</button>`).join('')}</div>`:'<span class="muted small">근거 없음</span>';}
+function toggleHl(ids){const same=ids.length===st.hl.size&&ids.every(i=>st.hl.has(i));st.hl=same?new Set():new Set(ids);render();}
+function tl(k){st.layers[k]=!st.layers[k];render();}
+/* 필요 묶음별 ✓/✗: 예측 (대응, 조건) 쌍이 묶음의 대안과 같으면 충족. 백엔드 충족 수와 다르면 표시하지 않음(백엔드 값 우선). */
+function groupHits(s){const ga=s.gt.actions,sc=s.scoring;if(!ga||!s.pred.valid||!sc.groups)return null;
+  const hit=ga.required_groups.map(g=>g.alternatives.some(a=>s.pred.actions.some(p=>p.code===a.code&&p.condition===a.condition)));
+  return hit.filter(Boolean).length===sc.groups[0]?hit:null;}
 function F5(){
   const L=list(),s=S.find(x=>x.scene_id===st.sid)||S[0],idx=L.findIndex(x=>x.scene_id===s.scene_id),sc=s.scoring,r=st.rel;
-  const g=s.gt.relations[r],p=s.pred.valid?s.pred.relations[r]:null,rs=sc.relations[r];
-  const realBanner=s.kind==='real'?`<div class="banner real"><b>실제 실행 결과 · Draft 정답 기준 진단 (공식 점수 아님)</b><span class="small">Run <span class="mono">${esc(s.run.name)}</span> · ${esc(s.run.quant)} · adapter ${s.run.adapter??'없음 (Base)'} · ${esc(s.run.branch)}@${esc(s.run.commit)} · 채점 ${esc(sc.source)}</span><span class="small">공식 V3·V4·V5 미산출 — 이유: ${s.blockers.map(b=>`<span class="mono">${esc(b)}</span>`).join(', ')}</span></div>`:`<div class="banner"><b>예시 데이터</b> <span class="small">화면 흐름 확인용 가상 값입니다. 실제 실행 결과가 아닙니다.</span></div>`;
-  const state=s.review_status==='Missing'?`<div class="banner">${pill('Missing','warn')} 정답 미작성·미검수 · ${esc(s.missing_reason||'')} · 채점에서 제외</div>`
-    :!s.pred.valid?`<div class="banner fail">${pill('Invalid','fail')} 모델 출력 형식 오류 · 채점 불가 <span class="mono small">${esc(s.pred.raw_excerpt||'')}…</span></div>`
-    :sc.pass==null?`<div class="banner">${pill('N/A','na')} 방향 충돌(Direction Match = Conflicting) · 대응 평가 제외, 관계는 채점</div>`
-    :sc.pass?`<div class="banner" style="border-color:var(--pass);background:var(--pass-soft)"><b>대응 통과</b></div>`
-    :`<div class="banner fail"><b>대응 실패</b> <span class="chips" style="display:inline-flex">${failCodes(s).map(c=>pill(FAIL[c]||'분류 미정',c==='unclassified'?'warn':'fail')).join('')}</span>${sc.groups?` <span class="small">필요 묶음 ${sc.groups[0]}/${sc.groups[1]} 충족</span>`:''}</div>`;
-  const ga=s.gt.actions;
+  const g=s.gt.relations[r],p=s.pred.valid?s.pred.relations[r]:null,ga=s.gt.actions,hits=groupHits(s);
+  const gids=g?[...g.object_ids,...g.region_ids]:[],pids=p?[...(p.object_ids||[]),...(p.region_ids||[])]:[];
+  const ev=sc.evidence&&sc.evidence[r];
+  const verdict=s.review_status==='Missing'?['warn','정답 없음 · 채점 제외',esc(s.missing_reason||'')]
+    :!s.pred.valid?['bad','Invalid · 모델 출력 형식 오류','']
+    :sc.pass==null?['na','대응 N/A','방향 충돌 장면 · 관계만 채점']
+    :sc.pass?['ok','대응 통과','']:['bad','대응 실패',''];
+  const why=t=>t?`<div class="why" title="눌러서 펼치기" onclick="this.classList.toggle('open')">${esc(t)}</div>`:'';
   document.getElementById('app').innerHTML=`
-  <div class="row"><div><div class="eyebrow">F5 · Scene Review</div><h1>판단의 근거를 확인하세요</h1></div><span class="sp"></span>
-    <button class="b" onclick="go('errors')">← 목록 (필터 유지)</button><button class="b" ${idx<=0?'disabled':''} onclick="go('scene',{sid:'${L[idx-1]?.scene_id}',hl:new Set()})">← 이전</button><span class="small muted num">${idx>=0?idx+1:'–'} / ${L.length}</span><button class="b" ${idx<0||idx>=L.length-1?'disabled':''} onclick="go('scene',{sid:'${L[idx+1]?.scene_id}',hl:new Set()})">다음 →</button></div>
-  <div class="row"><b class="mono" style="font-size:15px">${esc(s.scene_id)}</b>${kindPill(s)}${revPill(s.review_status)}${s.conditions.map(c=>pill(c,'dim')).join('')}</div>
-  ${realBanner}${state}
-  <div class="grid2">
-    <div style="display:grid;gap:8px;min-width:0">
-      <div class="stage">${s.image?`<img src="${s.image}" alt="원본 이미지 view_F">`:mockBackdrop(s)}${svgFor(s)}<span class="tag">${s.kind==='real'?pill('원본 이미지 · Draft Annotation','real'):pill('가상 이미지','mock')}</span>
-        <div class="layers"><button class="${st.layers.c?'on':''}" onclick="tl('c')">C</button><button class="${st.layers.gt?'on':''}" onclick="tl('gt')">GT Box·Region</button><button class="${st.layers.pred?'on':''}" onclick="tl('pred')">예측 Box·Region</button>${st.hl.size?'<button onclick="st.hl=new Set();render()">강조 해제</button>':''}</div></div>
-      <div class="legend"><span><i class="c"></i>C · 사람이 작성한 평가 영역, <b>모델 입력에 제공하지 않음</b></span><span><i class="g"></i>GT (실선 · Region 점선)</span><span><i class="p"></i>예측 (점선)</span><span><i class="h"></i>선택한 근거</span></div>
-      <div class="card" style="padding:12px"><h3>Box 짝짓기 · IoU ≥ 0.5 (백엔드 결과)</h3><div class="chips" style="margin-top:8px">${sc.box_pairs.map(m=>`<button class="chip ${st.hl.has(m.prediction_id)&&st.hl.has(m.reference_id)?'on':''}" onclick="toggleHl(['${m.prediction_id}','${m.reference_id}'])">${esc(m.prediction_id)} ↔ ${esc(m.reference_id)} · ${(+m.iou).toFixed(2)}</button>`).join('')||'<span class="muted small">짝 없음</span>'}</div>
-        <div class="small" style="margin-top:8px">짝 없는 예측: ${sc.unmatched_pred.map(i=>`<button class="chip pred" onclick="toggleHl(['${i}'])">${esc(i)}</button>`).join(' ')||'—'}</div>
-        <div class="small" style="margin-top:4px">짝 없는 GT: ${sc.unmatched_ref.map(i=>`<button class="chip gt" onclick="toggleHl(['${i}'])">${esc(i)}</button>`).join(' ')||'—'}</div>
-        ${sc.unmeasurable_regions.length?`<div class="small muted" style="margin-top:6px">측정 불가 Region: ${sc.unmeasurable_regions.map(esc).join(', ')} (가려진 범위라 Box를 그릴 수 없음)</div>`:''}
-        ${s.kind==='real'?'<div class="small muted" style="margin-top:6px">정답 객체 coverage가 완전하지 않아 짝 없는 예측을 바로 오탐으로 보지 않습니다.</div>':''}</div>
-    </div>
-    <div style="display:grid;gap:10px;min-width:0">
-      <h3>1 · 관계 선택</h3>
-      <div class="tabs">${['R1','R2','R3','R4'].map(k=>{const x=sc.relations[k]||{};return `<button class="tab ${k===r?'on':''}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n">${k} ${REL[k].label}</span><span class="v">${pau(x.gt??(s.gt.relations[k]||{}).state)}<span class="muted small">→</span>${pau(x.pred??(s.pred.relations[k]||{}).state)}</span><span class="small" style="color:${x.ok===false?'var(--fail)':x.ok?'var(--pass)':'var(--muted)'}">${x.ok===false?'불일치':x.ok?'일치':'—'}</span></button>`;}).join('')}</div>
-      <div class="small muted">${esc(REL[r].q)}</div>
-      <h3>2 · 근거 Object·Region (ID를 누르면 이미지에서 강조)</h3>
-      <div class="cmp">
-        <div class="side gt"><div class="row">${pill('GT','gt')}${g?pau(g.state):pill('Missing','warn')}<span class="sp"></span>${g&&(g.object_ids.length+g.region_ids.length)>1?`<button class="chip gt" onclick="toggleHl(${JSON.stringify([...g.object_ids,...g.region_ids]).replace(/"/g,"'")})">전체</button>`:''}</div>
-          ${g?chipsFor([...g.object_ids,...g.region_ids],'gt'):''}${g&&g.reason?`<div class="reason">${esc(g.reason)}</div>`:''}</div>
-        <div class="side pred"><div class="row">${pill('예측','pred')}${p?pau(p.state):s.pred.valid?pill('N/A','na'):pill('Invalid','fail')}<span class="sp"></span>${sc.evidence&&sc.evidence[r]?pill('근거 '+(sc.evidence[r]==='match'?'일치':'불일치'),sc.evidence[r]==='match'?'pass':'fail'):''}</div>
-          ${p?chipsFor([...(p.object_ids||[]),...(p.region_ids||[])],'pred'):''}${p&&p.reason?`<div class="reason">${esc(p.reason)}</div>`:''}</div>
-      </div>
-      <h3>3 · 대응</h3>
-      <div class="cmp">
-        <div class="side gt">${pill('GT 규칙','gt')}${ga?`<div class="acts">${ga.required_groups.map((x,i)=>`<div class="act">${pill('필요 '+(i+1),'pass')}${x.alternatives.map(pair).join('<span class="muted small">또는</span>')}</div>`).join('')}${ga.forbidden_pairs.length?`<details class="raw"><summary>금지 ${ga.forbidden_pairs.length}쌍</summary><ul>${ga.forbidden_pairs.map(a=>`<li>${actLbl(a.code)} · ${condLbl(a.condition)}</li>`).join('')}</ul></details>`:''}</div>`:s.review_status==='Missing'?pill('Missing','warn'):pill('N/A · 방향 충돌','na')}</div>
-        <div class="side pred">${pill('예측','pred')}${s.pred.valid?`<div class="acts">${s.pred.actions.map(pair).join('')}</div>`:pill('Invalid','fail')}
-          ${sc.errors.length?`<div class="chips">${failCodes(s).map(c=>pill(FAIL[c]||'분류 미정',c==='unclassified'?'warn':'fail')).join('')}</div>`:''}
-          ${sc.errors.some(e=>e.raw)?`<details class="raw"><summary>백엔드 실패 사유 원문 ${sc.errors.length}건</summary><ul>${sc.errors.map(e=>`<li><span class="mono">${esc(e.raw)}</span> → ${e.code?FAIL[e.code]:'<b>분류 미정</b>'}</li>`).join('')}</ul></details>`:''}</div>
-      </div>
-    </div>
+  <div class="row">
+    <button class="btn" onclick="go('errors')">← 목록</button>
+    <h1 class="mono" style="font-size:17px">${esc(s.scene_id)}</h1>${kindPill(s)}${revPill(s.review_status)}${s.conditions.map(c=>pill(esc(c),'dim')).join('')}
+    <span class="sp"></span>
+    <button class="btn" ${idx<=0?'disabled':''} onclick="go('scene',{sid:'${L[idx-1]?.scene_id}',hl:new Set()})">‹</button><span class="small muted">${idx>=0?idx+1:'–'} / ${L.length}</span><button class="btn" ${idx<0||idx>=L.length-1?'disabled':''} onclick="go('scene',{sid:'${L[idx+1]?.scene_id}',hl:new Set()})">›</button>
   </div>
-  <div class="card"><h3>상태 표기</h3><div class="keytable" style="margin-top:8px">
-    ${pill('U','U')}<span>입력만으로 판단할 수 없음 · <b>유효한 정답 값</b>, 오류 색을 쓰지 않음</span>
-    ${pill('Missing','warn')}<span>정답 미작성·미검수 · 채점에서 제외하고 이유 표시</span>
-    ${pill('Invalid','fail')}<span>모델 출력 형식 오류 · 채점 불가, 원문 일부 표시</span>
-    ${pill('N/A','na')}<span>해당 장면에 적용되지 않는 질문 (예: 방향 충돌 장면의 대응)</span>
-    ${pill('Draft · 검수 전','warn')} <span>정답 초안 · 공식 점수 산출 불가</span>
-    <span class="chips">${pill('실제 Run','real')}${pill('예시','mock')}</span><span>실제 실행 결과와 화면용 가상 값을 항상 구분</span>
-    <span class="mono">—</span><span>미산출 점수는 0으로 표시하지 않고 이유를 함께 표시</span></div></div>`;
+  <div class="verdict ${verdict[0]}"><b>${verdict[1]}</b>${s.pred.valid&&sc.pass===false?failPills(s):''}${sc.groups&&s.pred.valid&&sc.pass!=null?`<span class="small muted">필요 대응 ${sc.groups[0]}/${sc.groups[1]}</span>`:''}${verdict[2]?`<span class="small muted">${verdict[2]}</span>`:''}
+    <span class="sp"></span>${s.review_status==='Draft'?`<span class="small muted" title="${esc((s.blockers||[]).join(', '))}">Draft 기준 진단 · 공식 점수 아님</span>`:''}</div>
+  <div class="grid">
+    <div class="left">
+      <div class="stage">${s.image?`<img src="${s.image}" alt="원본 이미지">`:backdrop(s)}${svgFor(s)}</div>
+      <div class="layers">
+        <button class="ly ${st.layers.c?'':'off'}" title="사람이 그린 평가 영역 · 모델 입력엔 안 줌" onclick="tl('c')"><i class="c"></i>C 영역</button>
+        <button class="ly ${st.layers.gt?'':'off'}" onclick="tl('gt')"><i class="g"></i>GT</button>
+        <button class="ly ${st.layers.pred?'':'off'}" onclick="tl('pred')"><i class="p"></i>예측</button>
+        ${st.hl.size?'<button class="btn" onclick="st.hl=new Set();render()">강조 해제</button>':''}
+        <span class="sp"></span>${s.image?'':'<span class="small muted">가상 이미지</span>'}
+      </div>
+    </div>
+    <div class="right">
+      <section class="card sec">
+        <h2>관계 <span>GT → 예측</span></h2>
+        <div class="tabs">${['R1','R2','R3','R4'].map(k=>{const x=sc.relations[k];return `<button class="tab ${k===r?'on':''} ${x&&x.ok===false?'bad':''}" title="${esc(REL[k].q)}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n"><b>${k}</b>${REL[k].label}</span><span class="v">${x?sv(x.gt)+'→'+sv(x.pred):sv(null)}</span></button>`;}).join('')}</div>
+        <div class="cmp">
+          <div class="side gt"><div class="row">${pill('GT','gt')}${g?sv(g.state):pill('Missing','warn')}<span class="sp"></span>${gids.length>1?`<button class="chip gt" onclick="toggleHl(${arr(gids)})">전체 보기</button>`:''}</div>${g?chipsFor(gids,'gt'):''}${why(g&&g.reason)}</div>
+          <div class="side pred"><div class="row">${pill('예측','pred')}${p?sv(p.state):s.pred.valid?sv(null):pill('Invalid','bad')}<span class="sp"></span>${ev?pill(ev==='match'?'근거 일치':'근거 불일치',ev==='match'?'ok':'bad'):''}</div>${p?chipsFor(pids,'pred'):''}${why(p&&p.reason)}</div>
+        </div>
+      </section>
+      <section class="card sec">
+        <h2>대응 ${sc.groups&&ga?`<span>필요 ${sc.groups[0]}/${sc.groups[1]} 충족</span>`:''}</h2>
+        ${ga?ga.required_groups.map((x,i)=>`<div class="need"><span class="mark ${hits?(hits[i]?'y':'n'):'q'}">${hits?(hits[i]?'✓':'✕'):i+1}</span><div>${x.alternatives.map(a=>`<b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}</span>`).join('<span class="or">또는</span>')}</div></div>`).join('')
+          :s.review_status==='Missing'?pill('Missing · 정답 미작성','warn'):pill('N/A · 방향 충돌 장면','na')}
+        <div class="out"><div class="row">${pill('모델이 낸 대응','pred')}</div>
+          ${s.pred.valid?(s.pred.actions.length?s.pred.actions.map(a=>`<div><b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · '+a.based_on.join(','):''}</span></div>`).join(''):'<span class="muted small">없음</span>'):pill('Invalid','bad')}</div>
+        ${ga&&ga.forbidden_pairs.length||sc.errors.some(e=>e.raw)?`<details class="more"><summary>금지 대응 ${ga?ga.forbidden_pairs.length:0}쌍${sc.errors.some(e=>e.raw)?` · 백엔드 원문 ${sc.errors.length}건`:''}</summary><div class="body">
+          ${ga&&ga.forbidden_pairs.length?`<ul>${ga.forbidden_pairs.map(a=>`<li>${actLbl(a.code)} · ${condLbl(a.condition)}</li>`).join('')}</ul>`:''}
+          ${sc.errors.some(e=>e.raw)?`<ul>${sc.errors.map(e=>`<li><span class="mono">${esc(e.raw)}</span> → ${FAIL[e.code||'unclassified']}</li>`).join('')}</ul>`:''}</div></details>`:''}
+      </section>
+      <section class="card sec">
+        <h2>Box 짝짓기 <span>짝 ${sc.box_pairs.length} · 예측만 ${sc.unmatched_pred.length} · GT만 ${sc.unmatched_ref.length}</span></h2>
+        <div class="chips">${sc.box_pairs.map(m=>`<button class="chip ${st.hl.has(m.prediction_id)&&st.hl.has(m.reference_id)?'on':''}" title="${esc(m.prediction_id)} ↔ ${esc(m.reference_id)}" onclick="toggleHl(['${m.prediction_id}','${m.reference_id}'])">${esc(m.prediction_id)} · IoU ${(+m.iou).toFixed(2)}</button>`).join('')}${sc.unmatched_pred.map(i=>`<button class="chip pred ${st.hl.has(i)?'on':''}" title="짝 없는 예측" onclick="toggleHl(['${i}'])">${esc(i)} · 짝 없음</button>`).join('')}${!sc.box_pairs.length&&!sc.unmatched_pred.length?'<span class="muted small">예측 Box 없음</span>':''}</div>
+        ${sc.unmatched_ref.length||s.kind==='real'?`<details class="more"><summary>GT만 있는 Box ${sc.unmatched_ref.length}개${s.kind==='real'?' · Run 정보':''}</summary><div class="body">
+          ${sc.unmatched_ref.length?`<div class="chips">${sc.unmatched_ref.map(i=>`<button class="chip gt ${st.hl.has(i)?'on':''}" onclick="toggleHl(['${i}'])">${esc(i)}</button>`).join('')}</div>`:''}
+          ${sc.unmeasurable_regions.length?`<div class="muted">측정 불가 Region: ${sc.unmeasurable_regions.map(esc).join(', ')}</div>`:''}
+          ${s.kind==='real'?`<div class="muted">정답 Box가 아직 완전하지 않아 짝 없는 예측을 오탐으로 단정하지 않음</div><div class="muted mono">${esc(s.run.name)} · ${esc(s.run.quant)} · adapter ${s.run.adapter??'없음(Base)'} · ${esc(s.run.branch)}@${esc(s.run.commit)}</div><div class="muted">공식 점수 미산출 사유: <span class="mono">${(s.blockers||[]).map(esc).join(', ')}</span></div>`:''}</div></details>`:''}
+      </section>
+    </div>
+  </div>`;
 }
-function tl(k){st.layers[k]=!st.layers[k];render();}
 render();
 </script>
+</html>
