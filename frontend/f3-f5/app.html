@@ -42,6 +42,12 @@ button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px soli
 .cell.nil{border-style:dashed;color:var(--muted)}.cell small{display:block;font-size:10px;color:var(--muted)}
 .ct{width:100%;border-collapse:collapse;font-size:12.5px}.ct th,.ct td{text-align:left;padding:7px 8px;border-top:1px solid var(--line)}.ct th{color:var(--muted);font-weight:500;border-top:0}
 .rc.diff{border-color:#d9a800;background:#fff6cf}.rc.diff i{color:#7a5c00;font-weight:600}
+.field{border:1px solid var(--line2);border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;background:var(--panel);min-width:0}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.pick{display:flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:6px 9px;cursor:pointer;font-size:12.5px}
+.pick:has(input:checked){border-color:var(--navy);background:#fffbe6}
+.note{font-size:12.5px;padding:8px 10px;border-radius:8px;background:var(--soft);border:1px solid var(--line)}
+.note.bad{background:var(--bad-s);border-color:#e8b5b0;color:var(--bad)}.note.ok{background:var(--ok-s);border-color:#b9dcc6;color:var(--ok)}.note.warn{background:var(--warn-s);border-color:#ecd9a0;color:var(--warn)}
 .msg{padding:36px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
 .msg code{font-family:var(--mono);font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
 .help{position:relative}.help summary{list-style:none;cursor:pointer;border:1px solid #4a5a82;border-radius:7px;padding:4px 10px;font-size:12.5px;color:#dfe5f2}
@@ -147,7 +153,7 @@ const REL={"R1":{"label":"점유","q":"보이는 Actor·Obstacle이 C를 점유�
 /* 실패 사유 코드 = 백엔드 action_eval.fail_reasons. reference_inconsistent: based_on 관계가 정답에서 A인 경우(백엔드가 분리한 코드). unclassified는 파일 모드(옛 영문 문장)에서만 나옴. */
 const FAIL=Object.assign({missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과 모순',reference_inconsistent:'근거 관계가 정답과 다름',invalid:'형식 오류'},API_MODE?{}:{unclassified:'분류 미정'});
 let S=D?D.scenes:[];
-const api={base:'',run:'',runs:[],state:'idle',err:''};
+const api={base:'',run:'',runs:[],health:{},state:'idle',err:''};
 const F0=()=>({kind:'',rel:'',fail:'',review:'',onlyFail:true});
 const st={view:API_MODE?'runs':'errors',base:'',cmp:{base:'',target:''},condKey:'weather',sid:S[0]?.scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -160,7 +166,7 @@ const actLbl=c=>ACT[c]||esc(c), condLbl=c=>COND[c]||esc(c);
 function go(v,patch={}){Object.assign(st,patch);st.view=v;render();window.scrollTo({top:0});}
 function failCodes(s){return [...new Set(s.scoring.errors.map(e=>e.code||'unclassified'))];}
 function relMismatch(s){return Object.entries(s.scoring.relations||{}).filter(([k,v])=>v.ok===false).map(([k])=>k);}
-function isBad(s){return s.scoring.pass===false||relMismatch(s).length>0||!s.pred.valid;}
+function isBad(s){return noResult(s.pred.status)||s.scoring.pass===false||relMismatch(s).length>0||!s.pred.valid;}
 function list(){const f=st.f;return S.filter(s=>{
   if(f.onlyFail&&!isBad(s)&&s.review_status==='Reviewed')return false;
   if(f.kind&&s.kind!==f.kind)return false;
@@ -168,7 +174,11 @@ function list(){const f=st.f;return S.filter(s=>{
   if(f.fail&&!failCodes(s).includes(f.fail))return false;
   if(f.review&&s.review_status!==f.review)return false;return true;});}
 /* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
-function result(s){return !s.pred.valid?pill(s.pred.status==='timeout'?'Timeout':'Invalid','bad'):s.scoring.pass==null?(s.review_status==='Reviewed'?pill('N/A','na'):pill('채점 제외','na')):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
+/* 예측 상태 이름표. not_returned = 아직 결과가 없는 요청(대기·실행 중), cancelled = 취소된 요청 */
+const PST={timeout:['Timeout','bad'],not_returned:['결과 대기','dim'],cancelled:['취소됨','na']};
+const pstPill=st=>{const x=PST[st]||['Invalid','bad'];return pill(x[0],x[1]);};
+const noResult=st=>st==='not_returned'||st==='cancelled';
+function result(s){return !s.pred.valid?pstPill(s.pred.status):s.scoring.pass==null?(s.review_status==='Reviewed'?pill('N/A','na'):pill('채점 제외','na')):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
 const STEPS=[['runs','F1','실행'],['report','F2','리포트'],['errors','F3','오류 목록'],['compare','F4','비교'],['scene','F5','장면 상세']];
 function render(){
   /* 파일 모드에서는 F3·F5만. API 모드에서는 F1~F5 전부. */
@@ -186,12 +196,12 @@ const errCard=m=>{document.getElementById('app').innerHTML=`<div class="card msg
 const imgTag=(s,thumb)=>{const u=thumb&&s.thumb||s.image;return u?`<img src="${esc(u)}" alt="" ${thumb?'loading="lazy"':''} onerror="this.remove()">`:'';};
 
 /* ---------------- API 모드: 백엔드 응답 → 화면 형식 ---------------- */
-const relIn=x=>({gt:x.expected==='Missing'?null:x.expected,pred:x.predicted,ok:x.match});
+const relIn=(x,ps)=>({gt:x.expected==='Missing'?null:x.expected,pred:x.predicted,ok:noResult(ps)?null:x.match});
 function fromList(it){return {scene_id:it.item_id,kind:it.data_kind==='real'?'real':'mock',review_status:it.annotation_status,scene:'',conditions:[],
   image:it.image_url?api.base+it.image_url:'',thumb:it.thumbnail_url?api.base+it.thumbnail_url:'',_full:false,
   gt:{objects:[],regions:[],relations:{},actions:null},pred:{valid:it.prediction_status==='valid',status:it.prediction_status,objects:[],regions:[],relations:{},actions:[]},
   scoring:{pass:it.action_eval.pass,excluded:it.action_eval.excluded_reason||it.excluded_reason,errors:(it.action_eval.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:[],
-    relations:Object.fromEntries(Object.entries(it.relations||{}).map(([k,v])=>[k,relIn(v)])),box_pairs:[],unmatched_pred:[],unmatched_ref:[],unmeasurable_regions:[],evidence:{},groups:null}};}
+    relations:Object.fromEntries(Object.entries(it.relations||{}).map(([k,v])=>[k,relIn(v,it.prediction_status)])),box_pairs:[],unmatched_pred:[],unmatched_ref:[],unmeasurable_regions:[],evidence:{},groups:null}};}
 function fromDetail(d,s){
   const ref=d.reference||{},P=d.prediction.parsed&&d.prediction.parsed.track1,sc=d.scoring||{},ae=sc.action_eval||{},dg=sc.diagnostics||{},g=dg.grounding||{},go=(g.objects||{})['0.5']||{};
   const obj=o=>({id:o.object_id,class:o.class,role:o.semantic_role,placement:o.placement,bbox:o.bbox_xyxy_norm});
@@ -206,7 +216,7 @@ function fromDetail(d,s){
     pred:{valid:d.prediction.status==='valid',status:d.prediction.status,raw_excerpt:(d.prediction.format_errors||[])[0]||d.prediction.error||'',
       objects:P?(P.objects||[]).map(obj):[],regions:P?(P.regions||[]).map(reg):[],relations:P?rels(P.relations):{},actions:P?P.actions||[]:[]}});
   Object.assign(s.scoring,{pass:ae.pass,excluded:ae.excluded_reason||sc.excluded_reason,errors:(ae.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:ae.errors||[],
-    relations:Object.fromEntries(Object.entries(sc.relations||{}).map(([k,v])=>[k,relIn(v)])),
+    relations:Object.fromEntries(Object.entries(sc.relations||{}).map(([k,v])=>[k,relIn(v,d.prediction.status)])),
     no_grounding:!g.objects,box_pairs:go.pairs||[],unmatched_pred:go.unmatched_prediction_ids||[],unmatched_ref:go.unmatched_reference_ids||[],unmeasurable_regions:(g.regions||{}).unmeasurable_reference_ids||[],
     evidence:Object.fromEntries(Object.entries(dg.evidence||{}).filter(([k,v])=>v&&(v.status==='pass'||v.status==='fail')).map(([k,v])=>[k,v.status==='pass'?'match':'mismatch'])),
     groups:ae.required_groups!=null&&ae.pass!=null?[ae.matched_required_groups||0,ae.required_groups]:null});
@@ -221,9 +231,11 @@ async function connect(base,run,view,sid){
   /* 주소 정리: http:// 없으면 붙이고, /docs·/api 같은 뒤 경로는 떼어냄 */
   let b=(base||api.base||'').trim();if(b&&!/^https?:\/\//i.test(b))b='http://'+b;
   try{const u=new URL(b);b=u.protocol+'//'+u.host;}catch(e){}
+  if(b!==api.base){wkey='';nr.open=false;nr.confirm=false;nr.msg=null;} /* 서버가 바뀌면 키를 지움: 다른 서버로 키를 보내지 않게 */
   api.base=b;api.state='loading';api.err='';render();
   try{try{localStorage.setItem('f3f5_api',api.base);}catch(e){}
     api.runs=(await getJSON('/api/runs')).runs;if(!api.runs.length)throw new Error('Run이 없음');
+    api.health=await getJSON('/api/health').catch(()=>({}));
     api.run=api.runs.some(r=>r.run_id===run)?run:api.runs[0].run_id;S=[];cache={};pending={};st.f=F0();if(sid)st.f.onlyFail=false;await loadList();api.state='ok';
     st.view=view||(st.view==='scene'?'errors':st.view);st.sid=sid&&S.some(s=>s.scene_id===sid)?sid:S[0]?.scene_id;st.hl=new Set();
   }catch(e){api.state='error';api.err=String(e.message||e);}
@@ -261,10 +273,10 @@ function F1(){
   const r=d.run,m=r.model||{},q=m.quantization,v=d.versions||{},env=r.environment||{};
   document.getElementById('app').innerHTML=`
   <h1>실행 목록</h1>
-  ${api.runs.map(x=>{const c=x.prediction_status_counts||{},n=x.n_requests||0,ok=c.valid||0,bad=n?Object.entries(c).filter(([k])=>k!=='valid').reduce((a,[,b])=>a+b,0):0;
+  ${api.runs.map(x=>{const c=x.prediction_status_counts||{},n=x.n_requests||0,ok=c.valid||0,bad=Object.entries(c).filter(([k])=>k!=='valid'&&!noResult(k)).reduce((a,[,b])=>a+b,0),wait=c.not_returned||0,cx=c.cancelled||0;
     return `<button class="rcard ${x.run_id===api.run?'on':''}" onclick="connect(api.base,'${esc(x.run_id)}','runs')">
       <span style="display:grid;gap:3px;min-width:0"><span class="row"><b class="mono">${esc(x.run_id)}</b>${x.data_kind==='real'?pill('실제 Run','real'):pill('예시','mock')}${pill(STATUS[x.status]||esc(x.status),'dim')}${x.provisional?pill('진행 중 · 잠정','warn'):''}</span><span class="small muted">${esc(x.label||'')} · ${esc(x.model_id||'')}</span></span>
-      <span style="display:grid;gap:5px"><span class="prog" title="유효 ${ok} · 실패 ${bad} · 남음 ${Math.max(0,n-ok-bad)}"><i class="v" style="width:${n?ok/n*100:0}%"></i><i class="x" style="width:${n?bad/n*100:0}%"></i></span><span class="small muted">요청 ${n} · 형식 통과 ${ok} · 채점 ${x.n_scored_items}</span></span>
+      <span style="display:grid;gap:5px"><span class="prog" title="형식 통과 ${ok} · 실패 ${bad} · 대기 ${wait} · 취소 ${cx}"><i class="v" style="width:${n?ok/n*100:0}%"></i><i class="x" style="width:${n?bad/n*100:0}%"></i></span><span class="small muted">요청 ${n} · 형식 통과 ${ok}${bad?` · 실패 ${bad}`:''}${wait?` · 대기 ${wait}`:''}${cx?` · 취소 ${cx}`:''}${ACTIVE(x.status)?'':` · 채점 ${x.n_scored_items}`}</span></span>
       <span class="chev muted">›</span></button>`;}).join('')}
   <div class="grid" style="grid-template-columns:1fr 1fr">
     <section class="card sec"><h2>모델 · 실행 설정 <span>${esc(api.run)}</span></h2><div class="kv">
@@ -278,8 +290,45 @@ function F1(){
       <span>결과 hash</span><span>${esc(short(v.result_hash,12))}</span></div>
       <div class="row"><button class="btn" onclick="go('report')">리포트 →</button><button class="btn" onclick="go('errors')">오류 목록 →</button></div></section>
   </div>
-  <div class="small muted">새 실행은 쓰기 키가 필요해서 이 화면에서는 조회만 해요.</div>`;
+  ${newRunPanel(d)}`;
 }
+/* ---- 새 실행 / 취소: 쓰기 키(X-API-Key)가 필요. 키는 이 탭의 메모리에만 두고 파일·저장소에 남기지 않음 ---- */
+let wkey='';
+const nr={open:false,ids:new Set(),label:'',confirm:false,busy:false,msg:null};
+const ACTIVE=s=>s==='queued'||s==='running';
+async function post(path,body){const r=await fetch(api.base+path,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':wkey},body:body?JSON.stringify(body):undefined});
+  let j=null;try{j=await r.json();}catch(e){}
+  if(!r.ok){const dt=j&&j.detail,why=r.status===401?'키가 틀렸거나 비어 있어요':r.status===503?'이 서버는 쓰기가 꺼져 있어요 (서버에 키가 설정되지 않음)':r.status===422?((dt&&dt.errors)||[]).join(' / ')||'요청 내용 오류':(typeof dt==='string'?dt:'')||('오류 '+r.status);throw new Error(why);}
+  return j;}
+function newRunPanel(d){
+  const on=api.health.write_api_enabled,cur=api.runs.find(x=>x.run_id===api.run)||{},n=nr.ids.size;
+  const keyBox=`<input class="field" type="password" autocomplete="off" placeholder="쓰기 키" aria-label="쓰기 키" value="${esc(wkey)}" oninput="wkey=this.value" style="width:180px">`;
+  const note=nr.msg?`<div class="note ${nr.msg[0]}">${esc(nr.msg[1])}</div>`:'';
+  if(!nr.open)return `<div class="row"><button class="btn" onclick="nr.open=true;nr.msg=null;render()">+ 새 실행</button>
+    ${ACTIVE(cur.status)?`${keyBox}<button class="btn" onclick="cancelRun()">이 Run 취소</button>`:''}
+    <span class="small muted">${on?'실행·취소는 쓰기 키가 필요해요':'이 서버는 쓰기가 꺼져 있어요 (조회만 가능)'}</span></div>${note}`;
+  const cat=need('items:real','/api/items?data_kind=real');if(!cat)return '';
+  const its=cat._err?[]:cat.items.filter(i=>i.image_relpath);
+  return `<section class="card sec"><h2>새 실행 <span>모델·프롬프트·디코딩은 Pilot 기본값 (gemma-4-E4B NF4, prompt_v1, seed 42)</span><span class="sp"></span><button class="btn" onclick="nr.open=false;nr.confirm=false;render()">닫기</button></h2>
+    ${on?'':'<div class="note warn">이 서버는 쓰기가 꺼져 있어요. 서버에 쓰기 키가 설정돼 있어야 실행을 걸 수 있어요 (로컬 도커 기본값은 꺼짐).</div>'}
+    <div class="row"><span class="small muted">문항 ${n}/${its.length}</span><button class="btn" onclick="nr.ids=new Set(${arr(its.map(i=>i.item_id))});nr.confirm=false;render()">전체 선택</button><button class="btn" onclick="nr.ids=new Set();nr.confirm=false;render()">해제</button></div>
+    <div class="picks">${its.map(i=>{const c=i.conditions||{};return `<label class="pick"><input type="checkbox" ${nr.ids.has(i.item_id)?'checked':''} onchange="this.checked?nr.ids.add('${esc(i.item_id)}'):nr.ids.delete('${esc(i.item_id)}');nr.confirm=false;render()"><b class="mono">${esc(i.item_id)}</b><span class="muted">${esc([c.time,c.weather].filter(Boolean).join(' · '))}</span></label>`;}).join('')||'<span class="small muted">실행할 수 있는 문항이 없어요</span>'}</div>
+    <div class="row"><input class="field" placeholder="이름 (선택)" aria-label="Run 이름" value="${esc(nr.label)}" oninput="nr.label=this.value" style="flex:1;max-width:320px">${keyBox}
+      ${nr.confirm?`<span class="small"><b>${n}건</b> · GPU 약 ${Math.ceil(n*1.5)}분 사용. 걸까요?</span><button class="btn" style="background:var(--navy);color:#fff;border-color:var(--navy)" ${nr.busy?'disabled':''} onclick="startRun()">${nr.busy?'거는 중…':'확인'}</button><button class="btn" onclick="nr.confirm=false;render()">취소</button>`
+        :`<button class="btn" ${n&&on?'':'disabled'} onclick="nr.confirm=true;nr.msg=null;render()">실행 걸기</button>`}</div>
+    <div class="small muted">키는 이 탭에서만 쓰고 저장하지 않아요. 새로고침하면 다시 넣어야 해요.</div>${note}</section>`;
+}
+async function startRun(){nr.busy=true;render();
+  try{const body={item_ids:[...nr.ids],prompt_version:'prompt_v1'};if(nr.label.trim())body.label=nr.label.trim();
+    const r=await post('/api/runs',body);nr.busy=false;nr.confirm=false;nr.open=false;nr.ids=new Set();nr.label='';nr.msg=['ok',`${r.run_id} 실행을 걸었어요 (${r.n_requests}건). 진행 상황은 이 화면에서 자동으로 갱신돼요.`];
+    await connect(api.base,r.run_id,'runs');
+  }catch(e){nr.busy=false;nr.confirm=false;nr.msg=['bad','실행을 걸지 못했어요: '+String(e.message||e)];render();}}
+async function cancelRun(){try{await post(`/api/runs/${encodeURIComponent(api.run)}/cancel`);nr.msg=['ok',api.run+' 취소했어요. 대기 중이던 문항은 취소로 남아요.'];await connect(api.base,api.run,'runs');}
+  catch(e){nr.msg=['bad','취소하지 못했어요: '+String(e.message||e)];render();}}
+/* 대기·실행 중인 Run이 있으면 F1에서 10초마다 목록을 다시 받아옴 (입력 중에는 건드리지 않음) */
+setInterval(async()=>{if(!API_MODE||api.state!=='ok'||st.view!=='runs'||nr.busy||!api.runs.some(r=>ACTIVE(r.status)))return;
+  const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;
+  try{const runs=(await getJSON('/api/runs')).runs,d=await getJSON(`/api/runs/${encodeURIComponent(api.run)}`);api.runs=runs;cache['run:'+api.run]=d;if(st.view==='runs')render();}catch(e){}},10000);
 
 /* ---------------- F2 리포트: 값·구간·판정은 Report API 값을 그대로 표시 ---------------- */
 const MET={v1_valid:['V1 형식 통과율','rate'],v2_invalid:['V2 형식 오류율','rate',1],v3_grounding:['V3 근거 Box F1 (IoU 0.5)','f1'],v4_evidence:['V4 근거 일치율','rate'],
@@ -335,7 +384,7 @@ function F4(){
   const {base,target}=st.cmp,d=need('cmp:'+base+':'+target,`/api/compare?base=${encodeURIComponent(base)}&target=${encodeURIComponent(target)}`);if(!d)return;if(d._err)return errCard(d._err);
   const sm=d.summary||{},v10=(sm.metrics||{}).v10_action_pass_rate,j=v10&&JUDGE[v10.judgement];
   const sel=(k,l)=>`<select class="sel on" aria-label="${l}" onchange="st.cmp.${k}=this.value;render()">${ids.map(x=>`<option value="${esc(x)}" ${x===st.cmp[k]?'selected':''}>${l}: ${esc(x)}</option>`).join('')}</select>`;
-  const act=x=>!x?pill('없음','na'):x.prediction_status!=='valid'?pill(x.prediction_status==='timeout'?'Timeout':'Invalid','bad'):x.action_pass==null?pill('채점 제외','na'):x.action_pass?pill('통과','ok'):pill('실패','bad');
+  const act=x=>!x?pill('없음','na'):x.prediction_status!=='valid'?pstPill(x.prediction_status):x.action_pass==null?pill('채점 제외','na'):x.action_pass?pill('통과','ok'):pill('실패','bad');
   const nd=d.items.filter(it=>it.target&&['R1','R2','R3','R4'].some(k=>(it.base.relations[k]||{}).predicted!==(it.target.relations[k]||{}).predicted)).length;
   document.getElementById('app').innerHTML=`
   <div class="row"><h1>모델 비교</h1><span class="sp"></span>${sel('base','Base')}<span class="muted">→</span>${sel('target','Target')}</div>
@@ -414,7 +463,9 @@ function F5(){
   const gids=g?[...g.object_ids,...g.region_ids]:[],pids=p?[...(p.object_ids||[]),...(p.region_ids||[])]:[];
   const ev=sc.evidence&&sc.evidence[r];
   const raws=(sc.raw_errors&&sc.raw_errors.length?sc.raw_errors:sc.errors.filter(e=>e.raw).map(e=>e.raw+' → '+FAIL[e.code||'unclassified']));
-  const verdict=!s.pred.valid?['bad',s.pred.status==='timeout'?'Timeout · 응답 없음':'Invalid · 모델 출력 형식 오류',esc(s.pred.raw_excerpt||'')]
+  const verdict=s.pred.status==='not_returned'?['na','결과 대기 · 아직 추론 전','대기 또는 실행 중인 요청이에요']
+    :s.pred.status==='cancelled'?['na','취소됨 · 결과 없음','실행이 취소된 요청이에요']
+    :!s.pred.valid?['bad',s.pred.status==='timeout'?'Timeout · 응답 없음':'Invalid · 모델 출력 형식 오류',esc(s.pred.raw_excerpt||'')]
     :s.review_status==='Missing'?['warn','정답 없음 · 채점 제외',esc(s.missing_reason||'')]
     :sc.pass==null&&s.review_status==='Draft'?['warn','Draft 정답 · 채점 제외','검수 전이라 공식 채점에서 빠짐']
     :sc.pass==null?['na','대응 N/A','방향 충돌 장면 · 관계만 채점']
@@ -446,7 +497,7 @@ function F5(){
         <div class="tabs">${['R1','R2','R3','R4'].map(k=>{const x=sc.relations[k];return `<button class="tab ${k===r?'on':''} ${x&&x.ok===false?'bad':''}" title="${esc(REL[k].q)}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n"><b>${k}</b>${REL[k].label}</span><span class="v">${x?sv(x.gt??(s.gt.relations[k]||{}).state)+'→'+sv(x.pred):sv(null)}</span></button>`;}).join('')}</div>
         <div class="cmp">
           <div class="side gt"><div class="row">${pill('GT','gt')}${g?sv(g.state):pill('Missing','warn')}<span class="sp"></span>${gids.length>1?`<button class="chip gt" onclick="toggleHl(${arr(gids)})">전체 보기</button>`:''}</div>${g?chipsFor(gids,'gt'):''}${why(g&&g.reason)}</div>
-          <div class="side pred"><div class="row">${pill('예측','pred')}${p?sv(p.state):s.pred.valid?sv(null):pill('Invalid','bad')}<span class="sp"></span>${ev?pill(ev==='match'?'근거 일치':'근거 불일치',ev==='match'?'ok':'bad'):''}</div>${p?chipsFor(pids,'pred'):''}${why(p&&p.reason)}</div>
+          <div class="side pred"><div class="row">${pill('예측','pred')}${p?sv(p.state):s.pred.valid?sv(null):pstPill(s.pred.status)}<span class="sp"></span>${ev?pill(ev==='match'?'근거 일치':'근거 불일치',ev==='match'?'ok':'bad'):''}</div>${p?chipsFor(pids,'pred'):''}${why(p&&p.reason)}</div>
         </div>
       </section>
       <section class="card sec">
@@ -454,7 +505,7 @@ function F5(){
         ${ga?ga.required_groups.map((x,i)=>`<div class="need"><span class="mark ${hits?(hits[i]?'y':'n'):'q'}">${hits?(hits[i]?'✓':'✕'):i+1}</span><div>${x.alternatives.map(a=>`<b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}</span>`).join('<span class="or">또는</span>')}</div></div>`).join('')
           :s.review_status==='Missing'?pill('Missing · 정답 미작성','warn'):pill('N/A · 방향 충돌 장면','na')}
         <div class="out"><div class="row">${pill('모델이 낸 대응','pred')}</div>
-          ${s.pred.valid?(s.pred.actions.length?s.pred.actions.map(a=>`<div><b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · '+a.based_on.join(','):''}</span></div>`).join(''):'<span class="muted small">없음</span>'):pill('Invalid','bad')}</div>
+          ${s.pred.valid?(s.pred.actions.length?s.pred.actions.map(a=>`<div><b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · '+a.based_on.join(','):''}</span></div>`).join(''):'<span class="muted small">없음</span>'):pstPill(s.pred.status)}</div>
         ${ga&&ga.forbidden_pairs.length||raws.length?`<details class="more"><summary>금지 대응 ${ga?ga.forbidden_pairs.length:0}쌍${raws.length?` · 백엔드 원문 ${raws.length}건`:''}</summary><div class="body">
           ${ga&&ga.forbidden_pairs.length?`<ul>${ga.forbidden_pairs.map(a=>`<li>${actLbl(a.code)} · ${condLbl(a.condition)}</li>`).join('')}</ul>`:''}
           ${raws.length?`<ul>${raws.map(x=>`<li><span class="mono">${esc(x)}</span></li>`).join('')}</ul>`:''}</div></details>`:''}
