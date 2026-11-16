@@ -89,7 +89,7 @@ def result(run_id: str) -> dict:
         cached = json.loads(p.read_text(encoding="utf-8"))
         reqs = requests(run_id)
         refs = references()
-        if (cached.get("scorer_version") == SCORER_VERSION
+        if (cached.get("scorer_version") == SCORER_VERSION and cached.get("scorer_commit") == scorer_commit()
                 and cached.get("reference_hash") == canonical_hash({q["item_id"]: refs.get(q["item_id"]) for q in reqs})
                 and cached.get("prediction_hash") == canonical_hash(predictions(run_id))):
             return cached
