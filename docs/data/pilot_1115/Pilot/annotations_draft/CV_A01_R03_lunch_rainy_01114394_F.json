@@ -1,0 +1,130 @@
+{
+  "version": "7.11.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Car",
+      "points": [
+        [
+          358.0,
+          589.0
+        ],
+        [
+          800.0,
+          789.0
+        ]
+      ],
+      "group_id": 259502,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          535.0,
+          579.0
+        ],
+        [
+          857.0,
+          729.0
+        ]
+      ],
+      "group_id": 259503,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          765.0,
+          599.0
+        ],
+        [
+          904.0,
+          705.0
+        ]
+      ],
+      "group_id": 259504,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          0.0,
+          667.0
+        ],
+        [
+          252.0,
+          964.0
+        ]
+      ],
+      "group_id": 259505,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "C",
+      "points": [
+        [
+          579.3756687750222,
+          1024.994614527486
+        ],
+        [
+          923.351113704395,
+          649.1553731792101
+        ],
+        [
+          1050.9655846153053,
+          618.5438022753467
+        ],
+        [
+          1072.4334395348976,
+          609.0025334221946
+        ],
+        [
+          1086.745342814626,
+          630.470388341787
+        ],
+        [
+          1061.6146320836021,
+          646.0925719278874
+        ],
+        [
+          1133.2615637751624,
+          695.6942938681985
+        ],
+        [
+          1186.9967625438328,
+          698.4499450871048
+        ],
+        [
+          1761.5500416857692,
+          1067.7072084205315
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "CV_A01_R03_lunch_rainy_01114394_F.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920,
+  "source_json": "C:\\Users\\tevin\\Desktop\\vv\\Pilot\\labels\\CV_A01_R03_lunch_rainy_01114394_F.png.json",
+  "annotation_status": "draft"
+}

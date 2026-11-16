@@ -1,0 +1,324 @@
+{
+  "version": "7.11.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Car",
+      "points": [
+        [
+          656.0,
+          596.0
+        ],
+        [
+          1020.0,
+          863.0
+        ]
+      ],
+      "group_id": 132738,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          844.0,
+          550.0
+        ],
+        [
+          1000.0,
+          660.0
+        ]
+      ],
+      "group_id": 132739,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          707.0,
+          500.0
+        ],
+        [
+          803.0,
+          571.0
+        ]
+      ],
+      "group_id": 132740,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          452.0,
+          510.0
+        ],
+        [
+          491.0,
+          631.0
+        ]
+      ],
+      "group_id": 132741,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1535.0,
+          608.0
+        ],
+        [
+          1719.0,
+          1079.0
+        ]
+      ],
+      "group_id": 132742,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1036.0,
+          535.0
+        ],
+        [
+          1098.0,
+          693.0
+        ]
+      ],
+      "group_id": 132743,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1016.0,
+          536.0
+        ],
+        [
+          1045.0,
+          653.0
+        ]
+      ],
+      "group_id": 132744,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          111.0,
+          576.0
+        ],
+        [
+          193.0,
+          783.0
+        ]
+      ],
+      "group_id": 132745,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          786.0,
+          506.0
+        ],
+        [
+          844.0,
+          558.0
+        ]
+      ],
+      "group_id": 132746,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          835.0,
+          525.0
+        ],
+        [
+          960.0,
+          585.0
+        ]
+      ],
+      "group_id": 132747,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          965.0,
+          549.0
+        ],
+        [
+          1005.0,
+          595.0
+        ]
+      ],
+      "group_id": 132749,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          932.0,
+          513.0
+        ],
+        [
+          978.0,
+          537.0
+        ]
+      ],
+      "group_id": 132750,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "TruckBus",
+      "points": [
+        [
+          752.0,
+          497.0
+        ],
+        [
+          854.0,
+          542.0
+        ]
+      ],
+      "group_id": 132751,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1007.0,
+          520.0
+        ],
+        [
+          1025.0,
+          596.0
+        ]
+      ],
+      "group_id": 132752,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1044.0,
+          514.0
+        ],
+        [
+          1062.0,
+          555.0
+        ]
+      ],
+      "group_id": 132753,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "C",
+      "points": [
+        [
+          7.57804085199189,
+          916.1463913806922
+        ],
+        [
+          856.3186162750924,
+          556.533907313437
+        ],
+        [
+          922.4542455288404,
+          523.466092686563
+        ],
+        [
+          1013.390735752744,
+          528.9773951243752
+        ],
+        [
+          1113.9720052428195,
+          679.1603865547614
+        ],
+        [
+          1196.6415418100046,
+          688.8051658209332
+        ],
+        [
+          1521.8083856409326,
+          1055.3067779354537
+        ],
+        [
+          22.734122555975905,
+          1056.684603544907
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "CV_A06_R04_mrh_clear_01045907_F.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920,
+  "source_json": "C:\\Users\\tevin\\Desktop\\vv\\Pilot\\labels\\CV_A06_R04_mrh_clear_01045907_F.png.json",
+  "annotation_status": "draft"
+}
