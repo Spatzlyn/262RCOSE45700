@@ -1,0 +1,412 @@
+{
+ "_request": "GET /api/runs/EXAMPLE-RUN-001/items/example_002",
+ "_note": "synthetic example",
+ "run_id": "EXAMPLE-RUN-001",
+ "item_id": "example_002",
+ "data_kind": "example",
+ "versions": {
+  "api": "0.1.0",
+  "scorer": "backend-scorer-0.1.0",
+  "scorer_commit": "42a16024033db9acd79931f3b142d3a246cb2bac",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "data": {
+   "items": "example-items-0.1"
+  },
+  "reference": [
+   "example-ref-0.1"
+  ],
+  "result_hash": "80f7d976dce9a5141a023b6de91bbac8833d88c67df8a46908895a854fd85b65"
+ },
+ "run": {
+  "run_id": "EXAMPLE-RUN-001",
+  "label": "Example run for screen development (synthetic)",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "decoding": {
+   "seed": 0
+  }
+ },
+ "input": {
+  "item_id": "example_002",
+  "data_kind": "example",
+  "image_file": null,
+  "image_relpath": null,
+  "image_sha256": null,
+  "image_size": {
+   "width": 1920,
+   "height": 1080
+  },
+  "source_group_id": "example_group_2",
+  "note": "format error (truncated JSON)",
+  "task": "track1_current_scene",
+  "input_type": "single_image"
+ },
+ "image_url": null,
+ "image_size": {
+  "width": 1920,
+  "height": 1080
+ },
+ "prediction": {
+  "status": "invalid",
+  "format_errors": [
+   "JSON parse error: Expecting value: line 1 column 181 (char 180)"
+  ],
+  "raw_text": "{\"item_id\": \"example_002\", \"track1\": {\"attributes\": {\"traffic_direction\": \"Two-way\", \"direction_match\": \"Not applicable\", \"sidewalk_left\": \"A\", \"sidewalk_right\": \"A\"}, \"objects\": [",
+  "error": null,
+  "parsed": null,
+  "meta": {
+   "item_id": "example_002",
+   "status": "ok"
+  }
+ },
+ "output_text": null,
+ "reference": {
+  "item_id": "example_002",
+  "data_kind": "example",
+  "annotation_status": "Reviewed",
+  "reference_version": "example-ref-0.1",
+  "evidence_reviewed": true,
+  "object_coverage_complete": true,
+  "attributes": {
+   "traffic_direction": "Two-way",
+   "direction_match": "Not applicable",
+   "sidewalk_left": "A",
+   "sidewalk_right": "A"
+  },
+  "objects": [
+   {
+    "object_id": "G_car",
+    "class": "car",
+    "bbox_xyxy_norm": [
+     0.41,
+     0.42,
+     0.61,
+     0.71
+    ],
+    "semantic_role": "actor",
+    "placement": "travel_space"
+   },
+   {
+    "object_id": "G_ped",
+    "class": "pedestrian",
+    "bbox_xyxy_norm": [
+     0.11,
+     0.46,
+     0.16,
+     0.72
+    ],
+    "semantic_role": "actor",
+    "placement": "entrance"
+   }
+  ],
+  "regions": [
+   {
+    "region_id": "G_C",
+    "type": "driving_area",
+    "bbox_xyxy_norm": null,
+    "polygon_xy_norm": [
+     [
+      0.2,
+      0.95
+     ],
+     [
+      0.8,
+      0.95
+     ],
+     [
+      0.55,
+      0.35
+     ],
+     [
+      0.45,
+      0.35
+     ]
+    ],
+    "geometry_status": "reviewed"
+   },
+   {
+    "region_id": "G_entrance",
+    "type": "entrance_region",
+    "bbox_xyxy_norm": [
+     0.05,
+     0.4,
+     0.2,
+     0.75
+    ],
+    "polygon_xy_norm": null,
+    "geometry_status": "reviewed"
+   },
+   {
+    "region_id": "G_hidden",
+    "type": "occluded_road_region",
+    "bbox_xyxy_norm": null,
+    "polygon_xy_norm": null,
+    "geometry_status": "unmeasurable_hidden_extent"
+   }
+  ],
+  "relations": {
+   "R1": {
+    "state": "P",
+    "object_ids": [
+     "G_car"
+    ],
+    "region_ids": [
+     "G_C"
+    ],
+    "reason": "example"
+   },
+   "R2": {
+    "state": "U",
+    "object_ids": [
+     "G_ped"
+    ],
+    "region_ids": [
+     "G_entrance"
+    ],
+    "reason": "example"
+   },
+   "R3": {
+    "state": "A",
+    "object_ids": [],
+    "region_ids": [],
+    "reason": "example"
+   },
+   "R4": {
+    "state": "A",
+    "object_ids": [],
+    "region_ids": [],
+    "reason": "example"
+   }
+  },
+  "accepted_evidence_sets_by_relation": {
+   "R1": [
+    {
+     "object_ids": [
+      "G_car"
+     ],
+     "region_ids": []
+    }
+   ],
+   "R2": [
+    {
+     "object_ids": [
+      "G_ped"
+     ],
+     "region_ids": [
+      "G_entrance"
+     ]
+    }
+   ]
+  },
+  "action_rules": {
+   "required_groups": [
+    {
+     "alternatives": [
+      {
+       "code": "YIELD_IF_OCCUPIED",
+       "condition": "while_corridor_occupied",
+       "based_on": [
+        "R1"
+       ]
+      },
+      {
+       "code": "HOLD_UNTIL_CLEAR",
+       "condition": "while_corridor_occupied",
+       "based_on": [
+        "R1"
+       ]
+      }
+     ]
+    },
+    {
+     "alternatives": [
+      {
+       "code": "VERIFY_BEFORE_ADVANCE",
+       "condition": "before_resolving_uncertainty",
+       "based_on": [
+        "R2"
+       ]
+      }
+     ]
+    }
+   ],
+   "allowed_pairs": [
+    {
+     "code": "YIELD_IF_OCCUPIED",
+     "condition": "while_corridor_occupied"
+    },
+    {
+     "code": "HOLD_UNTIL_CLEAR",
+     "condition": "while_corridor_occupied"
+    },
+    {
+     "code": "VERIFY_BEFORE_ADVANCE",
+     "condition": "before_resolving_uncertainty"
+    }
+   ],
+   "forbidden_pairs": [
+    {
+     "code": "ADVANCE_WITH_MONITORING",
+     "condition": "no_condition"
+    }
+   ]
+  }
+ },
+ "scoring": {
+  "scored": true,
+  "excluded_reason": null,
+  "relations": {
+   "R1": {
+    "expected": "P",
+    "predicted": null,
+    "match": false
+   },
+   "R2": {
+    "expected": "U",
+    "predicted": null,
+    "match": false
+   },
+   "R3": {
+    "expected": "A",
+    "predicted": null,
+    "match": false
+   },
+   "R4": {
+    "expected": "A",
+    "predicted": null,
+    "match": false
+   }
+  },
+  "attributes": {
+   "sidewalk_left": {
+    "expected": "A",
+    "predicted": null
+   },
+   "sidewalk_right": {
+    "expected": "A",
+    "predicted": null
+   },
+   "traffic_direction": {
+    "expected": "Two-way",
+    "predicted": null
+   },
+   "direction_match": {
+    "expected": "Not applicable",
+    "predicted": null
+   }
+  },
+  "action_eval": {
+   "required_groups": 2,
+   "excluded_reason": null,
+   "pass": false,
+   "pass_status": "computed",
+   "fail_reasons": [
+    "invalid"
+   ],
+   "errors": [
+    "invalid output counts as failure"
+   ],
+   "matched_required_groups": 0,
+   "forbidden_pairs_hit": [],
+   "unsupported_pairs": [],
+   "forbidden_hit": false
+  },
+  "diagnostics": {
+   "grounding": {
+    "objects": {
+     "0.3": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_car",
+       "G_ped"
+      ]
+     },
+     "0.5": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_car",
+       "G_ped"
+      ]
+     },
+     "0.7": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_car",
+       "G_ped"
+      ]
+     }
+    },
+    "regions": {
+     "unmeasurable_reference_ids": [
+      "G_hidden"
+     ],
+     "0.3": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     },
+     "0.5": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     },
+     "0.7": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     }
+    }
+   },
+   "evidence": {
+    "R1": {
+     "status": "fail",
+     "reason": "invalid_output"
+    },
+    "R2": {
+     "status": "fail",
+     "reason": "invalid_output"
+    },
+    "R3": {
+     "status": "not_applicable",
+     "reason": "GT state is not P/U"
+    },
+    "R4": {
+     "status": "not_applicable",
+     "reason": "GT state is not P/U"
+    }
+   },
+   "benchmark": {
+    "eligible": true,
+    "blockers": []
+   }
+  },
+  "statement_review": {
+   "status": "not_submitted",
+   "reason": "V13/V14 come from human statement review only"
+  }
+ }
+}

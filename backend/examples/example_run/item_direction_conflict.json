@@ -1,0 +1,565 @@
+{
+ "_request": "GET /api/runs/EXAMPLE-RUN-001/items/example_005",
+ "_note": "synthetic example",
+ "run_id": "EXAMPLE-RUN-001",
+ "item_id": "example_005",
+ "data_kind": "example",
+ "versions": {
+  "api": "0.1.0",
+  "scorer": "backend-scorer-0.1.0",
+  "scorer_commit": "42a16024033db9acd79931f3b142d3a246cb2bac",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "data": {
+   "items": "example-items-0.1"
+  },
+  "reference": [
+   "example-ref-0.1"
+  ],
+  "result_hash": "80f7d976dce9a5141a023b6de91bbac8833d88c67df8a46908895a854fd85b65"
+ },
+ "run": {
+  "run_id": "EXAMPLE-RUN-001",
+  "label": "Example run for screen development (synthetic)",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "decoding": {
+   "seed": 0
+  }
+ },
+ "input": {
+  "item_id": "example_005",
+  "data_kind": "example",
+  "image_file": null,
+  "image_relpath": null,
+  "image_sha256": null,
+  "image_size": {
+   "width": 1920,
+   "height": 1080
+  },
+  "source_group_id": "example_group_5",
+  "note": "valid output, Direction Match=Conflicting -> excluded from V10-V12 only",
+  "task": "track1_current_scene",
+  "input_type": "single_image"
+ },
+ "image_url": null,
+ "image_size": {
+  "width": 1920,
+  "height": 1080
+ },
+ "prediction": {
+  "status": "valid",
+  "format_errors": [],
+  "raw_text": "{\"item_id\": \"example_005\", \"track1\": {\"attributes\": {\"traffic_direction\": \"Two-way\", \"direction_match\": \"Not applicable\", \"sidewalk_left\": \"A\", \"sidewalk_right\": \"A\"}, \"objects\": [{\"object_id\": \"obj_1\", \"class\": \"car\", \"bbox_xyxy_norm\": [0.4, 0.4, 0.6, 0.7], \"semantic_role\": \"actor\", \"placement\": \"travel_space\", \"truncated\": \"A\"}, {\"object_id\": \"obj_2\", \"class\": \"pedestrian\", \"bbox_xyxy_norm\": [0.1, 0.45, 0.15, 0.7], \"semantic_role\": \"actor\", \"placement\": \"roadside\", \"truncated\": \"A\"}, {\"object_id\": \"obj_3\", \"class\": \"truck\", \"bbox_xyxy_norm\": [0.8, 0.3, 0.95, 0.6], \"semantic_role\": \"actor\", \"placement\": \"roadside\", \"truncated\": \"A\"}], \"relations\": {\"R1\": {\"state\": \"P\", \"object_ids\": [\"obj_1\"], \"region_ids\": [], \"reason\": \"example\", \"roles\": {\"actor_ids\": [\"obj_1\"], \"obstacle_ids\": []}}, \"R2\": {\"state\": \"A\", \"object_ids\": [], \"region_ids\": [], \"reason\": \"example\", \"roles\": {\"actor_ids\": [], \"entrance_candidate_id\": null}}, \"R3\": {\"state\": \"A\", \"object_ids\": [], \"region_ids\": [], \"reason\": \"example\", \"roles\": {\"occluder_ids\": [], \"occluded_region_id\": null}}, \"R4\": {\"state\": \"A\", \"object_ids\": [], \"region_ids\": [], \"reason\": \"example\", \"roles\": {\"restricting_object_ids\": []}}}, \"actions\": [{\"code\": \"YIELD_IF_OCCUPIED\", \"condition\": \"while_corridor_occupied\", \"based_on\": [\"R1\"], \"reason\": \"example\"}, {\"code\": \"ADVANCE_WITH_MONITORING\", \"condition\": \"no_condition\", \"based_on\": [\"R2\"], \"reason\": \"example\"}], \"unknowns\": [], \"regions\": []}, \"track2\": {\"status\": \"missing_input\", \"target_object_id\": null}, \"track3\": {\"status\": \"missing_input\", \"speed_change\": null, \"direction_change\": null}}",
+  "error": null,
+  "parsed": {
+   "item_id": "example_005",
+   "track1": {
+    "attributes": {
+     "traffic_direction": "Two-way",
+     "direction_match": "Not applicable",
+     "sidewalk_left": "A",
+     "sidewalk_right": "A"
+    },
+    "objects": [
+     {
+      "object_id": "obj_1",
+      "class": "car",
+      "bbox_xyxy_norm": [
+       0.4,
+       0.4,
+       0.6,
+       0.7
+      ],
+      "semantic_role": "actor",
+      "placement": "travel_space",
+      "truncated": "A"
+     },
+     {
+      "object_id": "obj_2",
+      "class": "pedestrian",
+      "bbox_xyxy_norm": [
+       0.1,
+       0.45,
+       0.15,
+       0.7
+      ],
+      "semantic_role": "actor",
+      "placement": "roadside",
+      "truncated": "A"
+     },
+     {
+      "object_id": "obj_3",
+      "class": "truck",
+      "bbox_xyxy_norm": [
+       0.8,
+       0.3,
+       0.95,
+       0.6
+      ],
+      "semantic_role": "actor",
+      "placement": "roadside",
+      "truncated": "A"
+     }
+    ],
+    "relations": {
+     "R1": {
+      "state": "P",
+      "object_ids": [
+       "obj_1"
+      ],
+      "region_ids": [],
+      "reason": "example",
+      "roles": {
+       "actor_ids": [
+        "obj_1"
+       ],
+       "obstacle_ids": []
+      }
+     },
+     "R2": {
+      "state": "A",
+      "object_ids": [],
+      "region_ids": [],
+      "reason": "example",
+      "roles": {
+       "actor_ids": [],
+       "entrance_candidate_id": null
+      }
+     },
+     "R3": {
+      "state": "A",
+      "object_ids": [],
+      "region_ids": [],
+      "reason": "example",
+      "roles": {
+       "occluder_ids": [],
+       "occluded_region_id": null
+      }
+     },
+     "R4": {
+      "state": "A",
+      "object_ids": [],
+      "region_ids": [],
+      "reason": "example",
+      "roles": {
+       "restricting_object_ids": []
+      }
+     }
+    },
+    "actions": [
+     {
+      "code": "YIELD_IF_OCCUPIED",
+      "condition": "while_corridor_occupied",
+      "based_on": [
+       "R1"
+      ],
+      "reason": "example"
+     },
+     {
+      "code": "ADVANCE_WITH_MONITORING",
+      "condition": "no_condition",
+      "based_on": [
+       "R2"
+      ],
+      "reason": "example"
+     }
+    ],
+    "unknowns": [],
+    "regions": []
+   },
+   "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+   },
+   "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+   }
+  },
+  "meta": {
+   "item_id": "example_005",
+   "status": "ok"
+  }
+ },
+ "output_text": null,
+ "reference": {
+  "item_id": "example_005",
+  "data_kind": "example",
+  "annotation_status": "Reviewed",
+  "reference_version": "example-ref-0.1",
+  "evidence_reviewed": true,
+  "object_coverage_complete": true,
+  "attributes": {
+   "traffic_direction": "Two-way",
+   "direction_match": "Conflicting",
+   "sidewalk_left": "A",
+   "sidewalk_right": "A"
+  },
+  "objects": [
+   {
+    "object_id": "G_car",
+    "class": "car",
+    "bbox_xyxy_norm": [
+     0.41,
+     0.42,
+     0.61,
+     0.71
+    ],
+    "semantic_role": "actor",
+    "placement": "travel_space"
+   },
+   {
+    "object_id": "G_ped",
+    "class": "pedestrian",
+    "bbox_xyxy_norm": [
+     0.11,
+     0.46,
+     0.16,
+     0.72
+    ],
+    "semantic_role": "actor",
+    "placement": "entrance"
+   }
+  ],
+  "regions": [
+   {
+    "region_id": "G_C",
+    "type": "driving_area",
+    "bbox_xyxy_norm": null,
+    "polygon_xy_norm": [
+     [
+      0.2,
+      0.95
+     ],
+     [
+      0.8,
+      0.95
+     ],
+     [
+      0.55,
+      0.35
+     ],
+     [
+      0.45,
+      0.35
+     ]
+    ],
+    "geometry_status": "reviewed"
+   },
+   {
+    "region_id": "G_entrance",
+    "type": "entrance_region",
+    "bbox_xyxy_norm": [
+     0.05,
+     0.4,
+     0.2,
+     0.75
+    ],
+    "polygon_xy_norm": null,
+    "geometry_status": "reviewed"
+   },
+   {
+    "region_id": "G_hidden",
+    "type": "occluded_road_region",
+    "bbox_xyxy_norm": null,
+    "polygon_xy_norm": null,
+    "geometry_status": "unmeasurable_hidden_extent"
+   }
+  ],
+  "relations": {
+   "R1": {
+    "state": "P",
+    "object_ids": [
+     "G_car"
+    ],
+    "region_ids": [
+     "G_C"
+    ],
+    "reason": "example"
+   },
+   "R2": {
+    "state": "U",
+    "object_ids": [
+     "G_ped"
+    ],
+    "region_ids": [
+     "G_entrance"
+    ],
+    "reason": "example"
+   },
+   "R3": {
+    "state": "A",
+    "object_ids": [],
+    "region_ids": [],
+    "reason": "example"
+   },
+   "R4": {
+    "state": "A",
+    "object_ids": [],
+    "region_ids": [],
+    "reason": "example"
+   }
+  },
+  "accepted_evidence_sets_by_relation": {
+   "R1": [
+    {
+     "object_ids": [
+      "G_car"
+     ],
+     "region_ids": []
+    }
+   ],
+   "R2": [
+    {
+     "object_ids": [
+      "G_ped"
+     ],
+     "region_ids": [
+      "G_entrance"
+     ]
+    }
+   ]
+  },
+  "action_rules": {
+   "required_groups": [
+    {
+     "alternatives": [
+      {
+       "code": "YIELD_IF_OCCUPIED",
+       "condition": "while_corridor_occupied",
+       "based_on": [
+        "R1"
+       ]
+      },
+      {
+       "code": "HOLD_UNTIL_CLEAR",
+       "condition": "while_corridor_occupied",
+       "based_on": [
+        "R1"
+       ]
+      }
+     ]
+    },
+    {
+     "alternatives": [
+      {
+       "code": "VERIFY_BEFORE_ADVANCE",
+       "condition": "before_resolving_uncertainty",
+       "based_on": [
+        "R2"
+       ]
+      }
+     ]
+    }
+   ],
+   "allowed_pairs": [
+    {
+     "code": "YIELD_IF_OCCUPIED",
+     "condition": "while_corridor_occupied"
+    },
+    {
+     "code": "HOLD_UNTIL_CLEAR",
+     "condition": "while_corridor_occupied"
+    },
+    {
+     "code": "VERIFY_BEFORE_ADVANCE",
+     "condition": "before_resolving_uncertainty"
+    }
+   ],
+   "forbidden_pairs": [
+    {
+     "code": "ADVANCE_WITH_MONITORING",
+     "condition": "no_condition"
+    }
+   ]
+  }
+ },
+ "scoring": {
+  "scored": true,
+  "excluded_reason": null,
+  "relations": {
+   "R1": {
+    "expected": "P",
+    "predicted": "P",
+    "match": true
+   },
+   "R2": {
+    "expected": "U",
+    "predicted": "A",
+    "match": false
+   },
+   "R3": {
+    "expected": "A",
+    "predicted": "A",
+    "match": true
+   },
+   "R4": {
+    "expected": "A",
+    "predicted": "A",
+    "match": true
+   }
+  },
+  "attributes": {
+   "sidewalk_left": {
+    "expected": "A",
+    "predicted": "A"
+   },
+   "sidewalk_right": {
+    "expected": "A",
+    "predicted": "A"
+   },
+   "traffic_direction": {
+    "expected": "Two-way",
+    "predicted": "Two-way"
+   },
+   "direction_match": {
+    "expected": "Conflicting",
+    "predicted": "Not applicable"
+   }
+  },
+  "action_eval": {
+   "pass": null,
+   "pass_status": "excluded",
+   "excluded_reason": "direction_conflict",
+   "fail_reasons": [],
+   "errors": []
+  },
+  "diagnostics": {
+   "grounding": {
+    "objects": {
+     "0.3": {
+      "pairs": [
+       {
+        "prediction_id": "obj_1",
+        "reference_id": "G_car",
+        "class": "car",
+        "iou": 0.820988
+       },
+       {
+        "prediction_id": "obj_2",
+        "reference_id": "G_ped",
+        "class": "pedestrian",
+        "iou": 0.603774
+       }
+      ],
+      "unmatched_prediction_ids": [
+       "obj_3"
+      ],
+      "unmatched_reference_ids": []
+     },
+     "0.5": {
+      "pairs": [
+       {
+        "prediction_id": "obj_1",
+        "reference_id": "G_car",
+        "class": "car",
+        "iou": 0.820988
+       },
+       {
+        "prediction_id": "obj_2",
+        "reference_id": "G_ped",
+        "class": "pedestrian",
+        "iou": 0.603774
+       }
+      ],
+      "unmatched_prediction_ids": [
+       "obj_3"
+      ],
+      "unmatched_reference_ids": []
+     },
+     "0.7": {
+      "pairs": [
+       {
+        "prediction_id": "obj_1",
+        "reference_id": "G_car",
+        "class": "car",
+        "iou": 0.820988
+       }
+      ],
+      "unmatched_prediction_ids": [
+       "obj_2",
+       "obj_3"
+      ],
+      "unmatched_reference_ids": [
+       "G_ped"
+      ]
+     }
+    },
+    "regions": {
+     "unmeasurable_reference_ids": [
+      "G_hidden"
+     ],
+     "0.3": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     },
+     "0.5": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     },
+     "0.7": {
+      "pairs": [],
+      "unmatched_prediction_ids": [],
+      "unmatched_reference_ids": [
+       "G_entrance"
+      ]
+     }
+    }
+   },
+   "evidence": {
+    "R1": {
+     "status": "pass",
+     "reason": null,
+     "mapped_ids": [
+      "G_car"
+     ],
+     "unmatched_prediction_ids": []
+    },
+    "R2": {
+     "status": "fail",
+     "reason": "evidence_set_differs",
+     "mapped_ids": [],
+     "unmatched_prediction_ids": []
+    },
+    "R3": {
+     "status": "not_applicable",
+     "reason": "GT state is not P/U"
+    },
+    "R4": {
+     "status": "not_applicable",
+     "reason": "GT state is not P/U"
+    }
+   },
+   "benchmark": {
+    "eligible": true,
+    "blockers": []
+   }
+  },
+  "statement_review": {
+   "status": "not_submitted",
+   "reason": "V13/V14 come from human statement review only"
+  }
+ }
+}
