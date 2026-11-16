@@ -26,6 +26,22 @@ button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px soli
 .conn select,.conn input{background:#26345a;border:1px solid #4a5a82;color:#fff;border-radius:7px;padding:4px 8px;font-size:12.5px}
 .conn input{width:190px;font-family:var(--mono);font-size:11.5px}
 .dot{width:8px;height:8px;border-radius:50%;background:#7c869e}.dot.ok{background:#4cd08a}.dot.bad{background:#ff7b6e}
+.rcard{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 16px;cursor:pointer;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.rcard:hover{border-color:var(--navy)}.rcard.on{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy)}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}.prog i{display:block;height:100%}
+.prog .v{background:var(--ok)}.prog .x{background:var(--bad)}.prog .w{background:var(--line2)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:12.5px}.kv span:nth-child(odd){color:var(--muted)}.kv span:nth-child(even){font-family:var(--mono);font-size:12px;word-break:break-all}
+.core{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:800px){.core{grid-template-columns:1fr}}
+.big{padding:16px;display:grid;gap:6px}.big .lbl{font-size:12.5px;color:var(--muted)}.big .val{font-size:34px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.big .val.none{font-size:22px;color:var(--muted)}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}@media (max-width:800px){.groups{grid-template-columns:1fr}}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+.mrow:first-of-type{border-top:0}.mrow b{font-variant-numeric:tabular-nums}.mrow .r{grid-column:1/-1;font-size:11.5px;color:var(--muted);margin-top:-4px}
+.cells{display:grid;grid-template-columns:auto repeat(3,1fr);gap:4px;font-size:12px;align-items:center}
+.cell{border:1px solid var(--line);border-radius:7px;padding:5px 4px;text-align:center;font-variant-numeric:tabular-nums}
+.cell.nil{border-style:dashed;color:var(--muted)}.cell small{display:block;font-size:10px;color:var(--muted)}
+.ct{width:100%;border-collapse:collapse;font-size:12.5px}.ct th,.ct td{text-align:left;padding:7px 8px;border-top:1px solid var(--line)}.ct th{color:var(--muted);font-weight:500;border-top:0}
+.rc.diff{border-color:#d9a800;background:#fff6cf}.rc.diff i{color:#7a5c00;font-weight:600}
 .msg{padding:36px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
 .msg code{font-family:var(--mono);font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
 .help{position:relative}.help summary{list-style:none;cursor:pointer;border:1px solid #4a5a82;border-radius:7px;padding:4px 10px;font-size:12.5px;color:#dfe5f2}
@@ -83,7 +99,7 @@ h1{margin:0;font-size:20px;font-weight:700}
 .ly i{width:16px;height:10px;border:2px solid;border-radius:2px}.ly.off{opacity:.45}
 .ly .c{border-color:var(--c);border-style:dashed}.ly .g{border-color:var(--gt)}.ly .p{border-color:var(--pred);border-style:dashed}
 .right{display:grid;gap:12px;min-width:0}
-.sec{padding:14px;display:grid;gap:10px}
+.sec{padding:14px;display:grid;gap:10px;align-content:start}
 .sec h2{margin:0;font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center}
 .sec>.pill{justify-self:start}
 .sec h2 span{font-weight:400;color:var(--muted);font-size:12px}
@@ -114,13 +130,7 @@ details.more ul{margin:0;padding-left:18px;color:var(--muted)}
 
 <header class="top">
   <span class="logo">R</span><b>생활도로 VLM</b>
-  <nav class="steps">
-    <button class="step off" title="팀 프로토타입 참고"><b>F1</b>실행</button>
-    <button class="step off" title="팀 프로토타입 참고"><b>F2</b>리포트</button>
-    <button class="step" data-v="errors" onclick="go('errors')"><b>F3</b>오류 목록</button>
-    <button class="step off" title="팀 프로토타입 참고"><b>F4</b>비교</button>
-    <button class="step" data-v="scene" onclick="go('scene')"><b>F5</b>장면 상세</button>
-  </nav>
+  <nav class="steps" id="steps"></nav>
   <span class="sp"></span>
   <span class="conn" id="conn"></span>
   <details class="help"><summary>범례 ?</summary><div class="pop" id="legend"></div></details>
@@ -139,7 +149,7 @@ const FAIL=Object.assign({missing_required:'필요 대응 누락',forbidden:'금
 let S=D?D.scenes:[];
 const api={base:'',run:'',runs:[],state:'idle',err:''};
 const F0=()=>({kind:'',rel:'',fail:'',review:'',onlyFail:true});
-const st={view:'errors',sid:S[0]?.scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
+const st={view:API_MODE?'runs':'errors',base:'',cmp:{base:'',target:''},condKey:'weather',sid:S[0]?.scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const pill=(t,c='')=>`<span class="pill ${c}">${t}</span>`;
 const sv=v=>v==null?'<span class="st X">–</span>':`<span class="st ${v}">${v}</span>`;
@@ -159,9 +169,20 @@ function list(){const f=st.f;return S.filter(s=>{
   if(f.review&&s.review_status!==f.review)return false;return true;});}
 /* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
 function result(s){return !s.pred.valid?pill(s.pred.status==='timeout'?'Timeout':'Invalid','bad'):s.scoring.pass==null?(s.review_status==='Reviewed'?pill('N/A','na'):pill('채점 제외','na')):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
-function render(){document.querySelectorAll('.step[data-v]').forEach(n=>n.classList.toggle('cur',n.dataset.v===st.view));renderConn();
+const STEPS=[['runs','F1','실행'],['report','F2','리포트'],['errors','F3','오류 목록'],['compare','F4','비교'],['scene','F5','장면 상세']];
+function render(){
+  /* 파일 모드에서는 F3·F5만. API 모드에서는 F1~F5 전부. */
+  document.getElementById('steps').innerHTML=STEPS.map(([v,k,l])=>{const on=API_MODE||v==='errors'||v==='scene';
+    return `<button class="step ${on?'':'off'} ${st.view===v?'cur':''}" ${on?`onclick="go('${v}')"`:'title="API 모드(app.html)에서 사용"'}><b>${k}</b>${l}</button>`;}).join('');
+  renderConn();
   if(API_MODE&&api.state!=='ok')return apiMsg();
-  (st.view==='errors'||!S.length?F3:F5)();}
+  const V={runs:F1,report:F2,compare:F4,errors:F3,scene:S.length?F5:F3};(V[st.view]||F3)();}
+/* API 응답 캐시: 없으면 '불러오는 중'을 띄우고 받아온 뒤 다시 그림 */
+let cache={},pending={};
+function need(key,path){if(cache[key]!==undefined)return cache[key];
+  if(!pending[key])pending[key]=getJSON(path).then(d=>{cache[key]=d;},e=>{cache[key]={_err:String(e.message||e)};}).then(()=>{delete pending[key];render();});
+  document.getElementById('app').innerHTML='<div class="card msg"><span class="muted">불러오는 중…</span></div>';return null;}
+const errCard=m=>{document.getElementById('app').innerHTML=`<div class="card msg"><b>불러오지 못했어요</b><span class="small muted mono">${esc(m)}</span></div>`;};
 const imgTag=(s,thumb)=>{const u=thumb&&s.thumb||s.image;return u?`<img src="${esc(u)}" alt="" ${thumb?'loading="lazy"':''} onerror="this.remove()">`:'';};
 
 /* ---------------- API 모드: 백엔드 응답 → 화면 형식 ---------------- */
@@ -196,14 +217,15 @@ async function loadList(){const f=st.f,q=new URLSearchParams();
   if(f.rel)q.set('relation',f.rel);if(f.fail)q.set('fail_reason',f.fail);if(f.review)q.set('annotation_status',f.review);if(f.kind)q.set('data_kind',f.kind==='real'?'real':'example');
   const d=await getJSON(`/api/runs/${encodeURIComponent(api.run)}/items?${q}`),old=Object.fromEntries(S.map(s=>[s.scene_id,s]));
   S=d.items.map(it=>old[it.item_id]&&old[it.item_id]._full?old[it.item_id]:fromList(it));}
-async function connect(base,run){
+async function connect(base,run,view,sid){
   /* 주소 정리: http:// 없으면 붙이고, /docs·/api 같은 뒤 경로는 떼어냄 */
   let b=(base||api.base||'').trim();if(b&&!/^https?:\/\//i.test(b))b='http://'+b;
   try{const u=new URL(b);b=u.protocol+'//'+u.host;}catch(e){}
   api.base=b;api.state='loading';api.err='';render();
   try{try{localStorage.setItem('f3f5_api',api.base);}catch(e){}
     api.runs=(await getJSON('/api/runs')).runs;if(!api.runs.length)throw new Error('Run이 없음');
-    api.run=api.runs.some(r=>r.run_id===run)?run:api.runs[0].run_id;S=[];st.f=F0();await loadList();api.state='ok';st.view='errors';st.sid=S[0]?.scene_id;
+    api.run=api.runs.some(r=>r.run_id===run)?run:api.runs[0].run_id;S=[];cache={};pending={};st.f=F0();if(sid)st.f.onlyFail=false;await loadList();api.state='ok';
+    st.view=view||(st.view==='scene'?'errors':st.view);st.sid=sid&&S.some(s=>s.scene_id===sid)?sid:S[0]?.scene_id;st.hl=new Set();
   }catch(e){api.state='error';api.err=String(e.message||e);}
   render();}
 function renderConn(){if(!API_MODE){document.getElementById('conn').innerHTML='<span class="small" style="color:#aab4cd">파일 모드</span>';return;}
@@ -230,6 +252,103 @@ document.getElementById('legend').innerHTML=`
   <span class="ly" style="padding:2px 6px"><i class="c"></i></span><span>C 평가 영역 · 모델엔 안 줌</span>
   <span class="ly" style="padding:2px 6px"><i class="g"></i></span><span>GT (정답)</span>
   <span class="ly" style="padding:2px 6px"><i class="p"></i></span><span>예측 (모델)</span>`;
+
+/* ---------------- F1 실행 (읽기 전용: Run 목록·설정·진행) ---------------- */
+const STATUS={imported:'가져옴',queued:'대기',running:'실행 중',done:'완료',completed:'완료',cancelled:'취소',failed:'실패'};
+const short=(x,n=10)=>x==null?'–':String(x).slice(0,n);
+function F1(){
+  const d=need('run:'+api.run,`/api/runs/${encodeURIComponent(api.run)}`);if(!d)return;if(d._err)return errCard(d._err);
+  const r=d.run,m=r.model||{},q=m.quantization,v=d.versions||{},env=r.environment||{};
+  document.getElementById('app').innerHTML=`
+  <h1>실행 목록</h1>
+  ${api.runs.map(x=>{const c=x.prediction_status_counts||{},n=x.n_requests||0,ok=c.valid||0,bad=n?Object.entries(c).filter(([k])=>k!=='valid').reduce((a,[,b])=>a+b,0):0;
+    return `<button class="rcard ${x.run_id===api.run?'on':''}" onclick="connect(api.base,'${esc(x.run_id)}','runs')">
+      <span style="display:grid;gap:3px;min-width:0"><span class="row"><b class="mono">${esc(x.run_id)}</b>${x.data_kind==='real'?pill('실제 Run','real'):pill('예시','mock')}${pill(STATUS[x.status]||esc(x.status),'dim')}${x.provisional?pill('진행 중 · 잠정','warn'):''}</span><span class="small muted">${esc(x.label||'')} · ${esc(x.model_id||'')}</span></span>
+      <span style="display:grid;gap:5px"><span class="prog" title="유효 ${ok} · 실패 ${bad} · 남음 ${Math.max(0,n-ok-bad)}"><i class="v" style="width:${n?ok/n*100:0}%"></i><i class="x" style="width:${n?bad/n*100:0}%"></i></span><span class="small muted">요청 ${n} · 형식 통과 ${ok} · 채점 ${x.n_scored_items}</span></span>
+      <span class="chev muted">›</span></button>`;}).join('')}
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <section class="card sec"><h2>모델 · 실행 설정 <span>${esc(api.run)}</span></h2><div class="kv">
+      <span>모델</span><span>${esc(m.model_id)}</span><span>revision</span><span>${esc(short(m.revision))}</span>
+      <span>양자화</span><span>${q?esc(q.bnb_4bit_quant_type||'4bit'):'없음'}</span><span>adapter</span><span>${m.adapter_loaded?'있음 (Tuned)':'없음 (Base)'}</span>
+      <span>prompt</span><span>${esc((r.prompt||{}).version)}</span><span>seed</span><span>${esc((r.decoding||{}).seed)}</span>
+      <span>GPU</span><span>${esc(env.gpu||'–')}</span></div></section>
+    <section class="card sec"><h2>버전 <span>재현용</span></h2><div class="kv">
+      <span>데이터</span><span>${esc((r.data_version||{}).items||'–')}</span><span>정답</span><span>${esc(r.reference_version||'없음')}</span>
+      <span>Split</span><span>${esc(r.split_version||'없음')}</span><span>채점 코드</span><span>${esc(short(v.scorer_commit,7))}</span>
+      <span>결과 hash</span><span>${esc(short(v.result_hash,12))}</span></div>
+      <div class="row"><button class="btn" onclick="go('report')">리포트 →</button><button class="btn" onclick="go('errors')">오류 목록 →</button></div></section>
+  </div>
+  <div class="small muted">새 실행은 쓰기 키가 필요해서 이 화면에서는 조회만 해요.</div>`;
+}
+
+/* ---------------- F2 리포트: 값·구간·판정은 Report API 값을 그대로 표시 ---------------- */
+const MET={v1_valid:['V1 형식 통과율','rate'],v2_invalid:['V2 형식 오류율','rate',1],v3_grounding:['V3 근거 Box F1 (IoU 0.5)','f1'],v4_evidence:['V4 근거 일치율','rate'],
+  v5_relation_macro_f1:['V5 관계 Macro-F1','f1'],v6_present_recall:['V6 성립(P) 재현율','rate'],v7_false_positive_rate:['V7 오탐률','rate',1],v8_unknown_recall:['V8 판단불가(U) 재현율','rate'],v9_over_abstention:['V9 과잉 보류율','rate',1],
+  v10_action_pass_rate:['V10 대응 통과율','rate'],v11_required_group_recall:['V11 필요 대응 재현율','rate'],v12_forbidden_rate:['V12 금지 대응률','rate',1],
+  v13_statement_error_rate:['V13 진술 오류율','rate',1],v14_answer_with_error_rate:['V14 오류 포함 답변율','rate',1],a1_attribute_f1:['A1 장면 속성 F1','f1'],a2_direction_na_violation:['A2 방향 N/A 위반률','rate',1]};
+const mval=(k,m)=>!m?null:k==='v3_grounding'?((m.by_iou||{})['0.5']||{}).f1??null:m.value??null;
+const mfmt=(k,x)=>x==null?null:MET[k][1]==='rate'?(x*100).toFixed(1)+'%':(+x).toFixed(3);
+const ci=(k,m)=>m&&m.ci95?`95% CI ${mfmt(k,m.ci95[0])} – ${mfmt(k,m.ci95[1])}`:'';
+const none=m=>!m||m.status==='not_computed'?pill('미산출','warn'):pill('N/A','na');
+const JUDGE={improved:['개선 확인','ok'],not_confirmed:['개선 확인 안 됨','warn'],not_applicable:['판정 불가','na']};
+function mrow(k,M){const m=M[k],x=m&&m.status==='computed'?mval(k,m):null;
+  return `<div class="mrow"><span>${MET[k][0]}${MET[k][2]?' <span class="small muted">↓ 낮을수록 좋음</span>':''}</span><span class="small muted">${x!=null&&m.n!=null&&m.numerator!=null?m.numerator+'/'+m.n:''}</span>${x!=null?`<b>${mfmt(k,x)}</b>`:none(m)}
+    ${x!=null?(ci(k,m)?`<span class="r">${ci(k,m)}</span>`:''):`<span class="r" title="${esc(m&&m.reason)}">${esc(m&&m.reason||'')}</span>`}</div>`;}
+function bigTile(k,M,cmp){const m=M[k],x=m&&m.status==='computed'?mval(k,m):null,c=cmp&&cmp.metrics&&cmp.metrics[k],j=c&&JUDGE[c.judgement];
+  return `<div class="card big"><span class="lbl">${MET[k][0]}</span>${x!=null?`<span class="val">${mfmt(k,x)}</span>`:`<span class="val none">${m&&m.status==='not_computed'?'미산출':'N/A'}</span>`}
+    <span class="small muted">${x!=null?[m.n!=null&&m.numerator!=null?m.numerator+'/'+m.n:'',ci(k,m)].filter(Boolean).join(' · '):esc(m&&m.reason||'')}</span>
+    ${k==='v5_relation_macro_f1'&&x==null&&m&&m.supported_class_macro_f1&&m.supported_class_macro_f1.value!=null?`<span class="small muted">참고: 정답이 있는 ${m.supported_class_macro_f1.n_cells}칸 평균 ${(+m.supported_class_macro_f1.value).toFixed(3)}</span>`:''}
+    ${c?`<span class="row">${pill(j?j[0]:esc(c.judgement),j?j[1]:'na')}<span class="small muted">${[c.delta!=null?'Base 대비 '+(c.delta>=0?'+':'')+mfmt(k,c.delta):'',c.ci95?`차이 95% CI ${mfmt(k,c.ci95[0])} – ${mfmt(k,c.ci95[1])}`:esc(c.ci_reason||'')].filter(Boolean).join(' · ')}</span></span>`:''}</div>`;}
+function F2(){
+  const run=api.run,base=st.base&&st.base!==run?st.base:'';
+  const d=need('rep:'+run+':'+base,`/api/runs/${encodeURIComponent(run)}/report${base?'?base='+encodeURIComponent(base):''}`);if(!d)return;if(d._err)return errCard(d._err);
+  const cd=need('cond:'+run+':'+st.condKey,`/api/runs/${encodeURIComponent(run)}/report/conditions?key=${st.condKey}`);if(!cd)return;
+  const M=d.metrics,c=d.prediction_status_counts||{},cmp=d.comparison&&d.comparison.status!=='not_requested'?d.comparison:null,cells=(M.v5_relation_macro_f1||{}).cells||{};
+  const ex=Object.entries((d.excluded||{}).items||{}).filter(([k,v])=>v).map(([k,v])=>`${esc(k)} ${v}`).concat(Object.entries((d.excluded||{}).actions||{}).filter(([k,v])=>v).map(([k,v])=>`대응만 제외: ${esc(k)} ${v}`));
+  const grp=(title,keys)=>`<section class="card sec"><h2>${title}</h2><div>${keys.map(k=>mrow(k,M)).join('')}</div></section>`;
+  document.getElementById('app').innerHTML=`
+  <div class="row"><h1>리포트</h1><b class="mono">${esc(run)}</b>${d.data_kind==='real'?pill('실제 Run','real'):pill('예시','mock')}${d.provisional?pill('진행 중 · 잠정','warn'):''}<span class="sp"></span>
+    <select class="sel ${base?'on':''}" aria-label="Base" onchange="st.base=this.value;render()"><option value="">Base와 비교 안 함</option>${api.runs.filter(r=>r.run_id!==run).map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===base?'selected':''}>Base: ${esc(r.run_id)}</option>`).join('')}</select></div>
+  <div class="core">${bigTile('v5_relation_macro_f1',M,cmp)}${bigTile('v10_action_pass_rate',M,cmp)}</div>
+  ${cmp&&cmp.status!=='computed'?`<div class="verdict na"><b>비교 불가</b><span class="small muted">${esc(cmp.reason||'')}</span></div>`:''}
+  <div class="stats">
+    <div class="card stat"><b>${d.n_requests}</b><span>요청</span></div>
+    <div class="card stat"><b>${c.valid||0}</b><span>형식 통과</span></div>
+    <div class="card stat"><b>${d.n_requests-(c.valid||0)}</b><span>Invalid · Timeout</span></div>
+    <div class="card stat" title="${esc(ex.join(' / '))}"><b>${d.n_scored_items}</b><span>채점 문항${ex.length?' · 제외 '+(d.n_requests-d.n_scored_items):''}</span></div>
+  </div>
+  ${ex.length?`<div class="small muted">제외 사유: ${ex.join(' · ')}</div>`:''}
+  <div class="groups">
+    ${grp('형식',['v1_valid','v2_invalid'])}${grp('근거',['v3_grounding','v4_evidence'])}
+    ${grp('편향',['v6_present_recall','v7_false_positive_rate','v8_unknown_recall','v9_over_abstention'])}${grp('대응',['v11_required_group_recall','v12_forbidden_rate'])}
+    ${grp('설명 (사람 검수)',['v13_statement_error_rate','v14_answer_with_error_rate'])}${grp('장면 속성',['a1_attribute_f1','a2_direction_na_violation'])}
+    <section class="card sec"><h2>관계 12칸 F1 <span>칸마다 정답 수(n)</span></h2><div class="cells"><span></span>${['P','A','U'].map(s=>`<span style="text-align:center">${sv(s)}</span>`).join('')}
+      ${['R1','R2','R3','R4'].map(r=>`<span class="small"><b class="mono">${r}</b> ${REL[r].label}</span>`+['P','A','U'].map(s=>{const x=cells[r+'.'+s]||{};return x.f1==null?`<span class="cell nil">–<small>n ${x.support||0}</small></span>`:`<span class="cell"><b>${(+x.f1).toFixed(2)}</b><small>n ${x.support}</small></span>`;}).join('')).join('')}</div></section>
+    <section class="card sec"><h2>조건별 <span>${cd._err?'':esc(cd.key)}</span><span class="sp"></span><select class="sel" aria-label="조건" onchange="st.condKey=this.value;render()">${[['weather','날씨'],['time','시간대'],['road','도로'],['scenario','시나리오']].map(([k,l])=>`<option value="${k}" ${k===st.condKey?'selected':''}>${l}</option>`).join('')}</select></h2>
+      ${cd._err?`<span class="small muted">${esc(cd._err)}</span>`:`<table class="ct"><tr><th>값</th><th>요청</th><th>V1</th><th>V5</th><th>V10</th></tr>${Object.entries(cd.values||{}).map(([k,v])=>`<tr><td>${esc(k)}${v.exploratory?' '+pill('표본 적음','dim'):''}</td><td>${v.n_requests}</td>${['v1_valid','v5_relation_macro_f1','v10_action_pass_rate'].map(m=>{const x=v.metrics[m];return `<td title="${esc(x&&x.reason)}">${x&&x.status==='computed'&&x.value!=null?mfmt(m,x.value):'<span class="muted">–</span>'}</td>`;}).join('')}</tr>`).join('')}</table>`}</section>
+  </div>`;
+}
+
+/* ---------------- F4 비교: 같은 문항에서 두 Run의 예측이 어떻게 다른가 ---------------- */
+function F4(){
+  const ids=api.runs.map(r=>r.run_id);if(!ids.includes(st.cmp.target))st.cmp.target=api.run;if(!ids.includes(st.cmp.base))st.cmp.base=ids.find(x=>x!==st.cmp.target)||st.cmp.target;
+  const {base,target}=st.cmp,d=need('cmp:'+base+':'+target,`/api/compare?base=${encodeURIComponent(base)}&target=${encodeURIComponent(target)}`);if(!d)return;if(d._err)return errCard(d._err);
+  const sm=d.summary||{},v10=(sm.metrics||{}).v10_action_pass_rate,j=v10&&JUDGE[v10.judgement];
+  const sel=(k,l)=>`<select class="sel on" aria-label="${l}" onchange="st.cmp.${k}=this.value;render()">${ids.map(x=>`<option value="${esc(x)}" ${x===st.cmp[k]?'selected':''}>${l}: ${esc(x)}</option>`).join('')}</select>`;
+  const act=x=>!x?pill('없음','na'):x.prediction_status!=='valid'?pill(x.prediction_status==='timeout'?'Timeout':'Invalid','bad'):x.action_pass==null?pill('채점 제외','na'):x.action_pass?pill('통과','ok'):pill('실패','bad');
+  const nd=d.items.filter(it=>it.target&&['R1','R2','R3','R4'].some(k=>(it.base.relations[k]||{}).predicted!==(it.target.relations[k]||{}).predicted)).length;
+  document.getElementById('app').innerHTML=`
+  <div class="row"><h1>모델 비교</h1><span class="sp"></span>${sel('base','Base')}<span class="muted">→</span>${sel('target','Target')}</div>
+  <div class="verdict ${sm.status==='computed'?(j?j[1]:'na'):'na'}"><b>${sm.status==='computed'?(j?j[0]:'판정 불가'):'비교 불가'}</b>
+    <span class="small muted">${sm.status==='computed'?`V10 대응 통과율 ${v10&&v10.delta!=null?(v10.delta>=0?'+':'')+mfmt('v10_action_pass_rate',v10.delta):'–'}${v10&&v10.ci95?` · 차이 95% CI ${mfmt('v10_action_pass_rate',v10.ci95[0])} – ${mfmt('v10_action_pass_rate',v10.ci95[1])}`:v10&&v10.ci_reason?' · '+esc(v10.ci_reason):''}`:esc(sm.reason||'')}</span>
+    <span class="sp"></span><span class="small muted">문항 ${d.n} · 관계 예측이 달라진 문항 ${nd}</span></div>
+  ${d.items.map(it=>{const b=it.base,t=it.target;return `<button class="item" style="grid-template-columns:104px minmax(0,1fr) auto minmax(150px,auto) 16px" ${t?`onclick="connect(api.base,'${esc(target)}','scene','${esc(it.item_id)}')"`:'disabled'}>
+    <span class="thumb"><img src="${esc(api.base+it.image_url)}?size=thumb" alt="" loading="lazy" onerror="this.remove()"></span>
+    <span class="t"><span class="row"><b class="mono">${esc(it.item_id)}</b>${revPill(it.annotation_status)}</span></span>
+    <span class="rels">${['R1','R2','R3','R4'].map(k=>{const x=(b.relations[k]||{}).predicted,y=t?(t.relations[k]||{}).predicted:null,df=t&&x!==y;return `<span class="rc ${df?'diff':''}" title="${k} ${REL[k].label}: Base → Target${df?' (달라짐)':''}"><i>${k}</i><span class="v">${sv(x)}→${sv(y)}</span></span>`;}).join('')}</span>
+    <span class="res">${act(b)}<span class="muted">→</span>${act(t)}</span><span class="chev muted">›</span></button>`;}).join('')}
+  <div class="small muted">칸은 Base 예측 → Target 예측. 노란 칸은 두 Run의 예측이 다른 관계예요. 문항을 누르면 Target Run의 장면 상세로 가요.</div>`;
+}
 
 /* ---------------- F3 ---------------- */
 function setF(k,v){st.f[k]=v;if(API_MODE&&k!=='onlyFail')loadList().then(render,e=>{api.state='error';api.err=String(e.message||e);render();});else render();}

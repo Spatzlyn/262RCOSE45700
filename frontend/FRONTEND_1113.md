@@ -114,4 +114,9 @@
 - 실패 사유는 `action_eval.fail_reasons` 코드 그대로 표시 (`reference_inconsistent` 포함, "분류 미정" 없음). Box 짝짓기는 IoU 0.5 기준 값을 읽는다.
 - `index.html`은 기존 파일 모드(실제 Run 1건 + 예시 13건 내장)로 그대로 둔다. 두 파일 모두 `template.html` 하나에서 만든다(`prep.py`).
 - 확인: 백엔드 `30c5b92`를 로컬에서 띄워 `EXAMPLE-RUN-001` 5건, `RUN-PILOT6-BASE-001` 6건 전부 열림. Pilot은 정답이 없어 예측만 표시되고 채점은 "정답 없음 · 채점 제외".
-- 미완료: F1·F2·F4 API 연결, Docker로 띄운 환경에서의 확인.
+- **F1·F2·F4도 API 연결 (11/16 밤)**: `app.html` 상단 F1~F5 전부 동작.
+  - F1 실행: `GET /api/runs`, `GET /api/runs/{run_id}` — Run 목록·진행·모델/버전 설정. **조회만** (새 실행 `POST /api/runs`는 쓰기 키가 필요해 화면에 넣지 않음).
+  - F2 리포트: `GET /api/runs/{run_id}/report[?base=]`, `/report/conditions?key=` — V5·V10 + CI + 판정, 진단 지표, 관계 12칸, 조건별. 값·구간·판정은 API 값 그대로, 미산출은 0이 아니라 "미산출/N/A + 이유".
+  - F4 비교: `GET /api/compare?base=&target=` — 문항별 Base 예측 → Target 예측, 달라진 관계 강조, 문항 클릭 → Target Run의 F5.
+- 확인: 백엔드 `30c5b92`를 로컬에서 띄워 Run 4개(원본 2 + 비교 확인용 복사본 2)로 F1~F5 전 화면 오류 없이 열림. Base 비교가 계산되는 경우와 "요청 목록이 달라 비교 불가"인 경우 모두 표시 확인.
+- 미완료: 새 Run 실행(F1 쓰기), 실제 사진이 붙은 상태·Docker 환경에서의 확인(내 쪽에 이미지·Docker 없음), Tuned Run이 없어 실제 Base vs Tuned 판정은 아직 못 봄.
