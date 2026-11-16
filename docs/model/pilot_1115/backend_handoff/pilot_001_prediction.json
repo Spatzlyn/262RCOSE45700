@@ -1,0 +1,178 @@
+{
+  "item_id": "pilot_001",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Not applicable",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_1",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.007,
+          0.243,
+          0.337,
+          0.623
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_2",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.307,
+          0.289,
+          0.397,
+          0.477
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_3",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.397,
+          0.297,
+          0.443,
+          0.477
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_4",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.523,
+          0.297,
+          0.573,
+          0.477
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_5",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.667,
+          0.297,
+          0.773,
+          0.477
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_6",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.767,
+          0.243,
+          1.0,
+          0.997
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_1",
+          "obj_2",
+          "obj_3",
+          "obj_4",
+          "obj_5",
+          "obj_6"
+        ],
+        "reason": "전방 도로에 다른 차량이 점유하고 있음.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [
+            "obj_1",
+            "obj_2",
+            "obj_3",
+            "obj_4",
+            "obj_5",
+            "obj_6"
+          ],
+          "obstacle_ids": []
+        }
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "확인된 출입구가 없음.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "entrance_candidate_id": null
+        }
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "진행 판단에 필요한 영역을 가리는 객체가 없음.",
+        "region_ids": [],
+        "roles": {
+          "occluder_ids": [],
+          "occluded_region_id": null
+        }
+      },
+      "R4": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "통행 공간을 제한하는 객체가 없음.",
+        "region_ids": [],
+        "roles": {
+          "restricting_object_ids": []
+        }
+      }
+    },
+    "actions": [
+      {
+        "code": "YIELD_IF_OCCUPIED",
+        "condition": "while_corridor_occupied",
+        "based_on": [
+          "R1"
+        ],
+        "reason": "전방 도로에 다른 차량이 점유하고 있어 양보 필요."
+      },
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "reason": "현재 상황을 지속적으로 주시하며 전진."
+      }
+    ],
+    "unknowns": [],
+    "regions": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
