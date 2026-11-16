@@ -1,0 +1,10 @@
+{
+ "_request": "GET /api/runs/RUN-PILOT6-BASE-001/progress",
+ "_note": "real model output; GT not written, so GT-based metrics are N/A",
+ "run_id": "RUN-PILOT6-BASE-001",
+ "status": "imported",
+ "counts": {
+  "done": 6
+ },
+ "n_requests": 6
+}

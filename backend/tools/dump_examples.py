@@ -19,11 +19,15 @@ CALLS = {
                     ("item_format_error", "/api/runs/EXAMPLE-RUN-001/items/example_002"),
                     ("item_timeout", "/api/runs/EXAMPLE-RUN-001/items/example_003"),
                     ("item_draft_reference", "/api/runs/EXAMPLE-RUN-001/items/example_004"),
-                    ("item_direction_conflict", "/api/runs/EXAMPLE-RUN-001/items/example_005")],
+                    ("item_direction_conflict", "/api/runs/EXAMPLE-RUN-001/items/example_005"),
+                    ("report_with_base", "/api/runs/EXAMPLE-RUN-001/report?base=EXAMPLE-RUN-001"),
+                    ("versions", "/api/versions"), ("quality", "/api/quality"), ("catalog", "/api/items")],
     "real_pilot": [("run", "/api/runs/RUN-PILOT6-BASE-001"),
                    ("report", "/api/runs/RUN-PILOT6-BASE-001/report"),
                    ("items", "/api/runs/RUN-PILOT6-BASE-001/items"),
-                   ("item_pilot_001", "/api/runs/RUN-PILOT6-BASE-001/items/pilot_001")],
+                   ("item_pilot_001", "/api/runs/RUN-PILOT6-BASE-001/items/pilot_001"),
+                   ("progress", "/api/runs/RUN-PILOT6-BASE-001/progress"),
+                   ("conditions_weather", "/api/runs/RUN-PILOT6-BASE-001/report/conditions?key=weather")],
 }
 
 

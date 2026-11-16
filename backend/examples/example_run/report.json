@@ -2,11 +2,15 @@
  "_request": "GET /api/runs/EXAMPLE-RUN-001/report",
  "_note": "synthetic example",
  "run_id": "EXAMPLE-RUN-001",
+ "base_run_id": null,
  "data_kind": "example",
+ "status": "imported",
+ "provisional": false,
  "versions": {
-  "api": "0.1.0",
-  "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "fbad8256f4b59d0102015efbce8ab38c75ad8c4a",
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
   "model": {
    "model_id": "example-model",
    "revision": null,
@@ -22,9 +26,14 @@
   "reference": [
    "example-ref-0.1"
   ],
-  "result_hash": "585303a7a872f8e3fb7a8f3958ce7bc0f616bca18282093e775f625380906a56"
+  "result_hash": "ef4b4a45b231ba48bf1d06e479853fb9b6e7ccb19d3303f13410bef44da79e1c",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
  },
  "n_requests": 5,
+ "n_groups": 5,
  "prediction_status_counts": {
   "valid": 3,
   "invalid": 1,
@@ -79,7 +88,7 @@
      "fp": 2,
      "fn": 4,
      "ci_status": "not_computed",
-     "ci_reason": "group_bootstrap_not_implemented"
+     "ci_reason": "see top-level ci95"
     },
     "0.5": {
      "status": "computed",
@@ -90,7 +99,7 @@
      "fp": 2,
      "fn": 4,
      "ci_status": "not_computed",
-     "ci_reason": "group_bootstrap_not_implemented"
+     "ci_reason": "see top-level ci95"
     },
     "0.7": {
      "status": "computed",
@@ -101,10 +110,17 @@
      "fp": 4,
      "fn": 6,
      "ci_status": "not_computed",
-     "ci_reason": "group_bootstrap_not_implemented"
+     "ci_reason": "see top-level ci95"
     }
    },
-   "reason": null
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "v4_evidence": {
    "status": "computed",
@@ -113,8 +129,12 @@
    "n": 8,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "v5_relation_macro_f1": {
    "status": "not_applicable",
@@ -209,7 +229,10 @@
    "supported_class_macro_f1": {
     "value": 0.5,
     "n_cells": 4
-   }
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v6_present_recall": {
    "status": "computed",
@@ -218,8 +241,12 @@
    "n": 4,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "v7_false_positive_rate": {
    "status": "computed",
@@ -228,8 +255,12 @@
    "n": 8,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "v8_unknown_recall": {
    "status": "computed",
@@ -238,8 +269,12 @@
    "n": 4,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "v9_over_abstention": {
    "status": "computed",
@@ -248,8 +283,12 @@
    "n": 12,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "a1_attribute_f1": {
    "status": "computed",
@@ -292,8 +331,13 @@
      }
     }
    },
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "ci95": null,
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
   },
   "a2_direction_na_violation": {
    "status": "computed",
@@ -303,7 +347,7 @@
    "reason": null,
    "ci95": null,
    "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_reason": "filled by group bootstrap when applicable"
   },
   "v10_action_pass_rate": {
    "status": "computed",
@@ -325,8 +369,12 @@
    "n": 6,
    "reason": null,
    "ci95": null,
-   "ci_status": "not_computed",
-   "ci_reason": "group_bootstrap_not_implemented"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.01
   },
   "v12_forbidden_rate": {
    "status": "computed",
@@ -345,7 +393,7 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "statement_review_missing: V13/V14 aggregate human statement reviews; none submitted, so no automatic judgement is shown",
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
    "ci95": null,
    "ci_status": "not_computed"
   },
@@ -353,7 +401,15 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "statement_review_missing",
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "explanation_completion_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
    "ci95": null,
    "ci_status": "not_computed"
   },
@@ -361,17 +417,13 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "two-annotator labels not available",
+   "reason": "see GET /api/quality (needs two-annotator pre-consensus records)",
    "ci95": null,
    "ci_status": "not_computed"
   }
  },
  "comparison": {
-  "status": "not_computed",
-  "value": null,
-  "n": null,
-  "reason": "base/tuned paired bootstrap not implemented; no tuned run",
-  "ci95": null,
-  "ci_status": "not_computed"
+  "status": "not_requested",
+  "reason": "pass ?base=<run_id> to compare"
  }
 }

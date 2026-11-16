@@ -1,0 +1,73 @@
+{
+ "_request": "GET /api/quality",
+ "_note": "synthetic example",
+ "l1_l2": {
+  "status": "not_computed",
+  "reason": "no pre-consensus annotation records submitted",
+  "fields": {}
+ },
+ "l3": {
+  "n_reviewed": 4,
+  "n_source_groups": 4,
+  "cells": {
+   "R1.P": {
+    "n_items": 4,
+    "n_source_groups": 4
+   },
+   "R1.A": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R1.U": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R2.P": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R2.A": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R2.U": {
+    "n_items": 4,
+    "n_source_groups": 4
+   },
+   "R3.P": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R3.A": {
+    "n_items": 4,
+    "n_source_groups": 4
+   },
+   "R3.U": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R4.P": {
+    "n_items": 0,
+    "n_source_groups": 0
+   },
+   "R4.A": {
+    "n_items": 4,
+    "n_source_groups": 4
+   },
+   "R4.U": {
+    "n_items": 0,
+    "n_source_groups": 0
+   }
+  },
+  "empty_cells": [
+   "R1.A",
+   "R1.U",
+   "R2.P",
+   "R2.A",
+   "R3.P",
+   "R3.U",
+   "R4.P",
+   "R4.U"
+  ]
+ }
+}

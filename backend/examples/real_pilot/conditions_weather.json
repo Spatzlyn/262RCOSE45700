@@ -1,0 +1,93 @@
+{
+ "_request": "GET /api/runs/RUN-PILOT6-BASE-001/report/conditions?key=weather",
+ "_note": "real model output; GT not written, so GT-based metrics are N/A",
+ "run_id": "RUN-PILOT6-BASE-001",
+ "data_kind": "real",
+ "key": "weather",
+ "condition_source": "item metadata (fixed before inference, same set for every model)",
+ "small_n_threshold": 30,
+ "values": {
+  "clear": {
+   "n_requests": 4,
+   "exploratory": true,
+   "metrics": {
+    "v1_valid": {
+     "status": "computed",
+     "value": 1.0,
+     "numerator": 4,
+     "n": 4,
+     "reason": null
+    },
+    "v5_relation_macro_f1": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": null,
+     "n": null,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v6_present_recall": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v8_unknown_recall": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v10_action_pass_rate": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    }
+   }
+  },
+  "rainy": {
+   "n_requests": 2,
+   "exploratory": true,
+   "metrics": {
+    "v1_valid": {
+     "status": "computed",
+     "value": 1.0,
+     "numerator": 2,
+     "n": 2,
+     "reason": null
+    },
+    "v5_relation_macro_f1": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": null,
+     "n": null,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v6_present_recall": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v8_unknown_recall": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    },
+    "v10_action_pass_rate": {
+     "status": "not_applicable",
+     "value": null,
+     "numerator": 0,
+     "n": 0,
+     "reason": "no Reviewed reference in this run"
+    }
+   }
+  }
+ }
+}

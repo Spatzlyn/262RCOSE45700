@@ -7,6 +7,8 @@
    "data_kind": "example",
    "label": "Example run for screen development (synthetic)",
    "model_id": "example-model",
+   "status": "imported",
+   "provisional": false,
    "n_requests": 5,
    "prediction_status_counts": {
     "valid": 3,
@@ -24,6 +26,8 @@
    "data_kind": "real",
    "label": "Pilot 6 Base (NF4, prompt v1, first response)",
    "model_id": "google/gemma-4-E4B-it",
+   "status": "imported",
+   "provisional": false,
    "n_requests": 6,
    "prediction_status_counts": {
     "valid": 6

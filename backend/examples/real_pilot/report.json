@@ -2,11 +2,15 @@
  "_request": "GET /api/runs/RUN-PILOT6-BASE-001/report",
  "_note": "real model output; GT not written, so GT-based metrics are N/A",
  "run_id": "RUN-PILOT6-BASE-001",
+ "base_run_id": null,
  "data_kind": "real",
+ "status": "imported",
+ "provisional": false,
  "versions": {
-  "api": "0.1.0",
-  "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "fbad8256f4b59d0102015efbce8ab38c75ad8c4a",
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
   "model": {
    "model_id": "google/gemma-4-E4B-it",
    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
@@ -39,9 +43,14 @@
   "reference": [
    "None"
   ],
-  "result_hash": "0c7eb6d95a5254443d48853d7c8168c729af4974071a31fac1f6186f442280ed"
+  "result_hash": "68a23a5b3e21aa958badae1dfae3477fd3ae26477a30088c6647140f9fb38ade",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
  },
  "n_requests": 6,
+ "n_groups": 0,
  "prediction_status_counts": {
   "valid": 6
  },
@@ -101,7 +110,10 @@
      "reason": "no Reviewed reference in this run"
     }
    },
-   "reason": "no Reviewed reference in this run"
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v4_evidence": {
    "status": "not_applicable",
@@ -110,7 +122,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v5_relation_macro_f1": {
    "status": "not_applicable",
@@ -201,7 +214,10 @@
      "fp": 0,
      "fn": 0
     }
-   }
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v6_present_recall": {
    "status": "not_applicable",
@@ -210,7 +226,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v7_false_positive_rate": {
    "status": "not_applicable",
@@ -219,7 +236,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v8_unknown_recall": {
    "status": "not_applicable",
@@ -228,7 +246,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v9_over_abstention": {
    "status": "not_applicable",
@@ -237,7 +256,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "a1_attribute_f1": {
    "status": "not_applicable",
@@ -264,7 +284,10 @@
      "per_value_f1": {},
      "support": {}
     }
-   }
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "a2_direction_na_violation": {
    "status": "not_applicable",
@@ -291,7 +314,8 @@
    "n": 0,
    "reason": "no Reviewed reference in this run",
    "ci95": null,
-   "ci_status": "not_applicable"
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
   },
   "v12_forbidden_rate": {
    "status": "not_applicable",
@@ -306,7 +330,7 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "statement_review_missing: V13/V14 aggregate human statement reviews; none submitted, so no automatic judgement is shown",
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
    "ci95": null,
    "ci_status": "not_computed"
   },
@@ -314,7 +338,15 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "statement_review_missing",
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "explanation_completion_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
    "ci95": null,
    "ci_status": "not_computed"
   },
@@ -322,17 +354,13 @@
    "status": "not_computed",
    "value": null,
    "n": null,
-   "reason": "two-annotator labels not available",
+   "reason": "see GET /api/quality (needs two-annotator pre-consensus records)",
    "ci95": null,
    "ci_status": "not_computed"
   }
  },
  "comparison": {
-  "status": "not_computed",
-  "value": null,
-  "n": null,
-  "reason": "base/tuned paired bootstrap not implemented; no tuned run",
-  "ci95": null,
-  "ci_status": "not_computed"
+  "status": "not_requested",
+  "reason": "pass ?base=<run_id> to compare"
  }
 }

@@ -6,7 +6,7 @@
   "image",
   "text"
  ],
- "source": "dry_run_v1@ef1ed25: kakao_dryrun/prompts/modified_system_full.txt + runs/nf4_prompt_v1_first/messages.json (user text)",
+ "source": "dry_run_v1@ef1ed25 (same content as work/model-1115 ai_model/inference/runtime_inputs)",
  "verification": "pilot_001 rendered prompt (CRLF file) sha256 4ffd9603... equals the Pilot record; input_ids 4176, pixel_values [1,2520,768]",
- "status": "reconstruction; replace with the model team infer.py/common.py when received"
+ "status": "matches the model team's original (work/model-1115@d6553ea ai_model/inference: modified_system_full.txt + baseline_messages.json task, run_gemma_pilot_smoke.py sha256 1437366263bec4eb)"
 }

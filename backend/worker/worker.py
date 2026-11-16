@@ -4,8 +4,8 @@ Runs on the host (needs the GPU), not in the API container:
   API_URL=http://127.0.0.1:8888 WORKER_KEY=... IMAGE_ROOT=/data/aihub_71784/images \
   MODEL_DIR=/data/models/gemma-4-E4B-it ~/infer/.venv/bin/python -m backend.worker.worker
 
-Input building follows prompt_v1 (reconstructed from dry_run_v1, verified against the Pilot rendered
-prompt hash). Nothing is repaired here: raw text goes back as generated; the API scorer decides validity.
+Input building, model loading and generation follow the model team's run_gemma_pilot_smoke.py
+(work/model-1115, sha256 1437366263bec4eb…): same messages, processor settings, BF16 casting, greedy decoding. Nothing is repaired here: raw text goes back as generated; the API scorer decides validity.
 """
 from __future__ import annotations
 
@@ -29,6 +29,8 @@ MODEL_DIR = Path(os.environ.get("MODEL_DIR", "/data/models/gemma-4-E4B-it"))
 PROMPTS = Path(__file__).resolve().parent / "prompts"
 WORKER_ID = os.environ.get("WORKER_ID", f"{socket.gethostname()}-gpu0")
 POLL_S = float(os.environ.get("POLL_S", "5"))
+ATTN = {"text_config": "sdpa", "vision_config": "sdpa", "audio_config": "eager"}
+REFERENCE_SOURCE = "work/model-1115 ai_model/inference/source/run_gemma_pilot_smoke.py sha256 1437366263bec4eb"
 
 sha = lambda b: hashlib.sha256(b).hexdigest()
 utc = lambda: datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -52,14 +54,20 @@ def load_prompt(version):
     return meta, system.decode("utf-8"), task.decode("utf-8")
 
 
-def build_messages(job, image):
-    meta, system, task = load_prompt(job["prompt"]["version"])
-    ph = f'"item_id": "{meta["item_id_placeholder"]}"'
-    if task.count(ph) != 1:
-        raise RuntimeError("task template must contain the item_id placeholder exactly once")
-    text = task.replace(ph, f'"item_id": "{job["item_id"]}"')
+def build_messages(job, image_ref):
+    """Same construction as the model team's run_gemma_pilot_smoke.py (sha 14373662…): reuse the historical
+    task, change only item_id, re-serialize with json.dumps(ensure_ascii=False)."""
+    meta, system, task_text = load_prompt(job["prompt"]["version"])
+    prefix, encoded = task_text.split("\n", 1)
+    task = json.loads(encoded)
+    task["item_id"] = job["item_id"]
+    allowed = {"item_id", "view", "intent", "task", "input_type", "evaluation_area_definition",
+               "available_evidence", "question"}
+    if set(task) - allowed:
+        raise RuntimeError("unexpected field in historical input task")
     return [{"role": "system", "content": system},
-            {"role": "user", "content": [{"type": "image", "image": image}, {"type": "text", "text": text}]}]
+            {"role": "user", "content": [{"type": "image", "url": str(image_ref)},
+                                         {"type": "text", "text": prefix + "\n" + json.dumps(task, ensure_ascii=False)}]}]
 
 
 class Model:
@@ -69,7 +77,7 @@ class Model:
 
     def ensure(self, spec):
         import torch
-        from transformers import AutoModelForImageTextToText, AutoProcessor, BitsAndBytesConfig
+        from transformers import AutoProcessor, BitsAndBytesConfig, Gemma4ForConditionalGeneration
         key = (spec["model_id"], spec["revision"], spec["quantization"], spec.get("adapter"))
         if key == self.key:
             return
@@ -78,13 +86,19 @@ class Model:
         cfg = json.loads((MODEL_DIR / "config.json").read_text())
         self.model = None
         torch.cuda.empty_cache()
-        kw = {"dtype": torch.bfloat16, "device_map": {"": 0}}
+        kw = {"dtype": torch.bfloat16, "device_map": {"": "cuda:0"}, "local_files_only": True,
+              "trust_remote_code": False, "attn_implementation": ATTN}
         if spec["quantization"] == "nf4":
             kw["quantization_config"] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
                                                            bnb_4bit_use_double_quant=True,
                                                            bnb_4bit_compute_dtype=torch.bfloat16)
-        self.proc = AutoProcessor.from_pretrained(MODEL_DIR)
-        self.model = AutoModelForImageTextToText.from_pretrained(MODEL_DIR, **kw)
+        proc = AutoProcessor.from_pretrained(MODEL_DIR, local_files_only=True, trust_remote_code=False)
+        proc.image_seq_length = 280
+        proc.image_processor.max_soft_tokens = 280
+        proc.image_processor.image_seq_length = 280
+        self.proc = proc
+        self.model = Gemma4ForConditionalGeneration.from_pretrained(MODEL_DIR, **kw)
+        self.model.eval()
         self.key = key
         self.env = environment(cfg, spec)
 
@@ -103,6 +117,7 @@ def environment(cfg, spec):
 def run_job(m: Model, job):
     import torch
     from PIL import Image
+    from transformers import set_seed
     started = utc()
     item = job["input"]
     img_path = (IMAGE_ROOT / item["image_relpath"]).resolve()
@@ -112,23 +127,30 @@ def run_job(m: Model, job):
                 "finished_at_utc": utc()}
     m.ensure(job["model"])
     dec = job["decoding"]
-    image = Image.open(img_path).convert("RGB")
-    messages = build_messages(job, image)
+    soft = int(dec.get("image_max_soft_tokens", 280))
+    messages = build_messages(job, img_path)
     rendered = m.proc.apply_chat_template(messages, tokenize=False, add_generation_prompt=True,
                                           enable_thinking=dec.get("enable_thinking", False))
-    inputs = m.proc.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_dict=True,
-                                        return_tensors="pt", enable_thinking=dec.get("enable_thinking", False))
+    if img_path.name in rendered:
+        raise RuntimeError("source filename leaked into the rendered prompt")
+    with Image.open(img_path) as opened:
+        rgb = opened.convert("RGB")
+    inputs = m.proc(text=rendered, images=rgb, return_tensors="pt", images_kwargs={"max_soft_tokens": soft})
     audit = {"image_sha256": sha(data), "rendered_prompt_sha256_lf": sha(rendered.encode()),
              "rendered_prompt_sha256_crlf": sha(rendered.replace("\n", "\r\n").encode()),
              "input_tokens": int(inputs["input_ids"].shape[1]),
              "pixel_values_shape": list(inputs["pixel_values"].shape) if "pixel_values" in inputs else None,
-             "labels_read": False, "reference_read": False}
-    torch.manual_seed(dec.get("seed", 42))
-    inputs = inputs.to(0)
+             "labels_read": False, "reference_read": False, "reference_source": REFERENCE_SOURCE}
+    set_seed(int(dec.get("seed", 42)))
+    inputs = {k: v.to("cuda:0") if hasattr(v, "to") else v for k, v in inputs.items()}
+    # same as the original: keep integer tensors, cast floating tensors (pixel values) to BF16
+    inputs = {k: v.to(torch.bfloat16) if hasattr(v, "is_floating_point") and v.is_floating_point() else v
+              for k, v in inputs.items()}
     t0 = time.time()
     with torch.inference_mode():
         out = m.model.generate(**inputs, max_new_tokens=dec.get("max_new_tokens", 4096),
                                do_sample=dec.get("do_sample", False), max_time=float(job["timeout_s"]))
+    torch.cuda.synchronize()
     secs = time.time() - t0
     gen = out[0, inputs["input_ids"].shape[1]:]
     eos = m.model.generation_config.eos_token_id
@@ -137,8 +159,8 @@ def run_job(m: Model, job):
     hit_time = not ended and len(gen) < dec.get("max_new_tokens", 4096) and secs >= job["timeout_s"] * 0.98
     return {"status": "timeout" if hit_time else "ok",
             "error": f"generation stopped at max_time={job['timeout_s']}s" if hit_time else None,
-            "raw_text": m.proc.decode(gen, skip_special_tokens=False),
-            "output_text": m.proc.decode(gen, skip_special_tokens=True),
+            "raw_text": m.proc.tokenizer.decode(gen.cpu(), skip_special_tokens=False),
+            "output_text": m.proc.tokenizer.decode(gen.cpu(), skip_special_tokens=True),
             "generation_seconds": round(secs, 3), "generated_tokens": int(len(gen)),
             "input_audit": audit, "environment": m.env, "started_at_utc": started, "finished_at_utc": utc()}
 

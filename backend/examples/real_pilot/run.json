@@ -71,10 +71,13 @@
   "reference_version": null,
   "notes": "No GT exists yet: only V1/V2 are scored; every other metric is returned as N/A with a reason."
  },
+ "status": "imported",
+ "provisional": false,
  "versions": {
-  "api": "0.1.0",
-  "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "fbad8256f4b59d0102015efbce8ab38c75ad8c4a",
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
   "model": {
    "model_id": "google/gemma-4-E4B-it",
    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
@@ -107,6 +110,10 @@
   "reference": [
    "None"
   ],
-  "result_hash": "0c7eb6d95a5254443d48853d7c8168c729af4974071a31fac1f6186f442280ed"
+  "result_hash": "68a23a5b3e21aa958badae1dfae3477fd3ae26477a30088c6647140f9fb38ade",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
  }
 }

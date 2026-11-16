@@ -3,10 +3,13 @@
  "_note": "synthetic example",
  "run_id": "EXAMPLE-RUN-001",
  "data_kind": "example",
+ "status": "imported",
+ "provisional": false,
  "versions": {
-  "api": "0.1.0",
-  "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "fbad8256f4b59d0102015efbce8ab38c75ad8c4a",
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
   "model": {
    "model_id": "example-model",
    "revision": null,
@@ -22,7 +25,11 @@
   "reference": [
    "example-ref-0.1"
   ],
-  "result_hash": "585303a7a872f8e3fb7a8f3958ce7bc0f616bca18282093e775f625380906a56"
+  "result_hash": "ef4b4a45b231ba48bf1d06e479853fb9b6e7ccb19d3303f13410bef44da79e1c",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
  },
  "filters": {
   "relation": null,
