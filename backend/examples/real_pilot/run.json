@@ -74,7 +74,7 @@
  "versions": {
   "api": "0.1.0",
   "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "a6dd9a9affb3512f1cd0ddc2a599a38e0537d5be",
+  "scorer_commit": "fbad8256f4b59d0102015efbce8ab38c75ad8c4a",
   "model": {
    "model_id": "google/gemma-4-E4B-it",
    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
