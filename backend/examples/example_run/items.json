@@ -6,7 +6,7 @@
  "versions": {
   "api": "0.1.0",
   "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "42a16024033db9acd79931f3b142d3a246cb2bac",
+  "scorer_commit": "a6dd9a9affb3512f1cd0ddc2a599a38e0537d5be",
   "model": {
    "model_id": "example-model",
    "revision": null,
@@ -22,7 +22,7 @@
   "reference": [
    "example-ref-0.1"
   ],
-  "result_hash": "80f7d976dce9a5141a023b6de91bbac8833d88c67df8a46908895a854fd85b65"
+  "result_hash": "585303a7a872f8e3fb7a8f3958ce7bc0f616bca18282093e775f625380906a56"
  },
  "filters": {
   "relation": null,

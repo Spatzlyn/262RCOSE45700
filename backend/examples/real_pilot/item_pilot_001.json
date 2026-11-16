@@ -7,7 +7,7 @@
  "versions": {
   "api": "0.1.0",
   "scorer": "backend-scorer-0.1.0",
-  "scorer_commit": "42a16024033db9acd79931f3b142d3a246cb2bac",
+  "scorer_commit": "a6dd9a9affb3512f1cd0ddc2a599a38e0537d5be",
   "model": {
    "model_id": "google/gemma-4-E4B-it",
    "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
@@ -40,7 +40,7 @@
   "reference": [
    "None"
   ],
-  "result_hash": "6a4827b273e9f7064e6a914da415b2faf2a251cd00d138bdd397e9b0573b8e5e"
+  "result_hash": "0c7eb6d95a5254443d48853d7c8168c729af4974071a31fac1f6186f442280ed"
  },
  "run": {
   "run_id": "RUN-PILOT6-BASE-001",
