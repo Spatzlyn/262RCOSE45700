@@ -52,11 +52,12 @@ def predictions(run_id: str) -> dict:
 
 
 def scorer_commit() -> str:
+    """Last commit that touched scorer/ or app/ (+dirty if they have local changes)."""
     env = os.environ.get("SCORER_COMMIT")
     if env:
         return env
     try:
-        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=STORE.parent, capture_output=True, text=True,
+        head = subprocess.run(["git", "log", "-1", "--format=%H", "--", "scorer", "app"], cwd=STORE.parent, capture_output=True, text=True,
                               check=True).stdout.strip()
         dirty = subprocess.run(["git", "status", "--porcelain", "--", "scorer", "app"], cwd=STORE.parent,
                                capture_output=True, text=True, check=True).stdout.strip()
