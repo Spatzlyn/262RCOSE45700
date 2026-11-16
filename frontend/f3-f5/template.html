@@ -22,6 +22,12 @@ button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px soli
 .step b{font-family:var(--mono);font-weight:500;font-size:11px;margin-right:5px;opacity:.8}
 .step.cur{background:var(--yellow);color:var(--navy);font-weight:600}.step.off{opacity:.4;cursor:default}
 .sp{flex:1}
+.conn{display:flex;gap:6px;align-items:center}
+.conn select,.conn input{background:#26345a;border:1px solid #4a5a82;color:#fff;border-radius:7px;padding:4px 8px;font-size:12.5px}
+.conn input{width:190px;font-family:var(--mono);font-size:11.5px}
+.dot{width:8px;height:8px;border-radius:50%;background:#7c869e}.dot.ok{background:#4cd08a}.dot.bad{background:#ff7b6e}
+.msg{padding:36px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
+.msg code{font-family:var(--mono);font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
 .help{position:relative}.help summary{list-style:none;cursor:pointer;border:1px solid #4a5a82;border-radius:7px;padding:4px 10px;font-size:12.5px;color:#dfe5f2}
 .help summary::-webkit-details-marker{display:none}
 .help .pop{position:absolute;right:0;top:calc(100% + 8px);width:340px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 12px 32px rgba(22,29,51,.18);display:grid;grid-template-columns:auto 1fr;gap:8px 10px;font-size:12.5px;align-items:center}
@@ -79,6 +85,7 @@ h1{margin:0;font-size:20px;font-weight:700}
 .right{display:grid;gap:12px;min-width:0}
 .sec{padding:14px;display:grid;gap:10px}
 .sec h2{margin:0;font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center}
+.sec>.pill{justify-self:start}
 .sec h2 span{font-weight:400;color:var(--muted);font-size:12px}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .tab{border:1px solid var(--line2);border-radius:10px;padding:8px 6px;background:var(--panel);cursor:pointer;display:grid;gap:5px;justify-items:center}
@@ -115,36 +122,95 @@ details.more ul{margin:0;padding-left:18px;color:var(--muted)}
     <button class="step" data-v="scene" onclick="go('scene')"><b>F5</b>장면 상세</button>
   </nav>
   <span class="sp"></span>
+  <span class="conn" id="conn"></span>
   <details class="help"><summary>범례 ?</summary><div class="pop" id="legend"></div></details>
 </header>
 <main class="main" id="app"></main>
 
 <script>
+/* 두 가지 모드. 아래 D 자리에 데이터가 들어오면 파일 모드(index.html), null이면 API 모드(app.html: 백엔드 Report API 호출). */
 const D=__DATA__;
-const ACT=D.meta.actions, COND=D.meta.conditions, REL=D.meta.relations, S=D.scenes;
-const FAIL={missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과 모순',invalid:'형식 오류',unclassified:'분류 미정'};
+const API_MODE=!D;
+const ACT={"VERIFY_BEFORE_ADVANCE":"확인 후 진행","REDUCE_SPEED_IF_MOVING":"이동 중이면 감속","YIELD_IF_OCCUPIED":"점유 시 양보","HOLD_UNTIL_CLEAR":"해소될 때까지 보류","VERIFY_PASSAGE":"통과 가능성 확인","MONITOR_AHEAD":"전방 관찰","ADVANCE_WITH_MONITORING":"관찰하며 진행"};
+const COND={"no_condition":"조건 없음","while_corridor_occupied":"점유 동안","while_actor_near_entrance":"출입구 주변 Actor 있는 동안","before_entering_occluded_area":"가려진 영역 진입 전","before_passing_restricted_section":"좁아진 구간 통과 전","before_resolving_uncertainty":"불확실성 확인 전"};
+const REL={"R1":{"label":"점유","q":"보이는 Actor·Obstacle이 C를 점유하는가"},"R2":{"label":"출입구","q":"C와 이어지는 출입구 주변에 보이는 Actor가 있는가"},"R3":{"label":"시야 가림","q":"진행 판단에 필요한 영역이 가려졌는가"},"R4":{"label":"통행 제한","q":"배치가 C 구간의 통행 공간을 제한하는가"}};
+/* 실패 사유 코드 = 백엔드 action_eval.fail_reasons. reference_inconsistent: based_on 관계가 정답에서 A인 경우(백엔드가 분리한 코드). unclassified는 파일 모드(옛 영문 문장)에서만 나옴. */
+const FAIL=Object.assign({missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과 모순',reference_inconsistent:'근거 관계가 정답과 다름',invalid:'형식 오류'},API_MODE?{}:{unclassified:'분류 미정'});
+let S=D?D.scenes:[];
+const api={base:'',run:'',runs:[],state:'idle',err:''};
 const F0=()=>({kind:'',rel:'',fail:'',review:'',onlyFail:true});
-const st={view:'errors',sid:S[0].scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
+const st={view:'errors',sid:S[0]?.scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const pill=(t,c='')=>`<span class="pill ${c}">${t}</span>`;
 const sv=v=>v==null?'<span class="st X">–</span>':`<span class="st ${v}">${v}</span>`;
 const kindPill=s=>s.kind==='real'?pill('실제 Run','real'):pill('예시','mock');
 const revPill=r=>r==='Reviewed'?pill('Reviewed','ok'):r==='Missing'?pill('Missing','warn'):pill('Draft','warn');
-const failPills=s=>failCodes(s).map(c=>pill(FAIL[c],c==='unclassified'?'warn':'bad')).join('');
+const failPills=s=>failCodes(s).map(c=>pill(FAIL[c]||esc(c),c==='unclassified'?'warn':'bad')).join('');
 const actLbl=c=>ACT[c]||esc(c), condLbl=c=>COND[c]||esc(c);
 function go(v,patch={}){Object.assign(st,patch);st.view=v;render();window.scrollTo({top:0});}
 function failCodes(s){return [...new Set(s.scoring.errors.map(e=>e.code||'unclassified'))];}
 function relMismatch(s){return Object.entries(s.scoring.relations||{}).filter(([k,v])=>v.ok===false).map(([k])=>k);}
 function isBad(s){return s.scoring.pass===false||relMismatch(s).length>0||!s.pred.valid;}
 function list(){const f=st.f;return S.filter(s=>{
-  if(f.onlyFail&&!isBad(s)&&s.review_status!=='Missing')return false;
+  if(f.onlyFail&&!isBad(s)&&s.review_status==='Reviewed')return false;
   if(f.kind&&s.kind!==f.kind)return false;
   if(f.rel&&!relMismatch(s).includes(f.rel))return false;
   if(f.fail&&!failCodes(s).includes(f.fail))return false;
   if(f.review&&s.review_status!==f.review)return false;return true;});}
 /* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
-function result(s){return s.review_status==='Missing'?pill('채점 제외','na'):!s.pred.valid?pill('Invalid','bad'):s.scoring.pass==null?pill('N/A','na'):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
-function render(){document.querySelectorAll('.step[data-v]').forEach(n=>n.classList.toggle('cur',n.dataset.v===st.view));(st.view==='errors'?F3:F5)();}
+function result(s){return !s.pred.valid?pill(s.pred.status==='timeout'?'Timeout':'Invalid','bad'):s.scoring.pass==null?(s.review_status==='Reviewed'?pill('N/A','na'):pill('채점 제외','na')):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
+function render(){document.querySelectorAll('.step[data-v]').forEach(n=>n.classList.toggle('cur',n.dataset.v===st.view));renderConn();
+  if(API_MODE&&api.state!=='ok')return apiMsg();
+  (st.view==='errors'||!S.length?F3:F5)();}
+const imgTag=(s,thumb)=>{const u=thumb&&s.thumb||s.image;return u?`<img src="${esc(u)}" alt="" ${thumb?'loading="lazy"':''} onerror="this.remove()">`:'';};
+
+/* ---------------- API 모드: 백엔드 응답 → 화면 형식 ---------------- */
+const relIn=x=>({gt:x.expected==='Missing'?null:x.expected,pred:x.predicted,ok:x.match});
+function fromList(it){return {scene_id:it.item_id,kind:it.data_kind==='real'?'real':'mock',review_status:it.annotation_status,scene:'',conditions:[],
+  image:it.image_url?api.base+it.image_url:'',thumb:it.thumbnail_url?api.base+it.thumbnail_url:'',_full:false,
+  gt:{objects:[],regions:[],relations:{},actions:null},pred:{valid:it.prediction_status==='valid',status:it.prediction_status,objects:[],regions:[],relations:{},actions:[]},
+  scoring:{pass:it.action_eval.pass,excluded:it.action_eval.excluded_reason||it.excluded_reason,errors:(it.action_eval.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:[],
+    relations:Object.fromEntries(Object.entries(it.relations||{}).map(([k,v])=>[k,relIn(v)])),box_pairs:[],unmatched_pred:[],unmatched_ref:[],unmeasurable_regions:[],evidence:{},groups:null}};}
+function fromDetail(d,s){
+  const ref=d.reference||{},P=d.prediction.parsed&&d.prediction.parsed.track1,sc=d.scoring||{},ae=sc.action_eval||{},dg=sc.diagnostics||{},g=dg.grounding||{},go=(g.objects||{})['0.5']||{};
+  const obj=o=>({id:o.object_id,class:o.class,role:o.semantic_role,placement:o.placement,bbox:o.bbox_xyxy_norm});
+  const reg=r=>({id:r.region_id,type:r.type,bbox:r.bbox_xyxy_norm,polygon:r.polygon_xy_norm});
+  const C=(ref.regions||[]).find(r=>r.type==='driving_area'),cid=C&&C.region_id;
+  const rels=o=>Object.fromEntries(Object.entries(o||{}).filter(([k,v])=>v).map(([k,v])=>[k,{state:v.state,object_ids:v.object_ids||[],region_ids:(v.region_ids||[]).filter(x=>x!==cid),reason:v.reason}]));
+  const c=(d.input||{}).conditions||{};
+  Object.assign(s,{_full:true,review_status:ref.annotation_status||s.review_status,missing_reason:ref.reason||sc.excluded_reason,img_w:(d.image_size||{}).width,img_h:(d.image_size||{}).height,
+    conditions:[c.time,c.weather,c.road].filter(Boolean),C:C?C.polygon_xy_norm:null,blockers:(dg.benchmark||{}).blockers||[],
+    run:{name:d.run.label||d.run_id,quant:(d.run.model||{}).quantization?'nf4':'–',adapter:(d.run.model||{}).adapter_loaded?'loaded':null,branch:'scorer',commit:String((d.versions||{}).scorer_commit||'').slice(0,7)},
+    gt:{objects:(ref.objects||[]).map(obj),regions:(ref.regions||[]).filter(r=>r.type!=='driving_area').map(reg),relations:rels(ref.relations),actions:ref.action_rules||null},
+    pred:{valid:d.prediction.status==='valid',status:d.prediction.status,raw_excerpt:(d.prediction.format_errors||[])[0]||d.prediction.error||'',
+      objects:P?(P.objects||[]).map(obj):[],regions:P?(P.regions||[]).map(reg):[],relations:P?rels(P.relations):{},actions:P?P.actions||[]:[]}});
+  Object.assign(s.scoring,{pass:ae.pass,excluded:ae.excluded_reason||sc.excluded_reason,errors:(ae.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:ae.errors||[],
+    relations:Object.fromEntries(Object.entries(sc.relations||{}).map(([k,v])=>[k,relIn(v)])),
+    no_grounding:!g.objects,box_pairs:go.pairs||[],unmatched_pred:go.unmatched_prediction_ids||[],unmatched_ref:go.unmatched_reference_ids||[],unmeasurable_regions:(g.regions||{}).unmeasurable_reference_ids||[],
+    evidence:Object.fromEntries(Object.entries(dg.evidence||{}).filter(([k,v])=>v&&(v.status==='pass'||v.status==='fail')).map(([k,v])=>[k,v.status==='pass'?'match':'mismatch'])),
+    groups:ae.required_groups!=null&&ae.pass!=null?[ae.matched_required_groups||0,ae.required_groups]:null});
+  return s;}
+async function getJSON(p){const r=await fetch(api.base+p);if(!r.ok)throw new Error(r.status+' '+p);return r.json();}
+/* 목록 필터는 백엔드 쿼리(relation, fail_reason, annotation_status, data_kind)로 보냄. '오류만'은 화면에서만 거름. */
+async function loadList(){const f=st.f,q=new URLSearchParams();
+  if(f.rel)q.set('relation',f.rel);if(f.fail)q.set('fail_reason',f.fail);if(f.review)q.set('annotation_status',f.review);if(f.kind)q.set('data_kind',f.kind==='real'?'real':'example');
+  const d=await getJSON(`/api/runs/${encodeURIComponent(api.run)}/items?${q}`),old=Object.fromEntries(S.map(s=>[s.scene_id,s]));
+  S=d.items.map(it=>old[it.item_id]&&old[it.item_id]._full?old[it.item_id]:fromList(it));}
+async function connect(base,run){
+  api.base=(base||api.base).trim().replace(/\/+$/,'');api.state='loading';api.err='';render();
+  try{try{localStorage.setItem('f3f5_api',api.base);}catch(e){}
+    api.runs=(await getJSON('/api/runs')).runs;if(!api.runs.length)throw new Error('Run이 없음');
+    api.run=api.runs.some(r=>r.run_id===run)?run:api.runs[0].run_id;S=[];st.f=F0();await loadList();api.state='ok';st.view='errors';st.sid=S[0]?.scene_id;
+  }catch(e){api.state='error';api.err=String(e.message||e);}
+  render();}
+function renderConn(){if(!API_MODE){document.getElementById('conn').innerHTML='<span class="small" style="color:#aab4cd">파일 모드</span>';return;}
+  const a=document.activeElement;if(a&&a.id==='apibase')return;
+  document.getElementById('conn').innerHTML=`<span class="dot ${api.state==='ok'?'ok':api.state==='error'?'bad':''}" title="${esc(api.state)}"></span>
+    <input id="apibase" aria-label="API 주소" value="${esc(api.base)}" onkeydown="if(event.key==='Enter'){this.blur();connect(this.value)}">
+    ${api.runs.length?`<select aria-label="Run" onchange="connect(api.base,this.value)">${api.runs.map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===api.run?'selected':''}>${esc(r.run_id)}${r.data_kind==='real'?'':' (예시)'}</option>`).join('')}</select>`:''}`;}
+function apiMsg(){document.getElementById('app').innerHTML=api.state==='error'
+  ?`<div class="card msg"><b>API에 연결하지 못했어요</b><span class="small muted">${esc(api.base)} · ${esc(api.err)}</span><span class="small muted">백엔드를 띄운 뒤 다시 시도하거나, 위 주소를 바꾸고 Enter</span><button class="btn" onclick="connect()">다시 시도</button></div>`
+  :`<div class="card msg"><span class="muted">불러오는 중…</span></div>`;}
 function backdrop(s){const n=s.conditions.includes('야간');return `<svg viewBox="0 0 1000 562.5" preserveAspectRatio="none"><rect width="1000" height="562.5" fill="${n?'#2b3040':'#cfd8e0'}"/><rect y="170" width="1000" height="400" fill="${n?'#3a3e48':'#b9b3a6'}"/><polygon points="420,170 580,170 1000,562.5 0,562.5" fill="${n?'#4a4f58':'#8d9aa6'}"/>${s.gt.objects.map(o=>{const b=o.bbox;return `<rect x="${b[0]*1000+8}" y="${b[1]*562.5+4}" width="${Math.max(4,(b[2]-b[0])*1000-16)}" height="${Math.max(4,(b[3]-b[1])*562.5-6)}" rx="5" fill="${o.class==='pedestrian'?'#d94a3d':o.role==='obstacle'?'#8a7a5a':'#5b6773'}"/>`;}).join('')}</svg>`;}
 
 document.getElementById('legend').innerHTML=`
@@ -152,7 +218,7 @@ document.getElementById('legend').innerHTML=`
   <span class="st P">P</span><span>성립</span><span class="st A">A</span><span>불성립</span>
   <span class="st U">U</span><span>사진만으로 판단 불가 — <b>정답 값</b> (오류 아님)</span>
   <h4>빈 값</h4>
-  ${pill('Missing','warn')}<span>정답 미작성 · 채점 제외</span>${pill('Invalid','bad')}<span>모델 출력 형식 오류</span>${pill('N/A','na')}<span>이 장면엔 해당 없음</span>
+  ${pill('Missing','warn')}<span>정답 미작성 · 채점 제외</span>${pill('Invalid','bad')}<span>모델 출력 형식 오류 (Timeout 포함)</span>${pill('N/A','na')}<span>이 장면엔 해당 없음</span>
   <h4>데이터</h4>
   ${pill('Draft','warn')}<span>검수 전 정답 · 공식 점수 아님</span>${pill('실제 Run','real')}<span>실제 모델 실행 결과</span>${pill('예시','mock')}<span>화면 확인용 가상 값</span>
   <h4>이미지</h4>
@@ -161,7 +227,8 @@ document.getElementById('legend').innerHTML=`
   <span class="ly" style="padding:2px 6px"><i class="p"></i></span><span>예측 (모델)</span>`;
 
 /* ---------------- F3 ---------------- */
-function setF(k,v){st.f[k]=v;render();}
+function setF(k,v){st.f[k]=v;if(API_MODE&&k!=='onlyFail')loadList().then(render,e=>{api.state='error';api.err=String(e.message||e);render();});else render();}
+function resetF(){st.f=F0();if(API_MODE)loadList().then(render);else render();}
 function F3(){
   const L=list(),f=st.f;
   const sel=(k,ph,opts)=>`<select class="sel ${f[k]?'on':''}" aria-label="${ph}" onchange="setF('${k}',this.value)"><option value="">${ph}</option>${opts.map(([v,t])=>`<option value="${v}" ${f[k]===v?'selected':''}>${t}</option>`).join('')}</select>`;
@@ -181,15 +248,15 @@ function F3(){
     ${sel('review','검수 전체',[['Draft','Draft'],['Reviewed','Reviewed'],['Missing','Missing']])}
     <span class="sp"></span>
     <label class="tog"><input type="checkbox" ${f.onlyFail?'checked':''} onchange="setF('onlyFail',this.checked)">오류만</label>
-    <button class="btn" onclick="st.f=F0();render()">초기화</button>
+    <button class="btn" onclick="resetF()">초기화</button>
   </div>
   ${L.length?L.map(s=>{const rm=relMismatch(s);return `<button class="item" onclick="go('scene',{sid:'${s.scene_id}',rel:'${rm[0]||'R1'}',hl:new Set()})">
-    <span class="thumb">${s.image?`<img src="${s.image}" alt="">`:backdrop(s)}</span>
-    <span class="t"><span class="row"><b class="mono">${esc(s.scene_id)}</b>${kindPill(s)}${revPill(s.review_status)}</span><span class="d" title="${esc(s.scene)}">${esc(s.scene)}</span></span>
+    <span class="thumb">${API_MODE?'':s.image?'':backdrop(s)}${imgTag(s,true)}</span>
+    <span class="t"><span class="row"><b class="mono">${esc(s.scene_id)}</b>${kindPill(s)}${revPill(s.review_status)}</span>${s.scene?`<span class="d" title="${esc(s.scene)}">${esc(s.scene)}</span>`:''}</span>
     <span class="rels">${['R1','R2','R3','R4'].map(k=>{const x=s.scoring.relations[k];return `<span class="rc ${x&&x.ok===false?'bad':''}" title="${k} ${REL[k].label}"><i>${k}</i><span class="v">${x?sv(x.gt)+'→'+sv(x.pred):sv(null)}</span></span>`;}).join('')}</span>
     <span class="res">${result(s)}${s.pred.valid?failPills(s):''}</span>
     <span class="chev muted">›</span></button>`;}).join('')
-  :`<div class="card empty"><b>조건에 맞는 문항이 없어요</b><button class="btn" onclick="st.f=F0();render()">필터 초기화</button></div>`}`;
+  :`<div class="card empty"><b>조건에 맞는 문항이 없어요</b><button class="btn" onclick="resetF()">필터 초기화</button></div>`}`;
 }
 
 /* ---------------- F5 ---------------- */
@@ -215,11 +282,17 @@ function groupHits(s){const ga=s.gt.actions,sc=s.scoring;if(!ga||!s.pred.valid||
   return hit.filter(Boolean).length===sc.groups[0]?hit:null;}
 function F5(){
   const L=list(),s=S.find(x=>x.scene_id===st.sid)||S[0],idx=L.findIndex(x=>x.scene_id===s.scene_id),sc=s.scoring,r=st.rel;
+  if(API_MODE&&!s._full){const el=document.getElementById('app');
+    if(s._err){el.innerHTML=`<div class="card msg"><b>문항을 불러오지 못했어요</b><span class="small muted">${esc(s._err)}</span><button class="btn" onclick="go('errors')">← 목록</button></div>`;return;}
+    el.innerHTML='<div class="card msg"><span class="muted">불러오는 중…</span></div>';
+    getJSON(`/api/runs/${encodeURIComponent(api.run)}/items/${encodeURIComponent(s.scene_id)}`).then(d=>fromDetail(d,s),e=>{s._err=String(e.message||e);}).then(render);return;}
   const g=s.gt.relations[r],p=s.pred.valid?s.pred.relations[r]:null,ga=s.gt.actions,hits=groupHits(s);
   const gids=g?[...g.object_ids,...g.region_ids]:[],pids=p?[...(p.object_ids||[]),...(p.region_ids||[])]:[];
   const ev=sc.evidence&&sc.evidence[r];
-  const verdict=s.review_status==='Missing'?['warn','정답 없음 · 채점 제외',esc(s.missing_reason||'')]
-    :!s.pred.valid?['bad','Invalid · 모델 출력 형식 오류','']
+  const raws=(sc.raw_errors&&sc.raw_errors.length?sc.raw_errors:sc.errors.filter(e=>e.raw).map(e=>e.raw+' → '+FAIL[e.code||'unclassified']));
+  const verdict=!s.pred.valid?['bad',s.pred.status==='timeout'?'Timeout · 응답 없음':'Invalid · 모델 출력 형식 오류',esc(s.pred.raw_excerpt||'')]
+    :s.review_status==='Missing'?['warn','정답 없음 · 채점 제외',esc(s.missing_reason||'')]
+    :sc.pass==null&&s.review_status==='Draft'?['warn','Draft 정답 · 채점 제외','검수 전이라 공식 채점에서 빠짐']
     :sc.pass==null?['na','대응 N/A','방향 충돌 장면 · 관계만 채점']
     :sc.pass?['ok','대응 통과','']:['bad','대응 실패',''];
   const why=t=>t?`<div class="why" title="눌러서 펼치기" onclick="this.classList.toggle('open')">${esc(t)}</div>`:'';
@@ -234,19 +307,19 @@ function F5(){
     <span class="sp"></span>${s.review_status==='Draft'?`<span class="small muted" title="${esc((s.blockers||[]).join(', '))}">Draft 기준 진단 · 공식 점수 아님</span>`:''}</div>
   <div class="grid">
     <div class="left">
-      <div class="stage">${s.image?`<img src="${s.image}" alt="원본 이미지">`:backdrop(s)}${svgFor(s)}</div>
+      <div class="stage" style="${s.img_w&&s.img_h?`aspect-ratio:${s.img_w}/${s.img_h}`:''}">${s.image?'':backdrop(s)}${imgTag(s)}${svgFor(s)}</div>
       <div class="layers">
         <button class="ly ${st.layers.c?'':'off'}" title="사람이 그린 평가 영역 · 모델 입력엔 안 줌" onclick="tl('c')"><i class="c"></i>C 영역</button>
         <button class="ly ${st.layers.gt?'':'off'}" onclick="tl('gt')"><i class="g"></i>GT</button>
         <button class="ly ${st.layers.pred?'':'off'}" onclick="tl('pred')"><i class="p"></i>예측</button>
         ${st.hl.size?'<button class="btn" onclick="st.hl=new Set();render()">강조 해제</button>':''}
-        <span class="sp"></span>${s.image?'':'<span class="small muted">가상 이미지</span>'}
+        <span class="sp"></span>${s.image?'':`<span class="small muted">${API_MODE?'이미지 없음 (예시)':'가상 이미지'}</span>`}
       </div>
     </div>
     <div class="right">
       <section class="card sec">
         <h2>관계 <span>GT → 예측</span></h2>
-        <div class="tabs">${['R1','R2','R3','R4'].map(k=>{const x=sc.relations[k];return `<button class="tab ${k===r?'on':''} ${x&&x.ok===false?'bad':''}" title="${esc(REL[k].q)}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n"><b>${k}</b>${REL[k].label}</span><span class="v">${x?sv(x.gt)+'→'+sv(x.pred):sv(null)}</span></button>`;}).join('')}</div>
+        <div class="tabs">${['R1','R2','R3','R4'].map(k=>{const x=sc.relations[k];return `<button class="tab ${k===r?'on':''} ${x&&x.ok===false?'bad':''}" title="${esc(REL[k].q)}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n"><b>${k}</b>${REL[k].label}</span><span class="v">${x?sv(x.gt??(s.gt.relations[k]||{}).state)+'→'+sv(x.pred):sv(null)}</span></button>`;}).join('')}</div>
         <div class="cmp">
           <div class="side gt"><div class="row">${pill('GT','gt')}${g?sv(g.state):pill('Missing','warn')}<span class="sp"></span>${gids.length>1?`<button class="chip gt" onclick="toggleHl(${arr(gids)})">전체 보기</button>`:''}</div>${g?chipsFor(gids,'gt'):''}${why(g&&g.reason)}</div>
           <div class="side pred"><div class="row">${pill('예측','pred')}${p?sv(p.state):s.pred.valid?sv(null):pill('Invalid','bad')}<span class="sp"></span>${ev?pill(ev==='match'?'근거 일치':'근거 불일치',ev==='match'?'ok':'bad'):''}</div>${p?chipsFor(pids,'pred'):''}${why(p&&p.reason)}</div>
@@ -258,21 +331,21 @@ function F5(){
           :s.review_status==='Missing'?pill('Missing · 정답 미작성','warn'):pill('N/A · 방향 충돌 장면','na')}
         <div class="out"><div class="row">${pill('모델이 낸 대응','pred')}</div>
           ${s.pred.valid?(s.pred.actions.length?s.pred.actions.map(a=>`<div><b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · '+a.based_on.join(','):''}</span></div>`).join(''):'<span class="muted small">없음</span>'):pill('Invalid','bad')}</div>
-        ${ga&&ga.forbidden_pairs.length||sc.errors.some(e=>e.raw)?`<details class="more"><summary>금지 대응 ${ga?ga.forbidden_pairs.length:0}쌍${sc.errors.some(e=>e.raw)?` · 백엔드 원문 ${sc.errors.length}건`:''}</summary><div class="body">
+        ${ga&&ga.forbidden_pairs.length||raws.length?`<details class="more"><summary>금지 대응 ${ga?ga.forbidden_pairs.length:0}쌍${raws.length?` · 백엔드 원문 ${raws.length}건`:''}</summary><div class="body">
           ${ga&&ga.forbidden_pairs.length?`<ul>${ga.forbidden_pairs.map(a=>`<li>${actLbl(a.code)} · ${condLbl(a.condition)}</li>`).join('')}</ul>`:''}
-          ${sc.errors.some(e=>e.raw)?`<ul>${sc.errors.map(e=>`<li><span class="mono">${esc(e.raw)}</span> → ${FAIL[e.code||'unclassified']}</li>`).join('')}</ul>`:''}</div></details>`:''}
+          ${raws.length?`<ul>${raws.map(x=>`<li><span class="mono">${esc(x)}</span></li>`).join('')}</ul>`:''}</div></details>`:''}
       </section>
       <section class="card sec">
-        <h2>Box 짝짓기 <span>짝 ${sc.box_pairs.length} · 예측만 ${sc.unmatched_pred.length} · GT만 ${sc.unmatched_ref.length}</span></h2>
-        <div class="chips">${sc.box_pairs.map(m=>`<button class="chip ${st.hl.has(m.prediction_id)&&st.hl.has(m.reference_id)?'on':''}" title="${esc(m.prediction_id)} ↔ ${esc(m.reference_id)}" onclick="toggleHl(['${m.prediction_id}','${m.reference_id}'])">${esc(m.prediction_id)} · IoU ${(+m.iou).toFixed(2)}</button>`).join('')}${sc.unmatched_pred.map(i=>`<button class="chip pred ${st.hl.has(i)?'on':''}" title="짝 없는 예측" onclick="toggleHl(['${i}'])">${esc(i)} · 짝 없음</button>`).join('')}${!sc.box_pairs.length&&!sc.unmatched_pred.length?'<span class="muted small">예측 Box 없음</span>':''}</div>
-        ${sc.unmatched_ref.length||s.kind==='real'?`<details class="more"><summary>GT만 있는 Box ${sc.unmatched_ref.length}개${s.kind==='real'?' · Run 정보':''}</summary><div class="body">
+        <h2>Box 짝짓기 <span>${sc.no_grounding?'정답 Box가 없어 짝짓기 안 함':`짝 ${sc.box_pairs.length} · 예측만 ${sc.unmatched_pred.length} · GT만 ${sc.unmatched_ref.length}`}</span></h2>
+        <div class="chips">${sc.box_pairs.map(m=>`<button class="chip ${st.hl.has(m.prediction_id)&&st.hl.has(m.reference_id)?'on':''}" title="${esc(m.prediction_id)} ↔ ${esc(m.reference_id)}" onclick="toggleHl(['${m.prediction_id}','${m.reference_id}'])">${esc(m.prediction_id)} · IoU ${(+m.iou).toFixed(2)}</button>`).join('')}${sc.unmatched_pred.map(i=>`<button class="chip pred ${st.hl.has(i)?'on':''}" title="짝 없는 예측" onclick="toggleHl(['${i}'])">${esc(i)} · 짝 없음</button>`).join('')}${sc.no_grounding?s.pred.objects.map(o=>`<button class="chip pred ${st.hl.has(o.id)?'on':''}" onclick="toggleHl(['${o.id}'])">${esc(o.id)} · ${esc(o.class)}</button>`).join(''):!sc.box_pairs.length&&!sc.unmatched_pred.length?'<span class="muted small">예측 Box 없음</span>':''}</div>
+        ${sc.unmatched_ref.length||s.run?`<details class="more"><summary>GT만 있는 Box ${sc.unmatched_ref.length}개${s.run?' · Run 정보':''}</summary><div class="body">
           ${sc.unmatched_ref.length?`<div class="chips">${sc.unmatched_ref.map(i=>`<button class="chip gt ${st.hl.has(i)?'on':''}" onclick="toggleHl(['${i}'])">${esc(i)}</button>`).join('')}</div>`:''}
           ${sc.unmeasurable_regions.length?`<div class="muted">측정 불가 Region: ${sc.unmeasurable_regions.map(esc).join(', ')}</div>`:''}
-          ${s.kind==='real'?`<div class="muted">정답 Box가 아직 완전하지 않아 짝 없는 예측을 오탐으로 단정하지 않음</div><div class="muted mono">${esc(s.run.name)} · ${esc(s.run.quant)} · adapter ${s.run.adapter??'없음(Base)'} · ${esc(s.run.branch)}@${esc(s.run.commit)}</div><div class="muted">공식 점수 미산출 사유: <span class="mono">${(s.blockers||[]).map(esc).join(', ')}</span></div>`:''}</div></details>`:''}
+          ${s.run?`${s.review_status!=='Reviewed'?'<div class="muted">정답이 아직 검수 전이라 짝 없는 예측을 오탐으로 단정하지 않음</div>':''}<div class="muted mono">${esc(s.run.name)} · ${esc(s.run.quant)} · adapter ${s.run.adapter??'없음(Base)'} · ${esc(s.run.branch)}@${esc(s.run.commit)}</div><div class="muted">${(s.blockers||[]).length?`공식 점수 미산출 사유: <span class="mono">${s.blockers.map(esc).join(', ')}</span>`:''}</div>`:''}</div></details>`:''}
       </section>
     </div>
   </div>`;
 }
-render();
+if(API_MODE){let b='http://localhost:8888';try{b=new URLSearchParams(location.search).get('api')||localStorage.getItem('f3f5_api')||b;}catch(e){}connect(b);}else render();
 </script>
 </html>

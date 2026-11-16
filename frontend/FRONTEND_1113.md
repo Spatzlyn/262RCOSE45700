@@ -106,3 +106,12 @@
 - **완료**: F3 필터(관계·실패 사유·검수 상태·출처) → F5 이동, 레이어 토글, 관계 선택, 근거 ID 클릭 강조, Box 짝짓기, 실패 이유, 상태 표기, **실제 Run 1건(sample_front_001) 연결 — 파일 기반**
 - **미완료**: API 연결 (현재는 실제 Run 파일을 `prep.py`로 변환해 내장), F1·F2·F4의 실제 데이터 연결, 썸네일
 - **필요한 것**: 위 "혜승님께 요청" 1~5, 사람 검수(Reviewed)된 장면, Roadside/Obstacle 대응 규칙 기준 버전 확정(모델팀 문서에서 지적됨)
+
+## 6. 11/16 추가 — API 연결 (`frontend/f3-f5/app.html`)
+
+- `app.html`: 같은 화면의 **API 모드**. 데이터를 내장하지 않고 백엔드 Report API(`work/backend-1115`)를 호출한다. 더블클릭으로 열고, 상단 바에서 API 주소(기본 `http://localhost:8888`)와 Run을 고른다. `app.html?api=http://주소:8888`로도 지정 가능.
+- 호출: `GET /api/runs` → `GET /api/runs/{run_id}/items`(필터 `relation`·`fail_reason`·`annotation_status`·`data_kind`는 백엔드 쿼리로 전달) → `GET /api/runs/{run_id}/items/{item_id}` → `GET /api/images/{item_id}`.
+- 실패 사유는 `action_eval.fail_reasons` 코드 그대로 표시 (`reference_inconsistent` 포함, "분류 미정" 없음). Box 짝짓기는 IoU 0.5 기준 값을 읽는다.
+- `index.html`은 기존 파일 모드(실제 Run 1건 + 예시 13건 내장)로 그대로 둔다. 두 파일 모두 `template.html` 하나에서 만든다(`prep.py`).
+- 확인: 백엔드 `30c5b92`를 로컬에서 띄워 `EXAMPLE-RUN-001` 5건, `RUN-PILOT6-BASE-001` 6건 전부 열림. Pilot은 정답이 없어 예측만 표시되고 채점은 "정답 없음 · 채점 제외".
+- 미완료: F1·F2·F4 API 연결, Docker로 띄운 환경에서의 확인.
