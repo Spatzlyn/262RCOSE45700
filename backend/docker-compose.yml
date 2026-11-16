@@ -19,6 +19,7 @@ services:
     ports:
       - "8888:8888"
     volumes:
-      # store is kept on the host so predictions/results survive rebuilds
-      - ./store:/app/backend/store
+      # store lives outside the code folder so runs created through the API survive redeploys.
+      # first deploy: copy backend/store there once (cp -rn backend/store/. /data/backend-store/)
+      - ${STORE_DIR:-/data/backend-store}:/app/backend/store
       - ${IMAGE_DIR:-/data/aihub_71784/images}:/data/images:ro
