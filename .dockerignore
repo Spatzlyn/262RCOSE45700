@@ -1,0 +1,6 @@
+# build context is the repo root; only backend/ is needed
+*
+!backend
+backend/store/results
+**/__pycache__
+**/.pytest_cache

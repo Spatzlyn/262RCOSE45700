@@ -1,0 +1,18 @@
+# Starts automatically with the Docker daemon (restart: unless-stopped; docker.service is enabled on boot).
+#   cd backend && SCORER_COMMIT=$(git log -1 --format=%H -- scorer app) docker compose up -d --build
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile
+      args:
+        SCORER_COMMIT: ${SCORER_COMMIT:-unknown}
+    image: road-vlm-api:latest
+    container_name: road-vlm-api
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    volumes:
+      # store is kept on the host so predictions/results survive rebuilds
+      - ./store:/app/backend/store
+      - ${IMAGE_DIR:-/data/aihub_71784/images}:/data/images:ro
