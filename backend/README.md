@@ -12,7 +12,7 @@
 | 정답(GT) | **아직 아무도 작성하지 않음** → 6건 모두 `annotation_status: Missing`. V3–V12는 N/A와 이유를 반환하고 0점으로 채우지 않음 |
 | 예시 Run | `EXAMPLE-RUN-001`: 화면 개발용 합성 데이터 5건(정상 / 형식 오류 / Timeout / Draft 정답 / 방향 충돌). 응답에 `data_kind: "example"`이 붙음 |
 | 예외 테스트 | `python -m pytest backend/tests -q` → **12 passed** |
-| 서버 | EC2 `32.196.229.237:8888` (`/api/health`). 접속 가능 여부는 §7 참고 |
+| 서버 | **http://32.196.229.237:8888** (외부 접속 확인, Swagger 문서 `/docs`) |
 
 ## 2. 처리 흐름
 
@@ -133,7 +133,7 @@ EC2 (`ubuntu@32.196.229.237`): 코드는 `~/backend/262/backend`, venv는 `~/bac
 sudo systemctl status road-vlm-api
 curl http://32.196.229.237:8888/api/health
 ```
-외부에서 접속하려면 AWS 보안그룹에서 인바운드 TCP 8888을 열어야 합니다. 열려 있지 않으면 SSH 터널로 접속합니다: `ssh -i <pem> -L 8888:localhost:8888 ubuntu@32.196.229.237` 후 `http://localhost:8888`.
+외부 접속 확인 완료 (2026-11-16, `http://32.196.229.237:8888/api/health` → 200). 문서 화면은 `http://32.196.229.237:8888/docs`입니다. 보안그룹이 닫히면 SSH 터널로 접속합니다: `ssh -i <pem> -L 8888:localhost:8888 ubuntu@32.196.229.237`.
 
 ## 8. 미구현 · 미산출 목록
 
