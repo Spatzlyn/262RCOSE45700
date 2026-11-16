@@ -20,7 +20,7 @@ from scipy.optimize import linear_sum_assignment
 
 from .validate import validate_prediction
 
-SCORER_VERSION = "backend-scorer-0.1.0"
+SCORER_VERSION = "backend-scorer-0.2.0"
 SCHEMA_PATH = Path(__file__).with_name("prediction.schema.json")
 RELATIONS = ["R1", "R2", "R3", "R4"]
 STATES = ["P", "A", "U"]
@@ -55,6 +55,9 @@ def check_format(request_item_id: str, record: dict | None, schema: dict) -> dic
     if record.get("status") == "timeout":
         return {"prediction_status": "timeout", "valid": False,
                 "errors": [record.get("error") or "generation timed out"], "parsed": None}
+    if record.get("status") == "cancelled":
+        return {"prediction_status": "cancelled", "valid": False,
+                "errors": [record.get("error") or "cancelled before inference"], "parsed": None}
     if record.get("status") == "error":
         return {"prediction_status": "invalid", "valid": False,
                 "errors": [record.get("error") or "generation failed"], "parsed": None}
@@ -306,7 +309,7 @@ def wilson(k: int, n: int, z: float = 1.96):
     return [round((centre - half) / den, 6), round((centre + half) / den, 6)]
 
 
-def ratio(k, n, reason_if_zero, ci=False, ci_reason="group_bootstrap_not_implemented"):
+def ratio(k, n, reason_if_zero, ci=False, ci_reason="filled by group bootstrap when applicable"):
     if n == 0:
         return {"status": "not_applicable", "value": None, "numerator": 0, "n": 0,
                 "reason": reason_if_zero, "ci95": None, "ci_status": "not_applicable"}
@@ -352,7 +355,7 @@ def aggregate(results: list[dict], requests: list[dict]) -> dict:
         else:
             v3[thr] = {"status": "computed", "precision": tp / (tp + fp) if tp + fp else None,
                        "recall": tp / (tp + fn), "f1": f1(tp, fp, fn), "tp": tp, "fp": fp, "fn": fn,
-                       "ci_status": "not_computed", "ci_reason": "group_bootstrap_not_implemented"}
+                       "ci_status": "not_computed", "ci_reason": "see top-level ci95"}
     m["v3_grounding"] = {"status": v3["0.5"]["status"], "primary_iou": 0.5, "by_iou": v3,
                          "reason": v3["0.5"].get("reason")}
 
@@ -389,7 +392,7 @@ def aggregate(results: list[dict], requests: list[dict]) -> dict:
     else:
         m["v5_relation_macro_f1"] = {"status": "computed", "value": round(sum(supported) / 12, 6), "cells": cells,
                                      "reason": None, "ci95": None, "ci_status": "not_computed",
-                                     "ci_reason": "group_bootstrap_not_implemented"}
+                                     "ci_reason": "see top-level ci95"}
     cnt = lambda cond: sum(1 for y, yh, _ in pairs if cond(y, yh))
     m["v6_present_recall"] = ratio(cnt(lambda y, yh: y == "P" and yh == "P"), cnt(lambda y, yh: y == "P"),
                                    no_ref or "no GT=P")
@@ -414,7 +417,7 @@ def aggregate(results: list[dict], requests: list[dict]) -> dict:
                           "per_value_f1": per, "support": {v: sum(y == v for y, _ in rows) for v in values}}
     fv = [f["value"] for f in a1_fields.values() if f["value"] is not None]
     m["a1_attribute_f1"] = ({"status": "computed", "value": round(sum(fv) / len(fv), 6), "fields": a1_fields,
-                             "ci_status": "not_computed", "ci_reason": "group_bootstrap_not_implemented"}
+                             "ci_status": "not_computed", "ci_reason": "see top-level ci95"}
                             if fv else {"status": "not_applicable", "value": None,
                                         "reason": no_ref or "no attribute GT", "fields": a1_fields})
     na = [r for r in scored if r["attributes"]["direction_match"]["expected"] == "Not applicable"]
@@ -432,20 +435,48 @@ def aggregate(results: list[dict], requests: list[dict]) -> dict:
                                            total_groups, no_ref or "no required groups")
     m["v12_forbidden_rate"] = ratio(sum(r["action_eval"]["forbidden_hit"] for r in act), len(act),
                                     no_ref or "no scene eligible for action scoring", ci=True)
-    m["v13_statement_error_rate"] = not_computed("statement_review_missing: V13/V14 aggregate human statement "
-                                                 "reviews; none submitted, so no automatic judgement is shown")
-    m["v14_answer_with_error_rate"] = not_computed("statement_review_missing")
-    m["l1_l3_label_quality"] = not_computed("two-annotator labels not available")
+    m.update(statement_metrics(None, n_req))
+    m["l1_l3_label_quality"] = not_computed("see GET /api/quality (needs two-annotator pre-consensus records)")
     excluded_actions = {"direction_conflict": dir_conf}
     return {"n_requests": n_req, "prediction_status_counts": status_counts, "n_scored_items": len(scored),
-            "excluded_items": excluded, "excluded_from_actions": excluded_actions, "metrics": m,
-            "comparison": not_computed("base/tuned paired bootstrap not implemented; no tuned run")}
+            "excluded_items": excluded, "excluded_from_actions": excluded_actions, "metrics": m}
 
 
-def score_run(requests, predictions: dict, references: dict, schema=None) -> dict:
+def statement_metrics(reviews: list[dict] | None, n_requests: int) -> dict:
+    """V13/V14 from human statement reviews only (spec App. A.7). Never judged automatically.
+
+    review = {"item_id", "reviewer", "explanation_present": bool, "review_complete": bool,
+              "statements": [{"text": str, "error": bool, "error_type": str|None}]}
+    """
+    if not reviews:
+        reason = "statement_review_missing: no human statement reviews submitted; not judged automatically"
+        return {"v13_statement_error_rate": not_computed(reason), "v14_answer_with_error_rate": not_computed(reason),
+                "explanation_completion_rate": not_computed(reason)}
+    done = [r for r in reviews if r.get("explanation_present") and r.get("review_complete") and r.get("statements")]
+    k = sum(len(r["statements"]) for r in done)
+    e = sum(bool(s.get("error")) for r in done for s in r["statements"])
+    return {"v13_statement_error_rate": ratio(e, k, "no reviewed statements"),
+            "v14_answer_with_error_rate": ratio(sum(any(s.get("error") for s in r["statements"]) for r in done),
+                                                len(done), "no fully reviewed explanation", ci=True),
+            "explanation_completion_rate": ratio(len(done), n_requests, "no requests", ci=True)}
+
+
+def score_run(requests, predictions: dict, references: dict, schema=None, group_of: dict | None = None,
+              statement_reviews: list | None = None, bootstrap_b: int | None = None, seed: int | None = None) -> dict:
+    from . import stats
     schema = schema or load_schema()
     items = [score_item(q, predictions.get(q["item_id"]), references.get(q["item_id"]), schema) for q in requests]
     summary = aggregate(items, requests)
-    body = {"scorer_version": SCORER_VERSION, "items": items, "summary": summary}
+    summary["metrics"].update(statement_metrics(statement_reviews, len(requests)))
+    b = stats.DEFAULT_B if bootstrap_b is None else bootstrap_b
+    sd = stats.DEFAULT_SEED if seed is None else seed
+    cis = stats.group_bootstrap(items, requests, group_of or {}, aggregate, B=b, seed=sd)
+    for key, ci in cis.items():
+        metric = summary["metrics"][key]
+        if metric.get("status") == "computed":
+            metric.update(ci)
+        else:
+            metric.update({"ci95": None, "ci_status": "not_applicable", "ci_reason": "metric not computed"})
+    body = {"scorer_version": SCORER_VERSION, "bootstrap": {"B": b, "seed": sd}, "items": items, "summary": summary}
     body["result_hash"] = canonical_hash({"items": items, "summary": summary})
     return body

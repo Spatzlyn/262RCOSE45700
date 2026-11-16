@@ -27,6 +27,13 @@ def git_show(ref, path, binary=False):
     return out if binary else out.decode("utf-8")
 
 
+def conditions(fname):
+    """AI Hub 71784 file name: <company><sensor>_<scenario>_<road>_<time>_<weather>_<frame>_<view>.png"""
+    parts = fname.rsplit(".", 1)[0].split("_")
+    return {"scenario": parts[1], "road": parts[2], "time": parts[3], "weather": parts[4], "view": parts[6],
+            "source": "aihub_filename_metadata"}
+
+
 def write_jsonl(path, rows):
     path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
 
@@ -55,6 +62,7 @@ def main():
             "image_sha256": m["input_image_sha256"],
             "image_size": {"width": audit["width"], "height": audit["height"]},
             "source_dataset": "aihub_71784", "source_group_id": None,
+            "conditions": conditions(fname),
             "task": "track1_current_scene", "input_type": "single_image"})
         refs.append({"item_id": iid, "data_kind": "real", "annotation_status": "Missing",
                      "reference_version": None, "reason": "GT not written yet (2026-11-16)"})

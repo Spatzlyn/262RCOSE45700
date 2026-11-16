@@ -1,3 +1,5 @@
 store/results/
 __pycache__/
 .pytest_cache/
+.env
+store/cache/
