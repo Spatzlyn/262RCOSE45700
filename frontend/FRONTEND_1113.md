@@ -120,3 +120,22 @@
   - F4 비교: `GET /api/compare?base=&target=` — 문항별 Base 예측 → Target 예측, 달라진 관계 강조, 문항 클릭 → Target Run의 F5.
 - 확인: 백엔드 `30c5b92`를 로컬에서 띄워 Run 4개(원본 2 + 비교 확인용 복사본 2)로 F1~F5 전 화면 오류 없이 열림. Base 비교가 계산되는 경우와 "요청 목록이 달라 비교 불가"인 경우 모두 표시 확인.
 - 미완료: 새 Run 실행(F1 쓰기), 실제 사진이 붙은 상태·Docker 환경에서의 확인(내 쪽에 이미지·Docker 없음), Tuned Run이 없어 실제 Base vs Tuned 판정은 아직 못 봄.
+
+### 켜는 방법 (Windows · PowerShell)
+
+1. Docker Desktop을 실행하고 "Engine running"이 뜰 때까지 기다린다.
+2. 팀 레포의 `backend` 폴더에서 (브랜치 `work/backend-1115`):
+   ```powershell
+   $env:STORE_DIR="$PWD\store"
+   $env:IMAGE_DIR="$PWD\store"
+   docker compose up -d --build
+   ```
+   `STORE_DIR`·`IMAGE_DIR`는 compose 기본값이 서버 경로(`/data/...`)라 로컬에서 바꿔주는 값이다. 이 설정에서는 사진 없이 Box만 보인다(사진 폴더가 있으면 `IMAGE_DIR`를 그 폴더로).
+3. 크롬에서 `http://localhost:8888/api/health`가 `{"status":"ok"...}`이면 준비 끝.
+4. `frontend/f3-f5/app.html`을 탐색기에서 더블클릭(크롬 주소창이 `file:///`로 시작해야 함. 앱 안 미리보기에서는 API 호출이 막힘).
+5. 오른쪽 위 주소 칸: 로컬은 `http://localhost:8888`, 배포 서버는 `http://32.196.229.237:8888`(서버가 켜져 있을 때만, 사진 포함).
+6. 끄기: `docker compose down`
+
+### 새 실행을 화면에 넣지 않은 이유
+
+조회(GET)는 누구나 되지만, 새 Run 실행·취소·재채점(POST)은 백엔드가 `X-API-Key` 헤더에 쓰기 키(`API_WRITE_KEY`, 서버 `.env`에만 있고 git에 없음)를 요구한다. 키가 없으면 503을 돌려준다. `app.html`은 파일 하나짜리 화면이라 키를 넣으면 파일을 가진 사람 누구나 GPU 추론을 걸 수 있게 되므로, 키를 어떻게 입력·보관할지 백엔드와 정한 뒤에 추가한다.
