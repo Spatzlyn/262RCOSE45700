@@ -7,7 +7,7 @@
 | 항목 | 상태 |
 |---|---|
 | 서버 | **http://32.196.229.237:8888** (EC2 g5.xlarge · A10G). API는 Docker, 워커는 systemd. 둘 다 부팅 시 자동 시작. Swagger 문서 `/docs` |
-| 실제 Run | `RUN-PILOT6-BASE-001`: 경흠님 Pilot 6건 결과를 가져온 것 (RTX 4070). 6/6 형식 통과 · `RUN-PILOT6-A10G-001`: 같은 6건을 서버 A10G에서 API로 다시 추론한 것 (§6) |
+| 실제 Run | `RUN-PILOT6-BASE-001`: 경흠님 Pilot 6건(RTX 4070), 6/6 형식 통과 · **`RUN-PILOT6-A10G-002`: 같은 6건을 서버 A10G에서 API로 다시 추론**, 6/6 형식 통과, 관계 판정 6/6 동일 (§6.1) · `RUN-PILOT6-A10G-001`: 원본과 맞추기 전 워커 시험(1건 완료, 5건 취소) |
 | 정답(GT) | 아직 작성 전 → 6건 모두 `Missing`. 정답 기반 지표는 N/A와 이유를 반환하고 0점으로 채우지 않음 |
 | 예시 Run | `EXAMPLE-RUN-001`: 화면 개발용 합성 5건 (정상 / 형식 오류 / Timeout / Draft 정답 / 방향 충돌), `data_kind: "example"` |
 | 테스트 | `python -m pytest backend/tests -q` → **25 passed** (Docker 빌드 중에도 실행) |
@@ -110,7 +110,22 @@ python -m backend.tools.import_references split split.json
 - 추론 코드는 경흠님 원본 `work/model-1115:ai_model/inference/source/run_gemma_pilot_smoke.py`(sha256 `14373662…`, Pilot 기록과 일치)와 같은 방식으로 맞췄습니다: 같은 system prompt·과제 JSON, processor `max_soft_tokens=280`, `Gemma4ForConditionalGeneration` + sdpa, 입력 부동소수 텐서 BF16 변환, greedy, seed 42.
 - 서버 환경: Python 3.11.18, torch 2.6.0+cu124, transformers 5.23.0, bitsandbytes 0.50.2 (Pilot과 같은 버전), 모델 revision `4ecc2ba…`, NVIDIA 595.91.07.
 - 입력 재현 확인: pilot_001 rendered prompt sha256이 Pilot 기록(`4ffd9603…`)과 같고, 입력 4176 토큰, pixel_values `[1, 2520, 768]`도 같습니다.
-- 출력 비교: §6.1 참고.
+
+### 6.1 Pilot 재추론 결과 (`RUN-PILOT6-BASE-001` RTX 4070 vs `RUN-PILOT6-A10G-002` A10G)
+
+| item | 형식 | 생성 토큰 | 생성 시간(초) | R1–R4 | Object 수 |
+|---|---|---|---|---|---|
+| pilot_001 | valid / valid | 1111 / 1049 | 277 / 96 | P A A A 동일 | 6 / 6 |
+| pilot_002 | valid / valid | 690 / 681 | 178 / 62 | A A A A 동일 | 2 / 2 |
+| pilot_003 | valid / valid | 1001 / 893 | 240 / 81 | A A A A 동일 | **6 / 5** |
+| pilot_004 | valid / valid | 608 / 615 | 155 / 57 | A A A A 동일 | 1 / 1 |
+| pilot_005 | valid / valid | 653 / 654 | 168 / 59 | A A A A 동일 | 2 / 2 |
+| pilot_006 | valid / valid | 885 / 892 | 208 / 82 | P A A A 동일 | 4 / 4 |
+
+- **관계 판정 6/6 동일, 출력 문장은 0/6 바이트 동일.** 같은 입력·같은 greedy 설정이어도 GPU가 다르면 수치 연산 차이로 문장·Box·Object 수가 달라질 수 있습니다. 재추론 간 변동으로 기록하고, 모델 비교는 같은 장비의 실행끼리 합니다.
+- 원본 코드와 맞추기 전 워커(입력을 float32로 넣음, `RUN-PILOT6-A10G-001`의 pilot_001)는 R1이 P → A로 달랐습니다. BF16 변환을 원본과 맞춘 뒤 6건 모두 관계가 일치했습니다.
+- A10G가 RTX 4070 노트북보다 약 2.9배 빠릅니다 (1건 57–96초).
+- 비교 원자료: `examples/real_pilot/rerun_variation_rtx4070_vs_a10g.json` (`python -m backend.tools.compare_reruns <서버> <run_a> <run_b>`).
 
 ## 7. 실행 · 배포
 
