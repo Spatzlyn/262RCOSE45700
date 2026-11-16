@@ -1,0 +1,77 @@
+{
+  "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+  "file_count_including_manifest": 15,
+  "manifest_self_hash_excluded": true,
+  "files": [
+    {
+      "file": ".gitignore",
+      "bytes": 102,
+      "sha256": "4e29a577ebfd4746a2edcee36a537b78d08cfbe16a43bb9db02a71460877d900"
+    },
+    {
+      "file": "provenance.json",
+      "bytes": 3333,
+      "sha256": "505b81dc67b08c60e4082af3cc66acf6e9fd038b1ada95bac32232c10d0a0de0"
+    },
+    {
+      "file": "README_ko.md",
+      "bytes": 9173,
+      "sha256": "ac60f6341dd659c7275361f62083551d42dfdf9b31ed90a01946d1eeee96b57e"
+    },
+    {
+      "file": "requirements.txt",
+      "bytes": 358,
+      "sha256": "3b584e8309a02279276392a29c82e4da3b74f5d52f12594577807d96b8e92166"
+    },
+    {
+      "file": "run_inference.py",
+      "bytes": 5490,
+      "sha256": "19db2d9944ba3b936b6d37b1c1dc36cfa55b556241ec1ce4cef19bf3992cb06c"
+    },
+    {
+      "file": "runtime_inputs/baseline_messages.json",
+      "bytes": 17055,
+      "sha256": "46be1e7d26743faa500e25398a5f1acae970b40e3c033e05a7267221dc5e1d41"
+    },
+    {
+      "file": "runtime_inputs/config.json",
+      "bytes": 1543,
+      "sha256": "5412c7cfd85d0143eac3d59c2bb9ab2c5000d8678c5cdbd7b36d5396214b32e9"
+    },
+    {
+      "file": "runtime_inputs/model_file_hashes.json",
+      "bytes": 1229,
+      "sha256": "5c34286b5d2c39944e3d53fceb3b81b369b00f98406152ede47817e2bb49d595"
+    },
+    {
+      "file": "runtime_inputs/modified_system_full.txt",
+      "bytes": 14957,
+      "sha256": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a"
+    },
+    {
+      "file": "runtime_inputs/prediction.schema.json",
+      "bytes": 16933,
+      "sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1"
+    },
+    {
+      "file": "runtime_inputs/validate.py",
+      "bytes": 16481,
+      "sha256": "df4c65686a771388afe2941deb716416cc141247e1739c45a10345e57ed006ac"
+    },
+    {
+      "file": "source/run_gemma_pilot_smoke.py",
+      "bytes": 12793,
+      "sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8"
+    },
+    {
+      "file": "tests/test_package.py",
+      "bytes": 1677,
+      "sha256": "ae9831e57a56033206087464dc00cfb0837a7952a682721e0552408e0ad2a854"
+    },
+    {
+      "file": "verify_model.py",
+      "bytes": 1872,
+      "sha256": "ff07315895acf67a0bd45842474b0b27f175bbb235179f0cd21f67cfb926fabd"
+    }
+  ]
+}

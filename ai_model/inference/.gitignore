@@ -1,0 +1,13 @@
+/models/
+/private/
+/runs/
+.venv*/
+__pycache__/
+*.pyc
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.zip
+.env
+.env.*
