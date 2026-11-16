@@ -128,7 +128,7 @@ def progress(run_id: str) -> dict | None:
         counts[j["state"]] = counts.get(j["state"], 0) + 1
     run = store.run_meta(run_id)
     return {"run_id": run_id, "status": run["status"], "n_requests": len(jobs), "counts": counts,
-            "provisional": run["status"] != "done",
+            "provisional": any(j["state"] in ("queued", "running") for j in jobs.values()),
             "note": "requests without a final prediction are scored as not_returned until they finish"}
 
 
