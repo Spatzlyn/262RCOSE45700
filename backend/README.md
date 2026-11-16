@@ -12,7 +12,7 @@
 | 정답(GT) | **아직 아무도 작성하지 않음** → 6건 모두 `annotation_status: Missing`. V3–V12는 N/A와 이유를 반환하고 0점으로 채우지 않음 |
 | 예시 Run | `EXAMPLE-RUN-001`: 화면 개발용 합성 데이터 5건(정상 / 형식 오류 / Timeout / Draft 정답 / 방향 충돌). 응답에 `data_kind: "example"`이 붙음 |
 | 예외 테스트 | `python -m pytest backend/tests -q` → **12 passed** |
-| 서버 | **http://32.196.229.237:8888** (외부 접속 확인, Swagger 문서 `/docs`) |
+| 서버 | **http://32.196.229.237:8888** (Docker, 부팅 시 자동 시작, Swagger 문서 `/docs`) |
 
 ## 2. 처리 흐름
 
@@ -128,12 +128,19 @@ IMAGE_ROOT=<이미지 폴더> uvicorn backend.app.main:app --port 8888
 python -m backend.tools.dump_examples         # examples/ 응답 파일 다시 생성
 ```
 
-EC2 (`ubuntu@32.196.229.237`): 코드는 `~/backend/262/backend`, venv는 `~/backend/.venv`. systemd 서비스 `road-vlm-api`가 0.0.0.0:8888에서 실행됩니다(`IMAGE_ROOT=/data/aihub_71784/images`).
+EC2 (`ubuntu@32.196.229.237`, g5.xlarge · A10G): Docker 컨테이너 `road-vlm-api`로 실행합니다. `restart: unless-stopped`이고 docker 서비스가 부팅 시 자동 시작되므로 **인스턴스를 켜면 API도 자동으로 올라옵니다** (재부팅 후 자동 기동 확인, 2026-11-16).
 ```bash
-sudo systemctl status road-vlm-api
+cd ~/backend/262/backend
+sudo SCORER_COMMIT=<scorer/app 마지막 commit> docker compose up -d --build   # 코드 갱신 후 재배포 (빌드 중 예외 테스트 실행)
+sudo docker ps; sudo docker logs road-vlm-api --tail 50
 curl http://32.196.229.237:8888/api/health
 ```
-외부 접속 확인 완료 (2026-11-16, `http://32.196.229.237:8888/api/health` → 200). 문서 화면은 `http://32.196.229.237:8888/docs`입니다. 보안그룹이 닫히면 SSH 터널로 접속합니다: `ssh -i <pem> -L 8888:localhost:8888 ubuntu@32.196.229.237`.
+`backend/store`는 호스트 폴더를 마운트하므로 다시 빌드해도 예측·결과가 유지됩니다. 이미지는 `/data/aihub_71784/images`를 읽기 전용으로 마운트합니다.
+외부 접속 확인 완료 (`http://32.196.229.237:8888/docs`). 보안그룹이 닫히면 SSH 터널을 씁니다: `ssh -i <pem> -L 8888:localhost:8888 ubuntu@32.196.229.237`.
+
+추론 환경 (컨테이너 밖, 다음 단계용): `~/infer/.venv` (Python 3.11.18, torch 2.6.0+cu124, transformers 5.23.0, bitsandbytes 0.50.2 = Pilot과 같은 버전), 모델 `/data/models/gemma-4-E4B-it` (revision `4ecc2ba…`), NVIDIA 드라이버 595.91.07.
+
+추가로 필요한 엔드포인트와 할 일은 [TODO.md](TODO.md)에 있습니다.
 
 ## 8. 미구현 · 미산출 목록
 
