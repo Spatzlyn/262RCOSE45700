@@ -1,0 +1,25 @@
+﻿run_id,item_id,image,relation,gt_status,gt_state,predicted_state,match,gt_evidence_object_ids,prediction_reason
+RUN-PILOT6-BASE-001,pilot_001,CK_A01_R01_erh_rainy_01021252_F.png,R1,Draft,P,P,1,204911|204913|204916|204918|204919|204920|204922|204926,전방 도로에 다른 차량이 점유하고 있음.
+RUN-PILOT6-BASE-001,pilot_001,CK_A01_R01_erh_rainy_01021252_F.png,R2,Draft,A,A,1,,확인된 출입구가 없음.
+RUN-PILOT6-BASE-001,pilot_001,CK_A01_R01_erh_rainy_01021252_F.png,R3,Draft,A,A,1,,진행 판단에 필요한 영역을 가리는 객체가 없음.
+RUN-PILOT6-BASE-001,pilot_001,CK_A01_R01_erh_rainy_01021252_F.png,R4,Draft,A,A,1,,통행 공간을 제한하는 객체가 없음.
+RUN-PILOT6-BASE-001,pilot_002,CK_A09_R05_day_clear_01010324_F.png,R1,Draft,P,A,0,16457,전방 도로에 자차를 점유하는 Actor/Obstacle의 지면 접촉 부분이 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_002,CK_A09_R05_day_clear_01010324_F.png,R2,Draft,P,A,0,16457,C와 연결된 출입구에 Actor가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_002,CK_A09_R05_day_clear_01010324_F.png,R3,Draft,P,A,0,16458,진행 판단에 필요한 영역을 가리는 Object가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_002,CK_A09_R05_day_clear_01010324_F.png,R4,Draft,P,A,0,16457|16458,통행 공간을 제한하는 Object의 배치가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_003,CK_B02_R05_afterschool_clear_01065701_F.png,R1,Draft,A,A,1,,주변에 지면 접촉하는 Actor/Obstacle이 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_003,CK_B02_R05_afterschool_clear_01065701_F.png,R2,Draft,A,A,1,,C와 연결된 출입구 경계에 Actor가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_003,CK_B02_R05_afterschool_clear_01065701_F.png,R3,Draft,A,A,1,,진행 판단에 필요한 영역을 가리는 Object가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_003,CK_B02_R05_afterschool_clear_01065701_F.png,R4,Draft,A,A,1,,통행 공간을 제한하는 Object의 배치가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_004,CK_B02_R05_lunch_clear_01012234_F.png,R1,Draft,P,A,0,333737|333738|333741,보이는 Actor/Obstacle의 지면 접촉 부분이 C와 겹치는 대상이 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_004,CK_B02_R05_lunch_clear_01012234_F.png,R2,Draft,A,A,1,,C와 연결된 출입구에 Actor가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_004,CK_B02_R05_lunch_clear_01012234_F.png,R3,Draft,P,A,0,333741,진행 판단에 필요한 영역을 가리는 Object가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_004,CK_B02_R05_lunch_clear_01012234_F.png,R4,Draft,U,A,0,,통행 공간을 제한하는 Object의 배치가 관측되지 않음.
+RUN-PILOT6-BASE-001,pilot_005,CV_A01_R03_lunch_rainy_01114394_F.png,R1,Draft,P,A,0,259504,도로 공유 공간에 명확한 점유 객체 없음.
+RUN-PILOT6-BASE-001,pilot_005,CV_A01_R03_lunch_rainy_01114394_F.png,R2,Draft,A,A,1,,출입구에 연결된 명확한 Actor 없음.
+RUN-PILOT6-BASE-001,pilot_005,CV_A01_R03_lunch_rainy_01114394_F.png,R3,Draft,A,A,1,,진행 판단에 필요한 영역을 가리는 객체 없음.
+RUN-PILOT6-BASE-001,pilot_005,CV_A01_R03_lunch_rainy_01114394_F.png,R4,Draft,A,A,1,,통행 공간을 제한하는 객체 없음.
+RUN-PILOT6-BASE-001,pilot_006,CV_A06_R04_mrh_clear_01045907_F.png,R1,Draft,P,P,1,132738|132739|132743|132744|132752,자차 전방에 있는 차량이 도로를 점유하고 있음.
+RUN-PILOT6-BASE-001,pilot_006,CV_A06_R04_mrh_clear_01045907_F.png,R2,Draft,A,A,1,,확인된 출입구가 없음.
+RUN-PILOT6-BASE-001,pilot_006,CV_A06_R04_mrh_clear_01045907_F.png,R3,Draft,A,A,1,,진행 판단에 필요한 영역이 가려지지 않음.
+RUN-PILOT6-BASE-001,pilot_006,CV_A06_R04_mrh_clear_01045907_F.png,R4,Draft,A,A,1,,통행 공간을 제한하는 객체가 관측되지 않음.
