@@ -11,7 +11,7 @@ from fastapi.testclient import TestClient
 
 from backend.app import main, store
 from backend.scorer import quality, stats
-from backend.scorer.score import aggregate, load_schema, score_run, statement_metrics
+from backend.scorer.score import action_eval, aggregate, load_schema, score_run, statement_metrics
 from backend.tools import import_references as imp
 
 SCHEMA = load_schema()
@@ -136,6 +136,66 @@ def test_leak_check_and_freeze():
     assert man["frozen"] and man["item_ids"] == ["c"]
     late = {"a": {"source_group_id": "g", "decision_time": 10, "input_frames": [{"timestamp": 11}]}}
     assert quality.leak_check({"assignments": {"a": "test"}}, late)["timestamp_check"]["status"] == "fail"
+
+
+def test_relations_only_never_scores_other_review_fields_or_enters_frozen_test():
+    reqs, preds, refs = example()
+    req = reqs[0]
+    item_id = req["item_id"]
+    ref = copy.deepcopy(refs[item_id])
+    ref.update(review_scope="relations_only", relations={"R1": "P"})
+    # This fixture retains display geometry and the old action and attribute fields.
+    out = score_run([req], preds, {item_id: ref}, schema=SCHEMA)
+    row = out["items"][0]
+    assert row["relations"]["R1"]["match"] is True
+    assert all(row["relations"][r]["match"] is None for r in ("R2", "R3", "R4"))
+    assert row["diagnostics"]["grounding"] is None
+    assert row["diagnostics"]["evidence"]["R1"]["reason"] == "evidence_not_reviewed"
+    assert row["action_eval"]["excluded_reason"] == "reference_relations_only"
+    assert out["summary"]["metrics"]["v3_grounding"]["status"] == "not_applicable"
+    assert out["summary"]["metrics"]["a1_attribute_f1"]["status"] == "not_applicable"
+    assert out["summary"]["metrics"]["v10_action_pass_rate"]["n"] == 0
+    manifest = quality.freeze_manifest({"assignments": {item_id: "test"}},
+                                       {item_id: {"source_group_id": "g1"}}, {item_id: ref}, "x", "y")
+    assert not manifest["frozen"] and manifest["partial_references"] == [item_id]
+
+
+def test_exact_action_conditions_and_scene_wide_overlap():
+    cases = [
+        ("YIELD_IF_OCCUPIED", "while_corridor_occupied", "R1", "P"),
+        ("MONITOR_AHEAD", "while_actor_near_entrance", "R2", "P"),
+        ("VERIFY_BEFORE_ADVANCE", "before_entering_occluded_area", "R3", "P"),
+        ("VERIFY_PASSAGE", "before_passing_restricted_section", "R4", "U"),
+    ]
+
+    def check(states, actions, expected=None):
+        rules = {"allowed_pairs": actions, "required_groups": [], "forbidden_pairs": []}
+        return action_eval({"relations": {r: {"state": s} for r, s in states.items()}, "actions": actions},
+                           True, {"relations": expected if expected is not None else states, "action_rules": rules})
+
+    all_present = dict.fromkeys(("R1", "R2", "R3", "R4"), "P")
+    for code, condition, relation, state in cases:
+        states = {**all_present, relation: state}
+        action = {"code": code, "condition": condition, "based_on": [relation]}
+        assert check(states, [action])["pass"] is True
+        wrong = "R2" if relation == "R1" else "R1"
+        assert "contradiction" in check(states, [{**action, "based_on": [wrong]}])["fail_reasons"]
+        assert "reference_inconsistent" in check(states, [action], {**states, relation: "A"})["fail_reasons"]
+
+    states = {**all_present, "R2": "U", "R3": "U"}
+    uncertain = {"code": "VERIFY_BEFORE_ADVANCE", "condition": "before_resolving_uncertainty", "based_on": ["R2"]}
+    assert "contradiction" in check(states, [uncertain])["fail_reasons"]
+    assert check(states, [{**uncertain, "based_on": ["R2", "R3"]}])["pass"] is True
+    stop = {"code": "HOLD_UNTIL_CLEAR", "condition": "while_corridor_occupied", "based_on": ["R1"]}
+    advance = {"code": "ADVANCE_WITH_MONITORING", "condition": "no_condition", "based_on": ["R1"]}
+    assert "contradiction" in check(all_present, [stop, advance])["fail_reasons"]
+    monitor = {"code": "MONITOR_AHEAD", "condition": "no_condition", "based_on": ["R1"]}
+    assert check(dict.fromkeys(all_present, "A"), [monitor])["pass"] is True
+    wrong_own_state = {r: {"state": "U" if r == "R1" else s} for r, s in all_present.items()}
+    rules = {"allowed_pairs": [stop], "required_groups": [{"alternatives": [stop]}]}
+    out = action_eval({"relations": wrong_own_state, "actions": [stop]}, True,
+                      {"relations": all_present, "action_rules": rules})
+    assert out["required_group_hits"] == [False] and out["matched_required_groups"] == 0
 
 
 # ---------------------------------------------------------------- auth + queue

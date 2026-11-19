@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 from backend.app import store
+from backend.scorer.score import RELATIONS_ONLY, RELATIONS, ref_state
 from backend.scorer.validate import object_errors
 
 STATUSES = {"Missing", "Draft", "Reviewed"}
@@ -36,10 +37,15 @@ def check_reference(r, items):
         e.append(f"annotation_status must be one of {sorted(STATUSES)}")
     if st in ("Draft", "Reviewed") and not r.get("reference_version"):
         e.append("reference_version is required for Draft/Reviewed")
+    scope = r.get("review_scope")
+    if scope is not None and scope != RELATIONS_ONLY:
+        e.append("review_scope must be relations_only when provided")
     for rel, v in (r.get("relations") or {}).items():
         s = v.get("state") if isinstance(v, dict) else v
         if rel not in ("R1", "R2", "R3", "R4") or (s is not None and s not in STATES):
             e.append(f"relations.{rel}: state must be P/A/U or null (Missing)")
+    if scope == RELATIONS_ONLY and st == "Reviewed" and not any(ref_state(r, rel) for rel in RELATIONS):
+        e.append("a Reviewed relations_only reference needs at least one confirmed relation")
     e += object_errors(r.get("objects", []), "objects")
     rules = r.get("action_rules")
     if rules:

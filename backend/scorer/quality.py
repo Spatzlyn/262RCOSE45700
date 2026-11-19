@@ -17,6 +17,8 @@ import hashlib
 import json
 from collections import Counter, defaultdict
 
+from .score import RELATIONS_ONLY
+
 RELATIONS = ["R1", "R2", "R3", "R4"]
 STATES = ["P", "A", "U"]
 
@@ -126,8 +128,12 @@ def freeze_manifest(split: dict, items: dict, references: dict, scorer_commit: s
     not_reviewed = [i for i in ids if (references.get(i) or {}).get("annotation_status") != "Reviewed"]
     if not_reviewed:
         errors.append(f"{len(not_reviewed)} {split_name} item(s) without a Reviewed reference")
+    partial = [i for i in ids if (references.get(i) or {}).get("review_scope") == RELATIONS_ONLY]
+    if partial:
+        errors.append(f"{len(partial)} {split_name} item(s) with a relations-only reference")
     if errors:
-        return {"frozen": False, "errors": errors, "not_reviewed": not_reviewed, "leak_check": leak}
+        return {"frozen": False, "errors": errors, "not_reviewed": not_reviewed,
+                "partial_references": partial, "leak_check": leak}
     return {"frozen": True, "version": split.get("version"), "split": split_name, "item_ids": ids,
             "items_sha256": _h([items[i] for i in ids]), "references_sha256": _h([references[i] for i in ids]),
             "scorer_commit": scorer_commit, "schema_sha256": schema_sha, "leak_check": leak}

@@ -173,6 +173,7 @@ def list_items(run_id: str, relation: str | None = Query(None, pattern="^R[1-4]$
     meta = _run_or_404(run_id)
     res = store.result(run_id)
     its = store.items()
+    store_refs = store.references()
     rows = []
     for r in res["items"]:
         if relation and r["relations"][relation]["match"] is not False:
@@ -189,6 +190,7 @@ def list_items(run_id: str, relation: str | None = Query(None, pattern="^R[1-4]$
         it = its.get(r["item_id"])
         rows.append({"item_id": r["item_id"], "data_kind": r["data_kind"],
                      "prediction_status": r["prediction_status"], "annotation_status": r["annotation_status"],
+                     "review_scope": (store_refs.get(r["item_id"]) or {}).get("review_scope"),
                      "scored": r["scored"], "excluded_reason": r["excluded_reason"],
                      "relations": r["relations"],
                      "action_eval": {"pass": ae.get("pass"), "pass_status": ae.get("pass_status"),

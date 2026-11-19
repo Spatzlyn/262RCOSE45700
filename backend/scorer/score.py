@@ -20,15 +20,23 @@ from scipy.optimize import linear_sum_assignment
 
 from .validate import validate_prediction
 
-SCORER_VERSION = "backend-scorer-0.2.0"
+SCORER_VERSION = "backend-scorer-0.2.1"
 SCHEMA_PATH = Path(__file__).with_name("prediction.schema.json")
 RELATIONS = ["R1", "R2", "R3", "R4"]
 STATES = ["P", "A", "U"]
 ATTR_FIELDS = ["sidewalk_left", "sidewalk_right", "traffic_direction", "direction_match"]
+RELATIONS_ONLY = "relations_only"
 IOU_THRESHOLDS = [0.3, 0.5, 0.7]
 # Pairs that cannot both hold for the same condition (hold/yield vs advance).
 STOP_CODES = {"HOLD_UNTIL_CLEAR", "YIELD_IF_OCCUPIED"}
 GO_CODES = {"ADVANCE_WITH_MONITORING"}
+CONDITION_STATES = {
+    "while_corridor_occupied": ("R1", {"P"}),
+    "while_actor_near_entrance": ("R2", {"P"}),
+    "before_entering_occluded_area": ("R3", {"P"}),
+    "before_passing_restricted_section": ("R4", {"P", "U"}),
+}
+UNCERTAIN_RELATIONS = ("R1", "R2", "R3")
 FAIL_REASON_CODES = ["invalid", "missing_required", "forbidden", "unsupported",
                      "contradiction", "reference_inconsistent"]
 
@@ -200,7 +208,33 @@ def _pair(a):
     return (a["code"], a["condition"])
 
 
+def condition_errors(action, own, ref):
+    """Check Appendix B.1 conditions against both GT and the cited model relations."""
+    code, condition = _pair(action)
+    label = f"{code}/{condition}"
+    cited = set(action["based_on"])
+    if condition in CONDITION_STATES:
+        relation, states = CONDITION_STATES[condition]
+        states_label = "/".join(sorted(states))
+        own_error = (None if relation in cited and own.get(relation) in states
+                     else f"{label} requires based_on {relation} and model {relation}={states_label}")
+        ref_error = (None if ref_state(ref, relation) in states
+                     else f"{label} requires GT {relation}={states_label}")
+        return own_error, ref_error
+    if condition == "before_resolving_uncertainty":
+        required = {r for r in UNCERTAIN_RELATIONS if ref_state(ref, r) == "U"}
+        own_uncertainty = {r for r in UNCERTAIN_RELATIONS if own.get(r) == "U" and r in cited}
+        own_error = (None if own_uncertainty and required <= own_uncertainty
+                     else f"{label} requires based_on and model U for all relevant relations")
+        ref_error = None if required else f"{label} requires GT U in R1/R2/R3"
+        return own_error, ref_error
+    return None, None
+
+
 def action_eval(pred_track: dict | None, valid: bool, ref: dict) -> dict:
+    if ref.get("review_scope") == RELATIONS_ONLY:
+        return {"pass": None, "pass_status": "excluded", "excluded_reason": "reference_relations_only",
+                "fail_reasons": [], "errors": []}
     rules = ref.get("action_rules")
     dm = (ref.get("attributes") or {}).get("direction_match")
     if dm == "Conflicting":
@@ -216,6 +250,7 @@ def action_eval(pred_track: dict | None, valid: bool, ref: dict) -> dict:
     if not valid:
         return {**base, "pass": False, "pass_status": "computed", "fail_reasons": ["invalid"],
                 "errors": ["invalid output counts as failure"], "matched_required_groups": 0,
+                "required_group_hits": [False] * len(groups),
                 "forbidden_pairs_hit": [], "unsupported_pairs": [], "forbidden_hit": False}
     actions = pred_track["actions"]
     preds = {_pair(a) for a in actions}
@@ -226,38 +261,52 @@ def action_eval(pred_track: dict | None, valid: bool, ref: dict) -> dict:
         reasons.append("forbidden"); errors.append(f"forbidden pairs: {forb}")
     if unsup:
         reasons.append("unsupported"); errors.append(f"pairs outside allowed/forbidden: {unsup}")
-    matched = 0
-    for gi, g in enumerate(groups):
-        hit = any(_pair(a) == _pair(alt) and set(alt.get("based_on", [])) <= set(a["based_on"])
-                  for alt in g["alternatives"] for a in actions)
-        matched += hit
-        if not hit:
-            errors.append(f"required group {gi} not satisfied")
-    if matched < len(groups):
-        reasons.append("missing_required")
-    # Ci (1) internal consistency: based_on must point at relations the model itself judged P/U,
-    # and hold/yield vs advance under the same condition contradict each other.
+    # Appendix B.1: no_condition is scene-wide and does not require a P/U relation.
+    # Allowed/forbidden pairs and incompatible actions still apply to it.
     own = {r: pred_track["relations"][r]["state"] for r in RELATIONS}
-    contra = []
+    contra, ref_bad = [], []
+    consistent_actions = []
     for a in actions:
-        for r in a["based_on"]:
-            if own.get(r) == "A":
-                contra.append(f"{a['code']}/{a['condition']} based_on {r} but model judged {r}=A")
+        if a["condition"] == "no_condition":
+            consistent_actions.append(a)
+            continue
+        own_error, ref_error = condition_errors(a, own, ref)
+        if own_error:
+            contra.append(own_error)
+        if ref_error:
+            ref_bad.append(ref_error)
+        own_absent = [r for r in a["based_on"] if own.get(r) == "A"]
+        ref_absent = [r for r in a["based_on"] if ref_state(ref, r) == "A"]
+        label = f"{a['code']}/{a['condition']}"
+        contra.extend(f"{label} based_on {r} but model judged {r}=A" for r in own_absent)
+        ref_bad.extend(f"{label} based_on {r} but GT {r}=A" for r in ref_absent)
+        if not (own_error or ref_error or own_absent or ref_absent):
+            consistent_actions.append(a)
+    group_hits = [
+        any(_pair(a) == _pair(alt) and set(alt.get("based_on", [])) <= set(a["based_on"])
+            for alt in group["alternatives"] for a in consistent_actions)
+        for group in groups
+    ]
+    if not all(group_hits):
+        reasons.append("missing_required")
+        errors.extend(f"required group {i} not satisfied" for i, hit in enumerate(group_hits) if not hit)
     conds = {}
     for a in actions:
         conds.setdefault(a["condition"], set()).add(a["code"])
     for c, codes in conds.items():
         if codes & STOP_CODES and codes & GO_CODES:
             contra.append(f"stop and advance together under {c}")
+    unconditional = conds.get("no_condition", set())
+    for c, codes in conds.items():
+        if c != "no_condition" and ((codes & STOP_CODES and unconditional & GO_CODES) or
+                                    (codes & GO_CODES and unconditional & STOP_CODES)):
+            contra.append(f"conditional and unconditional stop/advance overlap under {c}")
     if contra:
         reasons.append("contradiction"); errors.extend(contra)
-    # Ci (2) consistency with reference: based_on relation must not be A in the GT.
-    ref_bad = [f"{a['code']}/{a['condition']} based_on {r} but GT {r}=A"
-               for a in actions for r in a["based_on"] if ref_state(ref, r) == "A"]
     if ref_bad:
         reasons.append("reference_inconsistent"); errors.extend(ref_bad)
     return {**base, "pass": not reasons, "pass_status": "computed", "fail_reasons": reasons,
-            "errors": errors, "matched_required_groups": matched,
+            "errors": errors, "matched_required_groups": sum(group_hits), "required_group_hits": group_hits,
             "forbidden_pairs_hit": [list(p) for p in forb], "unsupported_pairs": [list(p) for p in unsup],
             "forbidden_hit": bool(forb)}
 
@@ -288,10 +337,18 @@ def score_item(request: dict, record: dict | None, ref: dict | None, schema: dic
                     "action_eval": {"pass": None, "pass_status": "excluded", "excluded_reason": excl,
                                     "fail_reasons": [], "errors": []}})
         return out
-    ground = grounding(track, ref)
-    out["diagnostics"] = {"grounding": ground, "evidence": evidence_check(track, fmt["valid"], ref, ground),
-                          "benchmark": {"eligible": True, "blockers": []}}
-    out["attributes"] = {f: {"expected": (ref.get("attributes") or {}).get(f),
+    partial = ref.get("review_scope") == RELATIONS_ONLY
+    ground = None if partial else grounding(track, ref)
+    if partial:
+        evidence = {r: {"status": "excluded", "reason": "evidence_not_reviewed"}
+                    for r in RELATIONS if rel_rows[r]["expected"] in ("P", "U")}
+        blockers.append("reference_relations_only")
+    else:
+        evidence = evidence_check(track, fmt["valid"], ref, ground)
+    out["diagnostics"] = {"grounding": ground, "evidence": evidence,
+                          "benchmark": {"eligible": not partial, "blockers": blockers}}
+    attributes = {} if partial else ref.get("attributes") or {}
+    out["attributes"] = {f: {"expected": attributes.get(f),
                              "predicted": track["attributes"][f] if track else None} for f in ATTR_FIELDS}
     out["action_eval"] = action_eval(track, fmt["valid"], ref)
     return out
@@ -348,10 +405,13 @@ def aggregate(results: list[dict], requests: list[dict]) -> dict:
     for thr in map(str, IOU_THRESHOLDS):
         tp = fp = fn = 0
         for r in scored:
-            g = r["diagnostics"]["grounding"]["objects"][thr]
+            grounding_rows = r["diagnostics"]["grounding"]
+            if grounding_rows is None:
+                continue
+            g = grounding_rows["objects"][thr]
             tp += len(g["pairs"]); fp += len(g["unmatched_prediction_ids"]); fn += len(g["unmatched_reference_ids"])
         if not scored or tp + fn == 0:
-            v3[thr] = {"status": "not_applicable", "value": None, "reason": no_ref or "no reference objects"}
+            v3[thr] = {"status": "not_applicable", "value": None, "reason": no_ref or "no reviewed reference objects"}
         else:
             v3[thr] = {"status": "computed", "precision": tp / (tp + fp) if tp + fp else None,
                        "recall": tp / (tp + fn), "f1": f1(tp, fp, fn), "tp": tp, "fp": fp, "fn": fn,

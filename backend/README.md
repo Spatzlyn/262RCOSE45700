@@ -10,10 +10,12 @@
 | 실제 Run | `RUN-PILOT6-BASE-001`: 경흠님 Pilot 6건(RTX 4070), 6/6 형식 통과 · **`RUN-PILOT6-A10G-002`: 같은 6건을 서버 A10G에서 API로 다시 추론**, 6/6 형식 통과, 관계 판정 6/6 동일 (§6.1) · `RUN-PILOT6-A10G-001`: 원본과 맞추기 전 워커 시험(1건 완료, 5건 취소) |
 | 정답(GT) | 아직 작성 전 → 6건 모두 `Missing`. 정답 기반 지표는 N/A와 이유를 반환하고 0점으로 채우지 않음 |
 | 예시 Run | `EXAMPLE-RUN-001`: 화면 개발용 합성 5건 (정상 / 형식 오류 / Timeout / Draft 정답 / 방향 충돌), `data_kind: "example"` |
-| 테스트 | `python -m pytest backend/tests -q` → **25 passed** (Docker 빌드 중에도 실행) |
+| 테스트 | `python -m pytest backend/tests -q` → 27 passed (Docker 빌드 중에도 실행) |
 | 남은 일 | [TODO.md](TODO.md) — 대부분 다른 파트의 입력(정답, Split, Source Group, adapter)을 기다리는 항목 |
 
 ## 2. 처리 흐름
+
+`review_scope: "relations_only"`인 Reference는 사람이 확인한 관계 값만 비교합니다. `Draft`는 표시용이고, `Reviewed`에서는 null이 아닌 관계만 채점합니다. 박스·영역은 화면에서 볼 수 있으며, 근거·속성·대응 채점과 최종 Test 동결에서는 부분 Reference가 제외됩니다.
 
 ```
 POST /api/runs (문항 목록·모델·프롬프트·디코딩 고정) → 큐 → GPU 워커가 1건씩 추론 → 원문 그대로 저장
