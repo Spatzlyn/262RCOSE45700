@@ -22,7 +22,7 @@
 | 백엔드 | [API·채점·저장 구조](https://github.com/Spatzlyn/262RCOSE45700/blob/work/backend-1115/backend/README.md) · [Pilot 6건 관계 대조 결과](https://github.com/Spatzlyn/262RCOSE45700/blob/work/backend-1115/backend/examples/pilot6_draft_gt/README.md) |
 | 프론트엔드 | [평가 Viewer 구현](https://github.com/Spatzlyn/262RCOSE45700/tree/work/frontend-1115/frontend/f3-f5) |
 | 초기 벤치마크 | [v0 문항과 실행 자료](https://github.com/Spatzlyn/262RCOSE45700/tree/feat/benchmark-v0) |
-| 발표 자료 | [11월 6일 초기 발표자료](https://github.com/Spatzlyn/262RCOSE45700/blob/kakao_meeting_1106/docs/presentations/Kakao_VLM_Benchmark_Initial_Results.pdf) · [공개 자료 목록](docs/mentoring/2026-11-20/PUBLIC_MATERIALS.md) |
+| 발표 자료 | [11월 20일 멘토링 발표 PDF · 사전 공유본](docs/mentoring/2026-11-20/Team1_Kakao_Mentoring_2026-11-20.pdf) · [11월 6일 초기 발표자료](https://github.com/Spatzlyn/262RCOSE45700/blob/kakao_meeting_1106/docs/presentations/Kakao_VLM_Benchmark_Initial_Results.pdf) · [공개 자료 목록](docs/mentoring/2026-11-20/PUBLIC_MATERIALS.md) |
 
 ## 다음 단계
 
