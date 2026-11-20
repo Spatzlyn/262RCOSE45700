@@ -1,0 +1,244 @@
+{
+  "version": "7.11.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Adult",
+      "points": [
+        [
+          651.0,
+          322.94395280235983
+        ],
+        [
+          822.0,
+          858.9439528023598
+        ]
+      ],
+      "group_id": 333737,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1015.0,
+          263.0
+        ],
+        [
+          1154.0,
+          703.0
+        ]
+      ],
+      "group_id": 333738,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          942.0,
+          264.0
+        ],
+        [
+          1030.0,
+          647.0
+        ]
+      ],
+      "group_id": 333739,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          1396.0,
+          272.0
+        ],
+        [
+          1436.0,
+          322.0
+        ]
+      ],
+      "group_id": 333740,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          1554.0,
+          253.0
+        ],
+        [
+          1919.0,
+          622.0
+        ]
+      ],
+      "group_id": 333741,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          616.0,
+          184.0
+        ],
+        [
+          968.0,
+          431.0
+        ]
+      ],
+      "group_id": 333742,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Traffic Sign",
+      "points": [
+        [
+          1523.0,
+          227.0
+        ],
+        [
+          1534.0,
+          239.0
+        ]
+      ],
+      "group_id": 333743,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Traffic Sign",
+      "points": [
+        [
+          1522.0,
+          240.0
+        ],
+        [
+          1533.0,
+          252.0
+        ]
+      ],
+      "group_id": 333744,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "TruckBus",
+      "points": [
+        [
+          1488.0,
+          276.0
+        ],
+        [
+          1506.0,
+          309.0
+        ]
+      ],
+      "group_id": 333745,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1582.0,
+          270.0
+        ],
+        [
+          1597.0,
+          310.0
+        ]
+      ],
+      "group_id": 333746,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Adult",
+      "points": [
+        [
+          1597.0,
+          270.0
+        ],
+        [
+          1608.0,
+          306.0
+        ]
+      ],
+      "group_id": 333747,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "C",
+      "points": [
+        [
+          418.1700724690113,
+          1036.0172194031106
+        ],
+        [
+          1360.6027893349215,
+          427.0183000248469
+        ],
+        [
+          1519.0527344220266,
+          298.8805183457101
+        ],
+        [
+          1654.0796441484285,
+          301.6361695646162
+        ],
+        [
+          1884.1765209270936,
+          713.6060267910888
+        ],
+        [
+          1904.84390506889,
+          1027.7502657463922
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "CK_B02_R05_lunch_clear_01012234_F.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920,
+  "source_json": "C:\\Users\\tevin\\Desktop\\vv\\Pilot\\labels\\CK_B02_R05_lunch_clear_01012234_F.png.json",
+  "annotation_status": "draft"
+}

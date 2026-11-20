@@ -1,0 +1,294 @@
+{
+ "run_a": "RUN-PILOT6-BASE-001",
+ "run_b": "RUN-PILOT6-A10G-002",
+ "n": 6,
+ "identical_outputs": 0,
+ "identical_relations_all4": 6,
+ "items": [
+  {
+   "item_id": "pilot_001",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    1111,
+    1049
+   ],
+   "seconds": [
+    277.1265214998275,
+    95.788
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "P",
+     "P"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    6,
+    6
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition",
+     "YIELD_IF_OCCUPIED/while_corridor_occupied"
+    ],
+    [
+     "YIELD_IF_OCCUPIED/while_corridor_occupied"
+    ]
+   ]
+  },
+  {
+   "item_id": "pilot_002",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    690,
+    681
+   ],
+   "seconds": [
+    178.14199559995905,
+    62.457
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "A",
+     "A"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    2,
+    2
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition"
+    ],
+    [
+     "MONITOR_AHEAD/no_condition"
+    ]
+   ]
+  },
+  {
+   "item_id": "pilot_003",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    1001,
+    893
+   ],
+   "seconds": [
+    239.5272929999046,
+    81.082
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "A",
+     "A"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    6,
+    5
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition"
+    ],
+    [
+     "MONITOR_AHEAD/no_condition"
+    ]
+   ]
+  },
+  {
+   "item_id": "pilot_004",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    608,
+    615
+   ],
+   "seconds": [
+    154.98068090016022,
+    56.875
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "A",
+     "A"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    1,
+    1
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition"
+    ],
+    [
+     "MONITOR_AHEAD/no_condition"
+    ]
+   ]
+  },
+  {
+   "item_id": "pilot_005",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    653,
+    654
+   ],
+   "seconds": [
+    168.00915049994364,
+    58.545
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "A",
+     "A"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    2,
+    2
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition"
+    ],
+    [
+     "MONITOR_AHEAD/no_condition"
+    ]
+   ]
+  },
+  {
+   "item_id": "pilot_006",
+   "status": [
+    "valid",
+    "valid"
+   ],
+   "tokens": [
+    885,
+    892
+   ],
+   "seconds": [
+    207.96016949997284,
+    82.056
+   ],
+   "output_identical": false,
+   "json_identical": false,
+   "relations": {
+    "R1": [
+     "P",
+     "P"
+    ],
+    "R2": [
+     "A",
+     "A"
+    ],
+    "R3": [
+     "A",
+     "A"
+    ],
+    "R4": [
+     "A",
+     "A"
+    ]
+   },
+   "n_objects": [
+    4,
+    4
+   ],
+   "actions": [
+    [
+     "MONITOR_AHEAD/no_condition",
+     "YIELD_IF_OCCUPIED/while_corridor_occupied"
+    ],
+    [
+     "MONITOR_AHEAD/no_condition",
+     "YIELD_IF_OCCUPIED/while_corridor_occupied"
+    ]
+   ]
+  }
+ ]
+}

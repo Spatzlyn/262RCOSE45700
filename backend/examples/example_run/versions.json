@@ -1,0 +1,22 @@
+{
+ "_request": "GET /api/versions",
+ "_note": "synthetic example",
+ "api": "0.2.0",
+ "scorer": "backend-scorer-0.2.0",
+ "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+ "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+ "prompt_versions": [
+  "prompt_v1"
+ ],
+ "reference_versions": [
+  "None",
+  "example-ref-0.1"
+ ],
+ "reference_status_counts": {
+  "Missing": 6,
+  "Reviewed": 4,
+  "Draft": 1
+ },
+ "split_versions": [],
+ "bootstrap_b": 2000
+}

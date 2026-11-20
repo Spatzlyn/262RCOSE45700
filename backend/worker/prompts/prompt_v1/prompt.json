@@ -1,0 +1,12 @@
+{
+ "system_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+ "task_sha256": "3188a849114dc2742e6cff2c8f57615dccdd87e943d05ed1055d7633960bd3d2",
+ "item_id_placeholder": "sample_front_001",
+ "user_content_order": [
+  "image",
+  "text"
+ ],
+ "source": "dry_run_v1@ef1ed25 (same content as work/model-1115 ai_model/inference/runtime_inputs)",
+ "verification": "pilot_001 rendered prompt (CRLF file) sha256 4ffd9603... equals the Pilot record; input_ids 4176, pixel_values [1,2520,768]",
+ "status": "matches the model team's original (work/model-1115@d6553ea ai_model/inference: modified_system_full.txt + baseline_messages.json task, run_gemma_pilot_smoke.py sha256 1437366263bec4eb)"
+}

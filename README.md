@@ -1,29 +1,46 @@
-# 생활도로 위험 판단 VLM · Team 1
+# Team 1 · 생활도로 VLM 평가 벤치마크
 
-보도 없는 생활도로의 전방 사진에서 객체를 찾고, 진행 공간과 객체 사이의 관계 및 그 판단 근거를 평가하는 벤치마크입니다.
+2026-11-20 카카오모빌리티 멘토링 대비 부분 재설계(v1.1-review)의 종합 개발·검토 브랜치: `kakao1120_revision`.
 
-## 진행 현황
+기존 Track 1 의도 및 데이터·모델·채점·서비스 구조를 유지하면서 R1(점유), R2(연결부), R3(가림)과 보조 속성 4개(연결부 이용자, 전방 가림, 측방 가림, 병목)를 분리한다. v1.0 Run·정답·출력 기록은 별도 버전으로 보존하며 v1.0과 v1.1 점수를 섞지 않는다.
 
-2026년 11월 19일 기준 · GitHub 공개 작업 기록
+## 역할별 최신 작업 위치
 
-- **데이터** — Track 1 공통 Pilot 6건에 진행 공간, 객체 박스, R1–R4 관계와 근거 객체 ID의 1인 초안 라벨 작성.
-- **모델** — 동일 Pilot 6건의 Base 추론 결과 저장. 6건 모두 출력 형식 검사 통과.
-- **백엔드** — 추론 Run 저장·조회 및 평가 결과 API 구현. 1인 라벨 초안과 Base의 R1–R4 관계 값 24개 중 16개가 일치했으며, R1은 6건 중 3건에서 일치. 검수 완료 정답의 평가는 팀 합의 후 진행.
-- **프론트엔드** — 실행·리포트·오류 목록·비교·장면 상세 화면으로 Run과 판정 근거를 확인할 수 있는 Viewer 구현.
-- **Track 2** — 사고 대상 보행자를 선택하는 초기 문항과 채점 흐름을 v0에서 구성. 영상별 충돌 시점과 대상 ID를 검수한 뒤 판단 시점까지의 입력으로 평가할 계획.
+| 담당 | 폴더 | 주요 자료 |
+|---|---|---|
+| 윤유경 · PM | [pm/](pm/) | [진행 요약·인수인계](README_v11_HANDOFF.md), [개정 명세](pm/SPEC_v11.md), 역할 명세 원본, 발표자료 링크 |
+| 한태문 · 데이터 | [data_v11/](data_v11/) | 6장 v1.1 Draft, 후보 6장 카탈로그, 3장 독립 라벨링 양식, 수집 그룹 분리 및 이전 라벨 자료 |
+| 하경흠 · 모델 | [ai_model/](ai_model/) | 기존 실제 Base 추론 패키지, [v1.1 모델 프롬프트 명세](ai_model/MODEL_PROMPT_v11.md), GPU 워커의 신규 A/B 프롬프트 링크 |
+| 문혜승 · 백엔드 | [backend/](backend/) | FastAPI, 평가·대응 채점, 데이터 버전, 저장·조회, 마이그레이션, 33개 자동 테스트. [개정 안내](backend/REVISION_README.md) |
+| 고연오 · 프론트 | [frontend/](frontend/) | [v1.1 F1~F5 API 연결 Viewer](frontend/f3-f5/app.html), 원형·템플릿·검증 코드. [개정 안내](frontend/REVISION_README.md) |
+| 이전 산출물·발표 자료 | [docs/](docs/) · [benchmark/](benchmark/) | [11/20 발표 PDF](docs/mentoring/2026-11-20/Team1_Kakao_Mentoring_2026-11-20.pdf), [11/6 발표 PDF](docs/presentations/Kakao_VLM_Benchmark_Initial_Results.pdf), [기존 벤치마크 명세 PDF](docs/benchmark/Kakao_Road_VLM_Benchmark_Spec_Final.pdf), 기존 데이터·모델 실험 기록, v0 문항 및 채점기 |
 
-## 파트별 작업 기록
+## 실행 및 상태
 
-| 파트 | 확인할 수 있는 자료 |
-| --- | --- |
-| 기획·평가 명세 | [벤치마크 및 개발 명세서](docs/benchmark/Kakao_Road_VLM_Benchmark_Spec_Final.pdf) |
-| 데이터 | [Pilot 산출물과 라벨링 자료](https://github.com/Spatzlyn/262RCOSE45700/blob/work/data-1115/docs/data/pilot_1115/README.md) |
-| 모델 | [Base 추론 실행 방법과 코드](https://github.com/Spatzlyn/262RCOSE45700/blob/work/model-1115/ai_model/inference/README_ko.md) |
-| 백엔드 | [API·채점·저장 구조](https://github.com/Spatzlyn/262RCOSE45700/blob/work/backend-1115/backend/README.md) · [Pilot 6건 관계 대조 결과](https://github.com/Spatzlyn/262RCOSE45700/blob/work/backend-1115/backend/examples/pilot6_draft_gt/README.md) |
-| 프론트엔드 | [평가 Viewer 구현](https://github.com/Spatzlyn/262RCOSE45700/tree/work/frontend-1115/frontend/f3-f5) |
-| 초기 벤치마크 | [v0 문항과 실행 자료](https://github.com/Spatzlyn/262RCOSE45700/tree/feat/benchmark-v0) |
-| 발표 자료 | [11월 20일 멘토링 발표 PDF · 사전 공유본](docs/mentoring/2026-11-20/Team1_Kakao_Mentoring_2026-11-20.pdf) · [11월 6일 초기 발표자료](https://github.com/Spatzlyn/262RCOSE45700/blob/kakao_meeting_1106/docs/presentations/Kakao_VLM_Benchmark_Initial_Results.pdf) · [공개 자료 목록](docs/mentoring/2026-11-20/PUBLIC_MATERIALS.md) |
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements-dev.txt
+export IMAGE_ROOT=/data/aihub_71784/images
+export BOOTSTRAP_B=20
+python -m pytest backend/tests -q
+python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8888
+```
 
-## 다음 단계
+브라우저에서 `frontend/f3-f5/app.html`을 열고 `http://localhost:8888` 연결. v1.1 A/B Preview는 추론을 실행하지 않은 검토용 Run. 실제 저장 v1.0 Base와 함께 조회 가능. 상세 실행, 배포 및 데이터 적용 순서는 [인수인계](README_v11_HANDOFF.md) 참조.
 
-Track 1은 합의한 정답을 등록하고 촬영 그룹 기준으로 Test를 고정한 뒤 Base 지표와 오류 사례를 정리합니다. Track 2는 검수 가능한 사고 영상이 확보되면 사고 전 입력으로 대상 보행자를 선택하는 사례를 시연합니다.
+| 확인된 사항 | 아직 필요한 사항 |
+|---|---|
+| 기존 Pilot 6개 Draft + 6개 후보 카탈로그, 독립 라벨링 도구, 버전 분할 | 2인 검수·합의, Reviewed GT, 독립 그룹 Test 확보·freeze |
+| 신규 A/B 프롬프트 및 스키마와 기존 GPU 워커 연결 | 실제 GPU A/B 각 6장 추론, Tuned 모델 별도 실험 |
+| 로컬 백엔드 테스트 및 F1~F5 실제 사진/API 연결 검증 | AWS 운영 적용·운영 환경 회귀 검증 |
+| v1.1 핵심 9칸·보조 지표, 부분 검수와 미산출 처리 | 공식 성능 점수, 금지 대응 및 사람 진술 검수, Track 2/3 별도 입력 |
+
+통합 브랜치 재검증: 백엔드 33개 + 기존 모델 CPU 패키지 검사 4개 = 37개 통과. F1~F5 브라우저 검사 및 독립 라벨링 양식 검사 통과. 근거는 [검증 기록](pm/VERIFICATION_1120.md) 참고.
+
+## 기존 역할별 브랜치와 자료 보존
+
+- [데이터 원본 작업](https://github.com/Spatzlyn/262RCOSE45700/tree/work/data-1115/docs/data/pilot_1115): 원본 이미지·AI Hub 원본 라벨은 기존 작업 브랜치 또는 승인된 AWS 데이터 경로 사용. 공개 종합 브랜치에 새로 복제하지 않음.
+- [모델](https://github.com/Spatzlyn/262RCOSE45700/tree/work/model-1115), [백엔드](https://github.com/Spatzlyn/262RCOSE45700/tree/work/backend-1115), [프론트](https://github.com/Spatzlyn/262RCOSE45700/tree/work/frontend-1115): 기존 브랜치 변경 없음.
+- [초기 v0 벤치마크](https://github.com/Spatzlyn/262RCOSE45700/tree/feat/benchmark-v0): 이전 실험 및 Track 2의 초기 작업 기록.
+- 원본 데이터·실제 키/인증 정보·모델 가중치·비공개 AI 독립 답안·개별 라벨러 답안·생성 캐시 제외. 새 GPU 실행 및 운영 배포는 하지 않음.

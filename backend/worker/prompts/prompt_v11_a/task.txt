@@ -1,0 +1,2 @@
+Return one JSON object for this task.
+{"item_id": "placeholder", "view": "F", "intent": "follow_visible_road_forward", "task": "track1_current_scene", "input_type": "single_image", "evaluation_area_definition": "사진과 진행 의도로 파악할 수 있는 도로 영역을 참조. 정답 영역 미제공.", "available_evidence": {"image_count": 1, "temporal_sequence": false, "ego_motion_sensor": false, "future_event_reference": false}, "question": "v1.1-review Schema에 따라 현재 장면을 관찰하고 JSON 하나를 출력하십시오."}

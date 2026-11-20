@@ -1,0 +1,78 @@
+{
+  "version": "7.11.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Car",
+      "points": [
+        [
+          1213.0,
+          424.0
+        ],
+        [
+          1918.0,
+          823.0
+        ]
+      ],
+      "group_id": 16457,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          0.0,
+          191.0
+        ],
+        [
+          1220.0,
+          1080.0
+        ]
+      ],
+      "group_id": 16458,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "C",
+      "points": [
+        [
+          15.070634148276445,
+          1053.908953357955
+        ],
+        [
+          589.764517473301,
+          617.8649929330232
+        ],
+        [
+          726.4050212009296,
+          370.7064347198135
+        ],
+        [
+          1140.3453707287447,
+          386.7817880995343
+        ],
+        [
+          1821.5384701944208,
+          1059.9372108753505
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "CK_A09_R05_day_clear_01010324_F.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920,
+  "source_json": "C:\\Users\\tevin\\Desktop\\vv\\Pilot\\labels\\CK_A09_R05_day_clear_01010324_F.png.json",
+  "annotation_status": "draft"
+}

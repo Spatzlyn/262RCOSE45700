@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "F1 versioned preview",
+    "F1 prompt and candidate catalog",
+    "F2 9 cells and 4 auxiliary metrics",
+    "F3 six draft items",
+    "F4 only same-version preview runs",
+    "F5 real image, polygon, R1-R3, auxiliary navigation",
+    "legacy v1.0 preserved"
+  ],
+  "errors": []
+}

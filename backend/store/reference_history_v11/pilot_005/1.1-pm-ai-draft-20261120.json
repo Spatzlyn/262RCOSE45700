@@ -1,0 +1,207 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_005",
+ "annotation_status": "Draft",
+ "reference_version": "1.1-pm-ai-draft-20261120",
+ "reviewed_fields": [],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "image_file": "CV_A01_R03_lunch_rainy_01114394_F.png",
+ "image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "driving_area": [
+  [
+   0.301758,
+   0.949069
+  ],
+  [
+   0.480912,
+   0.60107
+  ],
+  [
+   0.547378,
+   0.572726
+  ],
+  [
+   0.558559,
+   0.563891
+  ],
+  [
+   0.566013,
+   0.583769
+  ],
+  [
+   0.552924,
+   0.598234
+  ],
+  [
+   0.59024,
+   0.644161
+  ],
+  [
+   0.618227,
+   0.646713
+  ],
+  [
+   0.917474,
+   0.988618
+  ]
+ ],
+ "objects": [
+  {
+   "object_id": "259502",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.186458,
+    0.54537,
+    0.416667,
+    0.730556
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "259503",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.278646,
+    0.536111,
+    0.446354,
+    0.675
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "259504",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.398438,
+    0.55463,
+    0.470833,
+    0.652778
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "unknown",
+   "orientation": null
+  },
+  {
+   "object_id": "259505",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.0,
+    0.617593,
+    0.13125,
+    0.892593
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "c005",
+   "type": "connection",
+   "bbox_xyxy_norm": [
+    0.17,
+    0.68,
+    0.46,
+    0.86
+   ],
+   "polygon_xy_norm": null,
+   "geometry_status": "보이는 주차 공간 포장면 및 도로 경계 후보"
+  },
+  {
+   "region_id": "l005",
+   "type": "occluded_lateral",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": null,
+   "geometry_status": "차량 뒤 숨은 주차 공간 범위 미측정"
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "U",
+   "reason": "주차열 끝 차량 259504의 바퀴와 차도·주차 경계가 흐릿해 D 내부 접지를 확정하기 어려움.",
+   "object_ids": [
+    "259504"
+   ],
+   "region_ids": []
+  },
+  "R2": {
+   "state": "P",
+   "reason": "왼쪽 개방형 주차 공간의 포장면이 도로 경계와 직접 연결됨.",
+   "object_ids": [],
+   "region_ids": [
+    "c005"
+   ]
+  },
+  "R3": {
+   "state": "P",
+   "reason": "전방: 원단의 강한 눈부심과 거리로 물리적 가림 여부를 분리하기 어려움. / 측방: 왼쪽 개방형 주차 공간에서 주차 차량이 안쪽의 진입 가능한 포장면을 가림.",
+   "object_ids": [
+    "259502",
+    "259503"
+   ],
+   "region_ids": [
+    "l005"
+   ]
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "reason": "주차 차량이 보이나 정확한 접지와 연결부 경계의 겹침이 불명확.",
+   "object_ids": [
+    "259504"
+   ],
+   "region_ids": [
+    "c005"
+   ]
+  },
+  "forward_occlusion": {
+   "state": "U",
+   "reason": "원단의 강한 눈부심과 거리로 물리적 가림 여부를 분리하기 어려움.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "lateral_occlusion": {
+   "state": "P",
+   "reason": "왼쪽 개방형 주차 공간에서 주차 차량이 안쪽의 진입 가능한 포장면을 가림.",
+   "object_ids": [
+    "259502",
+    "259503"
+   ],
+   "region_ids": [
+    "l005"
+   ]
+  },
+  "bottleneck": {
+   "state": "U",
+   "reason": "좁은 도로처럼 보이나 원근에 의한 폭 변화와 실제 국소 제약 구별 어려움.",
+   "object_ids": [],
+   "region_ids": []
+  }
+ },
+ "legacy_draft": {
+  "R1": "P",
+  "R2": "A",
+  "R3": "A",
+  "R4": "A"
+ },
+ "source_group_id": "230915_134904_V(10)"
+}

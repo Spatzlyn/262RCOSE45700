@@ -1,0 +1,132 @@
+{
+  "version": "7.11.0",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "Car",
+      "points": [
+        [
+          410.0,
+          337.0
+        ],
+        [
+          652.0,
+          498.0
+        ]
+      ],
+      "group_id": 361821,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          724.0,
+          322.0
+        ],
+        [
+          863.0,
+          428.0
+        ]
+      ],
+      "group_id": 361822,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "TruckBus",
+      "points": [
+        [
+          865.3778256094531,
+          299.0
+        ],
+        [
+          1007.3778256094531,
+          435.0
+        ]
+      ],
+      "group_id": 361823,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          1020.0,
+          325.0
+        ],
+        [
+          1149.0,
+          444.0
+        ]
+      ],
+      "group_id": 361824,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "Car",
+      "points": [
+        [
+          564.0,
+          306.0
+        ],
+        [
+          728.0,
+          419.0
+        ]
+      ],
+      "group_id": 361825,
+      "description": "",
+      "shape_type": "rectangle",
+      "flags": {},
+      "mask": null
+    },
+    {
+      "label": "C",
+      "points": [
+        [
+          157.7610322823782,
+          1048.4176498881884
+        ],
+        [
+          717.1582297203308,
+          431.1517768532061
+        ],
+        [
+          1142.9063430413341,
+          438.0409049004717
+        ],
+        [
+          1148.4176454791464,
+          490.398278059689
+        ],
+        [
+          1862.1313111758448,
+          1031.8837425747515
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "shape_type": "polygon",
+      "flags": {},
+      "mask": null
+    }
+  ],
+  "imagePath": "CK_B02_R05_afterschool_clear_01065701_F.png",
+  "imageData": null,
+  "imageHeight": 1080,
+  "imageWidth": 1920,
+  "source_json": "C:\\Users\\tevin\\Desktop\\vv\\Pilot\\labels\\CK_B02_R05_afterschool_clear_01065701_F.png.json",
+  "annotation_status": "draft"
+}

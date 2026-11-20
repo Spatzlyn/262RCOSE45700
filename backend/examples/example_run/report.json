@@ -1,0 +1,429 @@
+{
+ "_request": "GET /api/runs/EXAMPLE-RUN-001/report",
+ "_note": "synthetic example",
+ "run_id": "EXAMPLE-RUN-001",
+ "base_run_id": null,
+ "data_kind": "example",
+ "status": "imported",
+ "provisional": false,
+ "versions": {
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "data": {
+   "items": "example-items-0.1"
+  },
+  "reference": [
+   "example-ref-0.1"
+  ],
+  "result_hash": "ef4b4a45b231ba48bf1d06e479853fb9b6e7ccb19d3303f13410bef44da79e1c",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
+ },
+ "n_requests": 5,
+ "n_groups": 5,
+ "prediction_status_counts": {
+  "valid": 3,
+  "invalid": 1,
+  "timeout": 1
+ },
+ "n_scored_items": 4,
+ "excluded": {
+  "items": {
+   "reference_not_reviewed (Draft)": 1
+  },
+  "actions": {
+   "direction_conflict": 1
+  }
+ },
+ "metrics": {
+  "v1_valid": {
+   "status": "computed",
+   "value": 0.6,
+   "numerator": 3,
+   "n": 5,
+   "reason": null,
+   "ci95": [
+    0.23072,
+    0.882382
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v2_invalid": {
+   "status": "computed",
+   "value": 0.4,
+   "numerator": 2,
+   "n": 5,
+   "reason": null,
+   "ci95": [
+    0.117618,
+    0.76928
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v3_grounding": {
+   "status": "computed",
+   "primary_iou": 0.5,
+   "by_iou": {
+    "0.3": {
+     "status": "computed",
+     "precision": 0.6666666666666666,
+     "recall": 0.5,
+     "f1": 0.5714285714285714,
+     "tp": 4,
+     "fp": 2,
+     "fn": 4,
+     "ci_status": "not_computed",
+     "ci_reason": "see top-level ci95"
+    },
+    "0.5": {
+     "status": "computed",
+     "precision": 0.6666666666666666,
+     "recall": 0.5,
+     "f1": 0.5714285714285714,
+     "tp": 4,
+     "fp": 2,
+     "fn": 4,
+     "ci_status": "not_computed",
+     "ci_reason": "see top-level ci95"
+    },
+    "0.7": {
+     "status": "computed",
+     "precision": 0.3333333333333333,
+     "recall": 0.25,
+     "f1": 0.2857142857142857,
+     "tp": 2,
+     "fp": 4,
+     "fn": 6,
+     "ci_status": "not_computed",
+     "ci_reason": "see top-level ci95"
+    }
+   },
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "v4_evidence": {
+   "status": "computed",
+   "value": 0.25,
+   "numerator": 2,
+   "n": 8,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "v5_relation_macro_f1": {
+   "status": "not_applicable",
+   "value": null,
+   "cells": {
+    "R1.P": {
+     "f1": 0.6666666666666666,
+     "support": 4,
+     "tp": 2,
+     "fp": 0,
+     "fn": 2
+    },
+    "R1.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R1.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R2.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R2.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 2,
+     "fn": 0
+    },
+    "R2.U": {
+     "f1": 0.0,
+     "support": 4,
+     "tp": 0,
+     "fp": 0,
+     "fn": 4
+    },
+    "R3.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R3.A": {
+     "f1": 0.6666666666666666,
+     "support": 4,
+     "tp": 2,
+     "fp": 0,
+     "fn": 2
+    },
+    "R3.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R4.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R4.A": {
+     "f1": 0.6666666666666666,
+     "support": 4,
+     "tp": 2,
+     "fp": 0,
+     "fn": 2
+    },
+    "R4.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    }
+   },
+   "reason": "V5 needs reviewed GT in all 12 cells; empty: ['R1.A', 'R1.U', 'R2.P', 'R2.A', 'R3.P', 'R3.U', 'R4.P', 'R4.U']",
+   "supported_class_macro_f1": {
+    "value": 0.5,
+    "n_cells": 4
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v6_present_recall": {
+   "status": "computed",
+   "value": 0.5,
+   "numerator": 2,
+   "n": 4,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "v7_false_positive_rate": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 8,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "v8_unknown_recall": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 4,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "v9_over_abstention": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 12,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "a1_attribute_f1": {
+   "status": "computed",
+   "value": 0.5,
+   "fields": {
+    "sidewalk_left": {
+     "value": 0.666667,
+     "per_value_f1": {
+      "A": 0.6666666666666666
+     },
+     "support": {
+      "A": 4
+     }
+    },
+    "sidewalk_right": {
+     "value": 0.666667,
+     "per_value_f1": {
+      "A": 0.6666666666666666
+     },
+     "support": {
+      "A": 4
+     }
+    },
+    "traffic_direction": {
+     "value": 0.666667,
+     "per_value_f1": {
+      "Two-way": 0.6666666666666666
+     },
+     "support": {
+      "Two-way": 4
+     }
+    },
+    "direction_match": {
+     "value": 0.0,
+     "per_value_f1": {
+      "Conflicting": 0.0
+     },
+     "support": {
+      "Conflicting": 1
+     }
+    }
+   },
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "ci95": null,
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.0005
+  },
+  "a2_direction_na_violation": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 3,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_computed",
+   "ci_reason": "filled by group bootstrap when applicable"
+  },
+  "v10_action_pass_rate": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 3,
+   "reason": null,
+   "ci95": [
+    0.0,
+    0.561506
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v11_required_group_recall": {
+   "status": "computed",
+   "value": 0.166667,
+   "numerator": 1,
+   "n": 6,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric undefined in some replicates",
+   "B": 2000,
+   "seed": 20261116,
+   "n_groups": 5,
+   "undefined_rate": 0.01
+  },
+  "v12_forbidden_rate": {
+   "status": "computed",
+   "value": 0.333333,
+   "numerator": 1,
+   "n": 3,
+   "reason": null,
+   "ci95": [
+    0.06149,
+    0.792345
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v13_statement_error_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "v14_answer_with_error_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "explanation_completion_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "l1_l3_label_quality": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "see GET /api/quality (needs two-annotator pre-consensus records)",
+   "ci95": null,
+   "ci_status": "not_computed"
+  }
+ },
+ "comparison": {
+  "status": "not_requested",
+  "reason": "pass ?base=<run_id> to compare"
+ }
+}

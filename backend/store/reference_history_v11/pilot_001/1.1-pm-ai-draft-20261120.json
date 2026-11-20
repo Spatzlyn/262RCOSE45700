@@ -1,0 +1,376 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_001",
+ "annotation_status": "Draft",
+ "reference_version": "1.1-pm-ai-draft-20261120",
+ "reviewed_fields": [],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "image_file": "CK_A01_R01_erh_rainy_01021252_F.png",
+ "image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "driving_area": [
+  [
+   0.043433,
+   1.0
+  ],
+  [
+   0.492492,
+   0.306812
+  ],
+  [
+   0.547721,
+   0.306812
+  ],
+  [
+   0.997847,
+   0.961136
+  ]
+ ],
+ "objects": [
+  {
+   "object_id": "204911",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.479687,
+    0.299074,
+    0.516667,
+    0.347222
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204912",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.669792,
+    0.288889,
+    0.773958,
+    0.430556
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204913",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.523958,
+    0.294444,
+    0.559375,
+    0.338889
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204914",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.001563,
+    0.246296,
+    0.346354,
+    0.649074
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "adjacent",
+   "orientation": "opposite"
+  },
+  {
+   "object_id": "204915",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.331771,
+    0.285185,
+    0.392708,
+    0.452778
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204916",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.392188,
+    0.290741,
+    0.45,
+    0.37963
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204917",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.76875,
+    0.251852,
+    0.999479,
+    0.810185
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "adjacent",
+   "orientation": "opposite"
+  },
+  {
+   "object_id": "204918",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.573958,
+    0.298148,
+    0.586458,
+    0.367593
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204919",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.559896,
+    0.300926,
+    0.577604,
+    0.325926
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204920",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.598958,
+    0.273148,
+    0.652604,
+    0.433333
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204921",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.384375,
+    0.319444,
+    0.41875,
+    0.387963
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204922",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.458333,
+    0.294444,
+    0.470313,
+    0.37037
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "in_D",
+   "orientation": null
+  },
+  {
+   "object_id": "204923",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.78125,
+    0.111111,
+    0.810937,
+    0.162037
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204924",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.778125,
+    0.065741,
+    0.803646,
+    0.111111
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204925",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.593229,
+    0.206481,
+    0.604167,
+    0.225926
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204926",
+   "class": "personal_mobility",
+   "raw_class": "Personal Mobility",
+   "bbox_xyxy_norm": [
+    0.584896,
+    0.306481,
+    0.598437,
+    0.365741
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204927",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.592708,
+    0.228704,
+    0.604167,
+    0.247222
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204928",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.556771,
+    0.191667,
+    0.585417,
+    0.227778
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204929",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.441146,
+    0.302778,
+    0.452083,
+    0.35
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [],
+ "relations": {
+  "R1": {
+   "state": "P",
+   "reason": "중앙 가까이 보이는 보행자 204922의 발이 기존 D 내부에 위치. 다른 객체의 접지는 추가 검수.",
+   "object_ids": [
+    "204922"
+   ],
+   "region_ids": []
+  },
+  "R2": {
+   "state": "U",
+   "reason": "상가 개구부가 다수 보이나 주차 차량 뒤에서 D와 직접 연결되는 입구 경계 확인 어려움.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "R3": {
+   "state": "U",
+   "reason": "전방: 원거리 차량 열 사이에서 평가 구간 끝부분의 도로 가림 범위 불분명. / 측방: 양측 차량 뒤의 도로와 연결된 진입 가능 영역이 있는지 불분명.",
+   "object_ids": [],
+   "region_ids": []
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "reason": "실제 연결부 경계 미확정.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "forward_occlusion": {
+   "state": "U",
+   "reason": "원거리 차량 열 사이에서 평가 구간 끝부분의 도로 가림 범위 불분명.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "lateral_occlusion": {
+   "state": "U",
+   "reason": "양측 차량 뒤의 도로와 연결된 진입 가능 영역이 있는지 불분명.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "bottleneck": {
+   "state": "A",
+   "reason": "보이는 중앙 노면에 특정 구간의 뚜렷한 국소 폭 제약 근거 없음. 실제 통과 여부는 미판정.",
+   "object_ids": [],
+   "region_ids": []
+  }
+ },
+ "legacy_draft": {
+  "R1": "P",
+  "R2": "A",
+  "R3": "A",
+  "R4": "A"
+ },
+ "source_group_id": "230913_181649_K(1)"
+}

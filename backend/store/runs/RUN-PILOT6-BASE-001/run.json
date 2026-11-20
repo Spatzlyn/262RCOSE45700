@@ -1,0 +1,70 @@
+{
+ "run_id": "RUN-PILOT6-BASE-001",
+ "data_kind": "real",
+ "label": "Pilot 6 Base (NF4, prompt v1, first response)",
+ "source_run_ids": [
+  "pilot_001_smoke_01",
+  "pilot_002_smoke_01",
+  "pilot_003_smoke_01",
+  "pilot_004_smoke_01",
+  "pilot_005_smoke_01",
+  "pilot_006_smoke_01"
+ ],
+ "source": {
+  "git_ref": "origin/work/model-1115",
+  "commit": "e5fc3d3e5b5d39c7c987ff037c5aa8d6b24df499",
+  "path": "docs/model/pilot_1115"
+ },
+ "model": {
+  "model_id": "google/gemma-4-E4B-it",
+  "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+  "quantization": {
+   "load_in_4bit": true,
+   "bnb_4bit_quant_type": "nf4",
+   "bnb_4bit_use_double_quant": true,
+   "bnb_4bit_compute_dtype": "bfloat16"
+  },
+  "dtype": "bfloat16",
+  "adapter_loaded": false,
+  "base_name": "nf4_prompt_v1_first"
+ },
+ "prompt": {
+  "system_prompt_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+  "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+  "version": "prompt_v1"
+ },
+ "decoding": {
+  "max_new_tokens": 4096,
+  "do_sample": false,
+  "seed": 42,
+  "image_max_soft_tokens": 280,
+  "enable_thinking": false
+ },
+ "environment": {
+  "python": "3.11.18",
+  "packages": {
+   "torch": "2.6.0+cu124",
+   "torchvision": "0.21.0+cu124",
+   "transformers": "5.23.0",
+   "bitsandbytes": "0.50.2",
+   "accelerate": "1.15.0",
+   "huggingface-hub": "2.4.0"
+  },
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU"
+ },
+ "data_version": {
+  "items": "pilot6",
+  "image_sha256": {
+   "pilot_001": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+   "pilot_002": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+   "pilot_003": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+   "pilot_004": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+   "pilot_005": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+   "pilot_006": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858"
+  }
+ },
+ "label_version": null,
+ "split_version": null,
+ "reference_version": null,
+ "notes": "No GT exists yet: only V1/V2 are scored; every other metric is returned as N/A with a reason."
+}

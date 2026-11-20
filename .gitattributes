@@ -1,0 +1,2 @@
+backend/worker/prompts/** -text
+ai_model/inference/** -text

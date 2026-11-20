@@ -1,0 +1,185 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_003",
+ "annotation_status": "Draft",
+ "reference_version": "1.1-pm-ai-draft-20261120",
+ "reviewed_fields": [],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "image_file": "CK_B02_R05_afterschool_clear_01065701_F.png",
+ "image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "driving_area": [
+  [
+   0.082167,
+   0.970757
+  ],
+  [
+   0.37352,
+   0.399215
+  ],
+  [
+   0.595264,
+   0.405593
+  ],
+  [
+   0.598134,
+   0.454072
+  ],
+  [
+   0.96986,
+   0.955448
+  ]
+ ],
+ "objects": [
+  {
+   "object_id": "361821",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.213542,
+    0.312037,
+    0.339583,
+    0.461111
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "361822",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.377083,
+    0.298148,
+    0.449479,
+    0.396296
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "361823",
+   "class": "truck",
+   "raw_class": "TruckBus",
+   "bbox_xyxy_norm": [
+    0.450718,
+    0.276852,
+    0.524676,
+    0.402778
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "361824",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.53125,
+    0.300926,
+    0.598437,
+    0.411111
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  },
+  {
+   "object_id": "361825",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.29375,
+    0.283333,
+    0.379167,
+    0.387963
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "outside",
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "c003",
+   "type": "connection",
+   "bbox_xyxy_norm": [
+    0.37,
+    0.379,
+    0.6,
+    0.463
+   ],
+   "polygon_xy_norm": null,
+   "geometry_status": "원단의 포장 공간 접속부. 실제 차량 진출입 경계 검수 필요"
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "A",
+   "reason": "기존 D는 건물 앞 주차 공간 직전까지. 차량 접지가 주차 공간 안에 위치한 것으로 검토.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "R2": {
+   "state": "P",
+   "reason": "D 원단과 건물 앞 개방형 포장 주차 공간이 연속적으로 이어지는 모습 확인. 정확한 입구 경계는 검수 필요.",
+   "object_ids": [],
+   "region_ids": [
+    "c003"
+   ]
+  },
+  "R3": {
+   "state": "U",
+   "reason": "전방: 기존 D의 원단(주차 공간 직전)까지 보이는 노면 확인. / 측방: 주차 공간의 측면 및 차량 뒤 진입 가능 범위가 충분히 확인되지 않음.",
+   "object_ids": [],
+   "region_ids": []
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "reason": "차량은 주차 공간에 보이나 입구 경계와 각 차량 접지의 관계 추가 확인 필요.",
+   "object_ids": [],
+   "region_ids": [
+    "c003"
+   ]
+  },
+  "forward_occlusion": {
+   "state": "A",
+   "reason": "기존 D의 원단(주차 공간 직전)까지 보이는 노면 확인.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "lateral_occlusion": {
+   "state": "U",
+   "reason": "주차 공간의 측면 및 차량 뒤 진입 가능 범위가 충분히 확인되지 않음.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "bottleneck": {
+   "state": "A",
+   "reason": "기존 D 내부에서 국소적으로 폭이 좁아지는 원인을 특정하지 못함. 원단·주차 공간은 구분.",
+   "object_ids": [],
+   "region_ids": []
+  }
+ },
+ "legacy_draft": {
+  "R1": "A",
+  "R2": "A",
+  "R3": "A",
+  "R4": "A"
+ },
+ "source_group_id": "230918_150830_K(1)"
+}

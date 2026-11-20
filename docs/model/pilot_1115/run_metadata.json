@@ -1,0 +1,854 @@
+[
+  {
+    "run_id": "pilot_001_smoke_01",
+    "item_id": "pilot_001",
+    "input_image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_001_smoke_01",
+      "model_item_id": "pilot_001",
+      "started_at_utc": "2026-11-15T16:27:30.212531+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:32:54.764444+00:00",
+      "wall_seconds": 324.5521907999646,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 277.1265214998275,
+      "generated_tokens": 1111,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_001",
+      "image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "7eb68160f7b0737179c2c028b6654f9cc53780511fee1ee7d29093438948f6db",
+      "raw_output.txt": "54a2bfc08fb3e17ddf4f31989190c459ec582e2b253ddce2b868ef531afcdb94",
+      "decoded_output.txt": "a9cd0018cead78dea6bccb05adbedc6275e8918976256765ca2751a44fb8092f",
+      "config.json": "b8091920b602d5758fc307cd7327b25478887cfc78f341aa46907cbadc222e94",
+      "status.json": "f8a0e4353cac0b0ea23f6798ff4222e8d02bc87a062ab1976e25f1eaac70875f",
+      "output_validation.json": "266fbab5162f0e9650e222b616dc3f4747ac0cd55ca0a77b46dfca8be0452054",
+      "input_audit.json": "904ecd893a8e67d2dee734750fbaf6aa14b1e69a30b9784dee007ad23668f76f",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "691b60d6112ea67808d3261576609eda22bc19429ec4f985734a4ec7e2243ef2",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "4ffd96031e2979f2acccad8df932ad74d0b69e1cf5116f2b1fc05b5fb63e4bda",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "1f3bf74fa865786411ed37de2c519f6eb1bece8c062b288ad8704346a1d9e1d9"
+    }
+  },
+  {
+    "run_id": "pilot_002_smoke_01",
+    "item_id": "pilot_002",
+    "input_image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_002_smoke_01",
+      "model_item_id": "pilot_002",
+      "started_at_utc": "2026-11-15T16:35:25.728807+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:38:59.290835+00:00",
+      "wall_seconds": 213.56261969986372,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 178.14199559995905,
+      "generated_tokens": 690,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_002",
+      "image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "1c29be8d7024b670fd981350eb87997fbfefa9ff1807aa7c89b387c3440b98c3",
+      "raw_output.txt": "7a194f6ca662e2b1273962e4d221bc972c8e140999a70a8a915091ae5747242d",
+      "decoded_output.txt": "4bb86a83d5d50319cdb354c5cd637c617613ea68f303a94e6afcbcb4a5fab5a0",
+      "config.json": "e1e9a374250259735f5d365df900019d29e1e462c696248876e07a28fe3fc086",
+      "status.json": "fa9a60df0fd72624a77398b3c6579aa2923278faad9dcb36c810dfa3b6a915a9",
+      "output_validation.json": "c65f0e8d7fc67bf0ace977ccc0fbeed0f53a174ee02a69ac59bd1c41a102663e",
+      "input_audit.json": "f71bf269e78f952b3d07aa79a565be5e75c06d3253f7f1492c1c469012faf030",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "3b8c16ee12e91338d816aa5635627623f7239f7b26dcb2c3c6769722faebd1bd",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "1a16a0e3ba5d491d15da00dd1a073d97383b04239335ebcebb113b535a2568c8",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "37251257bfc4e332faa6d5d2d11f77e2e62fa3d5c4a9988524c5fe463943d91d"
+    }
+  },
+  {
+    "run_id": "pilot_003_smoke_01",
+    "item_id": "pilot_003",
+    "input_image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_003_smoke_01",
+      "model_item_id": "pilot_003",
+      "started_at_utc": "2026-11-15T16:39:37.334644+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:44:15.981668+00:00",
+      "wall_seconds": 278.64643219998106,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 239.5272929999046,
+      "generated_tokens": 1001,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_003",
+      "image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "e163a5a5853bf8d0583f68efb72800699b308ebd26120f4cfeca129ac059fe3c",
+      "raw_output.txt": "b499043c8e7b980875c0969c0a614116a327e967d8ac5db362dbb8a818281604",
+      "decoded_output.txt": "dfb13d6b0ea06ee7417bdccc8af995282880472a8f881baaeba771ec3a4c2b29",
+      "config.json": "3fe2221b336269aa6c2c850b765be3ddaf310d492a5816364e89f8a2f2d4b4f4",
+      "status.json": "db18885d1574ad2dcb2aae6f8098b448ed5cf96801508434266a25765fdf5592",
+      "output_validation.json": "dbaa8dd100d24e93141c2861d8abd3cdee5423b2060316e7212f9b1c09b31888",
+      "input_audit.json": "8037795051e02b82f95a2f3f4803cf9945580308c2d24205828897ef33173a9d",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "cb79d8666e743b98f67c937cc123b886dc8409433a64ca3a8339df09c2d97cb1",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "e70ef6eab9b204d6a4ce381634471e0e0c3a0b1a174bc64c6cc9c592ebe970a2",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "0478fad559c18a726974593296c6424daea6a310c41d8515fd9d903f8e57bb96"
+    }
+  },
+  {
+    "run_id": "pilot_004_smoke_01",
+    "item_id": "pilot_004",
+    "input_image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_004_smoke_01",
+      "model_item_id": "pilot_004",
+      "started_at_utc": "2026-11-15T16:45:02.114722+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:48:08.101640+00:00",
+      "wall_seconds": 185.98762989998795,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 154.98068090016022,
+      "generated_tokens": 608,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_004",
+      "image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "e2e732947770558dff9760809f9365e8af840ab276d8ff42443d5df3a875e6d3",
+      "raw_output.txt": "e81a7d7d86bee5f15db49be6b15fb71e247f57f1d6c32eea18479e88d1ac15d9",
+      "decoded_output.txt": "196656bcc88b06273fe4d6ec8c44c24d99a32958354c973b57de4dcb3a6c5f92",
+      "config.json": "1f5035dd62341a35612860803ef8dc926430f6c4d340fd03029e7c32b8a5c4fb",
+      "status.json": "ab58bd2eee6d92ea6559ade1764f7e3a506a04932054d2bb0a0a9555271241e7",
+      "output_validation.json": "214190e68933a29439052fd567a38c7e3fac41615da69929c774570904ddf98d",
+      "input_audit.json": "cb1b38b082fac0bbcea2b0245b8b2858e3e014d92987d1dd180324a621ce990b",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "1c35641473cbf01b57dc88a2a5f354fad648ec5e5f90cc7999d8b67d72770c9a",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "a8510d13ebe3b50d1a7cd81838c473252b5c4d3802299fbbd447139c0486586a",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "5d57ee78a5b74354a5664e247d5f1d4212049a4f632167eac2a4389699fbb5b0"
+    }
+  },
+  {
+    "run_id": "pilot_005_smoke_01",
+    "item_id": "pilot_005",
+    "input_image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_005_smoke_01",
+      "model_item_id": "pilot_005",
+      "started_at_utc": "2026-11-15T16:48:46.840115+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:52:05.180740+00:00",
+      "wall_seconds": 198.34085729997605,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 168.00915049994364,
+      "generated_tokens": 653,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_005",
+      "image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "01831c919409e225e1dd243639979c5fdc278a6fdf5076a4f07460a978f7db11",
+      "raw_output.txt": "4d78e0b3943a2d76dc3adc080506ae13714ae1eba7d00d141fe22892783b3225",
+      "decoded_output.txt": "537a4af481c215fad152f79aedc68e8cd422fa5da87e37761c8acd94dae0464e",
+      "config.json": "32be3f2300e27354502600d1851d9d86d84f0e2109e81be30de3f33dd520b32c",
+      "status.json": "ffc88eb590791ba5fdd0e678645a25da15c4f283c48e228748b8c1959273ff0b",
+      "output_validation.json": "5e2a144e4a3d84a4ee77f9f5e1224bc0dc2742eb106a97b74eac1ce8a0e79180",
+      "input_audit.json": "16d7fb69657c60d60df89b3b7035a21dee4ba5aaa0502f709f2e79833adf5559",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "6b45f0f269face4b874868fb2175947dfcfc7f5e47c1840fefd751a4786c62d5",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "abddeb6147e80c0e399a2f30161a0f4bbd0b646464a5e4bba4c8d175b8096b9f",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "6118eda72b487b822e1063e9b0e6464fed895ed8bd609b556f3e1e6f3c662165"
+    }
+  },
+  {
+    "run_id": "pilot_006_smoke_01",
+    "item_id": "pilot_006",
+    "input_image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858",
+    "base_name": "nf4_prompt_v1_first",
+    "model_id": "google/gemma-4-E4B-it",
+    "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+    "quantization": {
+      "load_in_4bit": true,
+      "bnb_4bit_quant_type": "nf4",
+      "bnb_4bit_use_double_quant": true,
+      "bnb_4bit_compute_dtype": "bfloat16"
+    },
+    "dtype": "bfloat16",
+    "attention": {
+      "text_config": "sdpa",
+      "vision_config": "sdpa",
+      "audio_config": "eager"
+    },
+    "batch_size": 1,
+    "generation": {
+      "max_new_tokens": 4096,
+      "do_sample": false
+    },
+    "seed": 42,
+    "image_max_soft_tokens": 280,
+    "enable_thinking": false,
+    "cpu_offload": false,
+    "adapter_loaded": false,
+    "new_entry": true,
+    "historical_script_reproduced": false,
+    "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+    "python_version": "3.11.18",
+    "platform": "Windows",
+    "packages": {
+      "torch": "2.6.0+cu124",
+      "torchvision": "0.21.0+cu124",
+      "transformers": "5.23.0",
+      "bitsandbytes": "0.50.2",
+      "accelerate": "1.15.0",
+      "huggingface-hub": "2.4.0"
+    },
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "cuda_runtime": "12.4",
+    "system_prompt_utf8_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+    "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+    "status_record": {
+      "run_id": "pilot_006_smoke_01",
+      "model_item_id": "pilot_006",
+      "started_at_utc": "2026-11-15T16:53:10.768158+00:00",
+      "phase": "finished",
+      "status": "completed",
+      "model_generate_called": true,
+      "implementation": "new_entry_not_original_infer_py",
+      "retry_count": 0,
+      "finished_at_utc": "2026-11-15T16:57:09.690270+00:00",
+      "wall_seconds": 238.9227543999441,
+      "cuda_peak_allocated_bytes": 10156276736,
+      "cuda_peak_reserved_bytes": 10326376448
+    },
+    "loaded_model_record": {
+      "device_map": null,
+      "parameter_count": 5723657504,
+      "allocated_bytes": 9325277696,
+      "reserved_bytes": 9416212480,
+      "attention": {
+        "text_config": "sdpa",
+        "vision_config": "sdpa",
+        "audio_config": "eager"
+      }
+    },
+    "validation_record": {
+      "json_parse_success": true,
+      "schema_valid": true,
+      "retry_count": 0,
+      "format_repair": false,
+      "official_benchmark": null,
+      "scoring_performed": false,
+      "reason": "no_reviewed_reference",
+      "generation_seconds": 207.96016949997284,
+      "generated_tokens": 885,
+      "schema_errors": []
+    },
+    "input_audit_record": {
+      "model_item_id": "pilot_006",
+      "image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858",
+      "width": 1920,
+      "height": 1080,
+      "image_count": 1,
+      "source_filename_in_rendered_prompt": false,
+      "labels_read": false,
+      "reference_files_read": false,
+      "C_geometry_read": false,
+      "task_template": "same_historical_task_only_neutral_item_id_changed",
+      "input_tokens": 4176,
+      "tensor_shapes": {
+        "input_ids": [
+          1,
+          4176
+        ],
+        "attention_mask": [
+          1,
+          4176
+        ],
+        "mm_token_type_ids": [
+          1,
+          4176
+        ],
+        "pixel_values": [
+          1,
+          2520,
+          768
+        ],
+        "image_position_ids": [
+          1,
+          2520,
+          2
+        ]
+      },
+      "processor_class": "Gemma4Processor",
+      "image_processor_class": "Gemma4ImageProcessor",
+      "image_max_soft_tokens": 280
+    },
+    "private_absolute_paths_removed": true,
+    "physical_vram_usage_verified": false,
+    "memory_note": "Recorded CUDA allocator values exceed nominal physical VRAM; cause unverified. Not a dedicated VRAM benchmark.",
+    "original_file_sha256": {
+      "parsed_output.json": "14dba9360ecb0ab819b8098b1305a7835aa7c47b575fff3437648b8c2699815a",
+      "raw_output.txt": "827ca84b239905a46843afd97f7945ed5e551a0b74340cbfbad38127e3127630",
+      "decoded_output.txt": "bf6f1df03f0a52f657db91393504ecdc0272ad97b4101e9deb850702b6a495ae",
+      "config.json": "0f0d3dedb882cc3f45ed22d85a39adfea69708ae6e8416047fcce34d4e921e40",
+      "status.json": "2c79560a50c5598c2b941faf309f58d388ef3cfc73c382b23dca2983b6cb66c8",
+      "output_validation.json": "d1d18eeedc79a2cfeeeea29e74631fe2ae926831f752710a1231fd2b1c545430",
+      "input_audit.json": "12557d8052a28178e48cf1defb9a3bc5e57bdaa5260d5a4b9ce241dc9e2d248c",
+      "loaded_model.json": "7abc5261bd6374d4c83256c46ab4ae8c60e76ec4023e11493f1fd96304cccd84",
+      "messages.json": "4ee951a7bbaf54f5bdc9a2297dd110a940ca4a670d1b5db72c1476a152e2e8ec",
+      "system_prompt.txt": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a",
+      "rendered_prompt.txt": "6da84eb3d432f7f36887043e97d7a72a152a33bdb6733bdf7d9d8938a8128fa7",
+      "schema.json": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+      "generated_ids.json": "60727e9c182e8d5eb1641e55b612e9cfaaf10966b504cad037a0326fe084c742"
+    }
+  }
+]

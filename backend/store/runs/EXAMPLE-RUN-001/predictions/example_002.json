@@ -1,0 +1,6 @@
+{
+ "item_id": "example_002",
+ "status": "ok",
+ "raw_text": "{\"item_id\": \"example_002\", \"track1\": {\"attributes\": {\"traffic_direction\": \"Two-way\", \"direction_match\": \"Not applicable\", \"sidewalk_left\": \"A\", \"sidewalk_right\": \"A\"}, \"objects\": [",
+ "parsed": null
+}

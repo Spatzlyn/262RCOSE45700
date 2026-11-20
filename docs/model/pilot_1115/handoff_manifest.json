@@ -1,0 +1,99 @@
+{
+  "handoff_status": "prepared_locally_not_sent",
+  "predictions": 6,
+  "raw": 6,
+  "decoded": 6,
+  "files": [
+    {
+      "file": "backend_handoff/pilot_001_decoded.txt",
+      "bytes": 2656,
+      "sha256": "a9cd0018cead78dea6bccb05adbedc6275e8918976256765ca2751a44fb8092f"
+    },
+    {
+      "file": "backend_handoff/pilot_001_prediction.json",
+      "bytes": 4089,
+      "sha256": "7eb68160f7b0737179c2c028b6654f9cc53780511fee1ee7d29093438948f6db"
+    },
+    {
+      "file": "backend_handoff/pilot_001_raw.txt",
+      "bytes": 2663,
+      "sha256": "54a2bfc08fb3e17ddf4f31989190c459ec582e2b253ddce2b868ef531afcdb94"
+    },
+    {
+      "file": "backend_handoff/pilot_002_decoded.txt",
+      "bytes": 1810,
+      "sha256": "4bb86a83d5d50319cdb354c5cd637c617613ea68f303a94e6afcbcb4a5fab5a0"
+    },
+    {
+      "file": "backend_handoff/pilot_002_prediction.json",
+      "bytes": 2549,
+      "sha256": "1c29be8d7024b670fd981350eb87997fbfefa9ff1807aa7c89b387c3440b98c3"
+    },
+    {
+      "file": "backend_handoff/pilot_002_raw.txt",
+      "bytes": 1817,
+      "sha256": "7a194f6ca662e2b1273962e4d221bc972c8e140999a70a8a915091ae5747242d"
+    },
+    {
+      "file": "backend_handoff/pilot_003_decoded.txt",
+      "bytes": 2444,
+      "sha256": "dfb13d6b0ea06ee7417bdccc8af995282880472a8f881baaeba771ec3a4c2b29"
+    },
+    {
+      "file": "backend_handoff/pilot_003_prediction.json",
+      "bytes": 3643,
+      "sha256": "e163a5a5853bf8d0583f68efb72800699b308ebd26120f4cfeca129ac059fe3c"
+    },
+    {
+      "file": "backend_handoff/pilot_003_raw.txt",
+      "bytes": 2451,
+      "sha256": "b499043c8e7b980875c0969c0a614116a327e967d8ac5db362dbb8a818281604"
+    },
+    {
+      "file": "backend_handoff/pilot_004_decoded.txt",
+      "bytes": 1637,
+      "sha256": "196656bcc88b06273fe4d6ec8c44c24d99a32958354c973b57de4dcb3a6c5f92"
+    },
+    {
+      "file": "backend_handoff/pilot_004_prediction.json",
+      "bytes": 2261,
+      "sha256": "e2e732947770558dff9760809f9365e8af840ab276d8ff42443d5df3a875e6d3"
+    },
+    {
+      "file": "backend_handoff/pilot_004_raw.txt",
+      "bytes": 1644,
+      "sha256": "e81a7d7d86bee5f15db49be6b15fb71e247f57f1d6c32eea18479e88d1ac15d9"
+    },
+    {
+      "file": "backend_handoff/pilot_005_decoded.txt",
+      "bytes": 1670,
+      "sha256": "537a4af481c215fad152f79aedc68e8cd422fa5da87e37761c8acd94dae0464e"
+    },
+    {
+      "file": "backend_handoff/pilot_005_prediction.json",
+      "bytes": 2409,
+      "sha256": "01831c919409e225e1dd243639979c5fdc278a6fdf5076a4f07460a978f7db11"
+    },
+    {
+      "file": "backend_handoff/pilot_005_raw.txt",
+      "bytes": 1677,
+      "sha256": "4d78e0b3943a2d76dc3adc080506ae13714ae1eba7d00d141fe22892783b3225"
+    },
+    {
+      "file": "backend_handoff/pilot_006_decoded.txt",
+      "bytes": 2215,
+      "sha256": "bf6f1df03f0a52f657db91393504ecdc0272ad97b4101e9deb850702b6a495ae"
+    },
+    {
+      "file": "backend_handoff/pilot_006_prediction.json",
+      "bytes": 3295,
+      "sha256": "14dba9360ecb0ab819b8098b1305a7835aa7c47b575fff3437648b8c2699815a"
+    },
+    {
+      "file": "backend_handoff/pilot_006_raw.txt",
+      "bytes": 2222,
+      "sha256": "827ca84b239905a46843afd97f7945ed5e551a0b74340cbfbad38127e3127630"
+    }
+  ],
+  "scoring_performed": false
+}

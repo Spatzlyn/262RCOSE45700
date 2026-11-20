@@ -1,0 +1,21 @@
+# GPU inference worker (host process; needs the NVIDIA driver and ~/infer/.venv).
+# install: sudo cp backend/deploy/road-vlm-worker.service /etc/systemd/system/ && sudo systemctl enable --now road-vlm-worker
+[Unit]
+Description=Road VLM inference worker (A10G)
+After=docker.service network-online.target
+Wants=docker.service
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/backend/262
+EnvironmentFile=/home/ubuntu/backend/262/backend/.env
+Environment=API_URL=http://127.0.0.1:8888
+Environment=IMAGE_ROOT=/data/aihub_71784/images
+Environment=MODEL_DIR=/data/models/gemma-4-E4B-it
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/ubuntu/infer/.venv/bin/python -m backend.worker.worker
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

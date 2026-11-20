@@ -1,0 +1,40 @@
+{
+ "run_id": "RUN-PILOT6-V11-B-PREVIEW",
+ "data_kind": "real",
+ "label": "v1.1 B 검토용 · 추론 미실행",
+ "schema_version": "1.1-review",
+ "status": "review_only",
+ "model": {
+  "model_id": "google/gemma-4-E4B-it",
+  "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+  "quantization": "nf4",
+  "adapter": null
+ },
+ "prompt": {
+  "version": "prompt_v11_b",
+  "schema_version": "1.1-review",
+  "system_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+  "task_sha256": "1776e8e4da64dac320585a99a94a8a0955c57176e152035c461dbe0ee878c03f",
+  "status": "review_candidate_not_run"
+ },
+ "decoding": {
+  "max_new_tokens": 4096,
+  "do_sample": false,
+  "seed": 42,
+  "image_max_soft_tokens": 280,
+  "enable_thinking": false
+ },
+ "reference_version": "1.1-pm-ai-draft-20261120",
+ "split_version": "v11-pilot-dev",
+ "data_version": {
+  "items": "pilot6-v11",
+  "image_sha256": {
+   "pilot_001": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+   "pilot_002": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+   "pilot_003": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+   "pilot_004": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+   "pilot_005": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+   "pilot_006": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858"
+  }
+ }
+}

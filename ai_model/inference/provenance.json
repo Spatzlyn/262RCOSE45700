@@ -1,0 +1,89 @@
+{
+  "package_purpose": "inference_code_only_no_weights_images_predictions_or_GT",
+  "original_source_file": "source/run_gemma_pilot_smoke.py",
+  "original_source_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+  "original_source_preserved_byte_for_byte": true,
+  "original_source_matches_all_6_runs": [
+    {
+      "run_id": "pilot_001_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    },
+    {
+      "run_id": "pilot_002_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    },
+    {
+      "run_id": "pilot_003_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    },
+    {
+      "run_id": "pilot_004_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    },
+    {
+      "run_id": "pilot_005_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    },
+    {
+      "run_id": "pilot_006_smoke_01",
+      "recorded_script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+      "matches": true
+    }
+  ],
+  "historical_infer_py_reproduced": false,
+  "path_only_launcher_is_new": true,
+  "launcher_gpu_run_performed": false,
+  "base_config_changed": false,
+  "recorded_effective_packages": {
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "transformers": "5.23.0",
+    "bitsandbytes": "0.50.2",
+    "accelerate": "1.15.0",
+    "huggingface-hub": "2.4.0"
+  },
+  "recorded_python": "3.11.18",
+  "historical_runtime_input_source_commit": "ef1ed254d4bbcb15d66c0ec96a02861ef1e7c681",
+  "input_files_preserved_byte_for_byte": [
+    {
+      "file": "runtime_inputs/config.json",
+      "sha256": "5412c7cfd85d0143eac3d59c2bb9ab2c5000d8678c5cdbd7b36d5396214b32e9"
+    },
+    {
+      "file": "runtime_inputs/modified_system_full.txt",
+      "sha256": "c92ddb957cf826b12fe6ce0dd05585cf568fdc3eb372b18eac191da18b3f825a"
+    },
+    {
+      "file": "runtime_inputs/baseline_messages.json",
+      "sha256": "46be1e7d26743faa500e25398a5f1acae970b40e3c033e05a7267221dc5e1d41"
+    },
+    {
+      "file": "runtime_inputs/prediction.schema.json",
+      "sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1"
+    },
+    {
+      "file": "runtime_inputs/validate.py",
+      "sha256": "df4c65686a771388afe2941deb716416cc141247e1739c45a10345e57ed006ac"
+    },
+    {
+      "file": "runtime_inputs/model_file_hashes.json",
+      "sha256": "5c34286b5d2c39944e3d53fceb3b81b369b00f98406152ede47817e2bb49d595"
+    }
+  ],
+  "existing_results_commit": "e5fc3d3e5b5d39c7c987ff037c5aa8d6b24df499",
+  "not_included": [
+    "model weights",
+    "Pilot image bytes",
+    "labels/GT/reference",
+    "C geometry",
+    "past predictions",
+    "credentials"
+  ],
+  "baseline_image_url_note": "Public historical template string only; no image included or opened from this path",
+  "requirements_scope": "six recorded core packages, not a complete transitive historical lock"
+}

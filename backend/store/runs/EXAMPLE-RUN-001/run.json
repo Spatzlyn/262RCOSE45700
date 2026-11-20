@@ -1,0 +1,22 @@
+{
+ "run_id": "EXAMPLE-RUN-001",
+ "data_kind": "example",
+ "label": "Example run for screen development (synthetic)",
+ "model": {
+  "model_id": "example-model",
+  "revision": null,
+  "quantization": null,
+  "adapter_loaded": false
+ },
+ "prompt": {
+  "version": "example"
+ },
+ "decoding": {
+  "seed": 0
+ },
+ "data_version": {
+  "items": "example-items-0.1"
+ },
+ "reference_version": "example-ref-0.1",
+ "notes": "Synthetic. Not a model result; references are not real GT."
+}

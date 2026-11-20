@@ -1,0 +1,300 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_004",
+ "annotation_status": "Draft",
+ "reference_version": "1.1-pm-ai-draft-20261120",
+ "reviewed_fields": [],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "image_file": "CK_B02_R05_lunch_clear_01012234_F.png",
+ "image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "driving_area": [
+  [
+   0.217797,
+   0.959275
+  ],
+  [
+   0.708647,
+   0.395387
+  ],
+  [
+   0.791173,
+   0.276741
+  ],
+  [
+   0.8615,
+   0.279293
+  ],
+  [
+   0.981342,
+   0.660746
+  ],
+  [
+   0.992106,
+   0.951621
+  ]
+ ],
+ "objects": [
+  {
+   "object_id": "333737",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.339062,
+    0.299022,
+    0.428125,
+    0.795318
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "unknown",
+   "orientation": "same"
+  },
+  {
+   "object_id": "333738",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.528646,
+    0.243519,
+    0.601042,
+    0.650926
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "in_D",
+   "orientation": "same"
+  },
+  {
+   "object_id": "333739",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.490625,
+    0.244444,
+    0.536458,
+    0.599074
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "unknown",
+   "orientation": null
+  },
+  {
+   "object_id": "333740",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.727083,
+    0.251852,
+    0.747917,
+    0.298148
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333741",
+   "class": "car",
+   "raw_class": "Car",
+   "bbox_xyxy_norm": [
+    0.809375,
+    0.234259,
+    0.999479,
+    0.575926
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": "unknown",
+   "orientation": "same"
+  },
+  {
+   "object_id": "333742",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.320833,
+    0.17037,
+    0.504167,
+    0.399074
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333743",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.793229,
+    0.210185,
+    0.798958,
+    0.221296
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333744",
+   "class": "traffic_sign",
+   "raw_class": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.792708,
+    0.222222,
+    0.798438,
+    0.233333
+   ],
+   "semantic_role": "road_feature",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333745",
+   "class": "truck",
+   "raw_class": "TruckBus",
+   "bbox_xyxy_norm": [
+    0.775,
+    0.255556,
+    0.784375,
+    0.286111
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333746",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.823958,
+    0.25,
+    0.831771,
+    0.287037
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "333747",
+   "class": "pedestrian",
+   "raw_class": "Adult",
+   "bbox_xyxy_norm": [
+    0.831771,
+    0.25,
+    0.8375,
+    0.283333
+   ],
+   "semantic_role": "actor",
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "c004",
+   "type": "connection",
+   "bbox_xyxy_norm": [
+    0.257,
+    0.157,
+    0.334,
+    0.535
+   ],
+   "polygon_xy_norm": null,
+   "geometry_status": "보이는 출입문·접근부의 후보 ROI"
+  },
+  {
+   "region_id": "f004",
+   "type": "occluded_forward",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": null,
+   "geometry_status": "우측 SUV 뒤 가려진 도로 범위 미측정"
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "P",
+   "reason": "왼쪽 보행자 333738의 보이는 발이 D 내부에 있음. 333737의 발은 경계 재검수.",
+   "object_ids": [
+    "333738"
+   ],
+   "region_ids": []
+  },
+  "R2": {
+   "state": "P",
+   "reason": "왼쪽 상가의 출입문과 낮은 보행 접근 공간이 도로 가장자리로 연결됨.",
+   "object_ids": [],
+   "region_ids": [
+    "c004"
+   ]
+  },
+  "R3": {
+   "state": "P",
+   "reason": "전방: 오른쪽 차량 333741이 기존 D 우측 진행 영역의 일부를 가림. / 측방: 상가 앞 보행자·차량 뒤 측면 진입 영역의 연결 및 가시 범위 불명확.",
+   "object_ids": [
+    "333741"
+   ],
+   "region_ids": [
+    "f004"
+   ]
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "reason": "상가 출입구 앞 보행자가 보이지만 출입 경계 안쪽인지 불명확.",
+   "object_ids": [
+    "333737"
+   ],
+   "region_ids": [
+    "c004"
+   ]
+  },
+  "forward_occlusion": {
+   "state": "P",
+   "reason": "오른쪽 차량 333741이 기존 D 우측 진행 영역의 일부를 가림.",
+   "object_ids": [
+    "333741"
+   ],
+   "region_ids": [
+    "f004"
+   ]
+  },
+  "lateral_occlusion": {
+   "state": "U",
+   "reason": "상가 앞 보행자·차량 뒤 측면 진입 영역의 연결 및 가시 범위 불명확.",
+   "object_ids": [],
+   "region_ids": []
+  },
+  "bottleneck": {
+   "state": "U",
+   "reason": "오른쪽 SUV의 접지와 도로 경계가 가려 실제 국소 폭 감소를 별도 판정하기 어려움.",
+   "object_ids": [
+    "333741"
+   ],
+   "region_ids": []
+  }
+ },
+ "legacy_draft": {
+  "R1": "P",
+  "R2": "A",
+  "R3": "P",
+  "R4": "U"
+ },
+ "source_group_id": "230906_130316_K(2)"
+}

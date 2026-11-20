@@ -1,0 +1,366 @@
+{
+ "_request": "GET /api/runs/RUN-PILOT6-BASE-001/report",
+ "_note": "real model output; GT not written, so GT-based metrics are N/A",
+ "run_id": "RUN-PILOT6-BASE-001",
+ "base_run_id": null,
+ "data_kind": "real",
+ "status": "imported",
+ "provisional": false,
+ "versions": {
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+  "model": {
+   "model_id": "google/gemma-4-E4B-it",
+   "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+   "quantization": {
+    "load_in_4bit": true,
+    "bnb_4bit_quant_type": "nf4",
+    "bnb_4bit_use_double_quant": true,
+    "bnb_4bit_compute_dtype": "bfloat16"
+   },
+   "dtype": "bfloat16",
+   "adapter_loaded": false,
+   "base_name": "nf4_prompt_v1_first"
+  },
+  "prompt": {
+   "system_prompt_sha256": "b4dfdb314bc7f03edd7171d84bc47c39fb4c07b5cb1e35d53ef7f407ba691696",
+   "schema_sha256": "de20d1462a3175ec4ef2e32d8b7ef31b5b3d58ea768146c3d67560108a0669b1",
+   "version": "prompt_v1"
+  },
+  "data": {
+   "items": "pilot6",
+   "image_sha256": {
+    "pilot_001": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+    "pilot_002": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+    "pilot_003": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+    "pilot_004": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+    "pilot_005": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+    "pilot_006": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858"
+   }
+  },
+  "reference": [
+   "None"
+  ],
+  "result_hash": "68a23a5b3e21aa958badae1dfae3477fd3ae26477a30088c6647140f9fb38ade",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
+ },
+ "n_requests": 6,
+ "n_groups": 0,
+ "prediction_status_counts": {
+  "valid": 6
+ },
+ "n_scored_items": 0,
+ "excluded": {
+  "items": {
+   "reference_missing": 6
+  },
+  "actions": {
+   "direction_conflict": 0
+  }
+ },
+ "metrics": {
+  "v1_valid": {
+   "status": "computed",
+   "value": 1.0,
+   "numerator": 6,
+   "n": 6,
+   "reason": null,
+   "ci95": [
+    0.609657,
+    1.0
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v2_invalid": {
+   "status": "computed",
+   "value": 0.0,
+   "numerator": 0,
+   "n": 6,
+   "reason": null,
+   "ci95": [
+    0.0,
+    0.390343
+   ],
+   "ci_status": "wilson",
+   "ci_reason": null
+  },
+  "v3_grounding": {
+   "status": "not_applicable",
+   "primary_iou": 0.5,
+   "by_iou": {
+    "0.3": {
+     "status": "not_applicable",
+     "value": null,
+     "reason": "no Reviewed reference in this run"
+    },
+    "0.5": {
+     "status": "not_applicable",
+     "value": null,
+     "reason": "no Reviewed reference in this run"
+    },
+    "0.7": {
+     "status": "not_applicable",
+     "value": null,
+     "reason": "no Reviewed reference in this run"
+    }
+   },
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v4_evidence": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v5_relation_macro_f1": {
+   "status": "not_applicable",
+   "value": null,
+   "reason": "no Reviewed reference in this run",
+   "cells": {
+    "R1.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R1.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R1.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R2.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R2.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R2.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R3.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R3.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R3.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R4.P": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R4.A": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    },
+    "R4.U": {
+     "f1": null,
+     "support": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 0
+    }
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v6_present_recall": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v7_false_positive_rate": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v8_unknown_recall": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v9_over_abstention": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "a1_attribute_f1": {
+   "status": "not_applicable",
+   "value": null,
+   "reason": "no Reviewed reference in this run",
+   "fields": {
+    "sidewalk_left": {
+     "value": null,
+     "per_value_f1": {},
+     "support": {}
+    },
+    "sidewalk_right": {
+     "value": null,
+     "per_value_f1": {},
+     "support": {}
+    },
+    "traffic_direction": {
+     "value": null,
+     "per_value_f1": {},
+     "support": {}
+    },
+    "direction_match": {
+     "value": null,
+     "per_value_f1": {},
+     "support": {}
+    }
+   },
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "a2_direction_na_violation": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable"
+  },
+  "v10_action_pass_rate": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable"
+  },
+  "v11_required_group_recall": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "metric not computed"
+  },
+  "v12_forbidden_rate": {
+   "status": "not_applicable",
+   "value": null,
+   "numerator": 0,
+   "n": 0,
+   "reason": "no Reviewed reference in this run",
+   "ci95": null,
+   "ci_status": "not_applicable"
+  },
+  "v13_statement_error_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "v14_answer_with_error_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "explanation_completion_rate": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+   "ci95": null,
+   "ci_status": "not_computed"
+  },
+  "l1_l3_label_quality": {
+   "status": "not_computed",
+   "value": null,
+   "n": null,
+   "reason": "see GET /api/quality (needs two-annotator pre-consensus records)",
+   "ci95": null,
+   "ci_status": "not_computed"
+  }
+ },
+ "comparison": {
+  "status": "not_requested",
+  "reason": "pass ?base=<run_id> to compare"
+ }
+}

@@ -1,0 +1,242 @@
+{
+ "_request": "GET /api/runs/EXAMPLE-RUN-001/items",
+ "_note": "synthetic example",
+ "run_id": "EXAMPLE-RUN-001",
+ "data_kind": "example",
+ "status": "imported",
+ "provisional": false,
+ "versions": {
+  "api": "0.2.0",
+  "scorer": "backend-scorer-0.2.0",
+  "scorer_commit": "aa9049d096adaf862e8a94ecf6b5a32708f2b479",
+  "schema_sha256": "735615c48bc295ec865eab94d278dabfa97ed3fc505b5ec75ba8fd441b98393f",
+  "model": {
+   "model_id": "example-model",
+   "revision": null,
+   "quantization": null,
+   "adapter_loaded": false
+  },
+  "prompt": {
+   "version": "example"
+  },
+  "data": {
+   "items": "example-items-0.1"
+  },
+  "reference": [
+   "example-ref-0.1"
+  ],
+  "result_hash": "ef4b4a45b231ba48bf1d06e479853fb9b6e7ccb19d3303f13410bef44da79e1c",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261116
+  }
+ },
+ "filters": {
+  "relation": null,
+  "fail_reason": null,
+  "annotation_status": null,
+  "prediction_status": null,
+  "data_kind": null
+ },
+ "n": 5,
+ "items": [
+  {
+   "item_id": "example_001",
+   "data_kind": "example",
+   "prediction_status": "valid",
+   "annotation_status": "Reviewed",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": "A",
+     "match": false
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "R4": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "action_eval": {
+    "pass": false,
+    "pass_status": "computed",
+    "fail_reasons": [
+     "forbidden",
+     "missing_required",
+     "contradiction"
+    ],
+    "excluded_reason": null
+   },
+   "image_url": null,
+   "thumbnail_url": null
+  },
+  {
+   "item_id": "example_002",
+   "data_kind": "example",
+   "prediction_status": "invalid",
+   "annotation_status": "Reviewed",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": null,
+     "match": false
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": null,
+     "match": false
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": null,
+     "match": false
+    },
+    "R4": {
+     "expected": "A",
+     "predicted": null,
+     "match": false
+    }
+   },
+   "action_eval": {
+    "pass": false,
+    "pass_status": "computed",
+    "fail_reasons": [
+     "invalid"
+    ],
+    "excluded_reason": null
+   },
+   "image_url": null,
+   "thumbnail_url": null
+  },
+  {
+   "item_id": "example_003",
+   "data_kind": "example",
+   "prediction_status": "timeout",
+   "annotation_status": "Reviewed",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": null,
+     "match": false
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": null,
+     "match": false
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": null,
+     "match": false
+    },
+    "R4": {
+     "expected": "A",
+     "predicted": null,
+     "match": false
+    }
+   },
+   "action_eval": {
+    "pass": false,
+    "pass_status": "computed",
+    "fail_reasons": [
+     "invalid"
+    ],
+    "excluded_reason": null
+   },
+   "image_url": null,
+   "thumbnail_url": null
+  },
+  {
+   "item_id": "example_004",
+   "data_kind": "example",
+   "prediction_status": "valid",
+   "annotation_status": "Draft",
+   "scored": false,
+   "excluded_reason": "reference_not_reviewed (Draft)",
+   "relations": {
+    "R1": {
+     "expected": "Missing",
+     "predicted": "P",
+     "match": null
+    },
+    "R2": {
+     "expected": "Missing",
+     "predicted": "A",
+     "match": null
+    },
+    "R3": {
+     "expected": "Missing",
+     "predicted": "A",
+     "match": null
+    },
+    "R4": {
+     "expected": "Missing",
+     "predicted": "A",
+     "match": null
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "fail_reasons": [],
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "image_url": null,
+   "thumbnail_url": null
+  },
+  {
+   "item_id": "example_005",
+   "data_kind": "example",
+   "prediction_status": "valid",
+   "annotation_status": "Reviewed",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": "A",
+     "match": false
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "R4": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "fail_reasons": [],
+    "excluded_reason": "direction_conflict"
+   },
+   "image_url": null,
+   "thumbnail_url": null
+  }
+ ]
+}

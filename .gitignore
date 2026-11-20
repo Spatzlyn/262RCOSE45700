@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+F[1-5]_v11.png
+F5_Pilot002_v11.png
+**/PM_ONLY*
+**/Pilot3_v11_Blind_Labeling.html

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pilot 3장 · 독립 라벨링</title>
+<style>
+:root{font:16px/1.55 system-ui;color:#17253c;background:#f3f6fb}*{box-sizing:border-box}
+body{max-width:960px;margin:auto;padding:24px}h1,h2,h3{line-height:1.2}
+p{margin:.5em 0 1em}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}a,button{color:#1649a0}
+section,header{background:#fff;border:1px solid #dce4ef;border-radius:14px;padding:20px;margin:16px 0}
+section{scroll-margin-top:20px}.image{position:relative}.image img,.image svg{display:block;width:100%;aspect-ratio:16/9}
+.image svg{position:absolute;inset:0;cursor:crosshair;touch-action:manipulation}
+button,select,textarea,input{font:inherit}button{cursor:pointer;background:#e8effb;border:1px solid #baccea;border-radius:8px;padding:5px 12px;margin:3px 5px 3px 0}
+button.primary{background:#184da1;color:white;border-color:#184da1} textarea,input,select{padding:7px;border:1px solid #b9c8dc;border-radius:6px;width:100%}
+textarea{min-height:65px}label{display:block}.hint,small{color:#4b607c}.relation{display:grid;grid-template-columns:9em minmax(0,1fr);gap:10px;align-items:end;margin:10px 0}
+.controls{display:flex;gap:5px;flex-wrap:wrap;align-items:center}footer{padding:10px 0 32px}#json{min-height:160px}
+@media (max-width:520px){body{padding:10px}section,header{padding:12px}.relation{grid-template-columns:1fr;gap:2px}}
+</style>
+<header>
+<h1>Pilot 3장 독립 라벨링 · v1.1</h1>
+<p>공통 진행 의도: 사진에 보이는 도로를 따라 전진.</p>
+<ol>
+<li>원본 사진에서 진행 공간 D의 꼭짓점을 순서대로 누릅니다. 도로 가장자리가 애매하면 아래에 확인이 어려운 위치를 적습니다.</li>
+<li>R1(점유), R2(연결부), 전방·측방 가림, 병목, 연결부 이용자를 따로 판정합니다. R3(가림)은 전방·측방에서 자동 결정됩니다. R2=N이면 이용자 N/A, R2=U이면 이용자 U. Y는 있음, N은 없음, U는 판단 어려움입니다.</li>
+<li>다른 사람이나 AI의 답을 보기 전에 본인 답을 저장합니다. 이동·의도나 실제 통과 가능성은 단일 사진에서 추정하지 않습니다.</li>
+<li>세 장을 다 본 뒤 아래의 ‘답안 JSON 저장’을 누릅니다. 직접 작성에 걸린 시간은 분 단위로 적어주세요.</li>
+</ol>
+<label>작성자 <input id="author" placeholder="예: 윤유경"></label>
+<nav id="nav" aria-label="사진으로 이동"></nav>
+</header>
+<main id="items"></main>
+<footer>
+<button class="primary" id="download">답안 JSON 저장</button>
+<button id="show">복사할 답안 보기</button>
+<p id="message" role="status"></p>
+<textarea id="json" hidden readonly aria-label="답안 JSON 복사용"></textarea>
+</footer>
+<script type="application/json" id="images">__IMAGES__</script>
+<script>
+const images = JSON.parse(document.getElementById('images').textContent);
+const checks = [
+  ['R1','점유','어떤 발이나 바퀴 접지가 D 안에 있나요?'],
+  ['R2','연결부','D와 연결되는 실제 도로·출입 공간이 있나요?'],
+  ['connection_actor','연결부 이용자','연결 경계에 발 또는 바퀴 접지가 확인되나요?'],
+  ['forward_occlusion','전방 가림','진행에 필요한 전방 공간을 무엇이 가리나요?'],
+  ['lateral_occlusion','측방 가림','진행에 필요한 측면 연결·진입 공간을 무엇이 가리나요?'],
+  ['bottleneck','병목','특정 구간의 국소 폭 감소와 원인을 따로 지목할 수 있나요?'],
+];
+const empty = () => images.map(({id}) => ({id,D:[],D_reason:'',elapsed_minutes:'',relations:{}}));
+const storage = 'team1-pilot3-independent-1120-v11';
+let answers = empty(), author = '';
+try {
+  const previous = JSON.parse(localStorage.getItem(storage)||'null');
+  if (previous?.answers?.map(x=>x.id).join()===answers.map(x=>x.id).join()) {
+    answers=previous.answers;
+    author=previous.author||'';
+  }
+} catch {}
+const save = () => {try {localStorage.setItem(storage,JSON.stringify({author,answers}));}catch{}};
+const renderPolygon = (svg,p) => {
+  svg.querySelector('polygon').setAttribute('points',p.map(([x,y])=>x+','+y).join(' '));
+  const dots = svg.querySelector('g');
+  dots.replaceChildren();
+  for (const [x,y] of p) {
+    const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx',x);dot.setAttribute('cy',y);dot.setAttribute('r',10);dots.append(dot);
+  }
+};
+document.getElementById('author').value=author;
+document.getElementById('author').addEventListener('input',e=>{author=e.target.value;save();});
+for (const [index,img] of images.entries()) {
+  const a = answers[index], section = document.createElement('section'), anchor = document.createElement('a');
+  section.id = 'photo-'+img.id;
+  anchor.href = '#'+section.id;
+  anchor.textContent = '사진 '+(index+1)+' · '+img.id;
+  document.getElementById('nav').append(anchor);
+  section.innerHTML =
+    '<h2></h2><p class="hint"></p><div class="image"><img alt=""><svg viewBox="0 0 1920 1080" preserveAspectRatio="none" role="img" aria-label="진행 공간 꼭짓점 표시 영역"><polygon fill="#67a9fb4d" stroke="#4294fb" stroke-width="5"/><g fill="#1259ba" stroke="white" stroke-width="3"></g></svg></div>'+
+    '<div class="controls"><button type="button" data-op="undo">마지막 점 취소</button><button type="button" data-op="clear">D 점 지우기</button><small data-count></small></div>'+
+    '<label>D를 그린 기준 / 애매한 경계 <textarea data-field="D_reason"></textarea></label><div class="relations"></div>'+
+    '<label>작성 시간(분) <input data-field="elapsed_minutes" type="number" min="0" step="any" inputmode="decimal"></label>';
+  section.querySelector('h2').textContent='사진 '+(index+1)+' · '+img.id;
+  section.querySelector('.hint').textContent=img.filename;
+  const photo=section.querySelector('img');
+  photo.src='data:image/jpeg;base64,'+img.bytes;
+  photo.alt=img.filename+' 원본 전방 사진';
+  const svg=section.querySelector('svg');
+  const redraw=()=>{renderPolygon(svg,a.D); section.querySelector('[data-count]').textContent='꼭짓점 '+a.D.length+'개';};
+  svg.addEventListener('click',e=>{
+    const b=svg.getBoundingClientRect();
+    a.D.push([Math.max(0,Math.min(1920,Math.round((e.clientX-b.left)*1920/b.width))),
+              Math.max(0,Math.min(1080,Math.round((e.clientY-b.top)*1080/b.height)))]);
+    redraw();save();
+  });
+  section.querySelector('[data-op="undo"]').onclick=()=>{a.D.pop();redraw();save();};
+  section.querySelector('[data-op="clear"]').onclick=()=>{a.D=[];redraw();save();};
+  for (const el of section.querySelectorAll('[data-field]')) {
+    el.value=a[el.dataset.field]||'';
+    el.addEventListener('input',()=>{a[el.dataset.field]=el.value;save();});
+  }
+  const controls={};
+  const enforce=()=>{
+    const r=a.relations.R2?.state, actor=a.relations.connection_actor, el=controls.connection_actor;
+    if(!actor||!el)return;
+    if(r==='A'||r==='U'){actor.state=r==='A'?'NA':'U';actor.reason=r==='A'?'연결부 없음: 해당 없음':'연결부 미확정';el.select.value=actor.state;el.reason.value=actor.reason;el.select.disabled=true;el.reason.disabled=true;}
+    else{el.select.disabled=false;el.reason.disabled=false;if(actor.state==='NA'||['연결부 없음: 해당 없음','연결부 미확정'].includes(actor.reason)){actor.state='';actor.reason='';el.select.value='';el.reason.value='';}}
+    const f=a.relations.forward_occlusion?.state,l=a.relations.lateral_occlusion?.state;
+    a.relations.R3={state:f&&l?(f==='P'||l==='P'?'P':f==='A'&&l==='A'?'A':'U'):'',reason:'전방: '+(a.relations.forward_occlusion?.reason||'')+' / 측방: '+(a.relations.lateral_occlusion?.reason||'')};
+    section.querySelector('[data-rollup]').textContent='R3 자동 판정: '+({P:'Y',A:'N',U:'U'}[a.relations.R3.state]||'미입력');
+  };
+  for (const [key,name,question] of checks) {
+    a.relations[key]??={state:'',reason:''};
+    const record=a.relations[key], container=document.createElement('div');
+    container.className='relation';
+    container.innerHTML='<label>'+name+'<select><option value="">선택</option><option value="P">Y · 있음</option><option value="A">N · 없음</option><option value="U">U · 판단 어려움</option>'+(key==='connection_actor'?'<option value="NA">N/A · 해당 없음</option>':'')+'</select></label><label>'+question+'<textarea></textarea></label>';
+    const select=container.querySelector('select'), reason=container.querySelector('textarea');
+    select.value=record.state;reason.value=record.reason;controls[key]={select,reason};
+    select.onchange=()=>{record.state=select.value;enforce();save();};
+    reason.oninput=()=>{record.reason=reason.value;enforce();save();};
+    section.querySelector('.relations').append(container);
+  }
+  section.querySelector('.relations').insertAdjacentHTML('beforeend','<p class="hint" data-rollup></p>');enforce();
+  redraw();
+  document.getElementById('items').append(section);
+}
+const exportText=()=>answers.map((item,i)=>JSON.stringify({schema_version:'1.1-review',item_id:images[i].id,
+  annotator:author.trim(),annotator_kind:'human',stage:'pre_consensus',image_file:images[i].filename,
+  image_sha256:images[i].sha256,source_group_id:images[i].group,seconds:item.elapsed_minutes===''?null:Number(item.elapsed_minutes)*60,
+  driving_area:item.D.map(([x,y])=>[x/1920,y/1080]),D_reason:item.D_reason,
+  fields:Object.fromEntries(Object.entries(item.relations).map(([k,v])=>[k,v.state])),reasons:Object.fromEntries(Object.entries(item.relations).map(([k,v])=>[k,v.reason]))})).join('\n');
+const validate=()=>author.trim()&&answers.every(a=>a.D.length>=3&&a.D_reason.trim()&&a.elapsed_minutes!==''&&Object.entries(a.relations).every(([k,v])=>v.state&&v.reason.trim()&&(k!=='connection_actor'||a.relations.R2.state!=='P'||v.state!=='NA')));
+document.getElementById('download').onclick=()=>{
+  if(!validate()){document.getElementById('message').textContent='이름, D, 판정·근거, 작성 시간을 모두 입력해 주세요.';return;}
+  const text=exportText(), blob=new Blob([text],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob), link=document.createElement('a');
+  link.href=url;link.download='Pilot3_v11_my_annotations.jsonl';
+  document.body.append(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  document.getElementById('message').textContent='답안 파일을 저장했습니다. 이 파일을 채팅에 첨부하면 됩니다.';
+};
+document.getElementById('show').onclick=()=>{
+  const out=document.getElementById('json');
+  out.hidden=false;out.value=exportText();out.focus();out.select();
+};
+</script>
+</html>

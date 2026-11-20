@@ -1,0 +1,13 @@
+{
+ "version": "v11-pilot-dev",
+ "schema_version": "1.1-review",
+ "assignments": {
+  "pilot_001": "dev",
+  "pilot_002": "dev",
+  "pilot_003": "dev",
+  "pilot_004": "dev",
+  "pilot_005": "dev",
+  "pilot_006": "dev",
+  "candidate_01065774": "dev"
+ }
+}

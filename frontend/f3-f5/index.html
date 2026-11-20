@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F3→F5 오류 근거 확인</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* v2 (11/15): 글 줄이고 UI 위주. 상단 바 + F3 카드 목록 → F5 (이미지 | 관계·근거·대응). 설명·원문은 접힘/범례로 이동.
+   색: GT 초록 실선 · 예측 보라 점선 · C 빨강 점선 · 선택 근거 노랑. U는 오류색 아님. */
+:root{--bg:#f3f4f7;--panel:#fff;--soft:#f7f8fa;--fg:#161d33;--muted:#6c7488;--line:#e3e6ed;--line2:#cfd4de;
+ --navy:#1b2742;--yellow:#ffdf3d;--gt:#1f7a46;--gt-s:#e3f3e9;--pred:#6d3fb0;--pred-s:#efe8f9;--c:#d0402f;--hl:#ffc400;
+ --ok:#1f7a46;--ok-s:#e3f3e9;--bad:#b8332b;--bad-s:#fbe6e4;--warn:#8a5f00;--warn-s:#fbf0d2;--u:#3f5878;--u-s:#e5ecf5;--mock:#a6560a;--mock-s:#fdebd6;--real:#0d5f8a;--real-s:#dcf0fa;
+ --font:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5}
+button,select{font:inherit;color:inherit}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--hl);outline-offset:2px}
+.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;padding:10px 24px}
+.top .logo{display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--yellow);color:var(--navy);font-weight:700}
+.steps{display:flex;gap:4px;align-items:center}
+.step{border:0;background:transparent;color:#aab4cd;padding:5px 10px;border-radius:7px;cursor:pointer;font-size:13px}
+.step b{font-family:var(--mono);font-weight:500;font-size:11px;margin-right:5px;opacity:.8}
+.step.cur{background:var(--yellow);color:var(--navy);font-weight:600}.step.off{opacity:.4;cursor:default}
+.sp{flex:1}
+.conn{display:flex;gap:6px;align-items:center}
+.conn select,.conn input{background:#26345a;border:1px solid #4a5a82;color:#fff;border-radius:7px;padding:4px 8px;font-size:12.5px}
+.conn input{width:190px;font-family:var(--mono);font-size:11.5px}
+.dot{width:8px;height:8px;border-radius:50%;background:#7c869e}.dot.ok{background:#4cd08a}.dot.bad{background:#ff7b6e}
+.rcard{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 16px;cursor:pointer;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.rcard:hover{border-color:var(--navy)}.rcard.on{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy)}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}.prog i{display:block;height:100%}
+.prog .v{background:var(--ok)}.prog .x{background:var(--bad)}.prog .w{background:var(--line2)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:12.5px}.kv span:nth-child(odd){color:var(--muted)}.kv span:nth-child(even){font-family:var(--mono);font-size:12px;word-break:break-all}
+.core{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:800px){.core{grid-template-columns:1fr}}
+.big{padding:16px;display:grid;gap:6px}.big .lbl{font-size:12.5px;color:var(--muted)}.big .val{font-size:34px;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.big .val.none{font-size:22px;color:var(--muted)}
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}@media (max-width:800px){.groups{grid-template-columns:1fr}}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+.mrow:first-of-type{border-top:0}.mrow b{font-variant-numeric:tabular-nums}.mrow .r{grid-column:1/-1;font-size:11.5px;color:var(--muted);margin-top:-4px}
+.cells{display:grid;grid-template-columns:auto repeat(3,1fr);gap:4px;font-size:12px;align-items:center}
+.cell{border:1px solid var(--line);border-radius:7px;padding:5px 4px;text-align:center;font-variant-numeric:tabular-nums}
+.cell.nil{border-style:dashed;color:var(--muted)}.cell small{display:block;font-size:10px;color:var(--muted)}
+.ct{width:100%;border-collapse:collapse;font-size:12.5px}.ct th,.ct td{text-align:left;padding:7px 8px;border-top:1px solid var(--line)}.ct th{color:var(--muted);font-weight:500;border-top:0}
+.rc.diff{border-color:#d9a800;background:#fff6cf}.rc.diff i{color:#7a5c00;font-weight:600}
+.field{border:1px solid var(--line2);border-radius:8px;padding:6px 9px;font:inherit;font-size:13px;background:var(--panel);min-width:0}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
+.pick{display:flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:6px 9px;cursor:pointer;font-size:12.5px}
+.pick:has(input:checked){border-color:var(--navy);background:#fffbe6}
+.note{font-size:12.5px;padding:8px 10px;border-radius:8px;background:var(--soft);border:1px solid var(--line)}
+.note.bad{background:var(--bad-s);border-color:#e8b5b0;color:var(--bad)}.note.ok{background:var(--ok-s);border-color:#b9dcc6;color:var(--ok)}.note.warn{background:var(--warn-s);border-color:#ecd9a0;color:var(--warn)}
+.msg{padding:36px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
+.msg code{font-family:var(--mono);font-size:12px;background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.help{position:relative}.help summary{list-style:none;cursor:pointer;border:1px solid #4a5a82;border-radius:7px;padding:4px 10px;font-size:12.5px;color:#dfe5f2}
+.help summary::-webkit-details-marker{display:none}
+.help .pop{position:absolute;right:0;top:calc(100% + 8px);width:340px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 12px 32px rgba(22,29,51,.18);display:grid;grid-template-columns:auto 1fr;gap:8px 10px;font-size:12.5px;align-items:center}
+.help .pop>.pill,.help .pop>.st,.help .pop>.ly{justify-self:start}
+.help .pop h4{grid-column:1/-1;margin:4px 0 0;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.main{max-width:1240px;margin:0 auto;padding:20px 24px 56px;display:grid;gap:14px}
+h1{margin:0;font-size:20px;font-weight:700}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;font-size:11.5px;font-weight:500;white-space:nowrap;line-height:1.6}
+.pill.real{background:var(--real-s);color:var(--real)}.pill.mock{background:var(--mock-s);color:var(--mock)}
+.pill.ok{background:var(--ok-s);color:var(--ok)}.pill.bad{background:var(--bad-s);color:var(--bad)}.pill.warn{background:var(--warn-s);color:var(--warn)}
+.pill.na{border:1px dashed var(--line2);color:var(--muted)}.pill.dim{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.pill.gt{background:var(--gt-s);color:var(--gt)}.pill.pred{background:var(--pred-s);color:var(--pred)}
+.st{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--mono)}
+.st.P{background:var(--fg);color:#fff}.st.A{background:var(--panel);color:var(--muted);border:1px solid var(--line2)}.st.U{background:var(--u-s);color:var(--u)}.st.X{border:1px dashed var(--line2);color:var(--muted)}
+.mono{font-family:var(--mono);font-size:12px}.muted{color:var(--muted)}.small{font-size:12px}
+.btn{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:12.5px}
+.btn:hover{border-color:var(--navy)}.btn:disabled{opacity:.4;cursor:default}
+
+/* F3 */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.stat{padding:12px 14px}.stat b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}.stat span{font-size:12px;color:var(--muted)}
+.bar{padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sel{border:1px solid var(--line2);border-radius:8px;padding:6px 8px;background:var(--panel);font-size:13px;cursor:pointer}
+.sel.on{border-color:var(--navy);background:#fffbe6;font-weight:600}
+.tog{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.item{display:grid;grid-template-columns:104px minmax(0,1fr) auto minmax(150px,auto) 16px;gap:14px;align-items:center;padding:10px 14px;cursor:pointer;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.item:hover{border-color:var(--navy);box-shadow:0 2px 10px rgba(22,29,51,.07)}
+.thumb{width:104px;aspect-ratio:16/9;border-radius:7px;overflow:hidden;background:#8d9aa6;position:relative}
+.thumb img,.thumb svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.item .t{display:grid;gap:3px;min-width:0}.item .d{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:12.5px}
+.rels{display:grid;grid-template-columns:repeat(4,auto);gap:5px}
+.rc{display:grid;gap:2px;justify-items:center;padding:4px 7px;border-radius:8px;border:1px solid var(--line);min-width:62px}
+.rc i{font-style:normal;font-size:10.5px;color:var(--muted);font-family:var(--mono)}
+.rc .v{display:flex;gap:3px;align-items:center;font-size:11px;color:var(--muted)}
+.rc.bad{border-color:var(--bad);background:var(--bad-s)}.rc.bad i{color:var(--bad);font-weight:600}
+.res{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.empty{padding:44px 16px;text-align:center;display:grid;gap:10px;justify-items:center}
+@media (max-width:900px){.item{grid-template-columns:84px minmax(0,1fr)}.thumb{width:84px}.rels,.res{grid-column:1/-1;justify-content:flex-start}.item>.chev{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* F5 */
+.verdict{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);border-left-width:5px}
+.verdict.bad{border-left-color:var(--bad)}.verdict.ok{border-left-color:var(--ok)}.verdict.warn{border-left-color:var(--warn)}.verdict.na{border-left-color:var(--line2)}
+.verdict b{font-size:15px}
+.grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}}
+.left{display:grid;gap:8px;position:sticky;top:64px}@media (max-width:1000px){.left{position:static}}
+.stage{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#7c8794;border:1px solid var(--line)}
+.stage img,.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.stage[data-image-state="loading"] svg,.stage[data-image-state="error"] svg,.stage[data-image-state="missing"] svg{visibility:hidden}
+.photo-status{display:grid;position:absolute;inset:0;place-content:center;padding:16px;text-align:center;background:var(--panel);color:var(--fg)}
+.photo-status[hidden]{display:none}
+.layers{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ly{display:flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--panel);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:12.5px}
+.ly i{width:16px;height:10px;border:2px solid;border-radius:2px}.ly.off{opacity:.45}
+.ly .c{border-color:var(--c);border-style:dashed}.ly .g{border-color:var(--gt)}.ly .p{border-color:var(--pred);border-style:dashed}
+.right{display:grid;gap:12px;min-width:0}
+.sec{padding:14px;display:grid;gap:10px;align-content:start}
+.sec h2{margin:0;font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center}
+.sec>.pill{justify-self:start}
+.sec h2 span{font-weight:400;color:var(--muted);font-size:12px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tab{border:1px solid var(--line2);border-radius:10px;padding:8px 6px;background:var(--panel);cursor:pointer;display:grid;gap:5px;justify-items:center}
+.tab .n{font-size:11.5px;color:var(--muted)}.tab .n b{font-family:var(--mono);color:var(--fg);margin-right:3px}
+.tab .v{display:flex;gap:4px;align-items:center;color:var(--muted);font-size:11px}
+.tab.bad{background:var(--bad-s);border-color:#e8b5b0}.tab.on{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side{border-radius:10px;padding:10px;display:grid;gap:8px;align-content:start;min-width:0;background:var(--soft);border-top:3px solid}
+.side.gt{border-color:var(--gt)}.side.pred{border-color:var(--pred)}
+.chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11.5px;border-radius:6px;padding:2px 7px;cursor:pointer;border:1px solid var(--line2);background:var(--panel)}
+.chip.gt{border-color:var(--gt);color:var(--gt)}.chip.pred{border-color:var(--pred);color:var(--pred);border-style:dashed}.chip.on{background:var(--hl);color:var(--navy);border-color:var(--hl);border-style:solid}
+.need{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;font-size:13px}
+.mark{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:12px;font-weight:700}
+.mark.y{background:var(--ok-s);color:var(--ok)}.mark.n{background:var(--bad-s);color:var(--bad)}.mark.q{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.cond{color:var(--muted);font-size:12px}
+.or{color:var(--muted);font-size:11.5px;margin:0 4px}
+.out{border-top:1px dashed var(--line2);padding-top:10px;display:grid;gap:6px}
+details.more{border-top:1px solid var(--line);padding-top:8px}
+details.more summary{cursor:pointer;font-size:12.5px;color:var(--muted)}
+details.more .body{margin-top:8px;display:grid;gap:6px;font-size:12px}
+details.more ul{margin:0;padding-left:18px;color:var(--muted)}
+.why{font-size:12px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.why.open{display:block}
+</style>
+
+<header class="top">
+  <span class="logo">R</span><b>생활도로 VLM</b>
+  <nav class="steps" id="steps"></nav>
+  <span class="sp"></span>
+  <span class="conn" id="conn"></span>
+  <details class="help"><summary>범례 ?</summary><div class="pop" id="legend"></div></details>
+</header>
+<main class="main" id="app"></main>
+
+<script>
+/* 두 가지 모드. 아래 D 자리에 데이터가 들어오면 파일 모드(index.html), null이면 API 모드(app.html: 백엔드 Report API 호출). */
+const D={"meta":{"actions":{"VERIFY_BEFORE_ADVANCE":"확인 후 진행","REDUCE_SPEED_IF_MOVING":"이동 중이면 감속","YIELD_IF_OCCUPIED":"점유 시 양보","HOLD_UNTIL_CLEAR":"해소될 때까지 보류","VERIFY_PASSAGE":"통과 가능성 확인","MONITOR_AHEAD":"전방 관찰","ADVANCE_WITH_MONITORING":"관찰하며 진행"},"conditions":{"no_condition":"조건 없음","while_corridor_occupied":"점유 동안","while_actor_near_entrance":"출입구 주변 Actor 있는 동안","before_entering_occluded_area":"가려진 영역 진입 전","before_passing_restricted_section":"좁아진 구간 통과 전","before_resolving_uncertainty":"불확실성 확인 전"},"relations":{"R1":{"label":"점유","q":"보이는 Actor·Obstacle이 C를 점유하는가"},"R2":{"label":"출입구","q":"C와 이어지는 출입구 주변에 보이는 Actor가 있는가"},"R3":{"label":"시야 가림","q":"진행 판단에 필요한 영역이 가려졌는가"},"R4":{"label":"통행 제한","q":"배치가 C 구간의 통행 공간을 제한하는가"}},"fail":{"invalid":"형식 오류","missing_required":"필요 대응 누락","forbidden":"금지 대응","unsupported":"근거가 확인되지 않은 대응","contradiction":"관계 판정과의 모순"}},"scenes":[{"scene_id":"sample_front_001","kind":"real","run":{"name":"nf4_prompt_v1_first","quant":"nf4","adapter":null,"commit":"ef1ed25","branch":"dry_run_v1"},"conditions":["주간","보도 U","양방향"],"scene":"무표시 전방 도로에 차량과 이륜차가 배치되어 있으며, 전방 sedan과 양쪽 차량이 통행 공간과 시야를 제한합니다.","image":null,"img_w":1280,"img_h":720,"review_status":"Draft","benchmark_eligible":false,"not_eligible_reason":"객체·영역·허용 근거 집합은 AI Draft입니다. C 경계·완전성·독립 Human Review가 미완료여서 공식 Benchmark 점수를 산출하지 않습니다.","blockers":["reference_not_reviewed","independent_human_review_incomplete","reference_not_benchmark_eligible","object_coverage_incomplete","production_benchmark_aggregation_not_implemented"],"C":[[0.223958,0.925926],[0.807292,0.925926],[0.651042,0.481481],[0.567708,0.361111],[0.53125,0.314815],[0.40625,0.314815],[0.322917,0.444444]],"gt":{"objects":[{"id":"F_742182","class":"powered_two_wheeler","role":"actor","placement":"roadside","bbox":[0.184375,0.34537,0.234375,0.474074]},{"id":"F_742183","class":"truck","role":"actor","placement":"roadside","bbox":[0.961979,0.338889,1,0.448148]},{"id":"F_742184","class":"bicycle","role":"actor","placement":"roadside","bbox":[0.959896,0.50463,0.999479,0.635185]},{"id":"F_742185","class":"powered_two_wheeler","role":"actor","placement":"roadside","bbox":[0.260937,0.312963,0.292708,0.419444]},{"id":"F_742186","class":"truck","role":"actor","placement":"roadside","bbox":[0,0.086111,0.180208,0.815741]},{"id":"F_742187","class":"truck","role":"actor","placement":"roadside","bbox":[0.302083,0.262963,0.371354,0.419444]},{"id":"F_742188","class":"car","role":"actor","placement":"travel_space","bbox":[0.366146,0.302778,0.476042,0.436111]},{"id":"F_742189","class":"car","role":"actor","placement":"roadside","bbox":[0.579688,0.275,0.730729,0.480556]},{"id":"F_742190","class":"truck","role":"actor","placement":"roadside","bbox":[0.514583,0.192593,0.630729,0.434259]},{"id":"F_742191","class":"speed_bump","role":"road_feature","placement":"travel_space","bbox":[0.474479,0.359259,0.520833,0.37037]},{"id":"F_added_001","class":"pedestrian","role":"actor","placement":"unknown","bbox":[0.28125,0.326852,0.295312,0.397222]},{"id":"F_added_002","class":"stored_items","role":"obstacle","placement":"roadside","bbox":[0.732812,0.338889,0.792188,0.47963]},{"id":"F_added_003","class":"bag_or_bundle","role":"obstacle","placement":"roadside","bbox":[0.847917,0.389815,0.884375,0.462963]},{"id":"F_added_004","class":"car","role":"actor","placement":"unknown","bbox":[0.370833,0.299074,0.395833,0.350926]},{"id":"F_added_005","class":"car","role":"actor","placement":"unknown","bbox":[0.463542,0.3,0.489063,0.340741]},{"id":"F_added_006","class":"car","role":"actor","placement":"unknown","bbox":[0.482292,0.300926,0.5125,0.350926]}],"regions":[{"id":"F_entrance_left_candidates","type":"entrance_candidate_review_region","polygon":null,"bbox":[0.166667,0.25,0.299479,0.481481],"geometry_status":"approximate_review_ROI"},{"id":"F_hidden_road_ahead","type":"occluded_road_region","polygon":null,"bbox":null,"geometry_status":"hidden_extent_not_observable"}],"relations":{"R1":{"state":"P","object_ids":["F_742187","F_742188","F_742189","F_742190"],"region_ids":[],"reason":"sedan뿐 아니라 좌측 소형 truck과 우측 SUV·box truck의 관측 가능한 바퀴 접지점이 현재 Draft C 내부에 보입니다. C 경계의 최종 검수는 별도입니다."},"R2":{"state":"U","object_ids":["F_742182","F_742185","F_added_001"],"region_ids":["F_entrance_left_candidates"],"reason":"좌측 scooter들과 추가한 사람이 보이지만, 출입구의 안/경계 여부와 C 연결 근거는 확정되지 않았습니다. 사람의 존재와 출입구 관계를 분리하여 U를 유지합니다."},"R3":{"state":"P","object_ids":["F_742188","F_742190","F_742189"],"region_ids":["F_hidden_road_ahead"],"reason":"전방 sedan과 오른쪽 box truck·SUV가 진행 공간 뒤쪽과 가장자리의 확인을 가립니다. 가려진 Actor 존재 여부는 Unknown입니다."},"R4":{"state":"P","object_ids":["F_742187","F_742188","F_742189","F_742190"],"region_ids":[],"reason":"전방 sedan과 좌측 소형 truck·우측 SUV·box truck의 배치가 보이는 통행 공간을 제한합니다. 왼쪽 가장자리 truck은 영향받는 구간을 특정하기 전까지 추가 근거 후보로 분리합니다."}},"actions":{"required_groups":[{"alternatives":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied","based_on":["R1"]},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied","based_on":["R1"]}]},{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_resolving_uncertainty","based_on":["R2"]}]},{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area","based_on":["R3"]}]},{"alternatives":[{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section","based_on":["R4"]}]}],"allowed_pairs":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_resolving_uncertainty"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"},{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"},{"code":"ADVANCE_WITH_MONITORING","condition":"while_corridor_occupied"},{"code":"ADVANCE_WITH_MONITORING","condition":"before_resolving_uncertainty"},{"code":"ADVANCE_WITH_MONITORING","condition":"before_entering_occluded_area"},{"code":"ADVANCE_WITH_MONITORING","condition":"before_passing_restricted_section"}]},"attributes":{"sidewalk_left":"U","sidewalk_right":"U","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"objects":[{"id":"obj_1","class":"truck","role":"actor","placement":"travel_space","bbox":[0,0.23,0.18,0.73]},{"id":"obj_2","class":"car","role":"actor","placement":"travel_space","bbox":[0.36,0.29,0.48,0.47]},{"id":"obj_3","class":"truck","role":"actor","placement":"travel_space","bbox":[0.51,0.2,0.62,0.47]},{"id":"obj_4","class":"car","role":"actor","placement":"travel_space","bbox":[0.59,0.28,0.72,0.47]},{"id":"obj_5","class":"car","role":"actor","placement":"travel_space","bbox":[0.73,0.33,0.83,0.47]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[],"reason":"주변 차량의 지면 접촉부가 C와 겹치는 것이 명확히 관측되지 않음."},"R2":{"state":"A","object_ids":[],"region_ids":[],"reason":"C와 연결된 출입구에 Actor가 명확히 위치하지 않음."},"R3":{"state":"A","object_ids":[],"region_ids":[],"reason":"진행 판단에 필요한 영역이 가려진 객체에 의해 가려지지 않음."},"R4":{"state":"A","object_ids":[],"region_ids":[],"reason":"통행 공간을 제한하는 객체의 배치가 명확히 관측되지 않음."}},"actions":[{"code":"MONITOR_AHEAD","condition":"no_condition","based_on":["R1","R2","R3","R4"],"reason":"모든 관계가 A로 판정되어 전방 주시 상태 유지."}],"attributes":{"traffic_direction":"Two-way","direction_match":"Not applicable","sidewalk_left":"P","sidewalk_right":"P"}},"scoring":{"source":"backend evaluate.py (draft_diagnostic_only)","pass":false,"groups":[0,4],"errors":[{"raw":"action pair outside reference allowed set","code":"unsupported"},{"raw":"required action group 1 not met","code":"missing_required"},{"raw":"required action group 2 not met","code":"missing_required"},{"raw":"required action group 3 not met","code":"missing_required"},{"raw":"required action group 4 not met","code":"missing_required"},{"raw":"action based_on R1 disagrees with reference relation","code":null},{"raw":"action based_on R2 disagrees with reference relation","code":null},{"raw":"action based_on R3 disagrees with reference relation","code":null},{"raw":"action based_on R4 disagrees with reference relation","code":null}],"relations":{"R1":{"gt":"P","pred":"A","ok":false},"R2":{"gt":"U","pred":"A","ok":false},"R3":{"gt":"P","pred":"A","ok":false},"R4":{"gt":"P","pred":"A","ok":false}},"box_pairs":[{"prediction_id":"obj_1","reference_id":"F_742186","iou":0.6844878762},{"prediction_id":"obj_2","reference_id":"F_742188","iou":0.6783686744},{"prediction_id":"obj_3","reference_id":"F_742190","iou":0.7466631247},{"prediction_id":"obj_4","reference_id":"F_742189","iou":0.7955581753}],"unmatched_pred":["obj_5"],"unmatched_ref":["F_742182","F_742183","F_742184","F_742185","F_742187","F_742191","F_added_001","F_added_002","F_added_003","F_added_004","F_added_005","F_added_006"],"unmeasurable_regions":["F_hidden_road_ahead"],"evidence":{"R1":"mismatch","R2":"mismatch","R3":"mismatch","R4":"mismatch"},"V3":null,"V4":null,"V5":null}},{"scene_id":"S-0001","kind":"mock","conditions":["주간","보도 없음"],"scene":"보행자 2명이 통행 경로 중앙을 걷고 있음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.44,0.5,0.5,0.72]},{"id":"o2","class":"pedestrian","role":"actor","placement":"","bbox":[0.51,0.49,0.57,0.71]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1","o2"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"}]}],"allowed_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied"},{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.43,0.5,0.51,0.73]},{"id":"o2","class":"pedestrian","role":"actor","placement":"","bbox":[0.5,0.48,0.58,0.72]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1","o2"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied","based_on":["R1"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":true,"errors":[],"relations":{"R1":{"gt":"P","pred":"P","ok":true,"gt_evidence":["o1","o2"],"pred_evidence":["o1","o2"]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":0.72},{"prediction_id":"o2","reference_id":"o2","iou":0.69}],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{"R1":"match"},"groups":[1,1]}},{"scene_id":"S-0002","kind":"mock","conditions":["주간","보도 없음"],"scene":"우측 길가 차량 두 대가 건물 출입구를 가리고, 그 사이로 어린이 상반신이 보임","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.62,0.48,0.8,0.68]},{"id":"o2","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.8,0.47,0.97,0.66]},{"id":"o3","class":"pedestrian","role":"actor","placement":"","bbox":[0.76,0.52,0.81,0.6]}],"regions":[{"id":"z1","type":"occluded_entrance","bbox":[0.7,0.3,0.86,0.6],"polygon":null}],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"P","object_ids":["o1","o2"],"region_ids":["z1"]},"R4":{"state":"P","object_ids":["o1"],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"}]},{"alternatives":[{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section"}]}],"allowed_pairs":[{"code":"REDUCE_SPEED_IF_MOVING","condition":"before_entering_occluded_area"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"},{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.61,0.47,0.81,0.69]},{"id":"o2","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.8,0.46,0.98,0.67]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"P","object_ids":["o1"],"region_ids":[]}},"actions":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"forbidden"},{"raw":null,"code":"missing_required"}],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"P","pred":"A","ok":false,"gt_evidence":["o1","o2","z1"],"pred_evidence":[]},"R4":{"gt":"P","pred":"P","ok":true,"gt_evidence":["o1"],"pred_evidence":["o1"]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":0.82},{"prediction_id":"o2","reference_id":"o2","iou":0.85}],"unmatched_pred":[],"unmatched_ref":["o3","z1"],"unmeasurable_regions":[],"evidence":{"R3":"mismatch","R4":"match"},"groups":[0,2]}},{"scene_id":"S-0003","kind":"mock","conditions":["주간","보도 없음"],"scene":"보행자 1명이 좌측 길가 차량 바깥쪽을 걸어 C와 겹침","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.05,0.5,0.26,0.7]},{"id":"o2","class":"pedestrian","role":"actor","placement":"","bbox":[0.3,0.5,0.36,0.7]}],"regions":[{"id":"z1","type":"occluded_entrance","bbox":[0.02,0.28,0.16,0.55],"polygon":null}],"relations":{"R1":{"state":"P","object_ids":["o2"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"P","object_ids":["o1"],"region_ids":["z1"]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"}]},{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"}]}],"allowed_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"before_entering_occluded_area"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"},{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.04,0.49,0.27,0.71]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied","based_on":["R1"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"missing_required"}],"relations":{"R1":{"gt":"P","pred":"P","ok":true,"gt_evidence":["o2"],"pred_evidence":["o1"]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"P","pred":"A","ok":false,"gt_evidence":["o1","z1"],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":0.83}],"unmatched_pred":[],"unmatched_ref":["o2","z1"],"unmeasurable_regions":[],"evidence":{"R1":"mismatch","R3":"mismatch"},"groups":[0,2]}},{"scene_id":"S-0004","kind":"mock","conditions":["주간","보도 없음"],"scene":"보행자·차량 없음. 전봇대와 화분만 있음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"pole","role":"obstacle","placement":"","bbox":[0.7,0.3,0.73,0.68]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"MONITOR_AHEAD","condition":"no_condition"},{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]}],"allowed_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"},{"code":"MONITOR_AHEAD","condition":"no_condition"}],"forbidden_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.69,0.4,0.74,0.68]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"P","object_ids":["o1"],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"MONITOR_AHEAD","condition":"while_actor_near_entrance","based_on":["R2"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"missing_required"},{"raw":null,"code":"unsupported"}],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"P","ok":false,"gt_evidence":[],"pred_evidence":["o1"]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[],"unmatched_pred":["o1"],"unmatched_ref":["o1"],"unmeasurable_regions":[],"evidence":{},"groups":[0,1]}},{"scene_id":"S-0005","kind":"mock","conditions":["주간","보도 없음","일방통행"],"scene":"보행자가 C 한가운데 근거리에 정면으로 서 있음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.45,0.46,0.55,0.84]},{"id":"o2","class":"sign_oneway","role":"obstacle","placement":"","bbox":[0.08,0.2,0.12,0.26]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"}]}],"allowed_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied"},{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"One-way","direction_match":"Consistent"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.45,0.46,0.55,0.84]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied","based_on":["R1"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"missing_required"}],"relations":{"R1":{"gt":"P","pred":"P","ok":true,"gt_evidence":["o1"],"pred_evidence":["o1"]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":1}],"unmatched_pred":[],"unmatched_ref":["o2"],"unmeasurable_regions":[],"evidence":{"R1":"match"},"groups":[0,1]}},{"scene_id":"S-0006","kind":"mock","conditions":["주간","보도 없음"],"scene":"우측 길가 차량 1대, 통행 공간 제한 없음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.66,0.5,0.88,0.68]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"MONITOR_AHEAD","condition":"no_condition"},{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]}],"allowed_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"},{"code":"MONITOR_AHEAD","condition":"no_condition"}],"forbidden_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.65,0.5,0.89,0.69]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"MONITOR_AHEAD","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":true,"errors":[],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":0.87}],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{},"groups":[1,1]}},{"scene_id":"S-0007","kind":"mock","conditions":["야간","보도 없음"],"scene":"야간. 우측 어두운 영역은 식별 불가, 길가 차량 1대가 영역을 가림","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.64,0.5,0.86,0.68]}],"regions":[{"id":"z1","type":"occluded_area","bbox":[0.86,0.35,1,0.75],"polygon":null}],"relations":{"R1":{"state":"U","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"P","object_ids":["o1"],"region_ids":["z1"]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"}]},{"alternatives":[{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_resolving_uncertainty"}]}],"allowed_pairs":[{"code":"REDUCE_SPEED_IF_MOVING","condition":"before_entering_occluded_area"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_entering_occluded_area"},{"code":"VERIFY_BEFORE_ADVANCE","condition":"before_resolving_uncertainty"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.63,0.49,0.87,0.69]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"forbidden"},{"raw":null,"code":"missing_required"}],"relations":{"R1":{"gt":"U","pred":"A","ok":false,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"P","pred":"A","ok":false,"gt_evidence":["o1","z1"],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":0.83}],"unmatched_pred":[],"unmatched_ref":["z1"],"unmeasurable_regions":[],"evidence":{"R3":"mismatch"},"groups":[0,2]}},{"scene_id":"S-0008","kind":"mock","conditions":["주간","보도 없음"],"scene":"맞은편 차량과 길가 차량으로 통행 공간 부족","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"","bbox":[0.44,0.47,0.58,0.62]},{"id":"o2","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.08,0.5,0.3,0.7]}],"regions":[],"relations":{"R1":{"state":"P","object_ids":["o1"],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"P","object_ids":["o1","o2"],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"},{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"}]},{"alternatives":[{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section"}]}],"allowed_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"while_corridor_occupied"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_corridor_occupied"},{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section"},{"code":"YIELD_IF_OCCUPIED","condition":"while_corridor_occupied"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":false,"raw_excerpt":"{\"objects\":[{\"id\":\"o1\",\"class\":\"vehicle\",\"bbox\":[0.44,0.47,0.58","objects":[],"regions":[],"relations":{},"actions":[],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"invalid"}],"relations":{},"box_pairs":[],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{},"groups":[0,0]}},{"scene_id":"S-0009","kind":"mock","conditions":["주간","보도 없음"],"scene":"양측 길가 차량이 있으나 통행 공간 제한 없음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.04,0.5,0.24,0.69]},{"id":"o2","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.74,0.5,0.95,0.69]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"MONITOR_AHEAD","condition":"no_condition"},{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]}],"allowed_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"},{"code":"MONITOR_AHEAD","condition":"no_condition"}],"forbidden_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.04,0.5,0.24,0.69]},{"id":"o2","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.74,0.5,0.95,0.69]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"P","object_ids":["o1","o2"],"region_ids":[]}},"actions":[{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section","based_on":["R4"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"missing_required"},{"raw":null,"code":"unsupported"}],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"P","ok":false,"gt_evidence":[],"pred_evidence":["o1","o2"]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":1},{"prediction_id":"o2","reference_id":"o2","iou":1}],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{},"groups":[0,1]}},{"scene_id":"S-0010","kind":"mock","conditions":["주간","보도 없음","일방통행"],"scene":"골목 출입부 우측 모서리에 보행자. 출입구 주변","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.8,0.46,0.86,0.66]},{"id":"o2","class":"sign_oneway","role":"obstacle","placement":"","bbox":[0.9,0.18,0.94,0.24]}],"regions":[{"id":"z1","type":"entrance","bbox":[0.74,0.4,0.92,0.66],"polygon":null}],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"P","object_ids":["o1"],"region_ids":["z1"]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"MONITOR_AHEAD","condition":"while_actor_near_entrance"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_actor_near_entrance"}]}],"allowed_pairs":[{"code":"MONITOR_AHEAD","condition":"while_actor_near_entrance"},{"code":"REDUCE_SPEED_IF_MOVING","condition":"while_actor_near_entrance"}],"forbidden_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"One-way","direction_match":"Consistent"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"crosswalk","role":"obstacle","placement":"","bbox":[0.3,0.7,0.7,0.8]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":false,"errors":[{"raw":null,"code":"forbidden"},{"raw":null,"code":"missing_required"}],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"P","pred":"A","ok":false,"gt_evidence":["o1","z1"],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[],"unmatched_pred":["o1"],"unmatched_ref":["o1","o2","z1"],"unmeasurable_regions":[],"evidence":{"R2":"mismatch"},"groups":[0,1]}},{"scene_id":"S-0011","kind":"mock","conditions":["주간","보도 없음"],"scene":"합류부, 보행자가 벽면에 붙어 C 밖에 서 있음","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.9,0.48,0.95,0.66]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":{"required_groups":[{"alternatives":[{"code":"MONITOR_AHEAD","condition":"no_condition"},{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"}]}],"allowed_pairs":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition"},{"code":"MONITOR_AHEAD","condition":"no_condition"}],"forbidden_pairs":[{"code":"HOLD_UNTIL_CLEAR","condition":"no_condition"}]},"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"pedestrian","role":"actor","placement":"","bbox":[0.9,0.48,0.95,0.66]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"MONITOR_AHEAD","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":true,"errors":[],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":1}],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{},"groups":[1,1]}},{"scene_id":"S-0012","kind":"mock","conditions":["주간","보도 없음"],"scene":"공사 적치물이 우측 절반을 막음. 작업자 유무 불명확","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Missing","missing_reason":"정답 검수 미완료 (Draft) — R3 판정 검수자 간 불일치","gt":{"objects":[{"id":"o1","class":"construction","role":"obstacle","placement":"","bbox":[0.55,0.45,0.95,0.7]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"U","object_ids":[],"region_ids":[]},"R4":{"state":"P","object_ids":["o1"],"region_ids":[]}},"actions":null,"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"construction","role":"obstacle","placement":"","bbox":[0.55,0.45,0.95,0.7]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"U","object_ids":[],"region_ids":[]},"R4":{"state":"P","object_ids":["o1"],"region_ids":[]}},"actions":[{"code":"VERIFY_PASSAGE","condition":"before_passing_restricted_section","based_on":["R4"]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":null,"errors":[],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"U","pred":"U","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"P","pred":"P","ok":true,"gt_evidence":["o1"],"pred_evidence":["o1"]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":1}],"unmatched_pred":[],"unmatched_ref":[],"unmeasurable_regions":[],"evidence":{"R4":"match"},"groups":null}},{"scene_id":"S-0013","kind":"mock","conditions":["주간","보도 없음","일방통행"],"scene":"일방통행 표지가 진행 방향과 반대. 길가 차량 1대","C":[[0.42,0.52],[0.58,0.52],[0.92,1],[0.08,1]],"review_status":"Reviewed","missing_reason":null,"gt":{"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.66,0.5,0.88,0.68]},{"id":"o2","class":"sign_oneway_reverse","role":"obstacle","placement":"","bbox":[0.5,0.18,0.54,0.24]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":null,"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"One-way","direction_match":"Conflicting"}},"pred":{"valid":true,"raw_excerpt":null,"objects":[{"id":"o1","class":"vehicle","role":"actor","placement":"roadside","bbox":[0.66,0.5,0.88,0.68]}],"regions":[],"relations":{"R1":{"state":"A","object_ids":[],"region_ids":[]},"R2":{"state":"A","object_ids":[],"region_ids":[]},"R3":{"state":"A","object_ids":[],"region_ids":[]},"R4":{"state":"A","object_ids":[],"region_ids":[]}},"actions":[{"code":"ADVANCE_WITH_MONITORING","condition":"no_condition","based_on":[]}],"attributes":{"sidewalk_left":"A","sidewalk_right":"A","traffic_direction":"Unknown","direction_match":"Unknown"}},"scoring":{"source":"mock gen.py","pass":null,"errors":[],"relations":{"R1":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R2":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R3":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]},"R4":{"gt":"A","pred":"A","ok":true,"gt_evidence":[],"pred_evidence":[]}},"box_pairs":[{"prediction_id":"o1","reference_id":"o1","iou":1}],"unmatched_pred":[],"unmatched_ref":["o2"],"unmeasurable_regions":[],"evidence":{},"groups":null}}]};
+const API_MODE=!D;
+const ACT={"VERIFY_BEFORE_ADVANCE":"확인 후 진행","REDUCE_SPEED_IF_MOVING":"이동 중이면 감속","YIELD_IF_OCCUPIED":"점유 시 양보","HOLD_UNTIL_CLEAR":"해소될 때까지 보류","VERIFY_PASSAGE":"통과 가능성 확인","MONITOR_AHEAD":"전방 관찰","ADVANCE_WITH_MONITORING":"관찰하며 진행"};
+const COND={"no_condition":"조건 없음","while_corridor_occupied":"점유 동안","while_actor_near_entrance":"출입구에 사람이나 차량이 있는 동안","before_entering_occluded_area":"가려진 영역 진입 전","before_passing_restricted_section":"좁아진 구간 통과 전","before_resolving_uncertainty":"불확실성 확인 전","at_connected_opening":"연결부에서","before_passing_occupying_object":"점유 객체 통과 전"};
+const REL_V10={
+  R1:{label:"경로 점유",en:"Path Occupancy",q:"사람의 발이나 차량 바퀴 등 대상이 땅에 닿는 범위가 진행 공간과 겹치나요?"},
+  R2:{label:"출입구 이용자",en:"Entrance Users",q:"진행 공간과 이어지는 출입구 안이나 경계에 사람이나 차량이 보이나요?"},
+  R3:{label:"시야 가림",en:"Blocked View",q:"진행에 필요한 도로나 출입구의 어느 부분이 무엇에 가려져 있나요?"},
+  R4:{label:"통행 제약",en:"Passage Constraint",q:"어느 구간에서 무엇 때문에 지나갈 폭이 줄어드나요?"}
+};
+const REL_V11={
+ R1:{label:'점유',en:'Occupancy',q:'객체의 지면 접촉 범위가 진행 공간 D 안에 들어오나요?'},
+ R2:{label:'연결',en:'Connectivity',q:'D와 다른 도로·출입 공간이 연결되어 있나요?'},
+ R3:{label:'가림',en:'Visibility',q:'진행에 필요한 전방 또는 측방 공간이 가려지나요?'},
+ connection_actor:{label:'연결부 이용자',en:'Connection actor',q:'확인된 연결부에 이용자가 있나요? 연결 없음이면 해당 없음.'},
+ forward_occlusion:{label:'전방 가림',en:'Forward occlusion',q:'전방의 필요한 진행 공간이 가려지나요?'},
+ lateral_occlusion:{label:'측방 가림',en:'Lateral occlusion',q:'측방의 필요한 연결·진입 공간이 가려지나요?'},
+ bottleneck:{label:'병목',en:'Bottleneck',q:'진행 공간의 폭이 제한되나요? 독립 핵심 관계가 아닌 보조 속성입니다.'}
+};
+let REL=REL_V10;
+const coreKeys=()=>REL===REL_V11?['R1','R2','R3']:Object.keys(REL_V10);
+const sameVersion=(x,y)=>((x||{}).schema_version||'1.0')===((y||{}).schema_version||'1.0');
+const currentRun=()=>api.runs.find(x=>x.run_id===api.run)||{};
+const isPreview=()=>currentRun().status==='review_only';
+/* 실패 사유 코드 = 백엔드 action_eval.fail_reasons. reference_inconsistent: based_on 관계가 정답에서 A인 경우(백엔드가 분리한 코드). unclassified는 파일 모드(옛 영문 문장)에서만 나옴. */
+const FAIL=Object.assign({missing_required:'필요 대응 누락',forbidden:'금지 대응',unsupported:'근거 없는 대응',contradiction:'관계 판정과 모순',reference_inconsistent:'근거 관계가 정답과 다름',invalid:'형식 오류'},API_MODE?{}:{unclassified:'분류 미정'});
+let S=D?D.scenes:[];
+const api={base:'',run:'',runs:[],health:{},state:'idle',err:''};
+const F0=()=>({kind:'',rel:'',fail:'',review:'',onlyFail:true});
+const st={view:API_MODE?'runs':'errors',base:'',cmp:{base:'',target:''},condKey:'weather',sid:S[0]?.scene_id,rel:'R1',hl:new Set(),layers:{c:true,gt:true,pred:true},f:F0()};
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const pill=(t,c='')=>`<span class="pill ${c}">${t}</span>`;
+const STATE_LABELS={P:["Y","있음"],A:["N","없음"],U:["U","판단 어려움"],NA:["N/A","해당 없음"]};
+const sv=v=>Object.hasOwn(STATE_LABELS,v)?`<span class="st ${v}" title="${STATE_LABELS[v][1]}" aria-label="${STATE_LABELS[v][1]}">${STATE_LABELS[v][0]}</span>`:'<span class="st X" title="값 없음" aria-label="값 없음">–</span>';
+const kindPill=s=>s.kind==='real'?pill(isPreview()?'검토용 · 추론 전':'실제 Run','real'):pill('예시','mock');
+const REVIEW_LABELS={Reviewed:'검수 완료',Missing:'정답 없음',Draft:'검수 전'};
+const revPill=r=>pill(REVIEW_LABELS[r]||REVIEW_LABELS.Draft,r==='Reviewed'?'ok':'warn');
+const reviewPill=s=>s.review_status==='Reviewed'&&s.review_scope==='relations_only'
+  ?pill('관계만 검수','warn'):revPill(s.review_status);
+const failPills=s=>failCodes(s).map(c=>pill(FAIL[c]||esc(c),c==='unclassified'?'warn':'bad')).join('');
+const actLbl=c=>ACT[c]||esc(c), condLbl=c=>COND[c]||esc(c);
+function go(v,patch={}){Object.assign(st,patch);st.view=v;render();window.scrollTo({top:0});}
+function failCodes(s){return [...new Set(s.scoring.errors.map(e=>e.code||'unclassified'))];}
+function relMismatch(s){return Object.entries(s.scoring.relations||{}).filter(([k,v])=>v.ok===false).map(([k])=>k);}
+function isBad(s){return noResult(s.pred.status)||s.scoring.pass===false||relMismatch(s).length>0||!s.pred.valid;}
+function list(){const f=st.f;return S.filter(s=>{
+  if(f.onlyFail&&!isBad(s)&&s.review_status==='Reviewed')return false;
+  if(f.kind&&s.kind!==f.kind)return false;
+  if(f.rel&&!relMismatch(s).includes(f.rel))return false;
+  if(f.fail&&!failCodes(s).includes(f.fail))return false;
+  if(f.review&&s.review_status!==f.review)return false;return true;});}
+/* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
+/* 예측 상태 이름표. not_returned = 아직 결과가 없는 요청(대기·실행 중), cancelled = 취소된 요청 */
+const PST={timeout:['응답 시간 초과','bad'],not_returned:['결과 대기','dim'],cancelled:['취소됨','na']};
+const pstPill=st=>{const x=PST[st]||['형식 오류','bad'];return pill(x[0],x[1]);};
+const noResult=st=>st==='not_returned'||st==='cancelled';
+function result(s){return !s.pred.valid?pstPill(s.pred.status):s.scoring.pass==null?pill('대응 미채점','na'):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
+const STEPS=[['runs','F1','실행'],['report','F2','리포트'],['errors','F3','오류 목록'],['compare','F4','비교'],['scene','F5','장면 상세']];
+function render(){
+  /* 파일 모드에서는 F3·F5만. API 모드에서는 F1~F5 전부. */
+  document.getElementById('steps').innerHTML=STEPS.map(([v,k,l])=>{const on=API_MODE||v==='errors'||v==='scene';
+    return `<button class="step ${on?'':'off'} ${st.view===v?'cur':''}" ${on?`onclick="go('${v}')"`:'title="API 모드(app.html)에서 사용"'}><b>${k}</b>${l}</button>`;}).join('');
+  renderConn();
+  if(API_MODE&&api.state!=='ok')return apiMsg();
+  const V={runs:F1,report:F2,compare:F4,errors:F3,scene:S.length?F5:F3};(V[st.view]||F3)();}
+/* API 응답 캐시: 없으면 '불러오는 중'을 띄우고 받아온 뒤 다시 그림 */
+let cache={},pending={};
+function need(key,path){if(cache[key]!==undefined)return cache[key];
+  if(!pending[key])pending[key]=getJSON(path).then(d=>{cache[key]=d;},e=>{cache[key]={_err:String(e.message||e)};}).then(()=>{delete pending[key];render();});
+  document.getElementById('app').innerHTML='<div class="card msg"><span class="muted">불러오는 중…</span></div>';return null;}
+const errCard=m=>{document.getElementById('app').innerHTML=`<div class="card msg"><b>불러오지 못했어요</b><span class="small muted mono">${esc(m)}</span></div>`;};
+const imgTag=(s,thumb)=>{const u=thumb&&s.thumb||s.image;return u?`<img src="${esc(u)}" alt="" ${thumb?'loading="lazy"':''} onerror="this.remove()">`:'';};
+function sceneImage(s){
+  if(!s.image)return s.kind==='real'?'<div class="photo-status">이 문항에 제공된 사진이 없습니다.</div>':backdrop(s);
+  return `<img alt="장면 사진" onload="this.parentElement.dataset.imageState='loaded';this.nextElementSibling.hidden=true" onerror="this.parentElement.dataset.imageState='error';this.hidden=true;this.nextElementSibling.textContent='장면 사진을 불러오지 못했습니다.';this.nextElementSibling.hidden=false" src="${esc(s.image)}"><div class="photo-status" role="status">장면 사진을 불러오는 중…</div>`;
+}
+
+/* ---------------- API 모드: 백엔드 응답 → 화면 형식 ---------------- */
+const relIn=(x,ps)=>({gt:x.expected==='Missing'?null:x.expected,pred:x.predicted,ok:noResult(ps)?null:x.match});
+function fromList(it){return {scene_id:it.item_id,kind:it.data_kind==='real'?'real':'mock',review_status:it.annotation_status,review_scope:it.review_scope,scene:'',conditions:[],
+  image:it.image_url?api.base+it.image_url:'',thumb:it.thumbnail_url?api.base+it.thumbnail_url:'',_full:false,
+  gt:{objects:[],regions:[],relations:{},actions:null},pred:{valid:it.prediction_status==='valid',status:it.prediction_status,objects:[],regions:[],relations:{},actions:[]},
+  scoring:{pass:it.action_eval.pass,excluded:it.action_eval.excluded_reason||it.excluded_reason,errors:(it.action_eval.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:[],
+    relations:Object.fromEntries(Object.entries({...it.relations,...it.context}).map(([k,v])=>[k,relIn(v,it.prediction_status)])),box_pairs:[],unmatched_pred:[],unmatched_ref:[],unmeasurable_regions:[],evidence:{},groups:null}};}
+function fromDetail(d,s){
+  const ref=d.reference||{},P=d.prediction.parsed&&d.prediction.parsed.track1,sc=d.scoring||{},ae=sc.action_eval||{},dg=sc.diagnostics||{},g=dg.grounding||{},go=(g.objects||{})['0.5']||{};
+  const obj=o=>({id:o.object_id,class:o.class,role:o.semantic_role,placement:o.placement,bbox:o.bbox_xyxy_norm,location:o.location,orientation:o.orientation});
+  const reg=r=>({id:r.region_id,type:r.type,bbox:r.bbox_xyxy_norm,polygon:r.polygon_xy_norm,geometry_status:r.geometry_status});
+  const C=ref.driving_area||(ref.regions||[]).find(r=>r.type==='driving_area'),cid=C&&C.region_id;
+  const observations=t=>({...t.relations,...t.context});
+  const rels=o=>Object.fromEntries(Object.entries(o||{}).filter(([k,v])=>v).map(([k,v])=>[k,{state:v.state,object_ids:v.object_ids||[],region_ids:(v.region_ids||[]).filter(x=>x!==cid),reason:v.reason}]));
+  const c=(d.input||{}).conditions||{};
+  Object.assign(s,{_full:true,review_status:ref.annotation_status||s.review_status,review_scope:ref.review_scope,missing_reason:ref.reason||sc.excluded_reason,img_w:(d.image_size||{}).width,img_h:(d.image_size||{}).height,
+    conditions:[c.time,c.weather,c.road].filter(Boolean),C:Array.isArray(C)?C:C?C.polygon_xy_norm:null,blockers:(dg.benchmark||{}).blockers||[],
+    run:{name:d.run.label||d.run_id,quant:(d.run.model||{}).quantization?'nf4':'–',adapter:(d.run.model||{}).adapter_loaded?'loaded':null,branch:'scorer',commit:String((d.versions||{}).scorer_commit||'').slice(0,7)},
+    gt:{objects:(ref.objects||[]).map(obj),regions:(ref.regions||[]).filter(r=>r.type!=='driving_area').map(reg),relations:rels(observations(ref)),actions:ref.action_rules||null},
+    pred:{valid:d.prediction.status==='valid',status:d.prediction.status,raw_excerpt:(d.prediction.format_errors||[])[0]||d.prediction.error||'',
+      objects:P?(P.objects||[]).map(obj):[],regions:P?(P.regions||[]).map(reg):[],relations:P?rels(observations(P)):{},actions:P?P.actions||[]:[]}});
+  Object.assign(s.scoring,{pass:ae.pass,excluded:ae.excluded_reason||sc.excluded_reason,errors:(ae.fail_reasons||[]).map(c=>({code:c,raw:null})),raw_errors:ae.errors||[],
+    relations:Object.fromEntries(Object.entries({...sc.relations,...sc.context}).map(([k,v])=>[k,relIn(v,d.prediction.status)])),
+    no_grounding:!g.objects,box_pairs:go.pairs||[],unmatched_pred:go.unmatched_prediction_ids||[],unmatched_ref:go.unmatched_reference_ids||[],unmeasurable_regions:(g.regions||{}).unmeasurable_reference_ids||[],
+    evidence:Object.fromEntries(Object.entries(dg.evidence||{}).filter(([k,v])=>v).map(([k,v])=>[k,v.status==='pass'?'match':v.status==='fail'?'mismatch':v.status==='excluded'?'excluded':null])),
+    groups:ae.required_groups!=null&&ae.pass!=null?[ae.matched_required_groups||0,ae.required_groups]:null,
+    group_hits:ae.required_group_hits});
+  return s;}
+async function getJSON(p){const r=await fetch(api.base+p);if(!r.ok)throw new Error(r.status+' '+p);return r.json();}
+/* 목록 필터는 백엔드 쿼리(relation, fail_reason, annotation_status, data_kind)로 보냄. '오류만'은 화면에서만 거름. */
+async function loadList(){const f=st.f,q=new URLSearchParams();
+  if(f.rel)q.set('relation',f.rel);if(f.fail)q.set('fail_reason',f.fail);if(f.review)q.set('annotation_status',f.review);if(f.kind)q.set('data_kind',f.kind==='real'?'real':'example');
+  const d=await getJSON(`/api/runs/${encodeURIComponent(api.run)}/items?${q}`),old=Object.fromEntries(S.map(s=>[s.scene_id,s]));
+  S=d.items.map(it=>old[it.item_id]&&old[it.item_id]._full?old[it.item_id]:fromList(it));}
+async function connect(base,run,view,sid){
+  /* 주소 정리: http:// 없으면 붙이고, /docs·/api 같은 뒤 경로는 떼어냄 */
+  let b=(base||api.base||'').trim();if(b&&!/^https?:\/\//i.test(b))b='http://'+b;
+  try{const u=new URL(b);b=u.protocol+'//'+u.host;}catch(e){}
+  if(b!==api.base){wkey='';nr.open=false;nr.confirm=false;nr.msg=null;} /* 서버가 바뀌면 키를 지움: 다른 서버로 키를 보내지 않게 */
+  api.base=b;api.state='loading';api.err='';render();
+  try{try{localStorage.setItem('f3f5_api',api.base);}catch(e){}
+    api.runs=(await getJSON('/api/runs')).runs;if(!api.runs.length)throw new Error('Run이 없음');
+    api.health=await getJSON('/api/health').catch(()=>({}));
+    api.run=api.runs.some(r=>r.run_id===run)?run:api.runs[0].run_id;REL=currentRun().schema_version==='1.1-review'?REL_V11:REL_V10;st.rel='R1';st.base='';st.cmp={base:'',target:''};nr.prompt=REL===REL_V11?'prompt_v11_a':'prompt_v1';nr.ids=new Set();nr.confirm=false;S=[];cache={};pending={};st.f=F0();if(sid)st.f.onlyFail=false;await loadList();api.state='ok';
+    st.view=view||(st.view==='scene'?'errors':st.view);st.sid=sid&&S.some(s=>s.scene_id===sid)?sid:S[0]?.scene_id;st.hl=new Set();
+  }catch(e){api.state='error';api.err=String(e.message||e);}
+  render();}
+function renderConn(){if(!API_MODE){document.getElementById('conn').innerHTML='<span class="small" style="color:#aab4cd">파일 모드</span>';return;}
+  const a=document.activeElement;if(a&&a.id==='apibase')return;
+  document.getElementById('conn').innerHTML=`<span class="dot ${api.state==='ok'?'ok':api.state==='error'?'bad':''}" title="${esc(api.state)}"></span>
+    <input id="apibase" aria-label="API 주소" value="${esc(api.base)}" onkeydown="if(event.key==='Enter'){this.blur();connect(this.value)}">
+    ${api.runs.length?`<select aria-label="Run" onchange="connect(api.base,this.value)">${api.runs.map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===api.run?'selected':''}>${esc(r.run_id)}${r.data_kind==='real'?'':' (예시)'}</option>`).join('')}</select>`:''}`;}
+function apiMsg(){document.getElementById('app').innerHTML=api.state==='error'
+  ?`<div class="card msg"><b>API에 연결하지 못했어요</b><span class="small muted mono">${esc(api.base)} · ${esc(api.err)}</span>
+     <span class="small muted">${/^(file|http):$/.test(location.protocol)?'주소를 확인하고 다시 시도해줘':'이 화면은 앱 안 미리보기라 바깥 주소 호출이 막혀 있어. 파일을 내려받아 크롬에서 직접 열어줘'} <span class="mono">(${esc(location.protocol)})</span></span>
+     <span class="row"><button class="btn" onclick="connect('http://localhost:8888')">localhost:8888</button><button class="btn" onclick="connect('http://127.0.0.1:8888')">127.0.0.1:8888</button><button class="btn" onclick="connect('http://32.196.229.237:8888')">배포 서버</button><button class="btn" onclick="connect()">다시 시도</button></span></div>`
+  :`<div class="card msg"><span class="muted">불러오는 중…</span></div>`;}
+function backdrop(s){const n=s.conditions.includes('야간');return `<svg viewBox="0 0 1000 562.5" preserveAspectRatio="none"><rect width="1000" height="562.5" fill="${n?'#2b3040':'#cfd8e0'}"/><rect y="170" width="1000" height="400" fill="${n?'#3a3e48':'#b9b3a6'}"/><polygon points="420,170 580,170 1000,562.5 0,562.5" fill="${n?'#4a4f58':'#8d9aa6'}"/>${s.gt.objects.map(o=>{const b=o.bbox;return `<rect x="${b[0]*1000+8}" y="${b[1]*562.5+4}" width="${Math.max(4,(b[2]-b[0])*1000-16)}" height="${Math.max(4,(b[3]-b[1])*562.5-6)}" rx="5" fill="${o.class==='pedestrian'?'#d94a3d':o.role==='obstacle'?'#8a7a5a':'#5b6773'}"/>`;}).join('')}</svg>`;}
+
+document.getElementById('legend').innerHTML=`
+  <h4>관계 값</h4>
+  ${sv('P')}<span>있음 · Yes</span>${sv('A')}<span>없음 · No</span>
+  ${sv('U')}<span>판단 어려움 · Unclear</span>
+  <h4>빈 값</h4>
+  ${revPill('Missing')}<span>비교할 정답이 없음</span>${pill('형식 오류','bad')}<span>모델 출력이 요구 형식과 다름</span>${pill('응답 시간 초과','bad')}<span>정해진 시간 안에 답이 오지 않음</span>${pill('채점 제외','na')}<span>제외 사유를 장면 상세에서 확인</span>
+  <h4>데이터</h4>
+  ${revPill('Draft')}<span>검수 전 초안으로만 비교</span>${pill('실제 Run','real')}<span>실제 모델 실행 결과</span>${pill('예시','mock')}<span>화면 확인용 가상 값</span>
+  <h4>이미지</h4>
+  <span class="ly" style="padding:2px 6px"><i class="c"></i></span><span>진행 공간 D · Driving Area</span>
+  <span class="ly" style="padding:2px 6px"><i class="g"></i></span><span>정답 · Reference</span>
+  <span class="ly" style="padding:2px 6px"><i class="p"></i></span><span>예측 (모델)</span>`;
+
+/* ---------------- F1 실행 (읽기 전용: Run 목록·설정·진행) ---------------- */
+const STATUS={imported:'가져옴',queued:'대기',running:'실행 중',done:'완료',completed:'완료',cancelled:'취소',failed:'실패',review_only:'검토용 · 추론 미실행'};
+const short=(x,n=10)=>x==null?'–':String(x).slice(0,n);
+function F1(){
+  const d=need('run:'+api.run,`/api/runs/${encodeURIComponent(api.run)}`);if(!d)return;if(d._err)return errCard(d._err);
+  const r=d.run,m=r.model||{},q=m.quantization,v=d.versions||{},env=r.environment||{};
+  document.getElementById('app').innerHTML=`
+  <h1>실행 목록</h1>
+  ${api.runs.map(x=>{const c=x.prediction_status_counts||{},n=x.n_requests||0,ok=c.valid||0,bad=Object.entries(c).filter(([k])=>k!=='valid'&&!noResult(k)).reduce((a,[,b])=>a+b,0),wait=c.not_returned||0,cx=c.cancelled||0;
+    return `<button class="rcard ${x.run_id===api.run?'on':''}" onclick="connect(api.base,'${esc(x.run_id)}','runs')">
+      <span style="display:grid;gap:3px;min-width:0"><span class="row"><b class="mono">${esc(x.run_id)}</b>${x.data_kind==='real'?pill('실제 Run','real'):pill('예시','mock')}${pill(STATUS[x.status]||esc(x.status),'dim')}${x.provisional?pill('진행 중 · 잠정','warn'):''}</span><span class="small muted">${esc(x.label||'')} · ${esc(x.model_id||'')}</span></span>
+    <span style="display:grid;gap:5px"><span class="prog" title="형식 통과 ${ok} · 실패 ${bad} · 대기 ${wait} · 취소 ${cx}"><i class="v" style="width:${n?ok/n*100:0}%"></i><i class="x" style="width:${n?bad/n*100:0}%"></i></span><span class="small muted">${x.status==='review_only'?`검토 문항 ${n} · 추론 미실행`:`요청 ${n} · 형식 통과 ${ok}${bad?` · 실패 ${bad}`:''}${wait?` · 대기 ${wait}`:''}${cx?` · 취소 ${cx}`:''}${ACTIVE(x.status)?'':` · 채점 ${x.n_scored_items}`}`}</span></span>
+      <span class="chev muted">›</span></button>`;}).join('')}
+  <div class="grid" style="grid-template-columns:1fr 1fr">
+    <section class="card sec"><h2>모델 · 실행 설정 <span>${esc(api.run)}</span></h2><div class="kv">
+      <span>모델</span><span>${esc(m.model_id)}</span><span>revision</span><span>${esc(short(m.revision))}</span>
+      <span>양자화</span><span>${q?esc(q.bnb_4bit_quant_type||'4bit'):'없음'}</span><span>adapter</span><span>${m.adapter_loaded?'있음 (Tuned)':'없음 (Base)'}</span>
+      <span>prompt</span><span>${esc((r.prompt||{}).version)}</span><span>seed</span><span>${esc((r.decoding||{}).seed)}</span>
+      <span>GPU</span><span>${esc(env.gpu||'–')}</span></div></section>
+    <section class="card sec"><h2>버전 <span>재현용</span></h2><div class="kv">
+      <span>데이터</span><span>${esc((r.data_version||{}).items||'–')}</span><span>정답</span><span>${esc(r.reference_version||'없음')}</span>
+      <span>Split</span><span>${esc(r.split_version||'없음')}</span><span>채점 코드</span><span>${esc(short(v.scorer_commit,7))}</span>
+      <span>결과 hash</span><span>${esc(short(v.result_hash,12))}</span></div>
+      <div class="row"><button class="btn" onclick="go('report')">리포트 →</button><button class="btn" onclick="go('errors')">오류 목록 →</button></div></section>
+  </div>
+  ${newRunPanel(d)}`;
+}
+/* ---- 새 실행 / 취소: 쓰기 키(X-API-Key)가 필요. 키는 이 탭의 메모리에만 두고 파일·저장소에 남기지 않음 ---- */
+let wkey='';
+const nr={open:false,ids:new Set(),label:'',prompt:'prompt_v1',confirm:false,busy:false,msg:null};
+const ACTIVE=s=>s==='queued'||s==='running';
+async function post(path,body){const r=await fetch(api.base+path,{method:'POST',headers:{'Content-Type':'application/json','X-API-Key':wkey},body:body?JSON.stringify(body):undefined});
+  let j=null;try{j=await r.json();}catch(e){}
+  if(!r.ok){const dt=j&&j.detail,why=r.status===401?'키가 틀렸거나 비어 있어요':r.status===503?'이 서버는 쓰기가 꺼져 있어요 (서버에 키가 설정되지 않음)':r.status===422?((dt&&dt.errors)||[]).join(' / ')||'요청 내용 오류':(typeof dt==='string'?dt:'')||('오류 '+r.status);throw new Error(why);}
+  return j;}
+function newRunPanel(d){
+  const on=api.health.write_api_enabled,cur=api.runs.find(x=>x.run_id===api.run)||{},n=nr.ids.size;
+  const keyBox=`<input class="field" type="password" autocomplete="off" placeholder="쓰기 키" aria-label="쓰기 키" value="${esc(wkey)}" oninput="wkey=this.value" style="width:180px">`;
+  const note=nr.msg?`<div class="note ${nr.msg[0]}">${esc(nr.msg[1])}</div>`:'';
+  if(!nr.open)return `<div class="row"><button class="btn" onclick="nr.open=true;nr.msg=null;render()">+ 새 실행</button>
+    ${ACTIVE(cur.status)?`${keyBox}<button class="btn" onclick="cancelRun()">이 Run 취소</button>`:''}
+    <span class="small muted">${on?'실행·취소는 쓰기 키가 필요해요':'이 서버는 쓰기가 꺼져 있어요 (조회만 가능)'}</span></div>${note}`;
+  const versions=need('versions','/api/versions');if(!versions)return '';
+  const pv=versions.prompt_versions||['prompt_v1'],schema=nr.prompt.startsWith('prompt_v11')?'1.1-review':'1.0';
+  const cat=need('items:real:'+schema,'/api/items?data_kind=real&schema_version='+encodeURIComponent(schema));if(!cat)return '';
+  const its=cat._err?[]:cat.items.filter(i=>i.image_relpath);
+  return `<section class="card sec"><h2>새 실행 <span>gemma-4-E4B NF4 · seed 42</span><span class="sp"></span><button class="btn" onclick="nr.open=false;nr.confirm=false;render()">닫기</button></h2>
+    <div class="row"><label>프롬프트 <select class="sel" onchange="nr.prompt=this.value;nr.ids=new Set();nr.confirm=false;render()">${pv.map(p=>`<option ${p===nr.prompt?'selected':''}>${esc(p)}</option>`).join('')}</select></label>${pill(schema,'dim')}</div>
+    ${on?'':'<div class="note warn">이 서버는 쓰기가 꺼져 있어요. 서버에 쓰기 키가 설정돼 있어야 실행을 걸 수 있어요 (로컬 도커 기본값은 꺼짐).</div>'}
+    <div class="row"><span class="small muted">문항 ${n}/${its.length}</span><button class="btn" onclick="nr.ids=new Set(${arr(its.map(i=>i.item_id))});nr.confirm=false;render()">전체 선택</button><button class="btn" onclick="nr.ids=new Set();nr.confirm=false;render()">해제</button></div>
+    <div class="picks">${its.map(i=>{const c=i.conditions||{};return `<label class="pick"><input type="checkbox" ${nr.ids.has(i.item_id)?'checked':''} onchange="this.checked?nr.ids.add('${esc(i.item_id)}'):nr.ids.delete('${esc(i.item_id)}');nr.confirm=false;render()"><b class="mono">${esc(i.item_id)}</b><span class="muted">${esc([c.time,c.weather].filter(Boolean).join(' · '))}</span></label>`;}).join('')||'<span class="small muted">실행할 수 있는 문항이 없어요</span>'}</div>
+    <div class="row"><input class="field" placeholder="이름 (선택)" aria-label="Run 이름" value="${esc(nr.label)}" oninput="nr.label=this.value" style="flex:1;max-width:320px">${keyBox}
+      ${nr.confirm?`<span class="small"><b>${n}건</b> · GPU 약 ${Math.ceil(n*1.5)}분 사용. 걸까요?</span><button class="btn" style="background:var(--navy);color:#fff;border-color:var(--navy)" ${nr.busy?'disabled':''} onclick="startRun()">${nr.busy?'거는 중…':'확인'}</button><button class="btn" onclick="nr.confirm=false;render()">취소</button>`
+        :`<button class="btn" ${n&&on?'':'disabled'} onclick="nr.confirm=true;nr.msg=null;render()">실행 걸기</button>`}</div>
+    <div class="small muted">키는 이 탭에서만 쓰고 저장하지 않아요. 새로고침하면 다시 넣어야 해요.</div>${note}</section>`;
+}
+async function startRun(){nr.busy=true;render();
+  try{const body={item_ids:[...nr.ids],prompt_version:nr.prompt};if(nr.label.trim())body.label=nr.label.trim();
+    const r=await post('/api/runs',body);nr.busy=false;nr.confirm=false;nr.open=false;nr.ids=new Set();nr.label='';nr.msg=['ok',`${r.run_id} 실행을 걸었어요 (${r.n_requests}건). 진행 상황은 이 화면에서 자동으로 갱신돼요.`];
+    await connect(api.base,r.run_id,'runs');
+  }catch(e){nr.busy=false;nr.confirm=false;nr.msg=['bad','실행을 걸지 못했어요: '+String(e.message||e)];render();}}
+async function cancelRun(){try{await post(`/api/runs/${encodeURIComponent(api.run)}/cancel`);nr.msg=['ok',api.run+' 취소했어요. 대기 중이던 문항은 취소로 남아요.'];await connect(api.base,api.run,'runs');}
+  catch(e){nr.msg=['bad','취소하지 못했어요: '+String(e.message||e)];render();}}
+/* 대기·실행 중인 Run이 있으면 F1에서 10초마다 목록을 다시 받아옴 (입력 중에는 건드리지 않음) */
+setInterval(async()=>{if(!API_MODE||api.state!=='ok'||st.view!=='runs'||nr.busy||!api.runs.some(r=>ACTIVE(r.status)))return;
+  const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='SELECT'))return;
+  try{const runs=(await getJSON('/api/runs')).runs,d=await getJSON(`/api/runs/${encodeURIComponent(api.run)}`);api.runs=runs;cache['run:'+api.run]=d;if(st.view==='runs')render();}catch(e){}},10000);
+
+/* ---------------- F2 리포트: 값·구간·판정은 Report API 값을 그대로 표시 ---------------- */
+const MET={v1_valid:['V1 형식 통과율','rate'],v2_invalid:['V2 형식 오류율','rate',1],v3_grounding:['V3 근거 Box F1 (IoU 0.5)','f1'],v4_evidence:['V4 근거 일치율','rate'],
+  v5_relation_macro_f1:['V5 관계 Macro-F1','f1'],v6_present_recall:['V6 있음(Y) 재현율','rate'],v7_false_positive_rate:['V7 오탐률','rate',1],v8_unknown_recall:['V8 판단 어려움(U) 재현율','rate'],v9_over_abstention:['V9 과잉 보류율','rate',1],
+  v10_action_pass_rate:['V10 대응 통과율','rate'],v11_required_group_recall:['V11 필요 대응 재현율','rate'],v12_forbidden_rate:['V12 금지 대응률','rate',1],
+  v13_statement_error_rate:['V13 진술 오류율','rate',1],v14_answer_with_error_rate:['V14 오류 포함 답변율','rate',1],a1_attribute_f1:['A1 장면 속성 F1','f1'],a2_direction_na_violation:['A2 방향 N/A 위반률','rate',1]};
+const mval=(k,m)=>!m?null:k==='v3_grounding'?((m.by_iou||{})['0.5']||{}).f1??null:m.value??null;
+const mfmt=(k,x)=>x==null?null:MET[k][1]==='rate'?(x*100).toFixed(1)+'%':(+x).toFixed(3);
+const ci=(k,m)=>m&&m.ci95?`95% CI ${mfmt(k,m.ci95[0])} – ${mfmt(k,m.ci95[1])}`:'';
+const none=m=>!m||m.status==='not_computed'?pill('미산출','warn'):pill('N/A','na');
+const JUDGE={improved:['개선 확인','ok'],not_confirmed:['개선 확인 안 됨','warn'],not_applicable:['판정 불가','na']};
+function mrow(k,M){const m=M[k],x=m&&m.status==='computed'?mval(k,m):null;
+  return `<div class="mrow"><span>${MET[k][0]}${MET[k][2]?' <span class="small muted">↓ 낮을수록 좋음</span>':''}</span><span class="small muted">${x!=null&&m.n!=null&&m.numerator!=null?m.numerator+'/'+m.n:''}</span>${x!=null?`<b>${mfmt(k,x)}</b>`:none(m)}
+    ${x!=null?(ci(k,m)?`<span class="r">${ci(k,m)}</span>`:''):`<span class="r" title="${esc(m&&m.reason)}">${esc(m&&m.reason||'')}</span>`}</div>`;}
+function bigTile(k,M,cmp){const m=M[k],x=m&&m.status==='computed'?mval(k,m):null,c=cmp&&cmp.metrics&&cmp.metrics[k],j=c&&JUDGE[c.judgement];
+  return `<div class="card big"><span class="lbl">${MET[k][0]}</span>${x!=null?`<span class="val">${mfmt(k,x)}</span>`:`<span class="val none">${m&&m.status==='not_computed'?'미산출':'N/A'}</span>`}
+    <span class="small muted">${x!=null?[m.n!=null&&m.numerator!=null?m.numerator+'/'+m.n:'',ci(k,m)].filter(Boolean).join(' · '):esc(m&&m.reason||'')}</span>
+    ${k==='v5_relation_macro_f1'&&x==null&&m&&m.supported_class_macro_f1&&m.supported_class_macro_f1.value!=null?`<span class="small muted">참고: 정답이 있는 ${m.supported_class_macro_f1.n_cells}칸 평균 ${(+m.supported_class_macro_f1.value).toFixed(3)}</span>`:''}
+    ${c?`<span class="row">${pill(j?j[0]:esc(c.judgement),j?j[1]:'na')}<span class="small muted">${[c.delta!=null?'Base 대비 '+(c.delta>=0?'+':'')+mfmt(k,c.delta):'',c.ci95?`차이 95% CI ${mfmt(k,c.ci95[0])} – ${mfmt(k,c.ci95[1])}`:esc(c.ci_reason||'')].filter(Boolean).join(' · ')}</span></span>`:''}</div>`;}
+function F2(){
+  const run=api.run,base=st.base&&st.base!==run?st.base:'';
+  const d=need('rep:'+run+':'+base,`/api/runs/${encodeURIComponent(run)}/report${base?'?base='+encodeURIComponent(base):''}`);if(!d)return;if(d._err)return errCard(d._err);
+  const cd=need('cond:'+run+':'+st.condKey,`/api/runs/${encodeURIComponent(run)}/report/conditions?key=${st.condKey}`);if(!cd)return;
+  const M=d.metrics,c=d.prediction_status_counts||{},cmp=d.comparison&&d.comparison.status!=='not_requested'?d.comparison:null,cells=(M.v5_relation_macro_f1||{}).cells||{};
+  const ex=Object.entries((d.excluded||{}).items||{}).filter(([k,v])=>v).map(([k,v])=>`${esc(k)} ${v}`).concat(Object.entries((d.excluded||{}).actions||{}).filter(([k,v])=>v).map(([k,v])=>`대응만 제외: ${esc(k)} ${v}`));
+  const grp=(title,keys)=>`<section class="card sec"><h2>${title}</h2><div>${keys.map(k=>mrow(k,M)).join('')}</div></section>`;
+  document.getElementById('app').innerHTML=`
+  <div class="row"><h1>리포트</h1><b class="mono">${esc(run)}</b>${d.data_kind==='real'?pill('실제 Run','real'):pill('예시','mock')}${d.provisional?pill('진행 중 · 잠정','warn'):''}<span class="sp"></span>
+    <select class="sel ${base?'on':''}" aria-label="Base" onchange="st.base=this.value;render()"><option value="">Base와 비교 안 함</option>${api.runs.filter(r=>r.run_id!==run&&sameVersion(r,currentRun())).map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===base?'selected':''}>Base: ${esc(r.run_id)}</option>`).join('')}</select></div>
+  ${isPreview()?'<div class="note warn">검토용 문항입니다. 모델 추론 및 사람 정답 검수 전이며, 성능 표가 아닙니다.</div>':''}
+  <div class="core">${bigTile('v5_relation_macro_f1',M,cmp)}${bigTile('v10_action_pass_rate',M,cmp)}</div>
+  ${cmp&&cmp.status!=='computed'?`<div class="verdict na"><b>비교 불가</b><span class="small muted">${esc(cmp.reason||'')}</span></div>`:''}
+  <div class="stats">
+    <div class="card stat"><b>${d.n_requests}</b><span>요청</span></div>
+    <div class="card stat"><b>${c.valid||0}</b><span>형식 통과</span></div>
+    <div class="card stat"><b>${d.n_requests-(c.valid||0)}</b><span>${isPreview()?'추론 미실행':'형식 통과 외 요청'}</span></div>
+    <div class="card stat" title="${esc(ex.join(' / '))}"><b>${d.n_scored_items}</b><span>채점 문항${ex.length?' · 제외 '+(d.n_requests-d.n_scored_items):''}</span></div>
+  </div>
+  ${ex.length?`<div class="small muted">제외 사유: ${ex.join(' · ')}</div>`:''}
+  <div class="groups">
+    ${grp('형식',['v1_valid','v2_invalid'])}${grp('근거',['v3_grounding','v4_evidence'])}
+    ${grp('편향',['v6_present_recall','v7_false_positive_rate','v8_unknown_recall','v9_over_abstention'])}${grp('대응',['v11_required_group_recall','v12_forbidden_rate'])}
+    ${grp('설명 (사람 검수)',['v13_statement_error_rate','v14_answer_with_error_rate'])}${grp('장면 속성',['a1_attribute_f1','a2_direction_na_violation'])}
+    <section class="card sec"><h2>관계 ${coreKeys().length*3}칸 F1 <span>칸마다 정답 수(n)</span></h2><div class="cells"><span></span>${['P','A','U'].map(s=>`<span style="text-align:center">${sv(s)}</span>`).join('')}
+      ${coreKeys().map(r=>`<span class="small"><b class="mono">${r}</b> ${REL[r].label}</span>`+['P','A','U'].map(s=>{const x=cells[r+'.'+s]||{};return x.f1==null?`<span class="cell nil">–<small>n ${x.support||0}</small></span>`:`<span class="cell"><b>${(+x.f1).toFixed(2)}</b><small>n ${x.support}</small></span>`;}).join('')).join('')}</div></section>
+    ${REL===REL_V11?`<section class="card sec"><h2>보조 항목 <span>핵심 Macro-F1에 미포함</span></h2>${Object.entries(d.context_metrics||{}).map(([k,x])=>`<div class="mrow"><span>${esc(REL[k].label)}</span><span>${x.status==='computed'?(x.value*100).toFixed(1)+'% (n '+x.n+')':none(x)}</span></div>`).join('')}</section>`:''}
+    <section class="card sec"><h2>조건별 <span>${cd._err?'':esc(cd.key)}</span><span class="sp"></span><select class="sel" aria-label="조건" onchange="st.condKey=this.value;render()">${[['weather','날씨'],['time','시간대'],['road','도로'],['scenario','시나리오']].map(([k,l])=>`<option value="${k}" ${k===st.condKey?'selected':''}>${l}</option>`).join('')}</select></h2>
+      ${cd._err?`<span class="small muted">${esc(cd._err)}</span>`:`<table class="ct"><tr><th>값</th><th>요청</th><th>V1</th><th>V5</th><th>V10</th></tr>${Object.entries(cd.values||{}).map(([k,v])=>`<tr><td>${esc(k)}${v.exploratory?' '+pill('표본 적음','dim'):''}</td><td>${v.n_requests}</td>${['v1_valid','v5_relation_macro_f1','v10_action_pass_rate'].map(m=>{const x=v.metrics[m];return `<td title="${esc(x&&x.reason)}">${x&&x.status==='computed'&&x.value!=null?mfmt(m,x.value):'<span class="muted">–</span>'}</td>`;}).join('')}</tr>`).join('')}</table>`}</section>
+  </div>`;
+}
+
+/* ---------------- F4 비교: 같은 문항에서 두 Run의 예측이 어떻게 다른가 ---------------- */
+function F4(){
+  const ids=api.runs.filter(r=>sameVersion(r,currentRun())).map(r=>r.run_id);if(!ids.includes(st.cmp.target))st.cmp.target=api.run;if(!ids.includes(st.cmp.base))st.cmp.base=ids.find(x=>x!==st.cmp.target)||st.cmp.target;
+  const {base,target}=st.cmp,d=need('cmp:'+base+':'+target,`/api/compare?base=${encodeURIComponent(base)}&target=${encodeURIComponent(target)}`);if(!d)return;if(d._err)return errCard(d._err);
+  const sm=d.summary||{},v10=(sm.metrics||{}).v10_action_pass_rate,j=v10&&JUDGE[v10.judgement];
+  const sel=(k,l)=>`<select class="sel on" aria-label="${l}" onchange="st.cmp.${k}=this.value;render()">${ids.map(x=>`<option value="${esc(x)}" ${x===st.cmp[k]?'selected':''}>${l}: ${esc(x)}</option>`).join('')}</select>`;
+  const act=x=>!x?pill('없음','na'):x.prediction_status!=='valid'?pstPill(x.prediction_status):x.action_pass==null?pill('채점 제외','na'):x.action_pass?pill('통과','ok'):pill('실패','bad');
+  const nd=d.items.filter(it=>it.target&&coreKeys().some(k=>(it.base.relations[k]||{}).predicted!==(it.target.relations[k]||{}).predicted)).length;
+  document.getElementById('app').innerHTML=`
+  <div class="row"><h1>모델 비교</h1><span class="sp"></span>${sel('base','Base')}<span class="muted">→</span>${sel('target','Target')}</div>
+  <div class="verdict ${sm.status==='computed'?(j?j[1]:'na'):'na'}"><b>${sm.status==='computed'?(j?j[0]:'판정 불가'):'비교 불가'}</b>
+    <span class="small muted">${sm.status==='computed'?`V10 대응 통과율 ${v10&&v10.delta!=null?(v10.delta>=0?'+':'')+mfmt('v10_action_pass_rate',v10.delta):'–'}${v10&&v10.ci95?` · 차이 95% CI ${mfmt('v10_action_pass_rate',v10.ci95[0])} – ${mfmt('v10_action_pass_rate',v10.ci95[1])}`:v10&&v10.ci_reason?' · '+esc(v10.ci_reason):''}`:esc(sm.reason||'')}</span>
+    <span class="sp"></span><span class="small muted">문항 ${d.n} · 관계 예측이 달라진 문항 ${nd}</span></div>
+  ${d.items.map(it=>{const b=it.base,t=it.target;return `<button class="item" style="grid-template-columns:104px minmax(0,1fr) auto minmax(150px,auto) 16px" ${t?`onclick="connect(api.base,'${esc(target)}','scene','${esc(it.item_id)}')"`:'disabled'}>
+    <span class="thumb"><img src="${esc(api.base+it.image_url)}?size=thumb" alt="" loading="lazy" onerror="this.remove()"></span>
+    <span class="t"><span class="row"><b class="mono">${esc(it.item_id)}</b>${revPill(it.annotation_status)}</span></span>
+    <span class="rels">${coreKeys().map(k=>{const x=(b.relations[k]||{}).predicted,y=t?(t.relations[k]||{}).predicted:null,df=t&&x!==y;return `<span class="rc ${df?'diff':''}" title="${k} ${REL[k].label}: Base → Target${df?' (달라짐)':''}"><i>${k}</i><span class="v">${sv(x)}→${sv(y)}</span></span>`;}).join('')}</span>
+    <span class="res">${act(b)}<span class="muted">→</span>${act(t)}</span><span class="chev muted">›</span></button>`;}).join('')}
+  <div class="small muted">칸은 Base 예측 → Target 예측. 노란 칸은 두 Run의 예측이 다른 관계예요. 문항을 누르면 Target Run의 장면 상세로 가요.</div>`;
+}
+
+/* ---------------- F3 ---------------- */
+function setF(k,v){st.f[k]=v;if(API_MODE&&k!=='onlyFail')loadList().then(render,e=>{api.state='error';api.err=String(e.message||e);render();});else render();}
+function resetF(){st.f=F0();if(API_MODE)loadList().then(render);else render();}
+function F3(){
+  const L=list(),f=st.f;
+  const sel=(k,ph,opts)=>`<select class="sel ${f[k]?'on':''}" aria-label="${ph}" onchange="setF('${k}',this.value)"><option value="">${ph}</option>${opts.map(([v,t])=>`<option value="${v}" ${f[k]===v?'selected':''}>${t}</option>`).join('')}</select>`;
+  const n=fn=>L.filter(fn).length;
+  document.getElementById('app').innerHTML=`
+  <h1>${isPreview()?'검토 문항 목록':'오류 목록'}</h1>
+  <div class="stats">
+    <div class="card stat"><b>${L.length}</b><span>문항</span></div>
+    <div class="card stat"><b>${n(s=>s.scoring.pass===false&&s.pred.valid)}</b><span>대응 실패</span></div>
+    <div class="card stat"><b>${n(s=>relMismatch(s).length>0)}</b><span>관계 불일치</span></div>
+    <div class="card stat"><b>${n(s=>!s.pred.valid&&!noResult(s.pred.status))}</b><span>출력 실패 · 정답 없음 ${n(s=>s.review_status==='Missing')}건</span></div>
+  </div>
+  <div class="card bar">
+    ${sel('kind','데이터 전체',[['real','실제 Run'],['mock','예시']])}
+    ${sel('rel','관계 전체',Object.keys(REL).map(k=>[k,`${k} ${REL[k].label} 불일치`]))}
+    ${sel('fail','실패 사유 전체',Object.entries(FAIL).map(([k,v])=>[k,v]))}
+    ${sel('review','검수 전체',Object.entries(REVIEW_LABELS))}
+    <span class="sp"></span>
+    <label class="tog"><input type="checkbox" ${f.onlyFail?'checked':''} onchange="setF('onlyFail',this.checked)">오류만</label>
+    <button class="btn" onclick="resetF()">초기화</button>
+  </div>
+  ${L.length?L.map(s=>{const rm=relMismatch(s);return `<button class="item" onclick="go('scene',{sid:'${s.scene_id}',rel:'${rm[0]||'R1'}',hl:new Set()})">
+    <span class="thumb">${API_MODE?'':s.image?'':backdrop(s)}${imgTag(s,true)}</span>
+    <span class="t"><span class="row"><b class="mono">${esc(s.scene_id)}</b>${kindPill(s)}${reviewPill(s)}</span>${s.scene?`<span class="d" title="${esc(s.scene)}">${esc(s.scene)}</span>`:''}</span>
+    <span class="rels">${coreKeys().map(k=>{const x=s.scoring.relations[k];return `<span class="rc ${x&&x.ok===false?'bad':''}" title="${k} ${REL[k].label}"><i>${k}</i><span class="v">${x?sv(x.gt)+'→'+sv(x.pred):sv(null)}</span></span>`;}).join('')}</span>
+    <span class="res">${result(s)}${s.pred.valid?failPills(s):''}</span>
+    <span class="chev muted">›</span></button>`;}).join('')
+  :`<div class="card empty"><b>조건에 맞는 문항이 없어요</b><button class="btn" onclick="resetF()">필터 초기화</button></div>`}`;
+}
+
+/* ---------------- F5 ---------------- */
+function svgFor(s){
+  const W=1000,H=562.5,L=st.layers,hl=st.hl,any=hl.size>0;
+  const rect=(b,cls,id,pos,thin)=>{if(!b)return'';const x=b[0]*W,y=b[1]*H,w=(b[2]-b[0])*W,h=(b[3]-b[1])*H,on=hl.has(id);
+    const col=cls==='gt'?'var(--gt)':'var(--pred)',dash=thin?'stroke-dasharray="3 4"':cls==='gt'?'':'stroke-dasharray="8 5"';
+    /* 라벨은 강조된 Box에만: 평소엔 박스만 보여서 사진이 덜 복잡함 */
+    return `<g opacity="${any&&!on?.25:1}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${on?'rgba(255,196,0,.22)':'none'}" stroke="${on?'var(--hl)':col}" stroke-width="${on?5:thin?1.6:2.5}" ${dash}/>${on?`<text x="${pos==='b'?x+w-3:x+3}" y="${pos==='b'?y+h+15:y-5}" text-anchor="${pos==='b'?'end':'start'}" font-size="13" font-weight="700" fill="#ffc400" stroke="rgba(0,0,0,.6)" stroke-width="3" paint-order="stroke">${esc(id)}</text>`:''}</g>`;};
+  const region=(r,side)=>{
+    const p=r.polygon||r.polygon_xy_norm,id=r.id||r.region_id;
+    if(!Array.isArray(p)||p.length<3||!p.every(v=>Array.isArray(v)&&v.length===2&&v.every(n=>Number.isFinite(n)&&n>=0&&n<=1))){
+      return rect(r.bbox||r.bbox_xyxy_norm,side,id,side==='gt'?'t':'b',side==='gt');
+    }
+    const on=hl.has(id),col=side==='gt'?'var(--gt)':'var(--pred)';
+    const points=p.map(([x,y])=>[x*W,y*H]);
+    const [lx,ly]=points.reduce((a,b)=>a[1]<=b[1]?a:b);
+    return `<g opacity="${any&&!on?.25:1}"><polygon points="${points.map(v=>v.join(',')).join(' ')}" fill="${on?'rgba(255,196,0,.22)':'none'}" stroke="${on?'var(--hl)':col}" stroke-width="${on?5:2}" stroke-dasharray="${side==='gt'?'3 4':'8 5'}"/>${on?`<text x="${lx+4}" y="${Math.max(16,ly-6)}" font-size="13" font-weight="700" fill="#ffc400" stroke="rgba(0,0,0,.6)" stroke-width="3" paint-order="stroke">${esc(id)}</text>`:''}</g>`;
+  };
+  let g='';
+  if(L.c&&s.C)g+=`<polygon points="${s.C.map(p=>p[0]*W+','+p[1]*H).join(' ')}" fill="rgba(208,64,47,.10)" stroke="var(--c)" stroke-width="2.5" stroke-dasharray="9 6"/>`;
+  if(L.gt){s.gt.regions.forEach(r=>g+=region(r,'gt'));s.gt.objects.forEach(o=>g+=rect(o.bbox,'gt',o.id,'t'));}
+  if(L.pred&&s.pred.valid){(s.pred.regions||[]).forEach(r=>g+=region(r,'pred'));s.pred.objects.forEach(o=>g+=rect(o.bbox,'pred',o.id,'b'));}
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${g}</svg>`;
+}
+const arr=ids=>JSON.stringify(ids).replace(/"/g,"'");
+function chipsFor(ids,side){return ids&&ids.length?`<div class="chips">${ids.map(id=>`<button class="chip ${side} ${st.hl.has(id)?'on':''}" onclick="toggleHl(['${id}'])">${esc(id)}</button>`).join('')}</div>`:'<span class="muted small">근거 없음</span>';}
+function toggleHl(ids){const same=ids.length===st.hl.size&&ids.every(i=>st.hl.has(i));st.hl=same?new Set():new Set(ids);render();}
+function tl(k){st.layers[k]=!st.layers[k];render();}
+/* 필요 묶음별 ✓/✗: 예측 (대응, 조건) 쌍이 묶음의 대안과 같으면 충족. 백엔드 충족 수와 다르면 표시하지 않음(백엔드 값 우선). */
+function groupHits(s){const ga=s.gt.actions,sc=s.scoring;if(!ga||!s.pred.valid||!sc.groups)return null;
+  if(Array.isArray(sc.group_hits))return sc.group_hits;
+  const hit=ga.required_groups.map(g=>g.alternatives.some(a=>s.pred.actions.some(p=>p.code===a.code&&p.condition===a.condition
+    &&(a.based_on||[]).every(r=>(p.based_on||[]).includes(r)))));
+  return hit.filter(Boolean).length===sc.groups[0]?hit:null;}
+function actionExclusion(s){
+  const reason=s.scoring.excluded||'';
+  if(reason==='direction_conflict')return ['na','대응 채점 제외 · 방향 충돌','관계만 채점'];
+  if(reason==='action_rules_missing')return ['na','대응 채점 제외 · 정답 규칙 없음','관계만 채점'];
+  if(reason==='reference_relations_only')return ['na','대응 채점 제외 · 관계만 검수','검수된 관계만 채점'];
+  if(reason==='reference_missing'||s.review_status==='Missing')return ['warn','정답 없음 · 채점 제외',s.missing_reason||''];
+  if(reason.startsWith('reference_not_reviewed')||s.review_status==='Draft')return ['warn','정답 검수 전 · 채점 제외','검수 전이라 공식 채점에서 빠짐'];
+  return ['na','대응 미채점',reason];
+}
+function F5(){
+  const L=list(),s=S.find(x=>x.scene_id===st.sid)||S[0],idx=L.findIndex(x=>x.scene_id===s.scene_id),sc=s.scoring,r=st.rel;
+  if(API_MODE&&!s._full){const el=document.getElementById('app');
+    if(s._err){el.innerHTML=`<div class="card msg"><b>문항을 불러오지 못했어요</b><span class="small muted">${esc(s._err)}</span><button class="btn" onclick="go('errors')">← 목록</button></div>`;return;}
+    el.innerHTML='<div class="card msg"><span class="muted">불러오는 중…</span></div>';
+    getJSON(`/api/runs/${encodeURIComponent(api.run)}/items/${encodeURIComponent(s.scene_id)}`).then(d=>fromDetail(d,s),e=>{s._err=String(e.message||e);}).then(render);return;}
+  const g=s.gt.relations[r],p=s.pred.valid?s.pred.relations[r]:null,ga=s.gt.actions,hits=groupHits(s);
+  const referenceLabel=s.review_status==='Draft'?'라벨 초안':'정답';
+  const gids=g?[...g.object_ids,...g.region_ids]:[],pids=p?[...(p.object_ids||[]),...(p.region_ids||[])]:[];
+  const ev=sc.evidence&&sc.evidence[r];
+  const raws=(sc.raw_errors&&sc.raw_errors.length?sc.raw_errors:sc.errors.filter(e=>e.raw).map(e=>e.raw+' → '+FAIL[e.code||'unclassified']));
+  const exclusion=actionExclusion(s);
+  const verdict=isPreview()?['na','검토용 · 추론 미실행','라벨 초안만 표시하며, 예측 및 성능 평가는 아직 없습니다.']:s.pred.status==='not_returned'?['na','결과 대기 · 아직 추론 전','대기 또는 실행 중인 요청이에요']
+    :s.pred.status==='cancelled'?['na','취소됨 · 결과 없음','실행이 취소된 요청이에요']
+    :!s.pred.valid?['bad',s.pred.status==='timeout'?'응답 시간 초과':'모델 출력 형식 오류',s.pred.raw_excerpt||'']
+    :sc.pass==null||s.review_status==='Missing'?exclusion
+    :sc.pass?['ok','대응 통과','']:['bad','대응 실패',''];
+  const why=t=>t?`<div class="why" title="눌러서 펼치기" onclick="this.classList.toggle('open')">${esc(t)}</div>`:'';
+  document.getElementById('app').innerHTML=`
+  <div class="row">
+    <button class="btn" onclick="go('errors')">← 목록</button>
+    <h1 class="mono" style="font-size:17px">${esc(s.scene_id)}</h1>${kindPill(s)}${reviewPill(s)}${s.conditions.map(c=>pill(esc(c),'dim')).join('')}
+    <span class="sp"></span>
+    <button class="btn" ${idx<=0?'disabled':''} onclick="go('scene',{sid:'${L[idx-1]?.scene_id}',hl:new Set()})">‹</button><span class="small muted">${idx>=0?idx+1:'–'} / ${L.length}</span><button class="btn" ${idx<0||idx>=L.length-1?'disabled':''} onclick="go('scene',{sid:'${L[idx+1]?.scene_id}',hl:new Set()})">›</button>
+  </div>
+  <div class="verdict ${verdict[0]}"><b>${verdict[1]}</b>${s.pred.valid&&sc.pass===false?failPills(s):''}${sc.groups&&s.pred.valid&&sc.pass!=null?`<span class="small muted">필요 대응 ${sc.groups[0]}/${sc.groups[1]}</span>`:''}${verdict[2]?`<span class="small muted">${esc(verdict[2])}</span>`:''}
+    <span class="sp"></span>${s.review_status==='Draft'?`<span class="small muted" title="${esc((s.blockers||[]).join(', '))}">검수 전 정답과 비교 중</span>`:''}</div>
+  <div class="grid">
+    <div class="left">
+      <div class="stage" data-image-state="${s.image?'loading':s.kind==='real'?'missing':'example'}" style="${s.img_w&&s.img_h?`aspect-ratio:${s.img_w}/${s.img_h}`:''}">${sceneImage(s)}${svgFor(s)}</div>
+      <div class="layers">
+        <button class="ly ${st.layers.c?'':'off'}" title="Driving Area · 사람이 표시한 평가 영역" onclick="tl('c')"><i class="c"></i>진행 공간 D</button>
+        <button class="ly ${st.layers.gt?'':'off'}" onclick="tl('gt')"><i class="g"></i>${referenceLabel}</button>
+        <button class="ly ${st.layers.pred?'':'off'}" onclick="tl('pred')"><i class="p"></i>예측</button>
+        ${st.hl.size?'<button class="btn" onclick="st.hl=new Set();render()">강조 해제</button>':''}
+        <span class="sp"></span>${!s.image&&s.kind!=='real'?'<span class="small muted">가상 이미지</span>':''}
+      </div>
+    </div>
+    <div class="right">
+      <section class="card sec">
+        <h2>관계 <span>${referenceLabel} → 예측</span></h2>
+        <div class="tabs" style="grid-template-columns:repeat(${coreKeys().length},1fr)">${coreKeys().map(k=>{const x=sc.relations[k];return `<button class="tab ${k===r?'on':''} ${x&&x.ok===false?'bad':''}" title="${esc(REL[k].en)}" onclick="st.rel='${k}';st.hl=new Set();render()"><span class="n"><b>${k}</b>${REL[k].label}</span><span class="v">${x?sv(x.gt??(s.gt.relations[k]||{}).state)+'→'+sv(x.pred):sv(null)}</span></button>`;}).join('')}</div>
+        ${REL===REL_V11?`<div class="row">${Object.keys(REL).filter(k=>!coreKeys().includes(k)).map(k=>`<button class="btn ${k===r?'on':''}" onclick="st.rel='${k}';st.hl=new Set();render()">${REL[k].label} ${sv((s.gt.relations[k]||{}).state)}→${sv((s.pred.relations[k]||{}).state)}</button>`).join('')}</div>`:''}
+        <p class="small muted">${esc(REL[r].q)}</p>
+        <div class="cmp">
+          <div class="side gt"><div class="row">${pill(referenceLabel,'gt')}${g?.state?sv(g.state):revPill('Missing')}<span class="sp"></span>${gids.length>1?`<button class="chip gt" onclick="toggleHl(${arr(gids)})">전체 보기</button>`:''}</div>${g?chipsFor(gids,'gt'):''}${why(g&&g.reason)}</div>
+          <div class="side pred"><div class="row">${pill('예측','pred')}${p?sv(p.state):s.pred.valid?sv(null):pstPill(s.pred.status)}<span class="sp"></span>${ev==='excluded'?pill('근거 미채점','na'):ev?pill(ev==='match'?'근거 일치':'근거 불일치',ev==='match'?'ok':'bad'):''}</div>${p?chipsFor(pids,'pred'):''}${why(p&&p.reason)}</div>
+        </div>
+      </section>
+      <section class="card sec">
+        <h2>대응 ${sc.groups&&ga?`<span>필요 ${sc.groups[0]}/${sc.groups[1]} 충족</span>`:''}</h2>
+        ${ga?ga.required_groups.map((x,i)=>`<div class="need"><span class="mark ${hits?(hits[i]?'y':'n'):'q'}">${hits?(hits[i]?'✓':'✕'):i+1}</span><div>${x.alternatives.map(a=>`<b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}</span>`).join('<span class="or">또는</span>')}</div></div>`).join('')
+          :pill(exclusion[1],exclusion[0])}
+        <div class="out"><div class="row">${pill('모델이 낸 대응','pred')}</div>
+          ${s.pred.valid?(s.pred.actions.length?s.pred.actions.map(a=>`<div><b>${actLbl(a.code)}</b> <span class="cond">${condLbl(a.condition)}${a.based_on&&a.based_on.length?' · '+a.based_on.join(','):''}</span></div>`).join(''):'<span class="muted small">없음</span>'):pstPill(s.pred.status)}</div>
+        ${ga&&ga.forbidden_pairs.length||raws.length?`<details class="more"><summary>금지 대응 ${ga?ga.forbidden_pairs.length:0}쌍${raws.length?` · 백엔드 원문 ${raws.length}건`:''}</summary><div class="body">
+          ${ga&&ga.forbidden_pairs.length?`<ul>${ga.forbidden_pairs.map(a=>`<li>${actLbl(a.code)} · ${condLbl(a.condition)}</li>`).join('')}</ul>`:''}
+          ${raws.length?`<ul>${raws.map(x=>`<li><span class="mono">${esc(x)}</span></li>`).join('')}</ul>`:''}</div></details>`:''}
+      </section>
+      <section class="card sec">
+        <h2>객체 박스 비교 <span>${sc.no_grounding?(s.gt.objects.length?'정답 Box 검수 전 · 미채점':'정답 Box 없음 · 미채점'):`짝 ${sc.box_pairs.length} · 예측만 ${sc.unmatched_pred.length} · GT만 ${sc.unmatched_ref.length}`}</span></h2>
+        ${REL===REL_V11?`<details class="more"><summary>객체 위치·방향 (보조 정보)</summary><div class="body">${[['라벨',s.gt.objects],['예측',s.pred.objects]].map(([l,os])=>`<div>${l}: ${os.map(o=>`${esc(o.id)} ${esc(o.location||'–')}/${esc(o.orientation||'–')}`).join(' · ')||'–'}</div>`).join('')}</div></details>`:''}
+        <div class="chips">${sc.box_pairs.map(m=>`<button class="chip ${st.hl.has(m.prediction_id)&&st.hl.has(m.reference_id)?'on':''}" title="${esc(m.prediction_id)} ↔ ${esc(m.reference_id)}" onclick="toggleHl(['${m.prediction_id}','${m.reference_id}'])">${esc(m.prediction_id)} · IoU ${(+m.iou).toFixed(2)}</button>`).join('')}${sc.unmatched_pred.map(i=>`<button class="chip pred ${st.hl.has(i)?'on':''}" title="짝 없는 예측" onclick="toggleHl(['${i}'])">${esc(i)} · 짝 없음</button>`).join('')}${sc.no_grounding?s.pred.objects.map(o=>`<button class="chip pred ${st.hl.has(o.id)?'on':''}" onclick="toggleHl(['${o.id}'])">${esc(o.id)} · ${esc(o.class)}</button>`).join(''):!sc.box_pairs.length&&!sc.unmatched_pred.length?'<span class="muted small">예측 Box 없음</span>':''}</div>
+        ${sc.unmatched_ref.length||s.run?`<details class="more"><summary>${sc.no_grounding?'Run 정보':`정답에만 있는 박스 ${sc.unmatched_ref.length}개${s.run?' · Run 정보':''}`}</summary><div class="body">
+          ${sc.unmatched_ref.length?`<div class="chips">${sc.unmatched_ref.map(i=>`<button class="chip gt ${st.hl.has(i)?'on':''}" onclick="toggleHl(['${i}'])">${esc(i)}</button>`).join('')}</div>`:''}
+          ${sc.unmeasurable_regions.length?`<div class="muted">비교할 수 없는 영역: ${sc.unmeasurable_regions.map(esc).join(', ')}</div>`:''}
+          ${s.run?`${s.review_status!=='Reviewed'?'<div class="muted">정답이 아직 검수 전이라 짝 없는 예측을 오탐으로 단정하지 않음</div>':''}<div class="muted mono">${esc(s.run.name)} · ${esc(s.run.quant)} · adapter ${s.run.adapter??'없음(Base)'} · ${esc(s.run.branch)}@${esc(s.run.commit)}</div><div class="muted">${(s.blockers||[]).length?`공식 점수 미산출 사유: <span class="mono">${s.blockers.map(esc).join(', ')}</span>`:''}</div>`:''}</div></details>`:''}
+      </section>
+    </div>
+  </div>`;
+}
+if(API_MODE){let b='http://localhost:8888';try{b=new URLSearchParams(location.search).get('api')||localStorage.getItem('f3f5_api')||b;}catch(e){}connect(b);}else render();
+</script>
+</html>

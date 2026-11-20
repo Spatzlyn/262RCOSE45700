@@ -1,0 +1,89 @@
+{
+"item_id": "pilot_002",
+"track1": {
+"attributes": {
+"traffic_direction": "Two-way",
+"direction_match": "Not applicable",
+"sidewalk_left": "P",
+"sidewalk_right": "P"
+},
+"objects": [
+{
+"object_id": "pred_obj_1",
+"class": "car",
+"bbox_xyxy_norm": [0.0, 0.18, 0.63, 0.99],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+},
+{
+"object_id": "pred_obj_2",
+"class": "car",
+"bbox_xyxy_norm": [0.63, 0.39, 1.0, 0.87],
+"semantic_role": "actor",
+"placement": "travel_space",
+"truncated": "A"
+}
+],
+"relations": {
+"R1": {
+"state": "A",
+"object_ids": [],
+"reason": "전방 도로에 자차를 점유하는 Actor/Obstacle의 지면 접촉 부분이 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"actor_ids": [],
+"obstacle_ids": []
+}
+},
+"R2": {
+"state": "A",
+"object_ids": [],
+"reason": "C와 연결된 출입구에 Actor가 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"actor_ids": [],
+"entrance_candidate_id": null
+}
+},
+"R3": {
+"state": "A",
+"object_ids": [],
+"reason": "진행 판단에 필요한 영역을 가리는 Object가 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"occluder_ids": [],
+"occluded_region_id": null
+}
+},
+"R4": {
+"state": "A",
+"object_ids": [],
+"reason": "통행 공간을 제한하는 Object의 배치가 관측되지 않음.",
+"region_ids": [],
+"roles": {
+"restricting_object_ids": []
+}
+}
+},
+"actions": [
+{
+"code": "MONITOR_AHEAD",
+"condition": "no_condition",
+"based_on": ["R1", "R2", "R3", "R4"],
+"reason": "모든 관계가 A로 판정되어 전방 주시 상태 유지."
+}
+],
+"unknowns": [],
+"regions": []
+},
+"track2": {
+"status": "missing_input",
+"target_object_id": null
+},
+"track3": {
+"status": "missing_input",
+"speed_change": null,
+"direction_change": null
+}
+}

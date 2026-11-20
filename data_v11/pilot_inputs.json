@@ -1,0 +1,32 @@
+[
+  {
+    "item_id": "pilot_001",
+    "image_relpath": "CK_A01_R01_erh_rainy_01021252_F.png",
+    "image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd"
+  },
+  {
+    "item_id": "pilot_002",
+    "image_relpath": "CK_A09_R05_day_clear_01010324_F.png",
+    "image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585"
+  },
+  {
+    "item_id": "pilot_003",
+    "image_relpath": "CK_B02_R05_afterschool_clear_01065701_F.png",
+    "image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60"
+  },
+  {
+    "item_id": "pilot_004",
+    "image_relpath": "CK_B02_R05_lunch_clear_01012234_F.png",
+    "image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918"
+  },
+  {
+    "item_id": "pilot_005",
+    "image_relpath": "CV_A01_R03_lunch_rainy_01114394_F.png",
+    "image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f"
+  },
+  {
+    "item_id": "pilot_006",
+    "image_relpath": "CV_A06_R04_mrh_clear_01045907_F.png",
+    "image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858"
+  }
+]
