@@ -1,0 +1,12 @@
+{
+  "json_parse_success": true,
+  "schema_valid": true,
+  "retry_count": 0,
+  "format_repair": false,
+  "official_benchmark": null,
+  "scoring_performed": false,
+  "reason": "no_reviewed_reference",
+  "generation_seconds": 171.8411119999364,
+  "generated_tokens": 687,
+  "schema_errors": []
+}

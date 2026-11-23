@@ -1,0 +1,108 @@
+{
+  "item_id": "pilot_005",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Not applicable",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_1",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.23,
+          0.53,
+          0.41,
+          0.72
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      },
+      {
+        "object_id": "obj_2",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.62,
+          0.13,
+          0.89
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "A"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_1"
+        ],
+        "reason": "객체 obj_1의 지면 접촉부가 C와 겹침.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [
+            "obj_1"
+          ],
+          "obstacle_ids": []
+        }
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "확인된 출입구 없음.",
+        "region_ids": [],
+        "roles": {
+          "actor_ids": [],
+          "entrance_candidate_id": null
+        }
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "진행 판단에 필요한 영역을 가리는 객체 없음.",
+        "region_ids": [],
+        "roles": {
+          "occluder_ids": [],
+          "occluded_region_id": null
+        }
+      },
+      "R4": {
+        "state": "A",
+        "object_ids": [],
+        "reason": "통행 공간을 제한하는 객체 없음.",
+        "region_ids": [],
+        "roles": {
+          "restricting_object_ids": []
+        }
+      }
+    },
+    "actions": [
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "R4"
+        ],
+        "reason": "R1, R2, R3, R4 모두 A 상태이므로 전방 주시."
+      }
+    ],
+    "unknowns": [],
+    "regions": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "json_parse_success": true,
+  "schema_valid": false,
+  "retry_count": 0,
+  "format_repair": false,
+  "official_benchmark": null,
+  "scoring_performed": false,
+  "reason": "no_reviewed_reference",
+  "generation_seconds": 217.37252690002788,
+  "generated_tokens": 964,
+  "schema_errors": [
+    "$.track1.objects[2].bbox_xyxy_norm[3]: number outside range"
+  ]
+}
