@@ -1,0 +1,10 @@
+﻿item_id,source,status,R1,R2,R3,connection_actor,forward_occlusion,lateral_occlusion,bottleneck,notes
+pilot_001,6장 합의안,Draft,P,U,P,U,A,P,A,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인; R1=P는 유지. 태문님의 점유 근거 5개 객체 전체 포함 여부는 PM 별도 확인 전.
+pilot_002,6장 합의안,Draft,P,U,P,U,P,P,P,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인
+pilot_003,6장 합의안,Draft,A,P,A,A,A,A,A,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인
+pilot_004,6장 합의안,Draft,P,P,P,A,P,P,P,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인
+pilot_005,6장 합의안,Draft,U,P,A,A,A,A,A,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인; connection_actor: 태문 P(259504) → PM 제안 A. 실제 접지가 연결부 경계에 있는지 재확인. 판정을 바꾸는 접지 가림이면 U.
+pilot_006,6장 합의안,Draft,P,P,P,P,P,A,A,D/전체 객체 및 속성·대응 검수; Region 좌표 및 근거 ID 확인
+candidate_01009110,추가 3장 PM 초안,Draft,P,U,P,U,P,A,A,D 및 점유 객체 접지 검수; C2 후보 연결부 경계 미확정
+candidate_01036668,추가 3장 PM 초안,Draft,P,P,P,A,P,A,P,C1 후보 및 C2 경계 좌표; D 및 점유 객체 접지 검수
+candidate_01001486,추가 3장 PM 초안,Draft,P,P,P,A,P,P,P,C2 후보 및 C1 경계 좌표; D 및 점유 객체 접지 검수

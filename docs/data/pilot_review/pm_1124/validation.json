@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.1-review",
+  "draft_count": 9,
+  "image_sha256_match": 9,
+  "reference_validator_errors": {
+    "pilot_001": [],
+    "pilot_002": [],
+    "pilot_003": [],
+    "pilot_004": [],
+    "pilot_005": [],
+    "pilot_006": [],
+    "candidate_01009110": [],
+    "candidate_01036668": [],
+    "candidate_01001486": []
+  },
+  "manual_geometry_and_agreement_pending": true
+}
