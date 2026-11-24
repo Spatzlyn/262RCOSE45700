@@ -1,0 +1,133 @@
+{
+  "official_scoring": false,
+  "validator_sha256": "01b2fc964539c2d5c0d2b3f38b8d1e69af1fbe6aba202c004472fd67ef342b12",
+  "method": "decoded_output.txt의 바깥 공백 및 처음과 끝의 코드 펜스만 제거한 뒤 json.loads 및 contract.validate(value, item_id) 적용",
+  "records": [
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_001",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 6,
+      "errors": [
+        "track1: 'context' is a required property",
+        "track1: 'actions' is a required property",
+        "track1: 'unknowns' is a required property",
+        ": 'track2' is a required property",
+        ": 'track3' is a required property",
+        ": Additional properties are not allowed ('actions', 'context', 'unknowns' were unexpected)"
+      ]
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_002",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 1,
+      "errors": [
+        "R1 positive evidence must equal declared in_D actors/obstacles"
+      ]
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_003",
+      "json_parse_success": true,
+      "contract_valid": true,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_004",
+      "json_parse_success": true,
+      "contract_valid": true,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_005",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 1,
+      "errors": [
+        "connection_actor P requires actor(s) and declared connection region(s)"
+      ]
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_006",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 2,
+      "errors": [
+        "connection_actor: positive requires region ID",
+        "R1 positive evidence must equal declared in_D actors/obstacles"
+      ]
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_001",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 6,
+      "errors": [
+        "track1: 'context' is a required property",
+        "track1: 'actions' is a required property",
+        "track1: 'unknowns' is a required property",
+        ": 'track2' is a required property",
+        ": 'track3' is a required property",
+        ": Additional properties are not allowed ('actions', 'context', 'unknowns' were unexpected)"
+      ]
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_002",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 2,
+      "errors": [
+        "R1 positive evidence must equal declared in_D actors/obstacles",
+        "connection_actor P requires actor(s) and declared connection region(s)"
+      ]
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_003",
+      "json_parse_success": true,
+      "contract_valid": true,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_004",
+      "json_parse_success": true,
+      "contract_valid": true,
+      "error_count": 0,
+      "errors": []
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_005",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 3,
+      "errors": [
+        "forward_occlusion: negative/NA evidence must be empty",
+        "lateral_occlusion: negative/NA evidence must be empty",
+        "bottleneck: negative/NA evidence must be empty"
+      ]
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_006",
+      "json_parse_success": true,
+      "contract_valid": false,
+      "error_count": 1,
+      "errors": [
+        "connection_actor P requires actor(s) and declared connection region(s)"
+      ]
+    }
+  ]
+}

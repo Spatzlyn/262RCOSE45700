@@ -1,0 +1,148 @@
+```json
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_006",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.33,
+          0.51,
+          0.52,
+          0.62
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.01,
+          0.48,
+          0.11,
+          0.57
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_003",
+        "class": "pedestrian",
+        "bbox_xyxy_norm": [
+          0.80,
+          0.57,
+          0.90,
+          0.98
+        ],
+        "semantic_role": "actor",
+        "placement": "roadside",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "unknown"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "region_001",
+        "type": "connection",
+        "bbox_xyxy_norm": [
+          0.48,
+          0.0,
+          0.58,
+          0.35
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_003"
+        ],
+        "region_ids": [],
+        "reason": "전방 도로에 다른 차량(obj_001)과 보행자(obj_003)가 점유하고 있음."
+      },
+      "R2": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "region_001"
+        ],
+        "reason": "진행 공간과 연결되는 골목/도로가 관찰됨."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 및 측방 가림 영역이 명확히 관찰되지 않음."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "P",
+        "object_ids": [
+          "obj_003"
+        ],
+        "region_ids": [],
+        "reason": "연결 공간에 관찰 가능한 Actor(obj_003)가 존재함."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "물리적 가림이 관찰되지 않음."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "물리적 가림이 관찰되지 않음."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "국소적인 좁아지는 공간적 제약이 관찰되지 않음."
+      }
+    },
+    "actions": [
+      {
+        "code": "YIELD_IF_OCCUPIED",
+        "condition": "while_corridor_occupied",
+        "based_on": [
+          "R1"
+        ],
+        "reason": "R1에서 다른 Actor/Obstacle이 점유하고 있어 양보 필요."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
+```

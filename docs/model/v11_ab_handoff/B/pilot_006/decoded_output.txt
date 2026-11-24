@@ -1,0 +1,159 @@
+```json
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_006",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.33,
+          0.53,
+          0.52,
+          0.63
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.01,
+          0.48,
+          0.11,
+          0.55
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_003",
+        "class": "pedestrian",
+        "bbox_xyxy_norm": [
+          0.80,
+          0.57,
+          0.91,
+          0.99
+        ],
+        "semantic_role": "actor",
+        "placement": "roadside",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "unknown"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "region_001",
+        "type": "connection",
+        "bbox_xyxy_norm": [
+          0.48,
+          0.0,
+          0.58,
+          0.35
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002",
+          "obj_003"
+        ],
+        "region_ids": [],
+        "reason": "보이는 발/바퀴 접지 부분(ego car)이 D 내부에 있는 Actor/Obstacle(obj_001, obj_002, obj_003)을 확인했으므로 P."
+      },
+      "R2": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "region_001"
+        ],
+        "reason": "진행 공간과 연결되는 골목/차량 출입구(주차 공간으로 추정되는 영역)가 확인되었으므로 P."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 또는 측방의 가려진 영역을 명확히 파악할 수 있는 구조물이나 선형적 가림이 관찰되지 않았으므로 A."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "region_001"
+        ],
+        "reason": "R2=P이므로 연결부의 Actor를 평가하며, 현재 관찰 가능한 연결부 내 Actor는 확인되지 않았으나 연결부 자체는 관찰 가능하므로 P."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "물리적 가림이 관찰되지 않았으므로 A."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "측방 가림이 관찰되지 않았으므로 A."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "인접 구간에 비해 좁아지는 공간적 원인이 명확히 관찰되지 않았으므로 A."
+      }
+    },
+    "actions": [
+      {
+        "code": "YIELD_IF_OCCUPIED",
+        "condition": "while_corridor_occupied",
+        "based_on": [
+          "R1"
+        ],
+        "reason": "R1=P인 일반 Actor(obj_001)가 존재하므로 해당 조건에 따라 YIELD_IF_OCCUPIED를 선택."
+      },
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R2",
+          "R3",
+          "bottleneck"
+        ],
+        "reason": "R2=P이고 R3, bottleneck이 A이므로 MONITOR_AHEAD를 선택."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
+```

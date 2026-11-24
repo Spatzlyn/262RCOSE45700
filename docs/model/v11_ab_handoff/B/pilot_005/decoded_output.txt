@@ -1,0 +1,199 @@
+```json
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_005",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.53,
+          0.41,
+          0.73
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.23,
+          0.54,
+          0.41,
+          0.71
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_003",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.63,
+          0.13,
+          0.83
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_004",
+        "class": "traffic_sign",
+        "bbox_xyxy_norm": [
+          0.83,
+          0.35,
+          0.87,
+          0.41
+        ],
+        "semantic_role": "road_feature",
+        "placement": "roadside",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "not_applicable"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "reg_001",
+        "type": "connection",
+        "bbox_xyxy_norm": [
+          0.48,
+          0.0,
+          0.55,
+          0.35
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      },
+      {
+        "region_id": "reg_002",
+        "type": "occluded_forward",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "A"
+      },
+      {
+        "region_id": "reg_003",
+        "type": "occluded_lateral",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "A"
+      },
+      {
+        "region_id": "reg_004",
+        "type": "bottleneck",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "A"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002",
+          "obj_003"
+        ],
+        "region_ids": [],
+        "reason": "보이는 발/바퀴 접지가 D 안에 있는 Actor/Obstacle을 찾음."
+      },
+      "R2": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "reg_001"
+        ],
+        "reason": "진행 공간과 실제로 연결되는 골목/차량 출입구 연결 확인."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 또는 측방 가려진 영역을 명확히 찾지 못함."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "reg_001"
+        ],
+        "reason": "R2=P에 따라 연결부의 Actor를 평가했으나, 연결부 자체에 관찰 가능한 Actor가 명확히 확인되지 않아 P로 설정."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [
+          "reg_002"
+        ],
+        "reason": "물리적 가림을 입증할 객체를 찾지 못함."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [
+          "reg_003"
+        ],
+        "reason": "측방 가림을 입증할 객체를 찾지 못함."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [
+          "reg_004"
+        ],
+        "reason": "국소 제약이 눈에 띄게 좁아지는 지점을 찾지 못함."
+      }
+    },
+    "actions": [
+      {
+        "code": "YIELD_IF_OCCUPIED",
+        "condition": "while_corridor_occupied",
+        "based_on": [
+          "R1"
+        ],
+        "reason": "R1에서 도로를 점유한 Actor/Obstacle이 확인되었기 때문."
+      },
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R2"
+        ],
+        "reason": "R2가 P이고 다른 조건이 A이므로 모니터링 상태 유지."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
+```

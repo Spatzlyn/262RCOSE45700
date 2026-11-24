@@ -1,0 +1,14 @@
+{
+  "run_id": "pilot_004",
+  "model_item_id": "pilot_004",
+  "started_at_utc": "2026-11-24T12:05:32.632273+00:00",
+  "phase": "finished",
+  "status": "invalid_output",
+  "model_generate_called": true,
+  "implementation": "new_entry_not_original_infer_py",
+  "retry_count": 0,
+  "finished_at_utc": "2026-11-24T12:10:56.648053+00:00",
+  "wall_seconds": 324.01600849989336,
+  "cuda_peak_allocated_bytes": 10143177216,
+  "cuda_peak_reserved_bytes": 10408165376
+}

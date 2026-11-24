@@ -1,0 +1,12 @@
+{
+  "json_parse_success": false,
+  "schema_valid": false,
+  "retry_count": 0,
+  "format_repair": false,
+  "official_benchmark": null,
+  "scoring_performed": false,
+  "reason": "no_reviewed_reference",
+  "generation_seconds": 412.3904576000059,
+  "generated_tokens": 1641,
+  "parse_error": "Expecting value: line 1 column 1 (char 0)"
+}

@@ -1,0 +1,1133 @@
+{
+  "source_commit": "5a5e96223b88beacc3133a8340be947e6962d5b4",
+  "records": [
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_001",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "4f86ae4d426ea37d7cee577dd3972d4ffc27dd414b015617fab0bba1a9072507",
+      "files_sha256": {
+        "decoded_output.txt": "ddc5f86ee0b9c42b67c18af6112c25d4f416fd58eaae2ebe423aa5eb27d0cf10",
+        "output_validation.json": "c78ad6bb6efd0c26e1b91bd0ed4b0994bdd3cb26a7ea50d7c373aa2695c82f52",
+        "raw_output.txt": "b47b69f180770c82b97fe688b5aeb27e65b0dcb00244722752331363b716cd90",
+        "status.json": "6d08144675cb536efd7c493a822ce5aae324e28ea2d4b80a474221be161979f8"
+      }
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_002",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "d7d0f8ebae10351d0fc2c0042491ebebdc3603c4158d82f4019f0e6083f2a853",
+      "files_sha256": {
+        "decoded_output.txt": "01757e0cb517647f9a4a5f1310d9ef43994985fde9335af8e7afe7aa6e5e08d2",
+        "output_validation.json": "0f8bdecd21c1c3f213e8e0631d5838ddbcfdbd8c16e0aa47a577b9feb4ea5c3c",
+        "raw_output.txt": "75507da9b8f40994c1a791ff77d6857596b55d7cd129245222f588fc4d77815e",
+        "status.json": "1d1625038065f416c9440a8749b2e254f840bc989401c12453209665044ea037"
+      }
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_003",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "a78133b470b7ae57cdf732aa42964a2358782887e3c1d1aeaed18e5312a9bf55",
+      "files_sha256": {
+        "decoded_output.txt": "6d7356e0b8d183518d524586d722521769bb667f4714c803d3ff2886b0973745",
+        "output_validation.json": "96998296e7f7c7f16d5b082a472aba910ac9ab104162f47bf2d6a87d47d22537",
+        "raw_output.txt": "8604d5606d6ee3e7dcf6ed153797dad88750a557e7e5f937ab7d7a17cac255d3",
+        "status.json": "f0b004f01d4d3d4be73443d010d06e81193c88668588548dcc7d0453f669b12a"
+      }
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_004",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "6b05c3d258a9f454a4762b7223a89b645b56434f798dc422b446c57ce71a5414",
+      "files_sha256": {
+        "decoded_output.txt": "1ae08c0d96970f2809fab458bfa8d2588eb5bf28296873c20341e7d4627ea2c7",
+        "output_validation.json": "a0882142bf7888f705e95cac1128b084420e0a43930d30b88e5e2d288487eb1f",
+        "raw_output.txt": "c50e5b8287165bbd2e94e298eab7a403c3f2eb3ac2fe613f8bb7ed21536cf38e",
+        "status.json": "6060a13ac59ab025162c0de304974f3a0cebfdaebafd1dbef5c4ec6f5eadf19b"
+      }
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_005",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "4f56e54a7aa318b893e126cd86cc54238a3bd99218efd61c49f69a7611e38b06",
+      "files_sha256": {
+        "decoded_output.txt": "0fc29d85311df093f1795e8cd0afa4fdc5b2c0b521cf1aa39877b699cdbea4e4",
+        "output_validation.json": "8631dd82459b8f3dea66aad21d3d432218c56139888353c19cb990bbf8452c7d",
+        "raw_output.txt": "3fe580bf570e5bb76973b9181315d9ed5386f85a93f04e334d8b7f7e79a8c6e7",
+        "status.json": "be28236c92858b54b1c18624d410cb2ab81e3985e062db21633b6ff1c8cb755d"
+      }
+    },
+    {
+      "run_id": "v11_a_e18f74ffcc",
+      "item_id": "pilot_006",
+      "arm": "A",
+      "prompt_version": "prompt_v11_a",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858",
+        "system_prompt_utf8_sha256": "c6990a7a4a3e073b2cbe9c0be3cb9dafd2298a8c13370507cb4ea8ca83579258",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "9018d96f9e869686f9865194ea501e8e346250a2c9cd29acfa6389e7cdce16b2",
+      "files_sha256": {
+        "decoded_output.txt": "ad6cf4268cb10dc6803178c14ebfc55a0c2a83b1922f3c27114bcf55ee4152e8",
+        "output_validation.json": "d22481e77958d3fe3dd59208c4b6af1213b475c3c0b2d7c63e1d7dbed51e4122",
+        "raw_output.txt": "2f13f70a0b0bdf0e1430904cdebb495828aa7e82cb10c69422648ab2ca75b2a4",
+        "status.json": "6a72c662f3f4eccc3aabbcca231f41625122fbb5c8a48684099d0335b181ce22"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_001",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "f4800ab393d5504aa4549a2a1937b802d9f37268b25bd80ee0005ca6c430d9f8",
+      "files_sha256": {
+        "decoded_output.txt": "0907ed2f6a237a955f816a89d24b0cfa8e2eb80cb75c8077539a96021966f8d7",
+        "output_validation.json": "41f9d516c65e392f8295f44e64846aea760a4ca97ed1dde18bc03e3c7f57a17a",
+        "raw_output.txt": "6ab0f8655c0d2cd1f2a917b3a9b29721376ecc7b6434b9ba2ee434bf4c58db39",
+        "status.json": "80d6642eff05f951d627a98d706a9d1e85f1dec2339d4d1e02e75a4915b464f7"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_002",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "ded90844afb8a1ce2209349946b2e9a628806008a4f1c39c20161de9c750424a",
+      "files_sha256": {
+        "decoded_output.txt": "158a04f3d594418d84636ca7d2d5f9979e9d5698b062cb40768a2107f52172bc",
+        "output_validation.json": "f85e8cf59a7c7cdb5551c3806c88cfb01c616ceb02ed08edb5c0efc96e2147a3",
+        "raw_output.txt": "dfa123c9b04f8d2a706dafcaf156aa780903df0b6ae33d4b06ffb18d95e23048",
+        "status.json": "4be56764ec70ef7c0b0ea10e7f13132ef2e98e9c48c2e3ae15d98709f7d11f1e"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_003",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "83b48eb1e1637de1614b4edf8c0bdd393dc53c53dead835f34433e2c8235a50a",
+      "files_sha256": {
+        "decoded_output.txt": "f98becff7eb03234a9f350c742a170feae77148aa26f552a82b11c9edc57d2d7",
+        "output_validation.json": "e40ade44d582341a35475dad59fa880bca18fef632e1be162509343188dfbb9d",
+        "raw_output.txt": "3af94b59f10f11ca1c200492070c4a5148ae9d9654d3313a455f9e54a3f75e99",
+        "status.json": "07c629f388fd0f5eeec32a040effb146df988377f5969108de95a3ccc5fa2147"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_004",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "547975ac71ef6ee09dc293dd5cd5bcb25ebd7f1059819fa3fbedbfb48445f4fd",
+      "files_sha256": {
+        "decoded_output.txt": "153d62d20a4a607ae287e465e793a643a4c37cb0982cb35f379557999974c4d7",
+        "output_validation.json": "ef7e683b5ac963ff500dbd6c75e55261176748fa3b8ae502e38af55fbc5b7056",
+        "raw_output.txt": "d84b5da9513609f8ebc1d74f0ce8aa4092fcb0f5996faf59eb389b8de28c5175",
+        "status.json": "3023bbd276f34b1fdf62582411d387fe6b3f61a710b546647799fd90b659c6e4"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_005",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "8ffa4e87cbdac47300d785bd070f7a573a783a1b6ebc8bd5f69d889c453c23ce",
+      "files_sha256": {
+        "decoded_output.txt": "32d27ea39c9805303c62971d17c2e02f6b192d56b2f006b7e36fb714cf55a9cc",
+        "output_validation.json": "93d4f919188e1062eac2a6552ebc36c22f8836f9575cd409faaaf06477d67af9",
+        "raw_output.txt": "5136f85a92f6678bfb00a90d3d8c0563ed147eef6c1bba089600eeb51a0212e6",
+        "status.json": "eadee375c16ed57add880b1683a77784999526a0766ce85478ef58e107199c0e"
+      }
+    },
+    {
+      "run_id": "v11_b_9895a83702",
+      "item_id": "pilot_006",
+      "arm": "B",
+      "prompt_version": "prompt_v11_b",
+      "config": {
+        "base_config": {
+          "name": "nf4_prompt_v1_first",
+          "quant": "nf4",
+          "soft_tokens": 280,
+          "max_new_tokens": 4096,
+          "model_id": "google/gemma-4-E4B-it",
+          "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+          "dtype": "bfloat16",
+          "attention_backend": {
+            "text_config": "sdpa",
+            "vision_config": "sdpa",
+            "audio_config": "eager"
+          },
+          "cpu_offload": false,
+          "batch_size": 1,
+          "image_count": 1,
+          "enable_thinking": false,
+          "do_sample": false,
+          "seed": 42,
+          "quantization": {
+            "load_in_4bit": true,
+            "bnb_4bit_quant_type": "nf4",
+            "bnb_4bit_use_double_quant": true,
+            "bnb_4bit_compute_dtype": "bfloat16"
+          },
+          "source": "https://huggingface.co/google/gemma-4-E4B-it",
+          "quality_scope": "one scene, Draft diagnostic only",
+          "script_sha256": {
+            "infer.py": "61bc7938a55957eda2ac30da97fe99b25b2e6895a948c465000a2f881279942d",
+            "common.py": "1333ec348842e5b3d84ac78db8443aee3f0ef482e03e9f50ee06fb35d49ab6a2"
+          },
+          "prompt_revision": "required_fields_v1",
+          "prompt_addendum_sha256": "6302cb0bcdc1e0cf1e9072721a959ff8d3d0e0804c147cc820ef23e2a03a6caa",
+          "attempt_kind": "first_modified_prompt_attempt",
+          "model_parameter_count": 5723657504,
+          "processor_class": "Gemma4Processor",
+          "image_processor_class": "Gemma4ImageProcessor",
+          "torch_version": "2.9.1+cu128",
+          "cuda_version": "12.8",
+          "adapter_source_run": null,
+          "export_note": "Quality reproduction settings only; resource measurements and local paths omitted. Original config SHA256 is in export_manifest.json."
+        },
+        "effective_new_entry": true,
+        "device_map": {
+          "": "cuda:0"
+        },
+        "attn_implementation": {
+          "text_config": "sdpa",
+          "vision_config": "sdpa",
+          "audio_config": "eager"
+        },
+        "generation": {
+          "max_new_tokens": 4096,
+          "do_sample": false
+        },
+        "seed": 42,
+        "enable_thinking": false,
+        "image_max_soft_tokens": 280,
+        "cpu_offload": false,
+        "adapter_loaded": false,
+        "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+        "script_sha256": "1437366263bec4ebc82cea42c543f0e290f220b8110c00d4c8d03f2f627e6fe8",
+        "historical_script_reproduced": false,
+        "python": "3.11.18 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 18:13:29) [MSC v.1942 64 bit (AMD64)]",
+        "platform": "Windows-10-10.0.26200-SP0",
+        "packages": {
+          "torch": "2.6.0+cu124",
+          "torchvision": "0.21.0+cu124",
+          "transformers": "5.23.0",
+          "bitsandbytes": "0.50.2",
+          "accelerate": "1.15.0",
+          "huggingface-hub": "2.4.0"
+        },
+        "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "cuda_runtime": "12.4",
+        "input_image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858",
+        "system_prompt_utf8_sha256": "0dec16d500c5db0d98d72e0673c2e0b2ee1901fa55170f267de77bce5177ba9a",
+        "schema_sha256": "56ac3e382e44bf9da91343a9fc0d00c6a3fe26d320eaa9a59b89158bcdebb6cd",
+        "environment_differs_from_historical_linux": true
+      },
+      "original_config_sha256": "176303b70e942cf240c928b1f85e4126f4ca0f580117dadf68831213f966a725",
+      "files_sha256": {
+        "decoded_output.txt": "1f3473e9673fcdb2dcf859c00f70c3e4b371f6fb3a49a43d209b7c7e5418c820",
+        "output_validation.json": "c1947eb07a8ec1dfa668a8bce1c9014418c1a90de8b046e7fbdacb16d08e8116",
+        "raw_output.txt": "191492fb799fdda2140a49bc15353628d88aecc7d2e0f26015c65db95ded4ed6",
+        "status.json": "ff460365b5dff95495f10c051999b3838bc0d9cc34bc653d7a2083e2b7dba9e0"
+      }
+    }
+  ]
+}

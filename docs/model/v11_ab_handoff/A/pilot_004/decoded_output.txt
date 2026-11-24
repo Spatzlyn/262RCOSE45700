@@ -1,0 +1,140 @@
+```json
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_004",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "pedestrian",
+        "bbox_xyxy_norm": [
+          0.33,
+          0.35,
+          0.41,
+          0.79
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.79,
+          0.23,
+          1.0,
+          0.77
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "region_001",
+        "type": "connection",
+        "bbox_xyxy_norm": [
+          0.25,
+          0.3,
+          0.35,
+          0.45
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002"
+        ],
+        "region_ids": [],
+        "reason": "보이는 발/바퀴 접지가 D 안에 있는 Actor/Obstacle을 찾음."
+      },
+      "R2": {
+        "state": "P",
+        "object_ids": [
+          "obj_001"
+        ],
+        "region_ids": [
+          "region_001"
+        ],
+        "reason": "진행 공간과 실제로 연결되는 골목/출입 공간을 찾음."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 도로의 연장부 또는 측방의 진입 가능 공간 중 가려진 영역을 찾지 못함."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "P",
+        "object_ids": [
+          "obj_001"
+        ],
+        "region_ids": [
+          "region_001"
+        ],
+        "reason": "R2=P이므로 연결된 Actor를 평가함."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "물리적 가림이 확인되지 않음."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "측방 가림이 확인되지 않음."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "국소적인 좁아지는 공간적 원인이 눈에 띄지 않음."
+      }
+    },
+    "actions": [
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "bottleneck"
+        ],
+        "reason": "R1, R2, R3, bottleneck 모두 A 또는 P 상태이며, U가 없음."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
+```
