@@ -14,3 +14,11 @@
 - 합의 GT `1.1-pilot6-reviewed-20261125` 가져오기(Reviewed 6건, 7개 판정만 검수). 모델팀 A/B Run `v11_a_e18f74ffcc`, `v11_b_9895a83702` 등록(`tools/import_v11_ab.py`).
 - 문항별 결과·제외 사유·GT 버전: [docs/backend/v11_ab_scoring_20261125](../docs/backend/v11_ab_scoring_20261125/README.md) (`tools/export_v11_scoring.py`). 공식은 첫 응답 그대로(12건 형식 실패), 코드 펜스 제거 진단은 별도 표기.
 - 테스트 36개 통과. 운영 서버는 아직 v1.0 코드이며 v1.1 배포는 별도(`tools/install_v11.py`).
+
+## 2026-11-25 · 서버 반영 (EC2 `100.52.183.88`, 인스턴스 재시작으로 IP 변경)
+
+- `deploy/deploy_v11.sh`로 반영: 저장소 백업(`/data/backend-store-backup-20261125T064235Z.tar.gz`) → v1.1 파일 추가 설치 → 검수 GT·A/B Run·Track 2 복사 → API 재빌드(빌드 중 테스트 42 passed) → 워커 재시작.
+- 기존 실제 Run 3개(`RUN-PILOT6-BASE-001`, `RUN-PILOT6-A10G-001`, `RUN-PILOT6-A10G-002`)는 배포 전후 result hash 동일. 합성 `EXAMPLE-RUN-001`은 v1.1 수정으로 오류 문구·필드 1개가 바뀌어 hash만 달라짐(점수 동일).
+- 서버 A/B 공식 결과 hash = 로컬 결과(`36238e7e…`).
+- Track 2: `/api/track2/*`, 영상은 `/data/aihub_597/2.Validation`을 읽기 전용으로 연결(Range 재생 지원), 번호 표시 프레임 56장은 `/data/backend-store/track2/frames`(git 제외).
+- 프론트 파일(`frontend/f3-f5/*`)에 남은 이전 IP `32.196.229.237`은 프론트 담당이 갱신.

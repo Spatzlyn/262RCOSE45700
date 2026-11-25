@@ -1,2 +1,3 @@
 backend/worker/prompts/** -text
 ai_model/inference/** -text
+*.sh text eol=lf

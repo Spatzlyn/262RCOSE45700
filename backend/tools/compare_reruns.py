@@ -1,7 +1,7 @@
 """Run-to-run variation report between two runs over the same items (re-inference, not re-scoring).
 
   python -m backend.tools.compare_reruns <base_url> <run_a> <run_b>
-e.g. python -m backend.tools.compare_reruns http://32.196.229.237:8888 RUN-PILOT6-BASE-001 RUN-PILOT6-A10G-002
+e.g. python -m backend.tools.compare_reruns http://100.52.183.88:8888 RUN-PILOT6-BASE-001 RUN-PILOT6-A10G-002
 """
 import json
 import sys

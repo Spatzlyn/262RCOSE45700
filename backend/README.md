@@ -6,7 +6,7 @@
 
 | 항목 | 상태 |
 |---|---|
-| 서버 | **http://32.196.229.237:8888** (EC2 g5.xlarge · A10G). API는 Docker, 워커는 systemd. 둘 다 부팅 시 자동 시작. Swagger 문서 `/docs` |
+| 서버 | **http://100.52.183.88:8888** (EC2 g5.xlarge · A10G). API는 Docker, 워커는 systemd. 둘 다 부팅 시 자동 시작. Swagger 문서 `/docs` |
 | 실제 Run | `RUN-PILOT6-BASE-001`: 경흠님 Pilot 6건(RTX 4070), 6/6 형식 통과 · **`RUN-PILOT6-A10G-002`: 같은 6건을 서버 A10G에서 API로 다시 추론**, 6/6 형식 통과, 관계 판정 6/6 동일 (§6.1) · `RUN-PILOT6-A10G-001`: 원본과 맞추기 전 워커 시험(1건 완료, 5건 취소) |
 | 정답(GT) | 아직 작성 전 → 6건 모두 `Missing`. 정답 기반 지표는 N/A와 이유를 반환하고 0점으로 채우지 않음 |
 | 예시 Run | `EXAMPLE-RUN-001`: 화면 개발용 합성 5건 (정상 / 형식 오류 / Timeout / Draft 정답 / 방향 충돌), `data_kind: "example"` |
@@ -138,7 +138,7 @@ python -m pytest backend/tests -q
 uvicorn backend.app.main:app --port 8888        # IMAGE_ROOT=<이미지 폴더>
 ```
 
-EC2 (`ubuntu@32.196.229.237`):
+EC2 (`ubuntu@100.52.183.88`):
 ```bash
 cd ~/backend/262/backend
 sudo SCORER_COMMIT=<scorer/app 마지막 commit> docker compose up -d --build   # API (빌드 중 테스트)
