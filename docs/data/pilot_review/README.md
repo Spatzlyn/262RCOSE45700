@@ -1,7 +1,5 @@
 # Pilot 6건 Draft GT 대조
 
-최신 자료는 [데이터 인수인계](../../../data_handoff/README.md)에 있다. 아래는 공통 6장의 합의 전 대조 기록이다.
-
 [pilot6_annotations.jsonl](pilot6_annotations.jsonl)은 공통 6장의 AI 초안을 원본 사진과 대조해 수정한 Draft GT다. [기존 Draft GT](../../../data_v11/pilot6_v11_draft.jsonl)와 비교한 결과, R1–R3 판정은 18개 중 14개가 일치했다. 공식 채점에는 두 사람이 합의한 Reviewed GT를 사용한다.
 
 ## 관계별 대조

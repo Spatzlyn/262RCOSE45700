@@ -2,18 +2,16 @@
 
 AI Hub 597 Validation의 차대보행자·횡단보도 없음 자료에서 생활도로 또는 유사 이면도로 후보 4건을 추렸다. 중복 영상과 보도가 있는 장면이 많아, 아래 4건을 우선 검토 대상으로 정리했다.
 
-| 영상 ID | 프레임 라벨 수 |
-|---|---:|
-| `bb_1_160630_pedestrian_223_24150` | 16 |
-| `bb_1_180227_pedestrian_123_016` | 16 |
-| `bb_1_181002_pedestrian_192_110` | 22 |
-| `bb_1_190430_pedestrian_195_138` | 14 |
-
-## 파일 구성
+| 영상 ID | 프레임 라벨 수 | 사고 대상 보행자 표기 프레임 수 |
+|---|---:|---:|
+| `bb_1_160630_pedestrian_223_24150` | 16 | 16 |
+| `bb_1_180227_pedestrian_123_016` | 16 | 7 |
+| `bb_1_181002_pedestrian_192_110` | 22 | 3 |
+| `bb_1_190430_pedestrian_195_138` | 14 | 2 |
 
 팀 AWS의 `/data/aihub_597/2.Validation`에서 원본을 확인할 수 있다. [소스 목록](source_manifest.json)은 이 디렉터리를 기준으로 후보별 MP4, 영상 단위 JSON, 프레임 라벨 폴더의 상대 경로를 담고 있다.
 
-프레임은 `sequence_frame_number`로 확인한다. `160630`은 [v0의 t2_01](https://github.com/Spatzlyn/262RCOSE45700/blob/feat/benchmark-v0/benchmark/data/gold.jsonl)과 같은 영상이며, 기존 판단 장면의 라벨 번호는 126이다. 대상 보행자 후보는 프레임 JSON의 `category=pedestrian` 및 `isObjectA=true`로 확인할 수 있다. 최초 충돌 시점과 최종 평가용 판단 시점·대상·Box는 원본 검토 후 기록한다.
+네 영상 모두 15 FPS, 150프레임이며, 표의 68개 라벨은 일부 프레임에 해당한다. 프레임은 `sequence_frame_number`로 확인한다. `160630`은 [v0의 t2_01](https://github.com/Spatzlyn/262RCOSE45700/blob/feat/benchmark-v0/benchmark/data/gold.jsonl)과 같은 영상이며, 기존 판단 장면의 라벨 번호는 126이다. 대상 보행자 후보는 프레임 JSON의 `category=pedestrian` 및 `isObjectA=true`로 확인할 수 있다. 최초 충돌 시점과 최종 평가용 판단 시점·대상·Box는 원본 검토 후 기록한다. 프레임 라벨에는 지속적으로 추적되는 객체 ID가 없으므로 평가용 보행자 ID는 대상 확인 후 부여한다.
 
 ## 동일 사고로 분류한 영상
 

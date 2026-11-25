@@ -2,6 +2,8 @@
 
 추가 후보 3장의 판정을 11/24 검토본과 대조했다. 핵심 관계는 **7/9**, 보조 항목은 **5/12**가 일치했다. R1과 R3는 3장 모두 일치했고, R2는 2장에서 판정이 달랐다. [11/24 검토 자료](https://github.com/Spatzlyn/262RCOSE45700/tree/9afc3e87d095184b43ff588181a87db82c19f4d1/docs/data/pilot_review/pm_1124)
 
+[추가 3장 검토본 JSONL](pilot3_annotations.jsonl)에서 진행 공간 D, 관계별 판정, 객체·영역 근거와 접지점을 확인할 수 있다.
+
 ## 관계별 대조
 
 | 항목 | 일치 / 전체 | 판정이 다른 이미지 |
@@ -43,6 +45,6 @@
 
 ## 입력 및 비교 방법
 
-1. 이번 검토본 `pilot3_annotations.jsonl`과 [11/24 추가 3장 JSONL](https://github.com/Spatzlyn/262RCOSE45700/blob/9afc3e87d095184b43ff588181a87db82c19f4d1/docs/data/pilot_review/pm_1124/candidate3_pm_ai_assisted_draft.jsonl)을 `image_sha256`으로 연결했다. 3장 모두 파일명과 해시가 일치했다.
+1. [이번 검토본](pilot3_annotations.jsonl)과 [11/24 추가 3장 JSONL](https://github.com/Spatzlyn/262RCOSE45700/blob/9afc3e87d095184b43ff588181a87db82c19f4d1/docs/data/pilot_review/pm_1124/candidate3_pm_ai_assisted_draft.jsonl)을 `image_sha256`으로 연결했다. 3장 모두 파일명과 해시가 일치했다.
 2. R1–R3와 보조 4개 항목의 `state`가 같은 경우를 일치로 집계했다. 진행 공간 D의 좌표는 3장 모두 달랐으며, D·Box·Region 좌표와 근거 ID는 일치율 계산에서 제외했다.
 3. 표는 합의 전 비교 결과다. 각 항목의 최종 판정과 근거는 사진에서 위치를 확인한 뒤 기록한다.
