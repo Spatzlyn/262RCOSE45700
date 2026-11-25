@@ -1,5 +1,20 @@
 # T2 · Track 2 영상 화면 (11/25, 임시 구조)
 
+기준: [명세서 App. D.1](../docs/benchmark/Kakao_Road_VLM_Benchmark_Spec_Final.pdf) (Track 2 미래 사고 대상 예측, 지표 T2-1~T2-4), [Role_Frontend U6](../pm/role_specs/Role_Frontend.pdf).
+응답 필드 이름은 백엔드 예시(`backend/examples/track2/`)가 오면 그쪽에 맞춤 — 지금은 임시.
+
+| 명세 (App. D.1) | 화면 |
+|---|---|
+| 판단 시점 t, 최초 접촉 tc, 잔여 시간 τ = tc − t, 예측 기간 H (Pilot 2초) | 타임라인 ◆ t · 빨간 선 tc · 노란 막대 H, 판단 시점 버튼과 상단 줄에 τ |
+| 질문 "앞으로 H초 안에 내 차와 충돌할 보행자" | 선택 카드 제목 |
+| Positive(0<τ≤H) / Negative / 관측 부족(Missing) | 배지. Negative·관측 부족은 선택·위치 채점 제외로 표시 |
+| 분모: Positive · 대상이 t에 보임 · 1명 · 검수 완료 | 검수 전·정답 없음·대상 가려짐도 사유와 함께 제외 표시 |
+| Selection(번호 선택)과 Localization(Box) 따로 보고 | 카드 2개 분리 |
+| T2-1 TargetAcc, T2-2 mIoU·Acc.5, T2-3 사고 여부 P/R/F1·Completion, T2-4 Lead Time | 리포트 타일 (`T2MET`) |
+| 판단 시점마다 계산, τ 구간별 보고, 같은 영상 = 한 Source Group | τ 구간별 표 (`by_tau_bin`) |
+
+> 확인 필요: 모델 프롬프트(`work/model-ab-1123:ai_model/track2/Track2_프롬프트.md`)는 "충돌 위험이 가장 큰 보행자"라서 명세의 "H초 안에 충돌할 보행자"와 질문이 다름.
+
 `f3-f5/app.html` 상단 **T2 영상** 탭. 서버가 꺼져 있어도 예시 파일로 볼 수 있음 (`index.html`에서도 동작).
 
 | 기능 | 내용 |
@@ -30,9 +45,10 @@ API의 `video.url`은 한 번 통째로 받아 blob으로 재생 (서버가 Rang
 | 후보 번호 | `candidates[].{candidate_id, bbox_xyxy}` |
 | 정답 | `reference.{annotation_status, reference_version, target_candidate_id, target_bbox_xyxy}` |
 | 예측 | `prediction.select.{status, target_id, raw_text, format_errors}`, `prediction.box.{status, bbox_xyxy, raw_text, format_errors}` |
+| 사건·대상 (명세 D.1) | `horizon_s`, `reference.{event_label, residual_time_s, target_visible}` (τ가 없으면 tc−t로 계산해 표시) |
 | 채점 | `scoring.select.{status, correct, reason}`, `scoring.box.{status, iou, threshold, pass, reason}`, `scoring.excluded_reason`, (선택) `scoring.consistency` |
 | 라벨 프레임 | `frame_labels[].{frame, boxes[].{bbox_xyxy, is_target}}` |
-| 리포트 | `metrics.<key>.{status, value, numerator, n, ci95, reason}` — 모르는 key도 이름 그대로 표시 |
+| 리포트 | `metrics.<key>.{status, value, numerator, n, ci95, reason}` — key: `target_acc`, `miou`, `acc_05`, `event_f1`, `completion`, `lead_time_s` 등. 모르는 key도 이름 그대로 표시. `by_tau_bin[].{bin, n, metrics}` |
 
 Box는 원본 해상도 픽셀 `[x1,y1,x2,y2]` (`run_track2.py`와 같음). 0~1 값이면 정규화 좌표로 보고 변환.
 

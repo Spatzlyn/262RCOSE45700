@@ -2,6 +2,7 @@
  "item_id": "t2_180227_f90",
  "clip_id": "bb_1_180227_pedestrian_123_016",
  "data_kind": "example",
+ "horizon_s": 2,
  "video": {
   "url": null,
   "fps": 15,
@@ -82,6 +83,9 @@
  "reference": {
   "annotation_status": "Reviewed",
   "reference_version": "t2-example",
+  "event_label": "Positive",
+  "residual_time_s": 1.867,
+  "target_visible": true,
   "target_candidate_id": 2,
   "target_bbox_xyxy": [
    1037,
