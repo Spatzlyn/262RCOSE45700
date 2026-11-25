@@ -1,0 +1,13 @@
+{
+  "version": "prompt_v11_a_rev6",
+  "parent": "prompt_v11_a_rev5",
+  "schema_version": "1.1-review",
+  "system_sha256": "5274b3346277810d8f28a7ba085f41d9145bef128d41d5f60f52831d468cfd7d",
+  "task_sha256": "dc423c98df206d7582abc579e119158e30af102d7a28c6b7f02165a06d9be015",
+  "run_id": "v11_rev6_002_004_20261125_194929",
+  "items": [
+    "pilot_002",
+    "pilot_004"
+  ],
+  "model_revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+}

@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_004",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "pedestrian",
+        "bbox_xyxy_norm": [
+          0.33,
+          0.33,
+          0.41,
+          0.79
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.81,
+          0.23,
+          0.99,
+          0.61
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "reg_001",
+        "type": "occluded_forward",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.0,
+          0.35,
+          0.5
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      },
+      {
+        "region_id": "reg_002",
+        "type": "occluded_lateral",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.0,
+          0.1,
+          1.0
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      },
+      {
+        "region_id": "reg_003",
+        "type": "bottleneck",
+        "bbox_xyxy_norm": [
+          0.5,
+          0.0,
+          0.7,
+          1.0
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002"
+        ],
+        "region_ids": [],
+        "reason": "진행 공간 내에 있는 보행자와 차량을 모두 확인했기 때문입니다."
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "진입 가능한 연결 공간이나 출입구가 명확하게 관찰되지 않았습니다."
+      },
+      "R3": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002"
+        ],
+        "region_ids": [
+          "reg_001",
+          "reg_002"
+        ],
+        "reason": "전방 및 측방에 물체나 구조물에 의해 가려진 영역이 확인되었기 때문입니다."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "NA",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "진입 가능한 연결 공간이 관찰되지 않아 평가할 대상이 없습니다."
+      },
+      "forward_occlusion": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002"
+        ],
+        "region_ids": [
+          "reg_001"
+        ],
+        "reason": "전방 도로 연장부가 물체에 의해 가려진 영역이 확인되었기 때문입니다."
+      },
+      "lateral_occlusion": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "reg_002"
+        ],
+        "reason": "측방 도로 선형이 물체에 의해 가려진 영역이 확인되었기 때문입니다."
+      },
+      "bottleneck": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "reg_003"
+        ],
+        "reason": "도로가 좁아지는 공간적 제약이 확인되었기 때문입니다."
+      }
+    },
+    "actions": [
+      {
+        "code": "VERIFY_BEFORE_ADVANCE",
+        "condition": "before_entering_occluded_area",
+        "based_on": [
+          "R3"
+        ],
+        "reason": "전방 및 측방 가림 영역이 확인되어 진입 전 확인이 필요하기 때문입니다."
+      },
+      {
+        "code": "VERIFY_PASSAGE",
+        "condition": "before_passing_restricted_section",
+        "based_on": [
+          "bottleneck"
+        ],
+        "reason": "도로가 좁아지는 국소 제약이 확인되어 통과 확인이 필요하기 때문입니다."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_005",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.53,
+          0.41,
+          0.73
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.23,
+          0.54,
+          0.41,
+          0.71
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_003",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.63,
+          0.13,
+          0.83
+        ],
+        "semantic_role": "obstacle",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "reg_001",
+        "type": "occluded_forward",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "null"
+      },
+      {
+        "region_id": "reg_002",
+        "type": "occluded_lateral",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "null"
+      },
+      {
+        "region_id": "reg_003",
+        "type": "bottleneck",
+        "bbox_xyxy_norm": null,
+        "polygon_xy_norm": null,
+        "geometry_status": "null"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002",
+          "obj_003"
+        ],
+        "region_ids": [],
+        "reason": "진행 공간 내에 있는 모든 차량 객체가 관찰되었다."
+      },
+      "R2": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "진입 가능한 골목이나 출입 공간이 명확하게 관찰되지 않았다."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 또는 측방에 물체나 구조물에 의해 가려진 영역이 관찰되지 않았다."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "NA",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "진입 가능한 연결부가 관찰되지 않아 평가 불가 상태이다."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 가림이 관찰되지 않았다."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "측방 가림이 관찰되지 않았다."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "국소적인 공간적 제약이 관찰되지 않았다."
+      }
+    },
+    "actions": [
+      {
+        "code": "YIELD_IF_OCCUPIED",
+        "condition": "while_corridor_occupied",
+        "based_on": [
+          "R1"
+        ],
+        "reason": "진행 공간 내에 있는 객체들이 점유하고 있어 주의가 필요하다."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}<turn|>

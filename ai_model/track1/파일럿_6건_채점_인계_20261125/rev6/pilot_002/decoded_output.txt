@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.1-review",
+  "item_id": "pilot_002",
+  "track1": {
+    "attributes": {
+      "traffic_direction": "Two-way",
+      "direction_match": "Consistent",
+      "sidewalk_left": "P",
+      "sidewalk_right": "P"
+    },
+    "objects": [
+      {
+        "object_id": "obj_001",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.0,
+          0.0,
+          0.64,
+          1.0
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      },
+      {
+        "object_id": "obj_002",
+        "class": "car",
+        "bbox_xyxy_norm": [
+          0.63,
+          0.39,
+          1.0,
+          0.81
+        ],
+        "semantic_role": "actor",
+        "placement": "travel_space",
+        "truncated": "P",
+        "location": "in_D",
+        "orientation": "same"
+      }
+    ],
+    "regions": [
+      {
+        "region_id": "reg_001",
+        "type": "connection",
+        "bbox_xyxy_norm": [
+          0.63,
+          0.39,
+          1.0,
+          0.81
+        ],
+        "polygon_xy_norm": null,
+        "geometry_status": "P"
+      }
+    ],
+    "relations": {
+      "R1": {
+        "state": "P",
+        "object_ids": [
+          "obj_001",
+          "obj_002"
+        ],
+        "region_ids": [],
+        "reason": "진행 공간 내에 있는 두 대의 차량이 관찰되었기 때문에 R1이 P로 판단됨."
+      },
+      "R2": {
+        "state": "P",
+        "object_ids": [],
+        "region_ids": [
+          "reg_001"
+        ],
+        "reason": "오른쪽에 있는 차량의 출입 공간이 명확하게 관찰되었기 때문에 R2가 P로 판단됨."
+      },
+      "R3": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 또는 측방에 물리적으로 가려진 영역이 관찰되지 않았기 때문에 R3가 A로 판단됨."
+      }
+    },
+    "context": {
+      "connection_actor": {
+        "state": "P",
+        "object_ids": [
+          "obj_002"
+        ],
+        "region_ids": [
+          "reg_001"
+        ],
+        "reason": "오른쪽 차량이 연결된 공간을 통해 관찰되었기 때문에 연결 액터가 P로 판단됨."
+      },
+      "forward_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "전방 도로의 가림이 관찰되지 않았기 때문에 전방 가림이 A로 판단됨."
+      },
+      "lateral_occlusion": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "측방 도로의 가림이 관찰되지 않았기 때문에 측방 가림이 A로 판단됨."
+      },
+      "bottleneck": {
+        "state": "A",
+        "object_ids": [],
+        "region_ids": [],
+        "reason": "도로가 좁아지는 국소적인 제약이 관찰되지 않았기 때문에 병목 현상이 A로 판단됨."
+      }
+    },
+    "actions": [
+      {
+        "code": "MONITOR_AHEAD",
+        "condition": "no_condition",
+        "based_on": [
+          "R1",
+          "R2",
+          "R3",
+          "bottleneck"
+        ],
+        "reason": "모든 평가 항목이 A 또는 P 상태이며, 특정 조건에 따른 명확한 행동 제약이 없기 때문에 모니터링을 지속함."
+      }
+    ],
+    "unknowns": []
+  },
+  "track2": {
+    "status": "missing_input",
+    "target_object_id": null
+  },
+  "track3": {
+    "status": "missing_input",
+    "speed_change": null,
+    "direction_change": null
+  }
+}
