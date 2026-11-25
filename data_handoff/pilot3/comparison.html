@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pilot 추가 3장 대조</title>
+<style>
+:root{color-scheme:light;--ink:#142637;--muted:#4b5e70;--line:#cfdae0;--paper:#f3f7f8;--white:#fff;--accent:#00635b;font-family:Inter,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink)}main{max-width:1230px;margin:auto;padding:32px 24px 48px}h1,h2,p{margin:0}h1{font-size:clamp(28px,4vw,44px);letter-spacing:-.045em}h2{font-size:18px}.intro{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:21px}.summary{font-size:14px;color:var(--muted);line-height:1.5}.summary strong{color:var(--ink)}
+button{font:inherit;color:inherit;min-height:44px;border:1px solid var(--line);padding:8px 12px;border-radius:8px;background:var(--white);cursor:pointer;touch-action:manipulation}
+button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #007b70;outline-offset:2px}button[aria-pressed=true]{background:var(--accent);color:white;border-color:var(--accent)}
+nav,.toolbar{display:flex;gap:8px;flex-wrap:wrap}.scenes button{min-width:108px;font-variant-numeric:tabular-nums}.finder{background:var(--white);border:1px solid var(--line);border-radius:12px;margin-top:12px;padding:13px}
+.fields{display:flex;gap:8px;flex-wrap:wrap}.fields button{text-align:left;display:flex;gap:9px;align-items:center;flex:0 1 auto}.fields button span{font-weight:700;font-size:13px;white-space:nowrap}.fields small{color:var(--muted);font-weight:600;white-space:nowrap}.fields [aria-pressed=true] small{color:#e4fffa}.fields .diff:not([aria-pressed=true]){border-color:#a86623;background:#fff7e8}
+.toolbar{align-items:center;justify-content:space-between;margin:18px 0 8px}.toolbar div{display:flex;gap:7px;flex-wrap:wrap}.legend{display:flex;align-items:center;gap:11px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin:0 0 10px}.swatch{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:4px;background:var(--color)}
+.viewer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.viewer.stack{grid-template-columns:1fr}.panel{min-width:0;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel header{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px}.state{border-radius:7px;background:#e7f0ef;padding:4px 10px;font-weight:750;font-size:15px}.photo{display:block;padding:0;border:0;border-radius:0;width:100%;background:#1b252c}.photo canvas{display:block;width:100%;height:auto;aspect-ratio:16/9}.notes{padding:13px 14px 16px;line-height:1.55;min-height:91px;overflow-wrap:anywhere}.ids{margin-top:7px;color:var(--muted);font-size:13px}.zoom{background:var(--white);border:none;border-radius:10px;width:min(96vw,1400px);max-width:96vw;max-height:94dvh;padding:12px}.zoom::backdrop{background:#071621ce}.zoom header{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:10px}.zoom canvas{width:100%;height:auto;display:block}
+.sources{margin-top:20px;color:var(--muted);font-size:13px}a{color:#005b53}
+@media(max-width:680px){main{padding:20px 13px 35px}.intro{align-items:start;flex-direction:column}.viewer{grid-template-columns:1fr}.fields button{padding:7px 9px}.finder{padding:10px}.scenes button{min-width:90px}.toolbar{gap:8px}}
+
+.importer{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}.importer label{font-weight:650}.importer .summary{flex-basis:100%}.importer input{max-width:100%;min-height:44px;padding:7px 0;font:inherit}
+</style>
+</head>
+<body>
+<main>
+<div class="intro"><h1>Pilot 추가 3장 대조</h1><p class="summary"><strong>핵심 7/9</strong> · <strong>보조 5/12</strong> · 판정 차이 9건</p></div>
+<nav class="scenes" aria-label="이미지 선택" id="scenes"></nav>
+<div class="importer"><label for="photos">원본 사진 불러오기</label><input id="photos" type="file" accept="image/png" multiple><p id="photoStatus" class="summary" role="status"></p></div>
+<section class="finder"  aria-label="판정 항목"><div class="fields" id="fields"></div></section>
+<div class="toolbar">
+  <h2 id="selection" aria-live="polite"></h2>
+  <div><button id="stack" aria-pressed="false">위아래로 보기</button><button id="showD" aria-pressed="true">진행 공간 D</button><button id="showEvidence" aria-pressed="true">근거 표시</button></div>
+</div>
+<p class="legend"><span><i class="swatch" style="--color:#008b97"></i>진행 공간 D</span><span><i class="swatch" style="--color:#a75600"></i>근거 객체·영역</span><span><i class="swatch" style="--color:#a53481"></i>기록된 접지점</span><span>사진을 누르면 확대</span></p>
+<div class="viewer" id="viewer">
+  <article class="panel"><header><h2>이번 검토</h2><span class="state"></span></header><button class="photo" aria-label="이번 검토 사진 확대"><canvas width="1920" height="1080"></canvas></button><div class="notes"><p class="reason"></p><p class="ids"></p></div></article>
+  <article class="panel"><header><h2>11/24 검토</h2><span class="state"></span></header><button class="photo" aria-label="11/24 검토 사진 확대"><canvas width="1920" height="1080"></canvas></button><div class="notes"><p class="reason"></p><p class="ids"></p></div></article>
+</div>
+<p class="sources">버튼의 왼쪽 값은 이번 검토, 오른쪽 값은 11/24 검토다. <a href="https://github.com/Spatzlyn/262RCOSE45700/tree/9afc3e87d095184b43ff588181a87db82c19f4d1/docs/data/pilot_review/pm_1124">11/24 검토 자료</a></p>
+<noscript><p>사진과 판정 버튼을 보려면 JavaScript를 지원하는 HTML 뷰어에서 열어 주세요.</p></noscript>
+</main>
+<dialog id="zoom" class="zoom"><header><h2 id="zoomTitle"></h2><button id="closeZoom" autofocus>닫기</button></header><canvas width="1920" height="1080"></canvas></dialog>
+<script id="data" type="application/json">[{"id":"01009110","filename":"CK_A01_R01_day_clear_01009110_F.png","sha256":"ef3fffbeeea9d16186fcb94e7167623f2af407640ee4c9f34ab78fe035d105d3","sides":[{"d":[[0.0955,0.9523],[0.3557,0.61],[0.5124,0.3343],[0.5402,0.2247],[0.5947,0.2292],[0.6156,0.342],[0.9939,0.8876],[0.995,0.96]],"obs":{"R1":{"state":"P","object_ids":["8434","8444","8445","8439","8438","8437","8435"],"region_ids":[],"reason":"가까운 보행자 8434, 오른쪽 차량 8444·8445, 앞쪽 차량 8435·8437·8438·8439를 D 점유 근거로 표시했다."},"R2":{"state":"P","object_ids":[],"region_ids":["reg_conn_3"],"reason":"오른쪽 건물 1층의 개방된 공간이 D와 맞닿는 경계를 표시했다."},"R3":{"state":"P","object_ids":["8445"],"region_ids":["reg_occ_lat_1"],"reason":"오른쪽 흰색 차량 8445가 건물의 개방된 공간 쪽 시야를 가린다."},"connection_actor":{"state":"U","object_ids":[],"region_ids":[],"reason":"오른쪽 흰색 차량이 연결부 일부를 가려 이용자가 있는지 확인하기 어렵다."},"forward_occlusion":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"},"lateral_occlusion":{"state":"P","object_ids":["8445"],"region_ids":["reg_occ_lat_1"],"reason":"오른쪽 흰색 차량 8445가 D와 맞닿은 건물 개구부 주변을 가린다."},"bottleneck":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"}},"objects":[{"object_id":"8434","bbox_xyxy_norm":[0.7312,0.3287,0.8187,0.7046]},{"object_id":"8435","bbox_xyxy_norm":[0.5885,0.2463,0.6193,0.2926]},{"object_id":"8437","bbox_xyxy_norm":[0.5859,0.2222,0.6099,0.2676]},{"object_id":"8438","bbox_xyxy_norm":[0.5807,0.2074,0.6042,0.2472]},{"object_id":"8439","bbox_xyxy_norm":[0.5365,0.2111,0.5661,0.2704]},{"object_id":"8444","bbox_xyxy_norm":[0.7859,0.3519,1,0.7361]},{"object_id":"8445","bbox_xyxy_norm":[0.6906,0.2519,0.8995,0.512]}],"regions":[{"region_id":"reg_occ_lat_1","bbox_xyxy_norm":null,"polygon_xy_norm":null},{"region_id":"reg_conn_3","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.6285,0.3738],[0.6579,0.3639],[0.6939,0.4054],[0.6607,0.4344]]}],"points":[{"parent_object_id":"8434","point_xy_norm":[0.778,0.696]},{"parent_object_id":"8444","point_xy_norm":[0.862,0.72]},{"parent_object_id":"8445","point_xy_norm":[0.702,0.502]}]},{"d":[[0.201563,0.961111],[0.363021,0.662037],[0.388542,0.497222],[0.458333,0.374074],[0.514583,0.325926],[0.536458,0.253704],[0.54375,0.217593],[0.583854,0.219444],[0.610417,0.25463],[0.620833,0.333333],[0.673958,0.381481],[0.772917,0.453704],[0.997917,0.784259],[0.997917,0.961111]],"obs":{"R1":{"state":"P","object_ids":["8434","8444","8445","8439","pm_O2_cone"],"region_ids":[],"reason":"우측 보행자·차량, 전방 트럭과 O2 교통콘의 진행 영역 점유 후보. O1 통은 현재 D 밖."},"R2":{"state":"U","object_ids":[],"region_ids":[],"reason":"C1 우측 건물 모퉁이가 연결부처럼 보이나 차량·구조물 겹침 때문에 실제 연결 경계 불확실. C2는 미확정."},"R3":{"state":"P","object_ids":["8439"],"region_ids":["reg_fwd_truck"],"reason":"전방 가림 P, 측방 가림 A."},"connection_actor":{"state":"U","object_ids":[],"region_ids":[],"reason":"보이는 연결부 이용자는 없다는 PM 관찰. R2=U이므로 종속 규칙에 따라 U."},"forward_occlusion":{"state":"P","object_ids":["8439"],"region_ids":["reg_fwd_truck"],"reason":"전방 트럭 뒤 도로가 가려짐."},"lateral_occlusion":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"},"bottleneck":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"}},"objects":[{"object_id":"8434","bbox_xyxy_norm":[0.73125,0.328704,0.81875,0.70463]},{"object_id":"8439","bbox_xyxy_norm":[0.536458,0.211111,0.566146,0.27037]},{"object_id":"8444","bbox_xyxy_norm":[0.785937,0.351852,1.0,0.736111]},{"object_id":"8445","bbox_xyxy_norm":[0.690625,0.251852,0.899479,0.512037]},{"object_id":"pm_O2_cone","bbox_xyxy_norm":[0.664,0.343,0.697,0.442]}],"regions":[{"region_id":"reg_fwd_truck","bbox_xyxy_norm":null,"polygon_xy_norm":null}],"points":[]}]},{"id":"01036668","filename":"CK_B02_R04_lunch_clear_01036668_F.png","sha256":"4de9d363ea89438111c82b667b706c7358b5ee75610d21e1531686fe9e8ea134","sides":[{"d":[[0.01,0.96],[0.0207,0.7807],[0.265,0.495],[0.34,0.415],[0.4186,0.323],[0.4809,0.3223],[0.6228,0.4292],[0.74,0.54],[0.9965,0.8283],[0.99,0.96]],"obs":{"R1":{"state":"P","object_ids":["195828","195830","195836","195839","195829","195827"],"region_ids":[],"reason":"화물차 195828·195830·195829와 차량 195836·195839·195827을 D 점유 근거로 표시했다."},"R2":{"state":"P","object_ids":[],"region_ids":["reg_conn_1","reg_conn_2"],"reason":"도로 양쪽에 주차 공간과 D가 맞닿는 경계를 표시했다."},"R3":{"state":"P","object_ids":["195828","195830"],"region_ids":["reg_occ_fwd_1","reg_occ_lat_1"],"reason":"앞쪽 화물차 195828과 195830이 그 뒤로 이어지는 D를 가리고, 195828은 왼쪽 주차장 연결부 쪽 시야도 가린다."},"connection_actor":{"state":"P","object_ids":["195834"],"region_ids":["reg_conn_1"],"reason":"차량 195834의 접지점이 오른쪽 주차장 연결부 안에 있다."},"forward_occlusion":{"state":"P","object_ids":["195828","195830"],"region_ids":["reg_occ_fwd_1"],"reason":"화물차 195828과 195830이 그 뒤로 이어지는 D를 가린다."},"lateral_occlusion":{"state":"P","object_ids":["195828"],"region_ids":["reg_occ_lat_1"],"reason":"화물차 195828이 왼쪽 주차장 연결부 쪽 시야를 가린다."},"bottleneck":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"}},"objects":[{"object_id":"195827","bbox_xyxy_norm":[0.4182,0.312,0.4396,0.3815]},{"object_id":"195828","bbox_xyxy_norm":[0.3385,0.2398,0.4198,0.4315]},{"object_id":"195829","bbox_xyxy_norm":[0.4594,0.2778,0.4922,0.3528]},{"object_id":"195830","bbox_xyxy_norm":[0.5057,0.2722,0.5687,0.3963]},{"object_id":"195834","bbox_xyxy_norm":[0.6708,0.3343,0.8568,0.5546]},{"object_id":"195836","bbox_xyxy_norm":[0.799,0.3935,0.999,0.7157]},{"object_id":"195839","bbox_xyxy_norm":[0.4823,0.3139,0.5052,0.3648]}],"regions":[{"region_id":"reg_conn_1","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.5607,0.383],[0.5705,0.3673],[0.8077,0.5655],[0.7871,0.6083]]},{"region_id":"reg_conn_2","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.25,0.498],[0.332,0.415],[0.344,0.42],[0.268,0.504]]},{"region_id":"reg_occ_fwd_1","bbox_xyxy_norm":null,"polygon_xy_norm":null},{"region_id":"reg_occ_lat_1","bbox_xyxy_norm":null,"polygon_xy_norm":null}],"points":[{"parent_object_id":"195828","point_xy_norm":[0.408,0.428]},{"parent_object_id":"195830","point_xy_norm":[0.52,0.392]},{"parent_object_id":"195834","point_xy_norm":[0.758,0.546]},{"parent_object_id":"195836","point_xy_norm":[0.853,0.692]}]},{"d":[[0.0,0.957407],[0.0,0.793519],[0.223438,0.569444],[0.332813,0.430556],[0.386979,0.360185],[0.426042,0.32963],[0.4625,0.317593],[0.504167,0.319444],[0.569271,0.363889],[0.623958,0.435185],[0.771875,0.515741],[0.999479,0.652778],[0.999479,0.957407]],"obs":{"R1":{"state":"P","object_ids":["195828","195830","195834","195836"],"region_ids":[],"reason":"전방 트럭과 우측 차량의 D 접지 후보. 왼쪽 보도 자전거는 제외."},"R2":{"state":"P","object_ids":[],"region_ids":["reg_conn_right"],"reason":"우측 주차 공간 C2가 도로와 연결됨. C1은 미확정."},"R3":{"state":"P","object_ids":["195828"],"region_ids":["reg_fwd_truck"],"reason":"전방 가림 P, 측방 가림 A."},"connection_actor":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"},"forward_occlusion":{"state":"P","object_ids":["195828"],"region_ids":["reg_fwd_truck"],"reason":"붉은 트럭 뒤 진행 공간 가림."},"lateral_occlusion":{"state":"A","object_ids":[],"region_ids":[],"reason":"차량 뒤 별도 관찰이 필요한 측방 통행 공간이 아닌 상가 쪽 공간으로 판단."},"bottleneck":{"state":"P","object_ids":["195828","195830","195834"],"region_ids":["reg_bn_gap"],"reason":"양측 차량 사이 국소적인 폭 감소."}},"objects":[{"object_id":"195828","bbox_xyxy_norm":[0.338542,0.239815,0.419792,0.431481]},{"object_id":"195830","bbox_xyxy_norm":[0.505729,0.272222,0.56875,0.396296]},{"object_id":"195834","bbox_xyxy_norm":[0.670833,0.334259,0.856771,0.55463]},{"object_id":"195836","bbox_xyxy_norm":[0.798958,0.393519,0.998958,0.715741]}],"regions":[{"region_id":"reg_conn_right","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.644,0.431],[0.68,0.442],[0.688,0.456],[0.651,0.445]]},{"region_id":"reg_fwd_truck","bbox_xyxy_norm":null,"polygon_xy_norm":null},{"region_id":"reg_bn_gap","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.422,0.432],[0.566,0.432],[0.601,0.478],[0.418,0.478]]}],"points":[]}]},{"id":"01001486","filename":"CK_B13_R05_afterschool_clear_01001486_F.png","sha256":"d5c43b4b8c624b71a331a3a090e1b2203c7f598e78f42c4a822d26a33d8e5a2a","sides":[{"d":[[0.01,0.85],[0.26,0.45],[0.3567,0.363],[0.5235,0.3585],[0.8434,0.8634],[0.998,0.9559],[0.01,0.96]],"obs":{"R1":{"state":"P","object_ids":["57551","57556","57555","57550"],"region_ids":[],"reason":"왼쪽 승용차 57551, 오른쪽 차량 57556·57555, 멀리 있는 이륜차 57550의 접지점이 D 안에 있다."},"R2":{"state":"U","object_ids":[],"region_ids":[],"reason":"왼쪽 흰색 차량이 입구로 보이는 곳을 가려 D와 직접 이어지는지 확인하기 어렵다."},"R3":{"state":"P","object_ids":["57551"],"region_ids":["reg_occ_lat_5","reg_occ_lat_4"],"reason":"왼쪽 흰색 차량 57551이 단지 입구 쪽 시야를 가린다. 사진에서 대조할 위치 두 곳을 표시했다."},"connection_actor":{"state":"U","object_ids":["57550"],"region_ids":[],"reason":"왼쪽에 입구가 있는지 확실하지 않고, 현재 시야로는 연결부 이용자도 확인하기 어렵다."},"forward_occlusion":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"},"lateral_occlusion":{"state":"P","object_ids":["57551"],"region_ids":["reg_occ_lat_5","reg_occ_lat_4"],"reason":"왼쪽 흰색 차량 57551이 단지 입구 쪽 시야를 가린다."},"bottleneck":{"state":"P","object_ids":["57551","57555","57556"],"region_ids":["reg_bn_1"],"reason":"왼쪽 차량 57551과 오른쪽 차량 57555·57556 사이에서 통행 폭이 좁아지는 구간을 표시했다."}},"objects":[{"object_id":"57550","bbox_xyxy_norm":[0.4333,0.2926,0.4604,0.3972]},{"object_id":"57551","bbox_xyxy_norm":[0.0943,0.3213,0.3479,0.6361]},{"object_id":"57555","bbox_xyxy_norm":[0.6,0.2731,0.6849,0.5722]},{"object_id":"57556","bbox_xyxy_norm":[0.6786,0.0315,0.9995,0.8889]}],"regions":[{"region_id":"reg_bn_1","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.3062,0.6262],[0.3507,0.513],[0.6084,0.5112],[0.6731,0.628]]},{"region_id":"reg_occ_lat_4","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.092,0.4465],[0.099,0.3953],[0.1516,0.3882],[0.1238,0.4367]]},{"region_id":"reg_occ_lat_5","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.33,0.3765],[0.3446,0.363],[0.3244,0.3549]]}],"points":[{"parent_object_id":"57551","point_xy_norm":[0.298,0.625]},{"parent_object_id":"57556","point_xy_norm":[0.838,0.865]},{"parent_object_id":"57555","point_xy_norm":[0.638,0.562]},{"parent_object_id":"57550","point_xy_norm":[0.445,0.395]}]},{"d":[[0.0,0.959259],[0.0,0.648148],[0.060937,0.600926],[0.217708,0.42963],[0.334375,0.366667],[0.374479,0.359259],[0.519271,0.356481],[0.635417,0.388889],[0.795312,0.627778],[0.998958,0.886111],[0.998958,0.959259]],"obs":{"R1":{"state":"P","object_ids":["57550","57551","57555","57556"],"region_ids":[],"reason":"중앙 이륜차, 왼쪽 흰 승용차, 우측 차량의 D 접지 후보."},"R2":{"state":"P","object_ids":[],"region_ids":["reg_conn_far"],"reason":"전방 횡단부와 횡방향 도로 C1 연결. C2 미확정."},"R3":{"state":"P","object_ids":["57552","57555","57556"],"region_ids":["reg_fwd_far","reg_lat_camper"],"reason":"전방 가림과 측방 가림 모두 P."},"connection_actor":{"state":"A","object_ids":[],"region_ids":[],"reason":"-"},"forward_occlusion":{"state":"P","object_ids":["57552","57555"],"region_ids":["reg_fwd_far"],"reason":"오른쪽 차량 열이 전방 교차부 일부를 가림."},"lateral_occlusion":{"state":"P","object_ids":["57556"],"region_ids":["reg_lat_camper"],"reason":"캠핑카 뒤 측방 공간 시야 제한."},"bottleneck":{"state":"P","object_ids":["57551","57555","57556"],"region_ids":["reg_bn_gap"],"reason":"왼쪽 차량과 우측 차량 열 사이 통행 공간이 국소적으로 좁아짐. 통행 불가능 여부와 무관."}},"objects":[{"object_id":"57550","bbox_xyxy_norm":[0.433333,0.292593,0.460417,0.397222]},{"object_id":"57551","bbox_xyxy_norm":[0.094271,0.321296,0.347917,0.636111]},{"object_id":"57552","bbox_xyxy_norm":[0.525521,0.260185,0.594792,0.400926]},{"object_id":"57555","bbox_xyxy_norm":[0.6,0.273148,0.684896,0.572222]},{"object_id":"57556","bbox_xyxy_norm":[0.678646,0.031481,0.999479,0.888889]}],"regions":[{"region_id":"reg_conn_far","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.362,0.357],[0.519,0.356],[0.531,0.38],[0.371,0.383]]},{"region_id":"reg_fwd_far","bbox_xyxy_norm":null,"polygon_xy_norm":null},{"region_id":"reg_lat_camper","bbox_xyxy_norm":null,"polygon_xy_norm":null},{"region_id":"reg_bn_gap","bbox_xyxy_norm":null,"polygon_xy_norm":[[0.36,0.6],[0.62,0.6],[0.585,0.435],[0.365,0.435]]}],"points":[]}]}]</script>
+<script>
+const data=JSON.parse(document.querySelector('#data').textContent);
+const names={R1:'R1 점유',R2:'R2 연결부',R3:'R3 가림',connection_actor:'연결부 이용자',forward_occlusion:'전방 가림',lateral_occlusion:'측방 가림',bottleneck:'병목'};
+const panels=[...document.querySelectorAll('.panel')];
+const buttonLists={scenes:[],fields:[]};
+const images=new Map();
+let sceneIndex=0, field='R2', zoomSide=0;
+const toggles={stack:false,showD:true,showEvidence:true};
+const get=id=>document.getElementById(id);
+function addButton(parent,label,click){
+ const button=document.createElement('button');
+ button.type='button'; button.textContent=label; button.addEventListener('click',click);
+ parent.append(button); return button;
+}
+data.forEach((scene,index)=>buttonLists.scenes.push(addButton(get('scenes'),scene.id,()=>{
+ sceneIndex=index;
+ field=Object.keys(names).find(key=>scene.sides[0].obs[key].state!==scene.sides[1].obs[key].state)||'R1';
+ update();
+})));
+Object.entries(names).forEach(([key,label])=>{
+ const button=addButton(get('fields'),'',()=>{field=key;update();});
+ const name=document.createElement('span'); name.textContent=label;
+ const states=document.createElement('small');
+ button.append(name,states); buttonLists.fields.push({key,button,states});
+});
+function shape(ctx,points,color,fill,width=5){
+ if(!points||points.length<3)return;
+ ctx.beginPath();
+ points.forEach(([x,y],index)=>{if(index)ctx.lineTo(x*ctx.canvas.width,y*ctx.canvas.height);else ctx.moveTo(x*ctx.canvas.width,y*ctx.canvas.height);});
+ ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();
+}
+function rectangle(box){
+ if(!box)return null;
+ const [x,y,w,h]=box;
+ return [[x,y],[w,y],[w,h],[x,h]];
+}
+function tag(ctx,text,point){
+ const x=point[0]*ctx.canvas.width,y=point[1]*ctx.canvas.height;
+ ctx.font='bold 26px sans-serif';
+ const w=ctx.measureText(text).width+16;
+ const left=Math.max(0,Math.min(x,ctx.canvas.width-w));
+ const top=Math.max(0,y-34);
+ ctx.fillStyle='#171f25';ctx.fillRect(left,top,w,34);
+ ctx.fillStyle='#fff';ctx.fillText(text,left+8,top+25);
+}
+function draw(canvas,side){
+ const scene=data[sceneIndex], record=scene.sides[side], selected=record.obs[field];
+ const ctx=canvas.getContext('2d');
+ const image=images.get(scene.id);
+ ctx.fillStyle='#1b252c';ctx.fillRect(0,0,canvas.width,canvas.height);
+ if(!image||!image.complete||!image.naturalWidth){
+  ctx.fillStyle='#e3f2f2';ctx.font='36px sans-serif';ctx.textAlign='center';
+  ctx.fillText('원본 사진을 불러오면 근거를 표시합니다.',canvas.width/2,canvas.height/2);
+  ctx.textAlign='start';return;
+ }
+ ctx.drawImage(image,0,0,canvas.width,canvas.height);
+ if(toggles.showD)shape(ctx,record.d,'#5bfff4','rgba(0,225,207,.12)');
+ if(!toggles.showEvidence)return;
+ const highlighted=new Set(selected.object_ids);
+ for(const region of record.regions){
+  if(!selected.region_ids.includes(region.region_id))continue;
+  const points=region.polygon_xy_norm||rectangle(region.bbox_xyxy_norm);
+  if(points){shape(ctx,points,'#ffd15e','rgba(255,185,0,.33)',7);tag(ctx,region.region_id,points[0]);}
+ }
+ for(const object of record.objects){
+  if(!highlighted.has(object.object_id)||!object.bbox_xyxy_norm)continue;
+  const points=rectangle(object.bbox_xyxy_norm);
+  shape(ctx,points,'#ffd15e','rgba(255,185,0,.06)',6);tag(ctx,object.object_id,points[0]);
+ }
+ for(const contact of record.points){
+  if(!highlighted.has(contact.parent_object_id))continue;
+  const [x,y]=contact.point_xy_norm;
+  ctx.beginPath();ctx.arc(x*canvas.width,y*canvas.height,10,0,Math.PI*2);
+  ctx.fillStyle='#ff65c8';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();
+ }
+}
+function redraw(){
+ panels.forEach((panel,index)=>draw(panel.querySelector('canvas'),index));
+ if(get('zoom').open)draw(get('zoom').querySelector('canvas'),zoomSide);
+}
+function update(){
+ const scene=data[sceneIndex];
+ get('photoStatus').textContent=(images.has(scene.id)?'불러온 사진: ':'이 장면의 파일: ')+scene.filename;
+ get('selection').textContent=scene.id+' · '+names[field];
+ buttonLists.scenes.forEach((button,index)=>button.setAttribute('aria-pressed',index===sceneIndex));
+ buttonLists.fields.forEach(({key,button,states})=>{
+  const [a,b]=scene.sides.map(side=>side.obs[key].state);
+  states.textContent=a+' / '+b;button.classList.toggle('diff',a!==b);
+  button.setAttribute('aria-pressed',key===field);
+  button.setAttribute('aria-label',names[key]+', 이번 검토 '+a+', 11월 24일 검토 '+b+(a!==b?', 판정 다름':''));
+ });
+ panels.forEach((panel,index)=>{
+  const record=scene.sides[index], selected=record.obs[field];
+  panel.querySelector('.state').textContent=selected.state;
+  panel.querySelector('.reason').textContent=selected.reason==='-'||!selected.reason?'—':selected.reason;
+  const parts=[];
+  if(selected.object_ids.length)parts.push('객체 '+selected.object_ids.join(' · '));
+  if(selected.region_ids.length)parts.push('영역 '+selected.region_ids.map(id=>{
+   const region=record.regions.find(item=>item.region_id===id);
+   return region&&(region.polygon_xy_norm||region.bbox_xyxy_norm)?id:id+' (좌표 없음)';
+  }).join(' · '));
+  panel.querySelector('.ids').textContent=parts.join(' / ');
+ });
+ redraw();
+}
+Object.keys(toggles).forEach(key=>get(key).addEventListener('click',()=>{
+ toggles[key]=!toggles[key]; get(key).setAttribute('aria-pressed',toggles[key]);
+ if(key==='stack'){
+  get('viewer').classList.toggle('stack',toggles[key]);
+  get(key).textContent=toggles[key]?'기본 배치':'위아래로 보기';
+ }
+ redraw();
+}));
+panels.forEach((panel,index)=>panel.querySelector('.photo').addEventListener('click',()=>{
+ zoomSide=index;
+ get('zoomTitle').textContent=data[sceneIndex].id+' · '+names[field]+' · '+panel.querySelector('h2').textContent;
+ get('zoom').showModal(); redraw();
+}));
+get('closeZoom').addEventListener('click',()=>get('zoom').close());
+get('photos').addEventListener('change',async event=>{
+ const rejected=[];
+ const input=event.currentTarget;
+ for(const file of input.files){
+  const scene=data.find(item=>item.filename===file.name);
+  if(!scene){rejected.push(file.name);continue;}
+  try{
+   if(window.crypto?.subtle){
+    const digest=await crypto.subtle.digest('SHA-256',await file.arrayBuffer());
+    const hash=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+    if(hash!==scene.sha256){rejected.push(file.name);continue;}
+   }
+   const url=URL.createObjectURL(file);
+   try{
+    const image=new Image();
+    await new Promise((resolve,reject)=>{ image.onload=resolve; image.onerror=reject; image.src=url; });
+    if(image.naturalWidth!==1920||image.naturalHeight!==1080){rejected.push(file.name);continue;}
+    images.set(scene.id,image);
+   } finally { URL.revokeObjectURL(url); }
+  } catch { rejected.push(file.name); }
+ }
+ input.value='';
+ update();
+ if(rejected.length)get('photoStatus').textContent+=' · 확인할 파일: '+rejected.join(', ');
+});
+update();
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "source": "AI Hub 597 Validation",
+  "aws_root": "/data/aihub_597/2.Validation",
+  "candidates": [
+    {
+      "clip_id": "bb_1_160630_pedestrian_223_24150",
+      "video": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+      "video_label": "라벨링데이터_231108_add/VL_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.json",
+      "frame_labels_dir": "라벨링데이터_231108_add/VL_차대보행자_이미지_횡단보도없음/bb_1_160630_pedestrian_223_24150",
+      "frame_label_count": 16
+    },
+    {
+      "clip_id": "bb_1_180227_pedestrian_123_016",
+      "video": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+      "video_label": "라벨링데이터_231108_add/VL_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.json",
+      "frame_labels_dir": "라벨링데이터_231108_add/VL_차대보행자_이미지_횡단보도없음/bb_1_180227_pedestrian_123_016",
+      "frame_label_count": 16
+    },
+    {
+      "clip_id": "bb_1_181002_pedestrian_192_110",
+      "video": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_181002_pedestrian_192_110.mp4",
+      "video_label": "라벨링데이터_231108_add/VL_차대보행자_영상_횡단보도없음/bb_1_181002_pedestrian_192_110.json",
+      "frame_labels_dir": "라벨링데이터_231108_add/VL_차대보행자_이미지_횡단보도없음/bb_1_181002_pedestrian_192_110",
+      "frame_label_count": 22
+    },
+    {
+      "clip_id": "bb_1_190430_pedestrian_195_138",
+      "video": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_190430_pedestrian_195_138.mp4",
+      "video_label": "라벨링데이터_231108_add/VL_차대보행자_영상_횡단보도없음/bb_1_190430_pedestrian_195_138.json",
+      "frame_labels_dir": "라벨링데이터_231108_add/VL_차대보행자_이미지_횡단보도없음/bb_1_190430_pedestrian_195_138",
+      "frame_label_count": 14
+    }
+  ]
+}
