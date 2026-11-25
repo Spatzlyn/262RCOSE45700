@@ -1,0 +1,1977 @@
+{
+ "_request": "GET /api/track2/items",
+ "_note": "SYNTHETIC example: assumed contact frame 64 and made-up predictions, not a result",
+ "n": 28,
+ "items": [
+  {
+   "item_id": "t2_160630_223_24150_f007",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 7,
+   "decision_frame_index": 6,
+   "decision_time_s": 0.4,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      1103,
+      500,
+      1158,
+      624
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1192,
+      502,
+      1240,
+      643
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1316,
+      517,
+      1389,
+      689
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1399,
+      527,
+      1445,
+      687
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f007",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f007?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f011",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 11,
+   "decision_frame_index": 10,
+   "decision_time_s": 0.666667,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      1109,
+      500,
+      1179,
+      629
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1223,
+      499,
+      1286,
+      662
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1342,
+      516,
+      1435,
+      707
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1457,
+      524,
+      1535,
+      721
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f011",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f011?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f016",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 16,
+   "decision_frame_index": 15,
+   "decision_time_s": 1.0,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      1136,
+      498,
+      1206,
+      648
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1293,
+      492,
+      1372,
+      690
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1374,
+      529,
+      1500,
+      742
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1481,
+      485,
+      1570,
+      738
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1575,
+      528,
+      1673,
+      751
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f016",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f016?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f021",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 21,
+   "decision_frame_index": 20,
+   "decision_time_s": 1.333333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      1178,
+      498,
+      1268,
+      667
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1370,
+      492,
+      1461,
+      711
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1390,
+      533,
+      1540,
+      780
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1634,
+      478,
+      1735,
+      796
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1740,
+      521,
+      1843,
+      810
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f021",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f021?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f028",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 28,
+   "decision_frame_index": 27,
+   "decision_time_s": 1.8,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      869,
+      516,
+      898,
+      602
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      898,
+      511,
+      930,
+      604
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1053,
+      514,
+      1091,
+      608
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1273,
+      493,
+      1343,
+      695
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1431,
+      498,
+      1586,
+      862
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1569,
+      484,
+      1660,
+      785
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f028",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f028?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f036",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 36,
+   "decision_frame_index": 35,
+   "decision_time_s": 2.333333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      876,
+      512,
+      922,
+      614
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      910,
+      511,
+      957,
+      608
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1109,
+      524,
+      1154,
+      647
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1363,
+      489,
+      1479,
+      739
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1520,
+      498,
+      1686,
+      900
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1840,
+      459,
+      1919,
+      873
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f036",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f036?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f039",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 39,
+   "decision_frame_index": 38,
+   "decision_time_s": 2.533333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      893,
+      512,
+      937,
+      622
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      922,
+      510,
+      977,
+      619
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1140,
+      534,
+      1188,
+      638
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1424,
+      486,
+      1540,
+      758
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1551,
+      496,
+      1749,
+      904
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f039",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f039?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f041",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 41,
+   "decision_frame_index": 40,
+   "decision_time_s": 2.666667,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      893,
+      512,
+      937,
+      622
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      936,
+      507,
+      980,
+      620
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1174,
+      538,
+      1222,
+      649
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1471,
+      483,
+      1582,
+      760
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1572,
+      492,
+      1760,
+      902
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1762,
+      453,
+      1882,
+      795
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f041",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f041?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f043",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 43,
+   "decision_frame_index": 42,
+   "decision_time_s": 2.8,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      893,
+      512,
+      937,
+      622
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      942,
+      504,
+      986,
+      617
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1184,
+      523,
+      1251,
+      643
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1535,
+      468,
+      1629,
+      787
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1602,
+      475,
+      1817,
+      911
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1820,
+      411,
+      1915,
+      828
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f043",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f043?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f046",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 46,
+   "decision_frame_index": 45,
+   "decision_time_s": 3.0,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      903,
+      510,
+      954,
+      629
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      947,
+      504,
+      1001,
+      626
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1238,
+      525,
+      1304,
+      667
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1628,
+      467,
+      1862,
+      904
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f046",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f046?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f057",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 57,
+   "decision_frame_index": 56,
+   "decision_time_s": 3.733333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      914,
+      510,
+      977,
+      652
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      965,
+      504,
+      1031,
+      652
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1131,
+      514,
+      1168,
+      585
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1446,
+      536,
+      1554,
+      786
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1332,
+      426,
+      1758,
+      906
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f057",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f057?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f099",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 99,
+   "decision_frame_index": 98,
+   "decision_time_s": 6.533333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      365,
+      744,
+      586,
+      902
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      870,
+      488,
+      946,
+      671
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      918,
+      496,
+      980,
+      676
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1216,
+      505,
+      1251,
+      588
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f099",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f099?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f118",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 118,
+   "decision_frame_index": 117,
+   "decision_time_s": 7.8,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      302,
+      600,
+      463,
+      906
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      870,
+      488,
+      946,
+      671
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      918,
+      496,
+      985,
+      677
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      973,
+      506,
+      1017,
+      612
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1003,
+      507,
+      1060,
+      610
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1240,
+      507,
+      1276,
+      602
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1267,
+      502,
+      1309,
+      604
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f118",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f118?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f126",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 126,
+   "decision_frame_index": 125,
+   "decision_time_s": 8.333333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      281,
+      516,
+      413,
+      894
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      870,
+      488,
+      946,
+      671
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      932,
+      489,
+      994,
+      669
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      973,
+      506,
+      1017,
+      612
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1024,
+      505,
+      1062,
+      610
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1246,
+      507,
+      1278,
+      600
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1274,
+      506,
+      1317,
+      604
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f126",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f126?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f138",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 138,
+   "decision_frame_index": 137,
+   "decision_time_s": 9.133333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      196,
+      473,
+      323,
+      906
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      870,
+      488,
+      946,
+      671
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      932,
+      489,
+      994,
+      669
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      987,
+      508,
+      1023,
+      604
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1032,
+      505,
+      1067,
+      604
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1244,
+      507,
+      1280,
+      610
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1280,
+      508,
+      1319,
+      612
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f138",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f138?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_160630_223_24150_f147",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_160630_pedestrian_223_24150.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 147,
+   "decision_frame_index": 146,
+   "decision_time_s": 9.733333,
+   "width": 1920,
+   "height": 926,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      196,
+      473,
+      343,
+      906
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      870,
+      488,
+      946,
+      671
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      932,
+      489,
+      994,
+      669
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      999,
+      504,
+      1035,
+      600
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1038,
+      501,
+      1073,
+      600
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1244,
+      507,
+      1280,
+      610
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1286,
+      508,
+      1325,
+      612
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_160630_pedestrian_223_24150",
+   "frame_url": "/api/track2/frames/t2_160630_223_24150_f147",
+   "numbered_frame_url": "/api/track2/frames/t2_160630_223_24150_f147?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_180227_123_016_f031",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 31,
+   "decision_frame_index": 30,
+   "decision_time_s": 2.0,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      894,
+      588,
+      944,
+      757
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1339,
+      520,
+      1379,
+      538
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1343,
+      536,
+      1381,
+      566
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1730,
+      344,
+      1919,
+      956
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f031",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f031?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f041",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 41,
+   "decision_frame_index": 40,
+   "decision_time_s": 2.666667,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      830,
+      582,
+      900,
+      806
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1383,
+      492,
+      1448,
+      606
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1399,
+      508,
+      1464,
+      604
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f041",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f041?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f043",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 43,
+   "decision_frame_index": 42,
+   "decision_time_s": 2.8,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      824,
+      582,
+      900,
+      816
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      1397,
+      482,
+      1474,
+      653
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1409,
+      498,
+      1488,
+      647
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f043",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f043?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f047",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 47,
+   "decision_frame_index": 46,
+   "decision_time_s": 3.066667,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      671,
+      572,
+      755,
+      810
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      786,
+      570,
+      862,
+      838
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      1425,
+      486,
+      1530,
+      846
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      1427,
+      470,
+      1530,
+      848
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f047",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f047?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f055",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 55,
+   "decision_frame_index": 54,
+   "decision_time_s": 3.6,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      540,
+      558,
+      638,
+      866
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      659,
+      541,
+      792,
+      926
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      810,
+      578,
+      874,
+      757
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      862,
+      590,
+      922,
+      751
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      1455,
+      424,
+      1609,
+      902
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1457,
+      471,
+      1625,
+      906
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f055",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f055?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f059",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 59,
+   "decision_frame_index": 58,
+   "decision_time_s": 3.866667,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      282,
+      532,
+      391,
+      926
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      417,
+      546,
+      536,
+      910
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      568,
+      526,
+      736,
+      934
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      759,
+      580,
+      828,
+      771
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      814,
+      590,
+      888,
+      775
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1547,
+      385,
+      1693,
+      922
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1515,
+      467,
+      1757,
+      930
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f059",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f059?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_180227_123_016_f062",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 62,
+   "decision_frame_index": 61,
+   "decision_time_s": 4.066667,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      153,
+      518,
+      268,
+      938
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 2,
+     "bbox_xyxy_px": [
+      302,
+      534,
+      437,
+      934
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 3,
+     "bbox_xyxy_px": [
+      461,
+      502,
+      642,
+      926
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 4,
+     "bbox_xyxy_px": [
+      697,
+      572,
+      759,
+      789
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 5,
+     "bbox_xyxy_px": [
+      751,
+      586,
+      822,
+      781
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 6,
+     "bbox_xyxy_px": [
+      1579,
+      385,
+      1725,
+      922
+     ],
+     "source": "aihub_frame_label"
+    },
+    {
+     "candidate_id": 7,
+     "bbox_xyxy_px": [
+      1533,
+      467,
+      1854,
+      930
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+   "frame_url": "/api/track2/frames/t2_180227_123_016_f062",
+   "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f062?numbered=1",
+   "annotation_status": "Reviewed"
+  },
+  {
+   "item_id": "t2_181002_192_110_f052",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_181002_pedestrian_192_110.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 52,
+   "decision_frame_index": 51,
+   "decision_time_s": 3.4,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      580,
+      584,
+      685,
+      804
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_181002_pedestrian_192_110",
+   "frame_url": "/api/track2/frames/t2_181002_192_110_f052",
+   "numbered_frame_url": "/api/track2/frames/t2_181002_192_110_f052?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_181002_192_110_f055",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_181002_pedestrian_192_110.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 55,
+   "decision_frame_index": 54,
+   "decision_time_s": 3.6,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      574,
+      653,
+      671,
+      888
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_181002_pedestrian_192_110",
+   "frame_url": "/api/track2/frames/t2_181002_192_110_f055",
+   "numbered_frame_url": "/api/track2/frames/t2_181002_192_110_f055?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_181002_192_110_f057",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_181002_pedestrian_192_110.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 57,
+   "decision_frame_index": 56,
+   "decision_time_s": 3.733333,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      566,
+      707,
+      693,
+      888
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_181002_pedestrian_192_110",
+   "frame_url": "/api/track2/frames/t2_181002_192_110_f057",
+   "numbered_frame_url": "/api/track2/frames/t2_181002_192_110_f057?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_190430_195_138_f132",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_190430_pedestrian_195_138",
+   "source_group_id": "bb_1_190430_pedestrian_195_138",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_190430_pedestrian_195_138.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 132,
+   "decision_frame_index": 131,
+   "decision_time_s": 8.733333,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      280,
+      470,
+      547,
+      1042
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_190430_pedestrian_195_138",
+   "frame_url": "/api/track2/frames/t2_190430_195_138_f132",
+   "numbered_frame_url": "/api/track2/frames/t2_190430_195_138_f132?numbered=1",
+   "annotation_status": "Draft"
+  },
+  {
+   "item_id": "t2_190430_195_138_f138",
+   "track": "track2",
+   "data_kind": "real",
+   "clip_id": "bb_1_190430_pedestrian_195_138",
+   "source_group_id": "bb_1_190430_pedestrian_195_138",
+   "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_190430_pedestrian_195_138.mp4",
+   "fps": 15,
+   "n_frames": 150,
+   "duration_s": 10.0,
+   "label_frame": 138,
+   "decision_frame_index": 137,
+   "decision_time_s": 9.133333,
+   "width": 1920,
+   "height": 1080,
+   "candidates": [
+    {
+     "candidate_id": 1,
+     "bbox_xyxy_px": [
+      280,
+      810,
+      369,
+      1042
+     ],
+     "source": "aihub_frame_label"
+    }
+   ],
+   "candidate_order": "left_to_right_by_box_center",
+   "frame_url_available": true,
+   "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)",
+   "video_url": "/api/track2/videos/bb_1_190430_pedestrian_195_138",
+   "frame_url": "/api/track2/frames/t2_190430_195_138_f138",
+   "numbered_frame_url": "/api/track2/frames/t2_190430_195_138_f138?numbered=1",
+   "annotation_status": "Draft"
+  }
+ ]
+}

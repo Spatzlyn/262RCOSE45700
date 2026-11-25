@@ -1,0 +1,22 @@
+{
+ "item_id": "t2_160630_223_24150_f039",
+ "track": "track2",
+ "annotation_status": "Draft",
+ "reference_version": "t2-draft-aihub-isObjectA-20261125",
+ "event_time_s": null,
+ "event_time_status": "Missing",
+ "horizon_s": 2.0,
+ "target_candidate_ids": [
+  5
+ ],
+ "n_targets": 1,
+ "target_visible": true,
+ "target_box_xyxy_px": [
+  1551,
+  496,
+  1749,
+  904
+ ],
+ "target_source": "aihub_isObjectA (draft, not human-confirmed)",
+ "reviewers": []
+}

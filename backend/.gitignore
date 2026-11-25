@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 .env
 store/cache/
+store/track2/frames/
+store/track2/results/
