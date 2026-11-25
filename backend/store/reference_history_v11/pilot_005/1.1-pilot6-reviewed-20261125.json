@@ -1,0 +1,290 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_005",
+ "index": 5,
+ "image_id": "01114394",
+ "image": "CV_A01_R03_lunch_rainy_01114394_F.png",
+ "dataset_split": "Pilot_6",
+ "width": 1920,
+ "height": 1080,
+ "image_sha256": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+ "source_group": "230915_4(V)/230915_134904_V/230915_134904_V(10)/image_F",
+ "annotation_status": "Reviewed",
+ "reference_version": "1.1-pilot6-reviewed-20261125",
+ "reviewed_fields": [
+  "R1",
+  "R2",
+  "R3",
+  "connection_actor",
+  "forward_occlusion",
+  "lateral_occlusion",
+  "bottleneck"
+ ],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "generated_at": "2026-11-23T09:44:12Z",
+ "seconds": null,
+ "driving_area": [
+  [
+   0.3018,
+   0.9491
+  ],
+  [
+   0.4809,
+   0.6011
+  ],
+  [
+   0.5474,
+   0.5727
+  ],
+  [
+   0.5586,
+   0.5639
+  ],
+  [
+   0.566,
+   0.5838
+  ],
+  [
+   0.5529,
+   0.5982
+  ],
+  [
+   0.5902,
+   0.6442
+  ],
+  [
+   0.6182,
+   0.6467
+  ],
+  [
+   0.9175,
+   0.9886
+  ]
+ ],
+ "driving_area_source": "user_pilot_C_preserved",
+ "original_driving_area": [
+  [
+   0.3018,
+   0.9491
+  ],
+  [
+   0.4809,
+   0.6011
+  ],
+  [
+   0.5474,
+   0.5727
+  ],
+  [
+   0.5586,
+   0.5639
+  ],
+  [
+   0.566,
+   0.5838
+  ],
+  [
+   0.5529,
+   0.5982
+  ],
+  [
+   0.5902,
+   0.6442
+  ],
+  [
+   0.6182,
+   0.6467
+  ],
+  [
+   0.9175,
+   0.9886
+  ]
+ ],
+ "geometry_edits": [],
+ "objects": [
+  {
+   "object_id": "259502",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.1865,
+    0.5454,
+    0.4167,
+    0.7306
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "259503",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.2786,
+    0.5361,
+    0.4464,
+    0.675
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "259504",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3984,
+    0.5546,
+    0.4708,
+    0.6528
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "259505",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0,
+    0.6176,
+    0.1313,
+    0.8926
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "reg_conn_1",
+   "type": "connection",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.288,
+     0.945
+    ],
+    [
+     0.472,
+     0.6
+    ],
+    [
+     0.486,
+     0.604
+    ],
+    [
+     0.312,
+     0.948
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "D 좌측과 건물 1층의 개방형 주차 공간이 맞닿는 경계."
+  }
+ ],
+ "contact_points": [],
+ "relations": {
+  "R1": {
+   "state": "U",
+   "object_ids": [
+    "259504"
+   ],
+   "region_ids": [],
+   "reason": "좌측 주차열 끝 차량 259504의 바퀴 접지와 D 좌측 경계가 흐릿해 바퀴가 D에 들어오는지 확인하기 어렵다."
+  },
+  "R2": {
+   "state": "P",
+   "object_ids": [],
+   "region_ids": [
+    "reg_conn_1"
+   ],
+   "reason": "좌측 건물 1층의 개방형 주차 공간이 D와 맞닿는 경계를 표시했다."
+  },
+  "R3": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "P",
+   "object_ids": [
+    "259504"
+   ],
+   "region_ids": [
+    "reg_conn_1"
+   ],
+   "reason": "차량 259504의 왼쪽 바퀴 접지가 연결부 reg_conn_1 안에 있다."
+  },
+  "forward_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "lateral_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "bottleneck": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "legacy_user_gt": {
+  "R1": "P",
+  "R1_ids": [
+   "259504"
+  ],
+  "R2": "A",
+  "R2_ids": [],
+  "R3": "A",
+  "R3_ids": [],
+  "R4": "A",
+  "R4_ids": [],
+  "legacy_status": "Draft",
+  "legacy_schema_note": "v1.0 Pilot GT.csv의 과거 판정. R4는 v1.0 항목이다."
+ },
+ "notes": "",
+ "id_seq": {
+  "obj": 1,
+  "reg": 3,
+  "cp": 2
+ },
+ "source_files": {
+  "image": "CV_A01_R03_lunch_rainy_01114394_F.png",
+  "aihub_label": "CV_A01_R03_lunch_rainy_01114394_F.png.json",
+  "user_draft": "CV_A01_R03_lunch_rainy_01114394_F.json",
+  "user_gt_csv": "GT.csv"
+ },
+ "image_file": "CV_A01_R03_lunch_rainy_01114394_F.png",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "parent_reference_version": "1.1-taemun-pilot6-ai-assisted-review-01",
+ "evidence_reviewed_fields": [],
+ "reviewers": [
+  "한태문",
+  "윤유경"
+ ]
+}

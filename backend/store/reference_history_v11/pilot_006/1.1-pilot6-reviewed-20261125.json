@@ -1,0 +1,534 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_006",
+ "index": 6,
+ "image_id": "01045907",
+ "image": "CV_A06_R04_mrh_clear_01045907_F.png",
+ "dataset_split": "Pilot_6",
+ "width": 1920,
+ "height": 1080,
+ "image_sha256": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858",
+ "source_group": "230914_1(V)/230914_084719_V/230914_084719_V(4)/image_F",
+ "annotation_status": "Reviewed",
+ "reference_version": "1.1-pilot6-reviewed-20261125",
+ "reviewed_fields": [
+  "R1",
+  "R2",
+  "R3",
+  "connection_actor",
+  "forward_occlusion",
+  "lateral_occlusion",
+  "bottleneck"
+ ],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "generated_at": "2026-11-23T09:44:12Z",
+ "seconds": null,
+ "driving_area": [
+  [
+   0.0039,
+   0.8483
+  ],
+  [
+   0.446,
+   0.5153
+  ],
+  [
+   0.4804,
+   0.4847
+  ],
+  [
+   0.5278,
+   0.4898
+  ],
+  [
+   0.5802,
+   0.6289
+  ],
+  [
+   0.6233,
+   0.6378
+  ],
+  [
+   0.7926,
+   0.9771
+  ],
+  [
+   0.0118,
+   0.9784
+  ]
+ ],
+ "driving_area_source": "user_pilot_C_preserved",
+ "original_driving_area": [
+  [
+   0.0039,
+   0.8483
+  ],
+  [
+   0.446,
+   0.5153
+  ],
+  [
+   0.4804,
+   0.4847
+  ],
+  [
+   0.5278,
+   0.4898
+  ],
+  [
+   0.5802,
+   0.6289
+  ],
+  [
+   0.6233,
+   0.6378
+  ],
+  [
+   0.7926,
+   0.9771
+  ],
+  [
+   0.0118,
+   0.9784
+  ]
+ ],
+ "geometry_edits": [
+  {
+   "at": "2026-11-23T10:34:05.794Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:10.216Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:13.283Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:16.194Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:18.849Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:49.704Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:34:57.750Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  },
+  {
+   "at": "2026-11-23T10:36:17.699Z",
+   "detail": "꼭짓점 조정 reg_conn_1"
+  }
+ ],
+ "objects": [
+  {
+   "object_id": "132738",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3417,
+    0.5519,
+    0.5312,
+    0.7991
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132739",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4396,
+    0.5093,
+    0.5208,
+    0.6111
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132740",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3682,
+    0.463,
+    0.4182,
+    0.5287
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132741",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.2354,
+    0.4722,
+    0.2557,
+    0.5843
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132742",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.7995,
+    0.563,
+    0.8953,
+    0.9991
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132743",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.5396,
+    0.4954,
+    0.5719,
+    0.6417
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132744",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.5292,
+    0.4963,
+    0.5443,
+    0.6046
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132745",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.0578,
+    0.5333,
+    0.1005,
+    0.725
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132746",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4094,
+    0.4685,
+    0.4396,
+    0.5167
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132747",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4349,
+    0.4861,
+    0.5,
+    0.5417
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132749",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.5026,
+    0.5083,
+    0.5234,
+    0.5509
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132750",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4854,
+    0.475,
+    0.5094,
+    0.4972
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132751",
+   "class": "truck",
+   "source_label": "TruckBus",
+   "bbox_xyxy_norm": [
+    0.3917,
+    0.4602,
+    0.4448,
+    0.5019
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132752",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.5245,
+    0.4815,
+    0.5339,
+    0.5519
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "132753",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.5437,
+    0.4759,
+    0.5531,
+    0.5139
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "reg_conn_1",
+   "type": "connection",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.3785,
+     0.5418
+    ],
+    [
+     0.4439,
+     0.5102
+    ],
+    [
+     0.45,
+     0.5145
+    ],
+    [
+     0.4057,
+     0.5519
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "좌측 목재 가림막 끝에서 D와 맞닿는 측방 개구부 경계."
+  },
+  {
+   "region_id": "reg_occ_fwd_1",
+   "type": "occluded_forward",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": null,
+   "geometry_status": "unmeasured",
+   "note": "앞차 132738 너머로 가려진 D의 노면."
+  }
+ ],
+ "contact_points": [
+  {
+   "contact_id": "cp_132738",
+   "parent_object_id": "132738",
+   "point_xy_norm": [
+    0.362,
+    0.798
+   ],
+   "note": "검은 앞차의 왼쪽 뒷바퀴 접지점. D 안에 있다."
+  },
+  {
+   "contact_id": "cp_132743",
+   "parent_object_id": "132743",
+   "point_xy_norm": [
+    0.55,
+    0.638
+   ],
+   "note": "우측 보행자의 발 접지점. D 우측 안쪽에 있다."
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "P",
+   "object_ids": [
+    "132738",
+    "132739",
+    "132743",
+    "132744",
+    "132752"
+   ],
+   "region_ids": [],
+   "reason": "전방 차량 132738·132739와 보행자 132743·132744·132752를 D 점유 근거로 선택했다."
+  },
+  "R2": {
+   "state": "P",
+   "object_ids": [],
+   "region_ids": [
+    "reg_conn_1"
+   ],
+   "reason": "좌측 목재 가림막 끝에서 D와 맞닿는 개구부를 표시했다."
+  },
+  "R3": {
+   "state": "P",
+   "object_ids": [
+    "132738"
+   ],
+   "region_ids": [
+    "reg_occ_fwd_1"
+   ],
+   "reason": "가까운 앞차 132738이 D의 전방 노면을 가린다."
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "P",
+   "object_ids": [
+    "132746"
+   ],
+   "region_ids": [
+    "reg_conn_1"
+   ],
+   "reason": "차량 132746을 좌측 개구부의 연결부 이용자로 표시했다."
+  },
+  "forward_occlusion": {
+   "state": "P",
+   "object_ids": [
+    "132738"
+   ],
+   "region_ids": [
+    "reg_occ_fwd_1"
+   ],
+   "reason": "가까운 앞차 132738이 D의 전방 노면을 가린다. 가려진 노면의 범위는 측정하지 않았다."
+  },
+  "lateral_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "bottleneck": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "legacy_user_gt": {
+  "R1": "P",
+  "R1_ids": [
+   "132738",
+   "132739",
+   "132743",
+   "132744",
+   "132752"
+  ],
+  "R2": "A",
+  "R2_ids": [],
+  "R3": "A",
+  "R3_ids": [],
+  "R4": "A",
+  "R4_ids": [],
+  "legacy_status": "Draft",
+  "legacy_schema_note": "v1.0 Pilot GT.csv의 과거 판정. R4는 v1.0 항목이다."
+ },
+ "notes": "",
+ "id_seq": {
+  "obj": 1,
+  "reg": 4,
+  "cp": 3
+ },
+ "source_files": {
+  "image": "CV_A06_R04_mrh_clear_01045907_F.png",
+  "aihub_label": "CV_A06_R04_mrh_clear_01045907_F.png.json",
+  "user_draft": "CV_A06_R04_mrh_clear_01045907_F.json",
+  "user_gt_csv": "GT.csv"
+ },
+ "image_file": "CV_A06_R04_mrh_clear_01045907_F.png",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "parent_reference_version": "1.1-taemun-pilot6-ai-assisted-review-01",
+ "evidence_reviewed_fields": [],
+ "reviewers": [
+  "한태문",
+  "윤유경"
+ ]
+}

@@ -1,0 +1,500 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_001",
+ "index": 1,
+ "image_id": "01021252",
+ "image": "CK_A01_R01_erh_rainy_01021252_F.png",
+ "dataset_split": "Pilot_6",
+ "width": 1920,
+ "height": 1080,
+ "image_sha256": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+ "source_group": "230913_4/230913_181649_K/230913_181649_K(1)/image_F",
+ "annotation_status": "Reviewed",
+ "reference_version": "1.1-pilot6-reviewed-20261125",
+ "reviewed_fields": [
+  "R1",
+  "R2",
+  "R3",
+  "connection_actor",
+  "forward_occlusion",
+  "lateral_occlusion",
+  "bottleneck"
+ ],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "generated_at": "2026-11-23T09:44:12Z",
+ "seconds": null,
+ "driving_area": [
+  [
+   0.0434,
+   1
+  ],
+  [
+   0.4925,
+   0.3068
+  ],
+  [
+   0.5477,
+   0.3068
+  ],
+  [
+   0.9978,
+   0.9611
+  ]
+ ],
+ "driving_area_source": "user_pilot_C_preserved",
+ "original_driving_area": [
+  [
+   0.0434,
+   1
+  ],
+  [
+   0.4925,
+   0.3068
+  ],
+  [
+   0.5477,
+   0.3068
+  ],
+  [
+   0.9978,
+   0.9611
+  ]
+ ],
+ "geometry_edits": [],
+ "objects": [
+  {
+   "object_id": "204911",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4797,
+    0.2991,
+    0.5167,
+    0.3472
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204912",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.6698,
+    0.2889,
+    0.774,
+    0.4306
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204913",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.524,
+    0.2944,
+    0.5594,
+    0.3389
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204914",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.0016,
+    0.2463,
+    0.3464,
+    0.6491
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204915",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3318,
+    0.2852,
+    0.3927,
+    0.4528
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204916",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3922,
+    0.2907,
+    0.45,
+    0.3796
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204917",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.7688,
+    0.2519,
+    0.9995,
+    0.8102
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204918",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.574,
+    0.2981,
+    0.5865,
+    0.3676
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204919",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.5599,
+    0.3009,
+    0.5776,
+    0.3259
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204920",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.599,
+    0.2731,
+    0.6526,
+    0.4333
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204921",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3844,
+    0.3194,
+    0.4188,
+    0.388
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204922",
+   "class": "pedestrian",
+   "source_label": "Adult",
+   "bbox_xyxy_norm": [
+    0.4583,
+    0.2944,
+    0.4703,
+    0.3704
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204923",
+   "class": "traffic_sign",
+   "source_label": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.7812,
+    0.1111,
+    0.8109,
+    0.162
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204924",
+   "class": "traffic_sign",
+   "source_label": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.7781,
+    0.0657,
+    0.8036,
+    0.1111
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204925",
+   "class": "traffic_sign",
+   "source_label": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.5932,
+    0.2065,
+    0.6042,
+    0.2259
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204926",
+   "class": "personal_mobility",
+   "source_label": "Personal Mobility",
+   "bbox_xyxy_norm": [
+    0.5849,
+    0.3065,
+    0.5984,
+    0.3657
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204927",
+   "class": "traffic_sign",
+   "source_label": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.5927,
+    0.2287,
+    0.6042,
+    0.2472
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204928",
+   "class": "traffic_sign",
+   "source_label": "Traffic Sign",
+   "bbox_xyxy_norm": [
+    0.5568,
+    0.1917,
+    0.5854,
+    0.2278
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "204929",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.4411,
+    0.3028,
+    0.4521,
+    0.35
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "reg_occ_lat_pm1",
+   "type": "occluded_lateral",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": null,
+   "geometry_status": "occluded_extent_not_measurable",
+   "note": "상가 앞 주차 차량 뒤 측방 통행공간; 정확한 가시 경계 미측정."
+  }
+ ],
+ "contact_points": [
+  {
+   "contact_id": "cp_204920",
+   "parent_object_id": "204920",
+   "point_xy_norm": [
+    0.625,
+    0.431
+   ],
+   "note": "우측에서 우산을 쓴 보행자의 발 접지점. D 우측 경계 안쪽에 있다."
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "P",
+   "object_ids": [
+    "204911",
+    "204913",
+    "204920",
+    "204922",
+    "204918"
+   ],
+   "region_ids": [],
+   "reason": "원거리 차량 204911·204913과 보행자 204918·204920·204922를 D 점유 근거로 선택했다."
+  },
+  "R2": {
+   "state": "U",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "양쪽 상가와 주차 차량은 보이지만 D에 직접 이어지는 입구 경계는 확인하기 어렵다."
+  },
+  "R3": {
+   "state": "P",
+   "object_ids": [
+    "204914",
+    "204915",
+    "204912"
+   ],
+   "region_ids": [
+    "reg_occ_lat_pm1"
+   ],
+   "reason": "상가 간판과 건물 배치로 측방 통로의 위치를 추정할 수 있으며, 주차 차량이 그 방향의 시야를 가린다."
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "연결부의 실제 경계가 불분명해 이용자가 있는지 확인할 수 없다."
+  },
+  "forward_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "lateral_occlusion": {
+   "state": "P",
+   "object_ids": [
+    "204914",
+    "204915",
+    "204912"
+   ],
+   "region_ids": [
+    "reg_occ_lat_pm1"
+   ],
+   "reason": "상가 간판과 건물 배치가 측방 통로의 위치를 뒷받침한다. 좌측 차량 204914·204915와 우측 차량 204912가 측방 시야를 가리며, 가려진 범위는 표시하지 않았다."
+  },
+  "bottleneck": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "legacy_user_gt": {
+  "R1": "P",
+  "R1_ids": [
+   "204911",
+   "204913",
+   "204916",
+   "204918",
+   "204919",
+   "204920",
+   "204922",
+   "204926"
+  ],
+  "R2": "A",
+  "R2_ids": [],
+  "R3": "A",
+  "R3_ids": [],
+  "R4": "A",
+  "R4_ids": [],
+  "legacy_status": "Draft",
+  "legacy_schema_note": "v1.0 Pilot GT.csv의 과거 판정. R4는 v1.0 항목이다."
+ },
+ "notes": "",
+ "id_seq": {
+  "obj": 1,
+  "reg": 2,
+  "cp": 2
+ },
+ "source_files": {
+  "image": "CK_A01_R01_erh_rainy_01021252_F.png",
+  "aihub_label": "CK_A01_R01_erh_rainy_01021252_F.png.json",
+  "user_draft": "CK_A01_R01_erh_rainy_01021252_F.json",
+  "user_gt_csv": "GT.csv"
+ },
+ "image_file": "CK_A01_R01_erh_rainy_01021252_F.png",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "parent_reference_version": "1.1-taemun-pilot6-ai-assisted-review-01",
+ "evidence_reviewed_fields": [],
+ "reviewers": [
+  "한태문",
+  "윤유경"
+ ]
+}

@@ -1,0 +1,506 @@
+{
+ "scorer_commit": "5a5e96223b88beacc3133a8340be947e6962d5b4",
+ "runs": {
+  "v11_a_e18f74ffcc": {
+   "prompt": "prompt_v11_a",
+   "schema_version": "1.1-review",
+   "reference_versions": [
+    "1.1-pilot6-reviewed-20261125"
+   ],
+   "official": {
+    "result_hash": "36238e7e801c84356f7f536c5d40e58b52fe0c45f50a39e84f45cadcd58afec4",
+    "prediction_status_counts": {
+     "invalid": 6
+    },
+    "n_requests": 6,
+    "n_scored_items": 6,
+    "metrics": {
+     "v1_valid": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "v2_invalid": {
+      "status": "computed",
+      "value": 1.0,
+      "numerator": 6,
+      "n": 6,
+      "reason": null
+     },
+     "v5_relation_macro_f1": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "V5 needs reviewed GT in all 9 cells; empty: ['R2.A', 'R3.U']",
+      "supported_class_macro_f1": {
+       "value": 0.0,
+       "n_cells": 7
+      }
+     },
+     "v6_present_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 12,
+      "reason": null
+     },
+     "v7_false_positive_rate": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v8_unknown_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v9_over_abstention": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 15,
+      "reason": null
+     },
+     "v3_grounding": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "no reviewed reference objects"
+     },
+     "v4_evidence": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no P/U relation with reviewed evidence"
+     },
+     "v10_action_pass_rate": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no scene eligible for action scoring"
+     },
+     "v13_statement_error_rate": {
+      "status": "not_computed",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically"
+     }
+    },
+    "context_metrics": {
+     "connection_actor": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "forward_occlusion": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "lateral_occlusion": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "bottleneck": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     }
+    }
+   },
+   "diagnostic_fence_stripped": {
+    "result_hash": "d356584220d692f121b96144d856c24e0d137c1ec8a937e4237f05b4167785df",
+    "prediction_status_counts": {
+     "invalid": 4,
+     "valid": 2
+    },
+    "n_requests": 6,
+    "n_scored_items": 6,
+    "metrics": {
+     "v1_valid": {
+      "status": "computed",
+      "value": 0.333333,
+      "numerator": 2,
+      "n": 6,
+      "reason": null
+     },
+     "v2_invalid": {
+      "status": "computed",
+      "value": 0.666667,
+      "numerator": 4,
+      "n": 6,
+      "reason": null
+     },
+     "v5_relation_macro_f1": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "V5 needs reviewed GT in all 9 cells; empty: ['R2.A', 'R3.U']",
+      "supported_class_macro_f1": {
+       "value": 0.214286,
+       "n_cells": 7
+      }
+     },
+     "v6_present_recall": {
+      "status": "computed",
+      "value": 0.25,
+      "numerator": 3,
+      "n": 12,
+      "reason": null
+     },
+     "v7_false_positive_rate": {
+      "status": "computed",
+      "value": 0.333333,
+      "numerator": 1,
+      "n": 3,
+      "reason": null
+     },
+     "v8_unknown_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v9_over_abstention": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 15,
+      "reason": null
+     },
+     "v3_grounding": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "no reviewed reference objects"
+     },
+     "v4_evidence": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no P/U relation with reviewed evidence"
+     },
+     "v10_action_pass_rate": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no scene eligible for action scoring"
+     },
+     "v13_statement_error_rate": {
+      "status": "not_computed",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically"
+     }
+    },
+    "context_metrics": {
+     "connection_actor": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     },
+     "forward_occlusion": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     },
+     "lateral_occlusion": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     },
+     "bottleneck": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     }
+    }
+   }
+  },
+  "v11_b_9895a83702": {
+   "prompt": "prompt_v11_b",
+   "schema_version": "1.1-review",
+   "reference_versions": [
+    "1.1-pilot6-reviewed-20261125"
+   ],
+   "official": {
+    "result_hash": "36238e7e801c84356f7f536c5d40e58b52fe0c45f50a39e84f45cadcd58afec4",
+    "prediction_status_counts": {
+     "invalid": 6
+    },
+    "n_requests": 6,
+    "n_scored_items": 6,
+    "metrics": {
+     "v1_valid": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "v2_invalid": {
+      "status": "computed",
+      "value": 1.0,
+      "numerator": 6,
+      "n": 6,
+      "reason": null
+     },
+     "v5_relation_macro_f1": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "V5 needs reviewed GT in all 9 cells; empty: ['R2.A', 'R3.U']",
+      "supported_class_macro_f1": {
+       "value": 0.0,
+       "n_cells": 7
+      }
+     },
+     "v6_present_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 12,
+      "reason": null
+     },
+     "v7_false_positive_rate": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v8_unknown_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v9_over_abstention": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 15,
+      "reason": null
+     },
+     "v3_grounding": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "no reviewed reference objects"
+     },
+     "v4_evidence": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no P/U relation with reviewed evidence"
+     },
+     "v10_action_pass_rate": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no scene eligible for action scoring"
+     },
+     "v13_statement_error_rate": {
+      "status": "not_computed",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically"
+     }
+    },
+    "context_metrics": {
+     "connection_actor": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "forward_occlusion": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "lateral_occlusion": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "bottleneck": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     }
+    }
+   },
+   "diagnostic_fence_stripped": {
+    "result_hash": "ee373d9492ce65183ccdbd3304dae1f59c9cb63c291c997a2a2a04469d26fe10",
+    "prediction_status_counts": {
+     "invalid": 4,
+     "valid": 2
+    },
+    "n_requests": 6,
+    "n_scored_items": 6,
+    "metrics": {
+     "v1_valid": {
+      "status": "computed",
+      "value": 0.333333,
+      "numerator": 2,
+      "n": 6,
+      "reason": null
+     },
+     "v2_invalid": {
+      "status": "computed",
+      "value": 0.666667,
+      "numerator": 4,
+      "n": 6,
+      "reason": null
+     },
+     "v5_relation_macro_f1": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "V5 needs reviewed GT in all 9 cells; empty: ['R2.A', 'R3.U']",
+      "supported_class_macro_f1": {
+       "value": 0.17619,
+       "n_cells": 7
+      }
+     },
+     "v6_present_recall": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 2,
+      "n": 12,
+      "reason": null
+     },
+     "v7_false_positive_rate": {
+      "status": "computed",
+      "value": 0.333333,
+      "numerator": 1,
+      "n": 3,
+      "reason": null
+     },
+     "v8_unknown_recall": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 3,
+      "reason": null
+     },
+     "v9_over_abstention": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 15,
+      "reason": null
+     },
+     "v3_grounding": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "no reviewed reference objects"
+     },
+     "v4_evidence": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no P/U relation with reviewed evidence"
+     },
+     "v10_action_pass_rate": {
+      "status": "not_applicable",
+      "value": null,
+      "numerator": 0,
+      "n": 0,
+      "reason": "no scene eligible for action scoring"
+     },
+     "v13_statement_error_rate": {
+      "status": "not_computed",
+      "value": null,
+      "numerator": null,
+      "n": null,
+      "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically"
+     }
+    },
+    "context_metrics": {
+     "connection_actor": {
+      "status": "computed",
+      "value": 0.0,
+      "numerator": 0,
+      "n": 6,
+      "reason": null
+     },
+     "forward_occlusion": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     },
+     "lateral_occlusion": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     },
+     "bottleneck": {
+      "status": "computed",
+      "value": 0.166667,
+      "numerator": 1,
+      "n": 6,
+      "reason": null
+     }
+    }
+   }
+  }
+ },
+ "scorer_version": "backend-scorer-0.3.0-v11-review"
+}

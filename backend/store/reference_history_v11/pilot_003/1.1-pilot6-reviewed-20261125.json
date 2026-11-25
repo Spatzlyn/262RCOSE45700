@@ -1,0 +1,327 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_003",
+ "index": 3,
+ "image_id": "01065701",
+ "image": "CK_B02_R05_afterschool_clear_01065701_F.png",
+ "dataset_split": "Pilot_6",
+ "width": 1920,
+ "height": 1080,
+ "image_sha256": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+ "source_group": "230918/230918_150830_K/230918_150830_K(1)/image_F",
+ "annotation_status": "Reviewed",
+ "reference_version": "1.1-pilot6-reviewed-20261125",
+ "reviewed_fields": [
+  "R1",
+  "R2",
+  "R3",
+  "connection_actor",
+  "forward_occlusion",
+  "lateral_occlusion",
+  "bottleneck"
+ ],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "generated_at": "2026-11-23T09:44:12Z",
+ "seconds": null,
+ "driving_area": [
+  [
+   0.0822,
+   0.9708
+  ],
+  [
+   0.3735,
+   0.3992
+  ],
+  [
+   0.5953,
+   0.4056
+  ],
+  [
+   0.5981,
+   0.4541
+  ],
+  [
+   0.9699,
+   0.9554
+  ]
+ ],
+ "driving_area_source": "user_pilot_C_preserved",
+ "original_driving_area": [
+  [
+   0.0822,
+   0.9708
+  ],
+  [
+   0.3735,
+   0.3992
+  ],
+  [
+   0.5953,
+   0.4056
+  ],
+  [
+   0.5981,
+   0.4541
+  ],
+  [
+   0.9699,
+   0.9554
+  ]
+ ],
+ "geometry_edits": [
+  {
+   "at": "2026-11-23T10:24:36.306Z",
+   "detail": "영역 추가 reg_conn_3(connection)"
+  },
+  {
+   "at": "2026-11-23T10:24:49.625Z",
+   "detail": "영역 추가 reg_conn_4(connection)"
+  }
+ ],
+ "objects": [
+  {
+   "object_id": "361821",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.2135,
+    0.312,
+    0.3396,
+    0.4611
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "361822",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.3771,
+    0.2981,
+    0.4495,
+    0.3963
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "361823",
+   "class": "truck",
+   "source_label": "TruckBus",
+   "bbox_xyxy_norm": [
+    0.4507,
+    0.2769,
+    0.5247,
+    0.4028
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "361824",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.5312,
+    0.3009,
+    0.5984,
+    0.4111
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "361825",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.2938,
+    0.2833,
+    0.3792,
+    0.388
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "reg_conn_1",
+   "type": "connection",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.372,
+     0.394
+    ],
+    [
+     0.596,
+     0.4
+    ],
+    [
+     0.596,
+     0.415
+    ],
+    [
+     0.37,
+     0.41
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "D 끝부분과 횡방향 도로 또는 주차 공간이 맞닿는 경계."
+  },
+  {
+   "region_id": "reg_conn_3",
+   "type": "connection",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0,
+     0.8728
+    ],
+    [
+     0.2077,
+     0.5822
+    ],
+    [
+     0.2815,
+     0.5966
+    ],
+    [
+     0.1263,
+     0.9272
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "좌측 가까운 포장 공간과 도로가 맞닿는 경계."
+  },
+  {
+   "region_id": "reg_conn_4",
+   "type": "connection",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.2744,
+     0.513
+    ],
+    [
+     0.3082,
+     0.5346
+    ],
+    [
+     0.3684,
+     0.4232
+    ],
+    [
+     0.334,
+     0.4115
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "좌측 먼 포장 개구부와 도로가 맞닿는 경계."
+  }
+ ],
+ "contact_points": [],
+ "relations": {
+  "R1": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "R2": {
+   "state": "P",
+   "object_ids": [],
+   "region_ids": [
+    "reg_conn_1",
+    "reg_conn_4",
+    "reg_conn_3"
+   ],
+   "reason": "D 끝의 횡방향 개구부와 좌측의 가까운 지점 및 먼 지점에 연결 경계를 표시했다."
+  },
+  "R3": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "forward_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "lateral_occlusion": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  },
+  "bottleneck": {
+   "state": "A",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "-"
+  }
+ },
+ "legacy_user_gt": {
+  "R1": "A",
+  "R1_ids": [],
+  "R2": "A",
+  "R2_ids": [],
+  "R3": "A",
+  "R3_ids": [],
+  "R4": "A",
+  "R4_ids": [],
+  "legacy_status": "Draft",
+  "legacy_schema_note": "v1.0 Pilot GT.csv의 과거 판정. R4는 v1.0 항목이다."
+ },
+ "notes": "",
+ "id_seq": {
+  "obj": 1,
+  "reg": 5,
+  "cp": 1
+ },
+ "source_files": {
+  "image": "CK_B02_R05_afterschool_clear_01065701_F.png",
+  "aihub_label": "CK_B02_R05_afterschool_clear_01065701_F.png.json",
+  "user_draft": "CK_B02_R05_afterschool_clear_01065701_F.json",
+  "user_gt_csv": "GT.csv"
+ },
+ "image_file": "CK_B02_R05_afterschool_clear_01065701_F.png",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "parent_reference_version": "1.1-taemun-pilot6-ai-assisted-review-01",
+ "evidence_reviewed_fields": [],
+ "reviewers": [
+  "한태문",
+  "윤유경"
+ ]
+}

@@ -26,7 +26,10 @@ def prediction():
 
 def test_preview_not_scored_and_version_isolated(client):
     assert len(store.references(VERSION)) == 6
-    assert all(x["annotation_status"] == "Draft" for x in store.references(VERSION).values())
+    # 2026-11-25: consensus GT imported as Reviewed (7 judgment fields only; objects/evidence/actions not reviewed)
+    refs = store.references(VERSION).values()
+    assert {(x["annotation_status"], x["reference_version"]) for x in refs} == {("Reviewed", "1.1-pilot6-reviewed-20261125")}
+    assert not any(x.get("objects_reviewed") or x.get("actions_reviewed") for x in refs)
     assert client.get(f"/api/runs/{PREVIEW}").json()["status"] == "review_only"
     report = client.get(f"/api/runs/{PREVIEW}/report").json()
     assert report["n_requests"] == 6 and report["n_scored_items"] == 0
@@ -74,7 +77,8 @@ def test_v11_worker_prompt_and_synthetic_result(client):
                       json={"status": "ok", "raw_text": raw, "output_text": raw})
     assert out.status_code == 200
     report = client.get("/api/runs/TEST-WORKER/report").json()
-    assert report["prediction_status_counts"] == {"valid": 1} and report["n_scored_items"] == 0
+    # pilot_002 now has a Reviewed reference, so the synthetic valid output is scored (7 judgment fields)
+    assert report["prediction_status_counts"] == {"valid": 1} and report["n_scored_items"] == 1
 
 
 def test_all_negative_action_and_draft_exclusion():
@@ -113,8 +117,8 @@ def test_wrong_conditional_basis_and_v11_rollup():
 
 def test_quality_leak_and_freeze_not_promoted(client):
     quality = client.get("/api/quality", params={"schema_version": VERSION}).json()
-    assert quality["l1_l2"]["status"] == "not_computed" and quality["l3"]["n_reviewed"] == 0
-    assert len(quality["l3"]["empty_cells"]) == 9
+    assert quality["l1_l2"]["status"] == "not_computed" and quality["l3"]["n_reviewed"] == 6
+    assert sorted(quality["l3"]["empty_cells"]) == ["R2.A", "R3.U"]
     split = store.split("v11-pilot-dev")
     assert len(split["assignments"]) == 7 and set(split["assignments"].values()) == {"dev"}
     assert client.get("/api/datasets/v11-pilot-dev/leak-check").json()["passed"] is True

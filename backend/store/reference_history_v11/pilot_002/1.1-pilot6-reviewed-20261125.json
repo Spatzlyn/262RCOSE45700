@@ -1,0 +1,303 @@
+{
+ "schema_version": "1.1-review",
+ "item_id": "pilot_002",
+ "index": 2,
+ "image_id": "01010324",
+ "image": "CK_A09_R05_day_clear_01010324_F.png",
+ "dataset_split": "Pilot_6",
+ "width": 1920,
+ "height": 1080,
+ "image_sha256": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+ "source_group": "230906_1_modify/230906_113409_K/230906_113409_K(1)/image_F",
+ "annotation_status": "Reviewed",
+ "reference_version": "1.1-pilot6-reviewed-20261125",
+ "reviewed_fields": [
+  "R1",
+  "R2",
+  "R3",
+  "connection_actor",
+  "forward_occlusion",
+  "lateral_occlusion",
+  "bottleneck"
+ ],
+ "objects_reviewed": false,
+ "actions_reviewed": false,
+ "generated_at": "2026-11-23T09:44:12Z",
+ "seconds": null,
+ "driving_area": [
+  [
+   0.0078,
+   0.9758
+  ],
+  [
+   0.3072,
+   0.5721
+  ],
+  [
+   0.3783,
+   0.3432
+  ],
+  [
+   0.5939,
+   0.3581
+  ],
+  [
+   0.9487,
+   0.9814
+  ]
+ ],
+ "driving_area_source": "user_pilot_C_preserved",
+ "original_driving_area": [
+  [
+   0.0078,
+   0.9758
+  ],
+  [
+   0.3072,
+   0.5721
+  ],
+  [
+   0.3783,
+   0.3432
+  ],
+  [
+   0.5939,
+   0.3581
+  ],
+  [
+   0.9487,
+   0.9814
+  ]
+ ],
+ "geometry_edits": [
+  {
+   "at": "2026-11-23T10:17:15.449Z",
+   "detail": "영역 추가 reg_occ_fwd_4(occluded_forward)"
+  },
+  {
+   "at": "2026-11-23T10:18:07.258Z",
+   "detail": "영역 추가 reg_occ_lat_5(occluded_lateral)"
+  },
+  {
+   "at": "2026-11-23T10:18:35.463Z",
+   "detail": "영역 추가 reg_occ_lat_6(occluded_lateral)"
+  },
+  {
+   "at": "2026-11-23T10:23:15.239Z",
+   "detail": "영역 추가 reg_occ_fwd_7(occluded_forward)"
+  }
+ ],
+ "objects": [
+  {
+   "object_id": "16457",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0.6318,
+    0.3926,
+    0.999,
+    0.762
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  },
+  {
+   "object_id": "16458",
+   "class": "car",
+   "source_label": "Car",
+   "bbox_xyxy_norm": [
+    0,
+    0.1769,
+    0.6354,
+    1
+   ],
+   "source": "user_pilot_draft_preserved",
+   "semantic_role": null,
+   "placement": null,
+   "location": null,
+   "orientation": null
+  }
+ ],
+ "regions": [
+  {
+   "region_id": "reg_bn_1",
+   "type": "bottleneck",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.625,
+     0.785
+    ],
+    [
+     0.625,
+     0.56
+    ],
+    [
+     0.68,
+     0.56
+    ],
+    [
+     0.715,
+     0.785
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "16458의 후미와 16457의 전면 사이에서 폭이 좁아지는 구간."
+  },
+  {
+   "region_id": "reg_occ_fwd_7",
+   "type": "occluded_forward",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": [
+    [
+     0.618,
+     0.407
+    ],
+    [
+     0.6316,
+     0.496
+    ],
+    [
+     0.6801,
+     0.4816
+    ]
+   ],
+   "geometry_status": "visible_boundary_annotation",
+   "note": "좌측 승합차와 우측 흰색 승용차 사이에 표시한 전방 가림 위치."
+  },
+  {
+   "region_id": "reg_occ_lat_pm2",
+   "type": "occluded_lateral",
+   "bbox_xyxy_norm": null,
+   "polygon_xy_norm": null,
+   "geometry_status": "occluded_extent_not_measurable",
+   "note": "양쪽 차량에 의한 측방 시야 제한; 숨은 범위 미측정."
+  }
+ ],
+ "contact_points": [
+  {
+   "contact_id": "cp_16457",
+   "parent_object_id": "16457",
+   "point_xy_norm": [
+    0.72,
+    0.76
+   ],
+   "note": "우측 흰색 승용차의 왼쪽 앞바퀴가 붉은 노면에 닿는 지점. 기존 D 안에 있다."
+  }
+ ],
+ "relations": {
+  "R1": {
+   "state": "P",
+   "object_ids": [
+    "16457"
+   ],
+   "region_ids": [],
+   "reason": "우측 흰색 승용차 16457의 앞바퀴 접지가 기존 D 안에 있다."
+  },
+  "R2": {
+   "state": "U",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "차량이 개구부 주변 지면을 가려 양쪽 출입구가 실제로 D에 연결되는지 확인하기 어렵다."
+  },
+  "R3": {
+   "state": "P",
+   "object_ids": [
+    "16458",
+    "16457"
+   ],
+   "region_ids": [
+    "reg_occ_fwd_7",
+    "reg_occ_lat_pm2"
+   ],
+   "reason": "좌측 승합차 16458이 D의 전방 연장 구간을 가리며 근거리의 두 차량이 측방 시야도 가린다."
+  }
+ },
+ "context": {
+  "connection_actor": {
+   "state": "U",
+   "object_ids": [],
+   "region_ids": [],
+   "reason": "연결부 경계가 불분명해 이용자를 확인할 수 없다."
+  },
+  "forward_occlusion": {
+   "state": "P",
+   "object_ids": [
+    "16458"
+   ],
+   "region_ids": [
+    "reg_occ_fwd_7"
+   ],
+   "reason": "좌측 승합차 16458이 D의 전방 연장 구간을 가린다. 표시한 영역은 가림 위치의 단서다."
+  },
+  "lateral_occlusion": {
+   "state": "P",
+   "object_ids": [
+    "16458",
+    "16457"
+   ],
+   "region_ids": [
+    "reg_occ_lat_pm2"
+   ],
+   "reason": "좌측 승합차 16458과 우측 흰색 승용차 16457이 양쪽 시야를 가린다. 가려진 측방 범위는 따로 표시하지 않았다."
+  },
+  "bottleneck": {
+   "state": "P",
+   "object_ids": [
+    "16457",
+    "16458"
+   ],
+   "region_ids": [
+    "reg_bn_1"
+   ],
+   "reason": "16458과 16457 사이에서 국소적으로 폭이 좁아지는 구간을 표시했다."
+  }
+ },
+ "legacy_user_gt": {
+  "R1": "P",
+  "R1_ids": [
+   "16457"
+  ],
+  "R2": "P",
+  "R2_ids": [
+   "16457"
+  ],
+  "R3": "P",
+  "R3_ids": [
+   "16458"
+  ],
+  "R4": "P",
+  "R4_ids": [
+   "16457",
+   "16458"
+  ],
+  "legacy_status": "Draft",
+  "legacy_schema_note": "v1.0 Pilot GT.csv의 과거 판정. R4는 v1.0 항목이다."
+ },
+ "notes": "",
+ "id_seq": {
+  "obj": 1,
+  "reg": 8,
+  "cp": 2
+ },
+ "source_files": {
+  "image": "CK_A09_R05_day_clear_01010324_F.png",
+  "aihub_label": "CK_A09_R05_day_clear_01010324_F.png.json",
+  "user_draft": "CK_A09_R05_day_clear_01010324_F.json",
+  "user_gt_csv": "GT.csv"
+ },
+ "image_file": "CK_A09_R05_day_clear_01010324_F.png",
+ "image_size": [
+  1920,
+  1080
+ ],
+ "parent_reference_version": "1.1-taemun-pilot6-ai-assisted-review-01",
+ "evidence_reviewed_fields": [],
+ "reviewers": [
+  "한태문",
+  "윤유경"
+ ]
+}

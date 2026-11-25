@@ -8,3 +8,9 @@
 - [이전 6장 v1.0 Draft 비교](examples/pilot6_draft_gt/): 기존 지표 비교용이며 새 v1.1 성능으로 간주하지 않음.
 
 운영 배포 전 현재 스토어를 백업하고 동일 버전의 API/worker를 갱신. 실제 GPU와 사람 검수 전 신규 공식 점수 미산출. [실행·운영 인수인계](../README_v11_HANDOFF.md) 참조.
+
+## 2026-11-25 · v1.1 Pilot A/B 채점
+
+- 합의 GT `1.1-pilot6-reviewed-20261125` 가져오기(Reviewed 6건, 7개 판정만 검수). 모델팀 A/B Run `v11_a_e18f74ffcc`, `v11_b_9895a83702` 등록(`tools/import_v11_ab.py`).
+- 문항별 결과·제외 사유·GT 버전: [docs/backend/v11_ab_scoring_20261125](../docs/backend/v11_ab_scoring_20261125/README.md) (`tools/export_v11_scoring.py`). 공식은 첫 응답 그대로(12건 형식 실패), 코드 펜스 제거 진단은 별도 표기.
+- 테스트 36개 통과. 운영 서버는 아직 v1.0 코드이며 v1.1 배포는 별도(`tools/install_v11.py`).
