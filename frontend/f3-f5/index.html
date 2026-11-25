@@ -423,7 +423,8 @@ function F2(){
   ${isPreview()?'<div class="note warn">검토용 문항입니다. 모델 추론 및 사람 정답 검수 전이며, 성능 표가 아닙니다.</div>':''}
   <div class="core">${bigTile('v5_relation_macro_f1',M,cmp)}${bigTile('v10_action_pass_rate',M,cmp)}</div>
   ${cmp&&cmp.status!=='computed'?`<div class="verdict na"><b>비교 불가</b><span class="small muted">${why0(cmp.reason)}</span></div>`:''}
-  ${!isPreview()&&d.n_requests&&!(c.valid||0)?`<div class="note warn">형식 통과 ${c.valid||0}/${d.n_requests} · 형식 오류도 요청 수에 남고, 관계·보조 판정은 정답을 놓친 것(FN)으로 계산돼요. 원문은 장면 상세에서 확인.</div>`:''}
+  ${!isPreview()&&!(c.valid||0)&&(c.invalid||0)+(c.timeout||0)>0&&!(c.not_returned||0)?`<div class="note warn">형식 통과 0/${d.n_requests} · 형식 오류도 요청 수에 남고, 관계·보조 판정은 정답을 놓친 것(FN)으로 계산돼요. 원문은 장면 상세에서 확인.</div>`:''}
+  ${(c.not_returned||0)?`<div class="note">결과 대기 ${c.not_returned}건 · 대기 중인 요청도 분모에 들어가 있어 지금 값은 잠정이에요.</div>`:''}
   <div class="stats">
     <div class="card stat"><b>${d.n_requests}</b><span>요청</span></div>
     <div class="card stat"><b>${c.valid||0}</b><span>형식 통과</span></div>
