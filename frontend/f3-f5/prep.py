@@ -4,6 +4,14 @@
 #             (dry_run_v1: kakao_dryrun/representative_inference + source/integrated_annotation_sample)
 #   mock_dir: frontend/frontend/mock (scenes.json, meta.json)
 import json, base64, io, sys, os
+# 화면만 고쳤을 때: python3 prep.py --html-only  → 기존 data.json으로 index.html·app.html만 다시 만듦 (원본 데이터 폴더 불필요)
+if len(sys.argv)>1 and sys.argv[1]=='--html-only':
+    here=os.path.dirname(os.path.abspath(__file__))
+    t=open(os.path.join(here,'template.html'),encoding='utf-8').read()
+    out=json.load(open(os.path.join(here,'data.json'),encoding='utf-8'))
+    open(os.path.join(here,'index.html'),'w',encoding='utf-8').write(t.replace('__DATA__',json.dumps(out,ensure_ascii=False),1))
+    open(os.path.join(here,'app.html'),'w',encoding='utf-8').write(t.replace('__DATA__','null',1))
+    print('index.html, app.html <- template.html + data.json'); sys.exit(0)
 from PIL import Image
 R=(sys.argv[1] if len(sys.argv)>1 else 'real').rstrip('/')+'/'
 MK=(sys.argv[2] if len(sys.argv)>2 else '../frontend/mock').rstrip('/')+'/'
