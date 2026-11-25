@@ -1,6 +1,7 @@
 # 프론트엔드 · 고연오 · v1.1
 
-- [현재 실행 화면](f3-f5/app.html): F1~F5 실제 API 연결.
+- [현재 실행 화면](f3-f5/app.html): F1~F5 실제 API 연결 + **T2 Track 2 영상** ([설명](TRACK2_VIEWER.md), 11/25 임시 구조).
+- 11/25: v1.1 보조 4개를 F3·F4·F5에 표시, 새 실제 Run `v11_a_e18f74ffcc`·`v11_b_9895a83702`로 F1~F5 확인 (F4 기본 Base = 예측 있는 같은 버전 Run, 형식 오류 원문 표시). 화면만 고친 뒤 `python3 prep.py --html-only`.
 - [원본 템플릿](f3-f5/template.html): View 수정은 이 파일부터 진행.
 - [단일 파일 미리보기](f3-f5/index.html): 기존 파일 모드; 원본 데이터 사진은 공개 브랜치에서 제외. 실제 사진은 API 모드에서 기존 `IMAGE_ROOT`로 조회.
 - [로컬 F1~F5 검증 기록](../browser_verification.json) 및 [검증 스크립트](../check_f1_f5.mjs).

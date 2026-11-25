@@ -23,7 +23,9 @@ try {
   await page.screenshot({path:'F2_v11.png',fullPage:true});
   await step(2,'검토 문항 목록');assert.equal(await page.locator('#app button.item').count(),6);checks.push('F3 six draft items');
   await page.screenshot({path:'F3_v11.png',fullPage:true});
-  await step(3,'모델 비교');assert.match(await page.locator('#app').textContent(),/비교 불가/);assert.equal(await page.locator('select[aria-label="Base"] option').count(),2);checks.push('F4 only same-version preview runs');
+  await step(3,'모델 비교');assert.match(await page.locator('#app').textContent(),/비교 불가/);
+  /* Base 후보 = 같은 v1.1 Run만 (work/backend-1125부터 실제 v11_a/b가 추가돼 2개 이상) */
+  assert.equal(await page.locator('select[aria-label="Base"] option').count(),await page.evaluate(()=>api.runs.filter(r=>r.schema_version==='1.1-review').length));checks.push('F4 only same-version runs');
   await page.screenshot({path:'F4_v11.png',fullPage:true});
   await step(2,'검토 문항 목록');await page.locator('button.item').filter({hasText:'pilot_002'}).click();
   await page.waitForFunction(()=>document.querySelector('.stage')?.dataset.imageState==='loaded');
@@ -33,6 +35,17 @@ try {
   await page.screenshot({path:'F5_Pilot002_v11.png',fullPage:true});
   await page.locator('select[aria-label="Run"]').selectOption('RUN-PILOT6-BASE-001');
   await step(1,'관계 12칸 F1');checks.push('legacy v1.0 preserved');
+  /* 새 v1.1 Run(실제 추론 A): 보조 4개 줄과 형식 오류 원문 */
+  if(await page.locator('select[aria-label="Run"] option[value="v11_a_e18f74ffcc"]').count()){
+    await page.locator('select[aria-label="Run"]').selectOption('v11_a_e18f74ffcc');await step(2,'오류 목록');
+    assert.equal(await page.locator('#app button.item .aux').first().locator('.ax').count(),4);
+    await page.locator('button.item').filter({hasText:'pilot_003'}).click();await page.waitForFunction(()=>document.querySelector('#app').textContent.includes('모델 원문'));checks.push('v1.1 real run: auxiliary row, raw output');}
+  /* T2 Track 2: 서버에 Track 2 API가 없으면 임시 예시로 확인 */
+  await page.locator('#steps button').filter({hasText:'영상'}).click();
+  await page.waitForFunction(()=>/Track 2/.test(document.querySelector('#app').textContent));
+  if(await page.getByRole('button',{name:'임시 예시로 보기'}).count())await page.getByRole('button',{name:'임시 예시로 보기'}).click();
+  await page.waitForFunction(()=>document.querySelector('#t2badge')?.textContent.includes('판단 시점'));
+  assert.ok(await page.locator('#t2svg rect').count()>0);assert.ok(await page.locator('.tl .dc').count()>0);checks.push('T2 decision point, boxes, timeline');
   assert.deepEqual(errors,[]);
   await writeFile('browser_verification.json',JSON.stringify({checks,errors},null,2));
   console.log(checks.join('\n'));

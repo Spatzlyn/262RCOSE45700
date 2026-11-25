@@ -1,0 +1,39 @@
+{
+ "run_id": "T2-EXAMPLE",
+ "provisional": true,
+ "metrics": {
+  "select_accuracy": {
+   "status": "computed",
+   "value": 0.25,
+   "numerator": 1,
+   "n": 4
+  },
+  "box_iou_mean": {
+   "status": "computed",
+   "value": 0.4150666666666667,
+   "n": 3
+  },
+  "box_pass_rate": {
+   "status": "computed",
+   "value": 0.25,
+   "numerator": 1,
+   "n": 4
+  },
+  "select_valid": {
+   "status": "computed",
+   "value": 0.6,
+   "numerator": 3,
+   "n": 5
+  },
+  "box_valid": {
+   "status": "computed",
+   "value": 0.8,
+   "numerator": 4,
+   "n": 5
+  },
+  "same_target_rate": {
+   "status": "not_computed",
+   "reason": "same-target rule pending"
+  }
+ }
+}

@@ -1,0 +1,226 @@
+{
+ "item_id": "t2_180227_f90",
+ "clip_id": "bb_1_180227_pedestrian_123_016",
+ "data_kind": "example",
+ "video": {
+  "url": null,
+  "fps": 15,
+  "n_frames": 150,
+  "width": 1920,
+  "height": 1080
+ },
+ "decision": {
+  "frame": 90,
+  "time_s": 6.033
+ },
+ "first_collision": {
+  "frame": 118,
+  "time_s": 7.9
+ },
+ "input_frames_s": [
+  0,
+  0.2,
+  0.4,
+  0.6,
+  0.8,
+  1,
+  1.2,
+  1.4,
+  1.6,
+  1.8,
+  2,
+  2.2,
+  2.4,
+  2.6,
+  2.8,
+  3,
+  3.2,
+  3.4,
+  3.6,
+  3.8,
+  4,
+  4.2,
+  4.4,
+  4.6,
+  4.8,
+  5,
+  5.2,
+  5.4,
+  5.6,
+  5.8,
+  6
+ ],
+ "candidates": [
+  {
+   "candidate_id": 1,
+   "bbox_xyxy": [
+    400,
+    540,
+    470,
+    720
+   ]
+  },
+  {
+   "candidate_id": 2,
+   "bbox_xyxy": [
+    1037,
+    503,
+    1117,
+    720
+   ]
+  },
+  {
+   "candidate_id": 3,
+   "bbox_xyxy": [
+    1600,
+    520,
+    1660,
+    700
+   ]
+  }
+ ],
+ "reference": {
+  "annotation_status": "Reviewed",
+  "reference_version": "t2-example",
+  "target_candidate_id": 2,
+  "target_bbox_xyxy": [
+   1037,
+   503,
+   1117,
+   720
+  ]
+ },
+ "prediction": {
+  "select": {
+   "status": "invalid",
+   "raw_text": "```json\n{\"target_id\": 2}\n```",
+   "format_errors": [
+    "JSON parse error: Expecting value: line 1 column 1 (char 0)"
+   ]
+  },
+  "box": {
+   "status": "valid",
+   "raw_text": "{\"bbox_xyxy\":[990,480,1100,760]}",
+   "bbox_xyxy": [
+    990,
+    480,
+    1100,
+    760
+   ]
+  }
+ },
+ "scoring": {
+  "select": {
+   "status": "computed",
+   "correct": false,
+   "reason": "invalid_output"
+  },
+  "box": {
+   "status": "computed",
+   "iou": 0.3964,
+   "threshold": 0.5,
+   "pass": false,
+   "reason": null
+  }
+ },
+ "frame_labels": [
+  {
+   "frame": 80,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1060,
+      520,
+      1120,
+      690
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 84,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1051,
+      513,
+      1119,
+      702
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 88,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1041,
+      507,
+      1117,
+      714
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 90,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1037,
+      503,
+      1117,
+      720
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 96,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1023,
+      493,
+      1115,
+      738
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 100,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1013,
+      487,
+      1113,
+      750
+     ],
+     "is_target": true
+    }
+   ]
+  },
+  {
+   "frame": 104,
+   "boxes": [
+    {
+     "bbox_xyxy": [
+      1004,
+      480,
+      1112,
+      762
+     ],
+     "is_target": true
+    }
+   ]
+  }
+ ]
+}
