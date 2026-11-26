@@ -743,7 +743,7 @@ async function t2Files(files){
 /* 영상: 파일로 연 MP4 → API 주소 직접 재생(Range). 서버가 구간 이동을 못 하면 한 번 통째로 받아 blob으로 */
 function t2vid(it){if(t2.videos[it.clip])return t2.videos[it.clip];if(!it.url||t2.src!=='api')return '';
   const u=/^(https?|blob|data):/.test(it.url)?it.url:api.base+it.url,s=t2.vfetch[it.clip];
-  if(s==='bad')return '';if(s!=='blob')return u;
+  if(s==='bad'||s==='codec')return '';if(s!=='blob')return u;
   t2.vfetch[it.clip]='loading';fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob();})
     .then(bl=>{t2.videos[it.clip]=URL.createObjectURL(bl);t2.vfetch[it.clip]='ok';},()=>{t2.vfetch[it.clip]='bad';}).then(()=>{if(st.view==='t2'&&t2cur().clip===it.clip)render();});
   return '';}
@@ -790,7 +790,8 @@ function t2bind(){const it=t2cur(),v=t2v();
   if(v){v.playbackRate=t2.rate;
     v.addEventListener('loadedmetadata',()=>{if(!it.nF&&isFinite(v.duration)){it.nF=Math.round(v.duration*it.fps);render();return;}v.currentTime=Math.min(t2.t,v.duration);t2paint();});
     v.addEventListener('seeked',()=>{if(!t2.playing){if(Math.abs(v.currentTime-t2.t)>.5&&t2.src==='api'&&!t2.vfetch[it.clip]&&!t2.videos[it.clip]){t2.vfetch[it.clip]='blob';render();return;}t2paint();}});
-    v.addEventListener('error',()=>{t2.vfetch[it.clip]='bad';render();});}
+    /* code 4 = 브라우저가 코덱을 못 틂 (AI Hub 원본은 MPEG-4 Part 2 'mp4v' → 서버에서 H.264 변환 필요) */
+    v.addEventListener('error',()=>{t2.vfetch[it.clip]=v.error&&v.error.code===4?'codec':'bad';render();});}
   t2paint();}
 document.addEventListener('keydown',e=>{if(st.view!=='t2'||/INPUT|SELECT|TEXTAREA/.test((e.target||{}).tagName||''))return;
   if(e.key===' '){e.preventDefault();t2toggle();}else if(e.key===','||e.key==='ArrowLeft'){e.preventDefault();t2step(-1);}else if(e.key==='.'||e.key==='ArrowRight'){e.preventDefault();t2step(1);}});
@@ -859,7 +860,7 @@ function T2(){
     <div class="left">
       <div class="stage t2stage" style="aspect-ratio:${it.W}/${it.H}">
         ${furl?`<img id="t2fi" src="${esc(furl)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill" onerror="this.remove()">`:''}
-        ${vurl?`<video id="t2v" src="${esc(vurl)}" muted playsinline preload="auto"></video>`:`<span class="t2novid">${vload?'영상 불러오는 중…':t2.vfetch[it.clip]==='bad'?'영상을 불러오지 못했어요 · 판단 시점 프레임만':`영상 없음 · ${esc(it.clip)}.mp4 열면 재생`}</span>`}
+        ${vurl?`<video id="t2v" src="${esc(vurl)}" muted playsinline preload="auto"></video>`:`<span class="t2novid">${vload?'영상 불러오는 중…':t2.vfetch[it.clip]==='codec'?'브라우저가 이 영상 형식을 못 틀어요 (H.264 변환 필요) · 판단 시점 프레임만':t2.vfetch[it.clip]==='bad'?'영상을 불러오지 못했어요 · 판단 시점 프레임만':`영상 없음 · ${esc(it.clip)}.mp4 열면 재생`}</span>`}
         ${nurl?`<img id="t2nf" src="${esc(nurl)}" alt="모델 입력 프레임" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:none" onerror="this.remove()">`:''}
         <svg id="t2svg" viewBox="0 0 ${it.W} ${it.H}" preserveAspectRatio="none"></svg><span class="t2badge" id="t2badge"></span><span class="t2time" id="t2time"></span></div>
       <div class="t2ctl"><button class="btn" id="t2play" onclick="t2toggle()" title="재생/정지 (스페이스)">▶ 재생</button><button class="btn" onclick="t2step(-1)" title="이전 프레임 (← 또는 ,)">‹ 1f</button><button class="btn" onclick="t2step(1)" title="다음 프레임 (→ 또는 .)">1f ›</button>
