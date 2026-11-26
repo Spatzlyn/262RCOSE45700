@@ -40,12 +40,13 @@ try {
     await page.locator('select[aria-label="Run"]').selectOption('v11_a_e18f74ffcc');await step(2,'오류 목록');
     assert.equal(await page.locator('#app button.item .aux').first().locator('.ax').count(),4);
     await page.locator('button.item').filter({hasText:'pilot_003'}).click();await page.waitForFunction(()=>document.querySelector('#app').textContent.includes('모델 원문'));checks.push('v1.1 real run: auxiliary row, raw output');}
-  /* T2 Track 2: 서버에 Track 2 API가 없으면 임시 예시로 확인 */
+  /* T2 Track 2: /api/track2/* (work/backend-1125부터). 실제 Run t2_pilot28_gemma_base는 Draft GT라 공식 점수 N/A */
   await page.locator('#steps button').filter({hasText:'영상'}).click();
-  await page.waitForFunction(()=>/Track 2/.test(document.querySelector('#app').textContent));
-  if(await page.getByRole('button',{name:'임시 예시로 보기'}).count())await page.getByRole('button',{name:'임시 예시로 보기'}).click();
   await page.waitForFunction(()=>document.querySelector('#t2badge')?.textContent.includes('판단 시점'));
-  assert.ok(await page.locator('#t2svg rect').count()>0);assert.ok(await page.locator('.tl .dc').count()>0);checks.push('T2 decision point, boxes, timeline');
+  assert.ok(await page.locator('#t2svg rect').count()>0);assert.ok(await page.locator('.tl .dc').count()>0);
+  assert.equal(await page.locator('button.dbtn').count(),await page.evaluate(()=>t2.items.length));
+  if(await page.evaluate(()=>t2.run==='t2_pilot28_gemma_base')){assert.match(await page.locator('#app').textContent(),/공식 결과 아님/);assert.match(await page.locator('#app').textContent(),/T2-1 TargetAcc/);}
+  checks.push('T2 decision points, boxes, timeline, report');
   assert.deepEqual(errors,[]);
   await writeFile('browser_verification.json',JSON.stringify({checks,errors},null,2));
   console.log(checks.join('\n'));

@@ -217,8 +217,13 @@ function reasonKo(t){if(!t)return '';const s=String(t);let m;
   const K={'no reviewed reference objects':'정답 Box 검수 전','no P/U relation with reviewed evidence':'근거가 검수된 Y·U 관계 없음','no scene eligible for action scoring':'대응 채점 대상 없음 (대응 정답 검수 전)',
     'no required groups':'필요 대응 묶음 없음','v1.1 explicit forbidden-action list pending review':'v1.1 금지 대응 목록 합의 전','no attribute GT':'장면 속성 정답 없음','no GT direction_match=Not applicable':'방향 N/A 정답 없음',
     'review-only: inference not executed':'검토용 Run · 추론 미실행','metric not computed for one of the runs':'두 Run 중 산출 안 된 쪽이 있음',
-    'invalid_output':'형식 오류 → 오답으로 셈','reference_not_reviewed':'정답 검수 전','same-target rule pending':'같은 사람 판정 규칙 합의 전','not_positive':'Positive 문항만 채점','event prediction not collected':'사고 여부 예측 미수집','needs 0.5s decision points':'0.5초 간격 판단 시점 필요'};
-  if(K[s])return K[s];if(s.startsWith('statement_review_missing'))return '사람 진술 검수 입력 없음 (자동 판정 안 함)';return s;}
+    'invalid_output':'형식 오류 → 오답으로 셈','reference_not_reviewed':'정답 검수 전','same-target rule pending':'같은 사람 판정 규칙 합의 전','not_positive':'Positive 문항만 채점',
+    /* Track 2 (backend/scorer/track2.py) */
+    'reference_missing':'정답 없음','negative_not_in_target_denominator':'Negative (선택·위치 분모 아님)','event_time_missing':'충돌 시점 미확정','decision_time_not_before_event':'판단 시점이 충돌 이후',
+    'not_single_target':'대상이 1명이 아님','target_not_visible_at_t':'판단 시점에 대상 안 보임','target_box_missing':'정답 Box 없음',
+    'no Reviewed Positive item with a single visible target':'검수된 Positive 문항 없음 (충돌 시점 검수 전)','fewer than two Source Groups (clips): interval is N/A':'N/A · 영상(Source Group) 2개 미만',
+    'outputs have no event_prediction field and no observed Negatives yet':'출력에 사고 여부 없음 · 관측 끝난 Negative 없음','needs event + target predictions at consecutive decision times (0.5 s apart)':'0.5초 간격 연속 판단 시점의 사고·대상 예측 필요'};
+  if(K[s])return K[s];if(s.startsWith('statement_review_missing'))return '사람 진술 검수 입력 없음 (자동 판정 안 함)';if(s.startsWith('reference_not_reviewed'))return '정답 검수 전'+(s.includes('Draft')?' (Draft)':'');if(/^no eligible item with tau in /.test(s))return '이 구간 채점 대상 없음';return s;}
 const why0=t=>t?`<span title="${esc(t)}">${esc(reasonKo(t))}</span>`:'';
 /* 부분 검수: v1.0 relations_only, v1.1은 Box·대응 검수 전(Reviewed지만 판정 7개만 검수) */
 const partialReview=s=>s.review_status==='Reviewed'&&(s.review_scope==='relations_only'||s.objects_reviewed===false||s.actions_reviewed===false
@@ -258,6 +263,7 @@ function list(){const f=st.f;return S.filter(s=>{
 /* 대응 결과 배지: 값은 백엔드 채점(scoring.pass) 그대로 */
 /* 예측 상태 이름표. not_returned = 아직 결과가 없는 요청(대기·실행 중), cancelled = 취소된 요청 */
 const PST={timeout:['응답 시간 초과','bad'],not_returned:['결과 대기','dim'],cancelled:['취소됨','na']};
+const pstName=st=>(PST[st]||[st==='invalid'?'형식 오류':st])[0];
 const pstPill=st=>{const x=PST[st]||['형식 오류','bad'];return pill(x[0],x[1]);};
 const noResult=st=>st==='not_returned'||st==='cancelled';
 function result(s){return !s.pred.valid?pstPill(s.pred.status):s.scoring.pass==null?pill('대응 미채점','na'):s.scoring.pass?pill('대응 통과','ok'):pill('대응 실패','bad');}
@@ -339,7 +345,7 @@ function renderConn(){if(!API_MODE){document.getElementById('conn').innerHTML='<
 function apiMsg(){document.getElementById('app').innerHTML=api.state==='error'
   ?`<div class="card msg"><b>API에 연결하지 못했어요</b><span class="small muted mono">${esc(api.base)} · ${esc(api.err)}</span>
      <span class="small muted">${/^(file|http):$/.test(location.protocol)?'주소를 확인하고 다시 시도해줘':'이 화면은 앱 안 미리보기라 바깥 주소 호출이 막혀 있어. 파일을 내려받아 크롬에서 직접 열어줘'} <span class="mono">(${esc(location.protocol)})</span></span>
-     <span class="row"><button class="btn" onclick="connect('http://localhost:8888')">localhost:8888</button><button class="btn" onclick="connect('http://127.0.0.1:8888')">127.0.0.1:8888</button><button class="btn" onclick="connect('http://32.196.229.237:8888')">배포 서버</button><button class="btn" onclick="connect()">다시 시도</button><button class="btn" onclick="go('t2')">Track 2 화면 →</button></span></div>`
+     <span class="row"><button class="btn" onclick="connect('http://localhost:8888')">localhost:8888</button><button class="btn" onclick="connect('http://127.0.0.1:8888')">127.0.0.1:8888</button><button class="btn" onclick="connect('http://100.52.183.88:8888')">배포 서버</button><button class="btn" onclick="connect()">다시 시도</button><button class="btn" onclick="go('t2')">Track 2 화면 →</button></span></div>`
   :`<div class="card msg"><span class="muted">불러오는 중…</span></div>`;}
 function backdrop(s){const n=s.conditions.includes('야간');return `<svg viewBox="0 0 1000 562.5" preserveAspectRatio="none"><rect width="1000" height="562.5" fill="${n?'#2b3040':'#cfd8e0'}"/><rect y="170" width="1000" height="400" fill="${n?'#3a3e48':'#b9b3a6'}"/><polygon points="420,170 580,170 1000,562.5 0,562.5" fill="${n?'#4a4f58':'#8d9aa6'}"/>${s.gt.objects.map(o=>{const b=o.bbox;return `<rect x="${b[0]*1000+8}" y="${b[1]*562.5+4}" width="${Math.max(4,(b[2]-b[0])*1000-16)}" height="${Math.max(4,(b[3]-b[1])*562.5-6)}" rx="5" fill="${o.class==='pedestrian'?'#d94a3d':o.role==='obstacle'?'#8a7a5a':'#5b6773'}"/>`;}).join('')}</svg>`;}
 
@@ -661,82 +667,87 @@ function F5(){
   </div>`;
 }
 /* ================= T2 · Track 2 영상 =================
-   영상 재생 → 판단 시점 선택(타임라인 ◆) → 그 시점의 후보 번호·정답 Box·예측 Box 비교 → 채점 결과(백엔드 값 그대로 표시).
-   데이터 출처: ① 백엔드 Track 2 API(T2API 경로) ② 예시 응답 JSON 파일 열기(backend/examples/track2/) ③ 임시 예시(가상 값).
-   백엔드 응답 구조가 확정되면 T2API 경로와 t2Item()·t2MET만 맞추면 됨. 화면 코드는 t2Item()이 만든 형식만 씀. */
-const T2API={runs:'/api/track2/runs',report:r=>`/api/track2/runs/${encodeURIComponent(r)}/report`,items:r=>`/api/track2/runs/${encodeURIComponent(r)}/items`,item:(r,i)=>`/api/track2/runs/${encodeURIComponent(r)}/items/${encodeURIComponent(i)}`};
-const t2={vfetch:{},src:'',state:'idle',err:'',runs:[],run:'',report:null,items:[],sel:'',videos:{},t:0,playing:false,raf:0,last:0,stopAtDec:true,rate:1,layers:{cand:true,gt:true,pred:true,lab:true}};
-/* 여러 이름 중 먼저 있는 값 (예: 'decision.time_s','decision_time_s') */
+   기준: 명세 App. D.1 (판단 시점 t까지의 영상만 보고 H초 안에 내 차와 충돌할 보행자). 응답 구조: 백엔드 /api/track2/* (backend/app/track2_api.py, 예시 backend/examples/track2/).
+   영상 재생 → 판단 시점 선택(◆) → 그 시점의 후보 번호·정답 Box·예측 Box 비교 → 채점 결과(백엔드 값 그대로).
+   데이터 출처: ① 백엔드 API ② 예시 응답 JSON·MP4 파일 열기. 응답 변환은 t2Item()·t2Report() 두 곳만. */
+const T2API={runs:'/api/track2/runs',inputs:'/api/track2/items',report:r=>`/api/track2/runs/${encodeURIComponent(r)}/report`,items:r=>`/api/track2/runs/${encodeURIComponent(r)}/items`,item:(r,i)=>`/api/track2/runs/${encodeURIComponent(r)}/items/${encodeURIComponent(i)}`};
+const t2={vfetch:{},src:'',state:'idle',err:'',runs:[],run:'',report:null,items:[],sel:'',videos:{},t:0,playing:false,raf:0,last:0,stopAtDec:true,rate:1,layers:{cand:true,gt:true,pred:true,nf:false}};
+/* 여러 이름 중 먼저 있는 값 */
 const pk=(o,...ps)=>{for(const p of ps){const v=String(p).split('.').reduce((a,k)=>a==null?undefined:a[k],o);if(v!==undefined&&v!==null)return v;}return null;};
-/* Box: 원본 해상도 픽셀 [x1,y1,x2,y2]. 0~1 값이면 정규화 좌표로 보고 픽셀로 바꿈 */
-const t2Box=(b,W,H)=>!Array.isArray(b)||b.length!==4||!b.every(v=>Number.isFinite(+v))?null:b.every(v=>v>=0&&v<=1)?[b[0]*W,b[1]*H,b[2]*W,b[3]*H]:b.map(Number);
+/* Box: 원본 해상도 픽셀 [x1,y1,x2,y2] */
+const t2Box=b=>Array.isArray(b)&&b.length===4&&b.every(v=>Number.isFinite(+v))?b.map(Number):null;
+/* 백엔드 응답(목록 행·상세·입력 문항을 합친 객체) → 화면용 문항 */
 function t2Item(r){
-  const fps=+pk(r,'video.fps','fps')||15,W=+pk(r,'video.width','frame_size.width','image_size.width','width')||1920,H=+pk(r,'video.height','frame_size.height','image_size.height','height')||1080;
-  const tf=k=>{const t=pk(r,k+'.time_s',k+'_time_s',k+'_s'),f=pk(r,k+'.frame',k+'_frame');return t==null&&f==null?null:{t:t!=null?+t:(+f+.5)/fps,f:f!=null?+f:Math.floor(+t*fps+1e-4)};};
-  const ref=pk(r,'reference','gt')||{},pr=pk(r,'prediction','predictions')||{},sc=pk(r,'scoring','score')||{};
-  const ps=pk(pr,'select','selection')||{},pb=pk(pr,'box','location','localization')||{};
-  const ss=pk(sc,'select','selection')||{},sb=pk(sc,'box','location','localization')||{},sm=pk(sc,'consistency','same_target');
-  return {id:pk(r,'item_id','id'),clip:pk(r,'clip_id','video_id','video.clip_id','item_id'),kind:pk(r,'data_kind')==='real'?'real':'mock',
-    review:pk(ref,'annotation_status','review_status')||pk(r,'annotation_status')||'Missing',refVer:pk(ref,'reference_version')||'',
-    /* 명세 App. D.1: 예측 기간 H, Future Event Label(Positive/Negative/Missing), 잔여 시간 τ=tc−t, Target Visibility */
-    hz:+pk(r,'horizon_s','reference.horizon_s','H_s')||null,event:pk(ref,'event_label','future_event_label'),tau:pk(ref,'residual_time_s','tau_s'),visible:pk(ref,'target_visible','target_visibility'),
-    fps,W,H,nF:+pk(r,'video.n_frames','n_frames','frame_count')||null,url:pk(r,'video.url','video_url'),
-    dec:tf('decision')||tf('decision_point'),col:tf('first_collision')||tf('collision'),
-    inputs:(pk(r,'input_frames_s','input.frame_times','input_record.frame_times','frame_times')||[]).map(Number),
-    cands:(pk(r,'candidates','input.candidates')||[]).map(c=>({id:pk(c,'candidate_id','id','number'),box:t2Box(pk(c,'bbox_xyxy','bbox','box'),W,H)})),
-    gt:{target:pk(ref,'target_candidate_id','target_id'),box:t2Box(pk(ref,'target_bbox_xyxy','bbox_xyxy','target_box'),W,H)},
-    pred:{select:{status:pk(ps,'status')||(pk(ps,'target_id')!=null?'valid':'not_returned'),id:pk(ps,'target_id','parsed.target_id'),raw:pk(ps,'raw_text','raw')||'',errors:pk(ps,'format_errors','errors')||[]},
-          box:{status:pk(pb,'status')||(pk(pb,'bbox_xyxy')?'valid':'not_returned'),box:t2Box(pk(pb,'bbox_xyxy','parsed.bbox_xyxy','bbox'),W,H),raw:pk(pb,'raw_text','raw')||'',errors:pk(pb,'format_errors','errors')||[]}},
-    sc:{excluded:pk(sc,'excluded_reason'),select:{status:pk(ss,'status'),correct:pk(ss,'correct','match'),reason:pk(ss,'reason')},
-        box:{status:pk(sb,'status'),iou:pk(sb,'iou'),thr:pk(sb,'threshold','iou_threshold'),pass:pk(sb,'pass','match'),reason:pk(sb,'reason')},
-        same:sm?{status:pk(sm,'status'),value:pk(sm,'same_target','value'),reason:pk(sm,'reason')}:null},
-    labels:(pk(r,'frame_labels','labels')||[]).map(l=>({f:+pk(l,'frame','sequence_frame_number'),boxes:(pk(l,'boxes','objects')||[]).map(b=>({box:t2Box(pk(b,'bbox_xyxy','bbox'),W,H),target:!!pk(b,'is_target','isObjectA')}))}))};
+  const fps=+pk(r,'input.fps','fps')||15,W=+pk(r,'width','input.width')||1920,H=+pk(r,'height','input.height')||1080;
+  const ref=pk(r,'reference')||{},sc=pk(r,'scoring')||{},gt=pk(sc,'gt')||{},sel=pk(sc,'selection')||pk(r,'selection')||{},loc=pk(sc,'localization')||pk(r,'localization')||{},raw=pk(r,'prediction_raw')||{};
+  const dt=pk(r,'decision_time_s','input.decision_time_s'),df=pk(r,'input.decision_frame_index','decision_frame_index');
+  const dec=dt==null&&df==null?null:{t:dt!=null?+dt:+df/fps,f:df!=null?+df:Math.floor(+dt*fps+1e-4)};
+  const tau=pk(gt,'tau_s')??pk(r,'tau_s'),et=pk(ref,'event_time_s')??(dec&&tau!=null?dec.t+(+tau):null);
+  const targets=pk(ref,'target_candidate_ids')||pk(sel,'allowed')||[];
+  return {id:pk(r,'item_id'),clip:pk(r,'clip_id','input.clip_id'),
+    review:pk(gt,'annotation_status')||pk(r,'annotation_status')||pk(ref,'annotation_status')||'Missing',refVer:pk(gt,'reference_version')||pk(ref,'reference_version')||'',
+    hz:+(pk(gt,'horizon_s')??pk(ref,'horizon_s'))||null,event:pk(gt,'label')||pk(r,'label'),tau:tau!=null?+tau:null,bin:pk(gt,'bin')||pk(r,'bin'),
+    eligible:pk(gt,'eligible')??pk(r,'eligible'),excluded:pk(gt,'excluded_reason')||pk(r,'excluded_reason'),
+    visible:pk(ref,'target_visible'),eventStatus:pk(ref,'event_time_status'),targetSrc:pk(ref,'target_source'),
+    fps,W,H,nF:+pk(r,'input.n_frames','n_frames')||null,labelFrame:pk(r,'input.label_frame'),inputRule:pk(r,'input.input_rule')||'',
+    url:pk(r,'video_url'),frameUrl:pk(r,'frame_url'),numUrl:pk(r,'numbered_frame_url'),
+    dec,col:et!=null?{t:+et,f:Math.floor(+et*fps+1e-4)}:null,
+    cands:(pk(r,'candidates','input.candidates')||[]).map(c=>({id:pk(c,'candidate_id'),box:t2Box(pk(c,'bbox_xyxy_px','bbox_xyxy'))})),
+    gt:{targets:targets.map(String),box:t2Box(pk(ref,'target_box_xyxy_px')||pk(loc,'gt_box'))},
+    pred:{select:{status:pk(sel,'status')||'not_returned',id:pk(sel,'target_id'),raw:pk(raw,'select.output_text')||'',errors:(pk(sel,'errors')||[]).concat(pk(raw,'select.error')?[pk(raw,'select.error')]:[])},
+          box:{status:pk(loc,'status')||'not_returned',box:t2Box(pk(loc,'bbox_xyxy_px')),raw:pk(raw,'box.output_text')||'',errors:(pk(loc,'errors')||[]).concat(pk(raw,'box.error')?[pk(raw,'box.error')]:[])}},
+    sc:{correct:pk(sel,'correct'),iou:pk(loc,'iou'),pass:pk(loc,'acc50'),agree:pk(sc,'selection_box_agree_iou')},
+    _detail:!!pk(r,'scoring')};
 }
-/* 리포트 지표 이름 (모르는 키는 키 이름 그대로 표시) */
-/* 명세 3.x · App. D.1 지표: T2-1 TargetAcc(Selection), T2-2 mIoU·Acc.5(Localization), T2-3 사고 여부(확장), T2-4 Lead Time. [이름, 형식, 표 머리글] */
-const T2MET={target_acc:['T2-1 TargetAcc · 선택','rate','TargetAcc'],miou:['T2-2 mIoU · 위치','num','mIoU'],acc_05:['T2-2 Acc.5 · IoU≥0.5','rate','Acc.5'],
-  event_f1:['T2-3 사고 여부 F1','num','F1'],event_precision:['T2-3 Precision','rate','P'],event_recall:['T2-3 Recall','rate','R'],completion:['T2-3 Completion','rate','Completion'],
-  lead_time_s:['T2-4 Lead Time','sec','Lead'],confirm_rate:['T2-4 확인 성공 비율','rate','확인'],false_alert_rate:['T2-4 False-alert','rate','오경보'],
-  select_valid:['선택 형식 통과','rate','형식'],box_valid:['위치 형식 통과','rate','형식'],same_target_rate:['선택·위치 같은 사람','rate','같은 사람']};
-const t2fmt=(k,x)=>{if(x==null)return null;const f=(T2MET[k]||[])[1]||(/iou/.test(k)&&!/rate/.test(k)?'num':'rate');return f==='num'?(+x).toFixed(3):f==='sec'?(+x).toFixed(2)+'초':(x*100).toFixed(1)+'%';};
+/* 리포트 지표 [이름, 형식, 표 머리글] (명세 T2-1~T2-4) */
+const T2MET={target_acc:['T2-1 TargetAcc · 선택','rate','TargetAcc'],miou:['T2-2 mIoU · 위치','num','mIoU'],acc50:['T2-2 Acc.5 · IoU≥0.5','rate','Acc.5'],
+  event_prediction:['T2-3 사고 여부','rate','사고'],lead_time:['T2-4 Lead Time','sec','Lead']};
+const T2BASE={bottom_most:'가장 아래',largest:'가장 큰 Box',random_expected:'무작위 기대값'};
+const t2fmt=(k,x)=>{if(x==null)return null;const f=(T2MET[k]||[])[1]||'rate';return f==='num'?(+x).toFixed(3):f==='sec'?(+x).toFixed(2)+'초':(x*100).toFixed(1)+'%';};
 const t2v=()=>document.getElementById('t2v');
-/* API 영상은 한 번 통째로 받아 blob으로 재생: 서버가 Range(206)를 안 줘도 프레임 이동이 되게. 실패하면 주소로 직접 재생 */
-function t2vid(it){if(t2.videos[it.clip])return t2.videos[it.clip];if(!it.url)return '';
-  const u=/^(https?|blob|data):/.test(it.url)?it.url:api.base+it.url,s=t2.vfetch[it.clip];
-  if(s==='direct')return u;if(s==='loading')return '';
-  t2.vfetch[it.clip]='loading';fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob();})
-    .then(bl=>{t2.videos[it.clip]=URL.createObjectURL(bl);t2.vfetch[it.clip]='ok';},()=>{t2.vfetch[it.clip]='direct';}).then(()=>{if(st.view==='t2'&&t2cur().clip===it.clip)render();});
-  return '';}
 const t2cur=()=>t2.items.find(x=>x.id===t2.sel)||t2.items[0];
 const t2fr=(it,t)=>Math.floor(t*it.fps+1e-4);
-const t2labels=it=>[...new Map(t2.items.filter(x=>x.clip===it.clip).flatMap(x=>x.labels).map(l=>[l.f,l])).values()].sort((a,b)=>a.f-b.f);
 function t2dur(it){const v=t2v();return v&&isFinite(v.duration)&&v.duration>0?v.duration:it.nF?it.nF/it.fps:Math.max(10,((it.col||it.dec||{t:0}).t)+2);}
+const t2bin=b=>String(b||'').replace(/^\((\d+(?:\.\d+)?),(\d+(?:\.\d+)?)\]$/,(m,a,c)=>`${+a}–${+c}s`);
+/* 목록 행 + 입력 문항(/api/track2/items) + 상세를 item_id로 합침 */
+const t2merge=(rows,inputs,dets={})=>{const inp=Object.fromEntries((inputs||[]).map(x=>[x.item_id,x]));
+  return rows.map(r=>{const i=inp[r.item_id];return t2Item(Object.assign({},i?{input:i,candidates:i.candidates,width:i.width,height:i.height,video_url:i.video_url,frame_url:i.frame_url,numbered_frame_url:i.numbered_frame_url}:{},r,dets[r.item_id]||{}));});};
 
 async function t2Load(){t2stop();t2.state='loading';t2.err='';render();
-  if(API_MODE&&api.base){try{const d=await getJSON(T2API.runs);t2.runs=d.runs||d;if(!t2.runs.length)throw new Error('Track 2 Run 없음');t2.src='api';
+  if(API_MODE&&api.base){try{const d=await getJSON(T2API.runs);t2.runs=d.runs||[];if(!t2.runs.length)throw new Error('Track 2 Run 없음');t2.src='api';
       await t2LoadRun(t2.runs.some(r=>r.run_id===t2.run)?t2.run:t2.runs[0].run_id);return;}catch(e){t2.err=String(e.message||e);}}
   else t2.err=API_MODE?'API 주소 없음':'파일 모드';
   t2.state='empty';render();}
 async function t2LoadRun(run){t2stop();t2.run=run;t2.state='loading';render();
-  try{const [rep,its]=await Promise.all([getJSON(T2API.report(run)).catch(e=>({_err:String(e.message||e)})),getJSON(T2API.items(run))]);
-    t2.report=rep;t2.items=(its.items||its).map(x=>({...t2Item(x),_full:false}));t2.state='ok';t2pick((t2.items[0]||{}).id,true);}
+  try{const [rep,its,inp]=await Promise.all([getJSON(T2API.report(run)).catch(e=>({_err:String(e.message||e)})),getJSON(T2API.items(run)),getJSON(T2API.inputs).catch(()=>({items:[]}))]);
+    t2.report=rep;t2.items=t2merge(its.items||[],inp.items);t2.state='ok';t2pick((t2.items[0]||{}).id,true);}
   catch(e){t2.err=String(e.message||e);t2.state='empty';}
   render();}
-function t2pick(id,silent){const it=t2.items.find(x=>x.id===id);if(!it)return;t2stop();t2.sel=id;t2.t=it.dec?it.dec.t:0;
-  if(t2.src==='api'&&!it._full){it._full=true;getJSON(T2API.item(t2.run,id)).then(d=>{Object.assign(it,t2Item(d));},e=>{it._err=String(e.message||e);}).then(()=>{if(t2.sel===id){t2.t=it.dec?it.dec.t:0;render();}});}
+function t2pick(id,silent){const it=t2.items.find(x=>x.id===id);if(!it)return;t2stop();t2.sel=id;t2.t=it.dec?(it.dec.f+.5)/it.fps:0;
+  if(t2.src==='api'&&!it._detail&&!it._loading){it._loading=true;getJSON(T2API.item(t2.run,id)).then(d=>{const keep={id:it.id};Object.assign(it,t2Item(d),keep);},e=>{it._err=String(e.message||e);})
+    .then(()=>{it._loading=false;if(t2.sel===id&&st.view==='t2'){t2.t=it.dec?(it.dec.f+.5)/it.fps:0;render();}});}
   if(!silent)render();}
-/* 예시 응답 JSON(여러 개)과 MP4를 한 번에 열기. JSON 종류는 내용으로 구분: runs / report(metrics) / 문항 목록(items) / 문항 상세(item_id) */
+/* 예시 응답 JSON(여러 개)과 MP4를 한 번에 열기. 종류는 내용으로 구분:
+   runs.json(runs) / report.json(overall) / run_items.json(run_id+items) / items.json(입력 문항) / run_item_*.json(scoring 있는 상세) */
 async function t2Files(files){
   const js=[],bad=[];
   for(const f of files){if(/\.json$/i.test(f.name))js.push(f);else if(/^video\//.test(f.type)||/\.(mp4|webm|mov)$/i.test(f.name)){const k=f.name.replace(/\.[^.]+$/,'');if(t2.videos[k])URL.revokeObjectURL(t2.videos[k]);t2.videos[k]=URL.createObjectURL(f);}else bad.push(f.name);}
-  if(js.length){let runs=[],rep=null,list=null;const det={};
+  if(js.length){let runs=[],rep=null,rows=null,inputs=null;const det={};
     for(const f of js){try{const d=JSON.parse(await f.text());
-        if(Array.isArray(d))list=d;else if(Array.isArray(d.runs))runs=d.runs;else if(d.metrics)rep=d;else if(Array.isArray(d.items))list=d.items;else if(pk(d,'item_id'))det[pk(d,'item_id')]=d;else bad.push(f.name);}catch(e){bad.push(f.name);}}
-    const items=(list||[]).map(x=>{const id=pk(x,'item_id','id');return {...t2Item(det[id]||x),_full:true};});
-    Object.keys(det).forEach(id=>{if(!items.some(i=>i.id===id))items.push({...t2Item(det[id]),_full:true});});
-    if(items.length){t2stop();Object.assign(t2,{items,report:rep,runs,run:pk(rep||{},'run_id')||(runs[0]||{}).run_id||'',src:'files',state:'ok'});t2pick(items[0].id,true);}
+        if(Array.isArray(d.runs))runs=d.runs;else if(d.overall||d.by_residual_time)rep=d;else if(Array.isArray(d.items)&&d.run_id)rows=d.items;else if(Array.isArray(d.items))inputs=d.items;else if(d.item_id&&d.scoring)det[d.item_id]=d;else bad.push(f.name);}catch(e){bad.push(f.name);}}
+    const base=rows||Object.values(det).map(d=>({item_id:d.item_id,clip_id:d.clip_id||pk(d,'input.clip_id')}));
+    const items=t2merge(base,inputs,det);
+    if(items.length){t2stop();Object.assign(t2,{items,report:rep,runs,run:pk(rep||{},'run_id')||(runs[0]||{}).run_id||'',src:'files',state:'ok',vfetch:{}});t2pick(items[0].id,true);}
     else bad.push('(Track 2 문항 없음)');}
   t2.err=bad.length?'읽지 못한 파일: '+bad.join(', '):'';render();}
+/* 영상: 파일로 연 MP4 → API 주소 직접 재생(Range). 서버가 구간 이동을 못 하면 한 번 통째로 받아 blob으로 */
+function t2vid(it){if(t2.videos[it.clip])return t2.videos[it.clip];if(!it.url||t2.src!=='api')return '';
+  const u=/^(https?|blob|data):/.test(it.url)?it.url:api.base+it.url,s=t2.vfetch[it.clip];
+  if(s==='bad')return '';if(s!=='blob')return u;
+  t2.vfetch[it.clip]='loading';fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob();})
+    .then(bl=>{t2.videos[it.clip]=URL.createObjectURL(bl);t2.vfetch[it.clip]='ok';},()=>{t2.vfetch[it.clip]='bad';}).then(()=>{if(st.view==='t2'&&t2cur().clip===it.clip)render();});
+  return '';}
+const t2abs=u=>!u?'':/^(https?|blob|data):/.test(u)?u:api.base+u;
 function t2stop(){if(t2.raf)cancelAnimationFrame(t2.raf);t2.raf=0;t2.playing=false;const v=t2v();if(v&&!v.paused)v.pause();}
 function t2seek(t){const it=t2cur();if(!it)return;t2.t=Math.max(0,Math.min(t,t2dur(it)-.5/it.fps));const v=t2v();if(v&&v.readyState>0)v.currentTime=t2.t;t2paint();}
 const t2seekF=f=>{const it=t2cur();t2seek((f+.5)/it.fps);};
@@ -753,42 +764,56 @@ function t2toggle(){const it=t2cur();if(!it)return;if(t2.playing){t2stop();t2pai
 function t2drag(e){const tl=e.currentTarget,it=t2cur();if(!it)return;t2stop();tl.setPointerCapture(e.pointerId);
   const at=ev=>{const r=tl.getBoundingClientRect();t2seek(Math.max(0,Math.min(1,(ev.clientX-r.left)/r.width))*t2dur(it));};
   at(e);tl.onpointermove=at;tl.onpointerup=()=>{tl.onpointermove=null;tl.onpointerup=null;};}
-function t2copy(btn){const it=t2cur();if(!it)return;const txt=JSON.stringify({clip_id:it.clip,frame:t2fr(it,t2.t),time_s:+t2.t.toFixed(3),fps:it.fps});
+function t2copy(btn){const it=t2cur();if(!it)return;const txt=JSON.stringify({clip_id:it.clip,frame_index:t2fr(it,t2.t),time_s:+t2.t.toFixed(3),fps:it.fps});
   const ok=()=>{btn.textContent='복사됨 ✓';setTimeout(()=>{btn.textContent='시점 복사';},1500);};
   (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(ok,()=>{const a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);a.select();try{document.execCommand('copy');ok();}catch(e){}a.remove();});}
 /* 재생 중에는 화면 전체를 다시 그리지 않고 재생 위치·시각·Box만 갱신 */
 function t2paint(){const it=t2cur(),svg=document.getElementById('t2svg');if(!it||!svg)return;
-  const f=t2fr(it,t2.t),dur=t2dur(it),atD=!!it.dec&&f===it.dec.f,L=t2.layers,s=it.W/1920,lab=t2labels(it).find(l=>l.f===f);
+  const f=t2fr(it,t2.t),dur=t2dur(it),atD=!!it.dec&&f===it.dec.f,L=t2.layers,s=it.W/1920;
   const ph=document.getElementById('t2ph');if(ph)ph.style.left=Math.min(100,t2.t/dur*100)+'%';
   const tm=document.getElementById('t2time');if(tm)tm.textContent=`f${f} · ${t2.t.toFixed(2)}s / ${dur.toFixed(1)}s`;
   const pb=document.getElementById('t2play');if(pb)pb.textContent=t2.playing?'⏸ 정지':'▶ 재생';
+  const fi=document.getElementById('t2fi');if(fi)fi.style.visibility=atD?'visible':'hidden';
+  const nf=document.getElementById('t2nf');if(nf)nf.style.display=atD&&L.nf?'block':'none';
   const box=(b,col,w,dash,label,pos)=>!b?'':`<rect x="${b[0]}" y="${b[1]}" width="${b[2]-b[0]}" height="${b[3]-b[1]}" fill="none" stroke="${col}" stroke-width="${w*s}" ${dash?`stroke-dasharray="${dash*s} ${dash*.6*s}"`:''}/>`
     +(label?`<text x="${pos==='b'?b[2]:b[0]}" y="${pos==='b'?b[3]+38*s:b[1]-12*s}" text-anchor="${pos==='b'?'end':'start'}" font-size="${34*s}" font-weight="700" fill="${col}" stroke="rgba(0,0,0,.7)" stroke-width="${7*s}" paint-order="stroke">${esc(label)}</text>`:'');
   let g='';
-  if(atD){const ps=it.pred.select;
+  if(atD&&!(L.nf&&it.numUrl)){const ps=it.pred.select;
     if(L.cand)it.cands.forEach(c=>{const on=ps.status==='valid'&&String(c.id)===String(ps.id);g+=box(c.box,on?'#c9a8ff':'#eef1f6',on?4:2,0,'#'+c.id+(on?' 선택':''),'t');});
     if(L.gt)g+=box(it.gt.box,'#3ddc84',4,0,it.review==='Draft'?'라벨 초안':'정답','b');
     if(L.pred&&it.pred.box.status==='valid')g+=box(it.pred.box.box,'#c9a8ff',4,14,'','b');}
-  else if(L.lab&&lab)lab.boxes.forEach(b=>{g+=box(b.box,b.target?'#3ddc84':'#aab4cd',b.target?3:1.5,6,b.target?'대상':'','t');});
   svg.innerHTML=g;
   const bd=document.getElementById('t2badge');if(bd){const after=it.dec&&f>it.dec.f;bd.className='t2badge'+(atD?' dec':'');
-    bd.textContent=atD?'◆ 판단 시점 · 모델이 본 마지막 장면':after?'판단 이후 · 모델 입력 아님'+(lab?' · 라벨':''):lab?'라벨 프레임':'';}
+    bd.textContent=atD?(L.nf&&it.numUrl?'◆ 모델 입력 프레임 (번호 표시)':'◆ 판단 시점 · 모델이 본 마지막 장면'):after?'판단 이후 · 모델 입력 아님':'';}
 }
 function t2bind(){const it=t2cur(),v=t2v();
   if(v){v.playbackRate=t2.rate;
     v.addEventListener('loadedmetadata',()=>{if(!it.nF&&isFinite(v.duration)){it.nF=Math.round(v.duration*it.fps);render();return;}v.currentTime=Math.min(t2.t,v.duration);t2paint();});
-    v.addEventListener('seeked',()=>{if(!t2.playing)t2paint();});
-    v.addEventListener('error',()=>{const p=v.parentElement;v.remove();p.insertAdjacentHTML('afterbegin','<div class="photo-status" style="background:#1d2333;color:#cfd6e6">영상을 불러오지 못했어요</div>');t2paint();});}
+    v.addEventListener('seeked',()=>{if(!t2.playing){if(Math.abs(v.currentTime-t2.t)>.5&&t2.src==='api'&&!t2.vfetch[it.clip]&&!t2.videos[it.clip]){t2.vfetch[it.clip]='blob';render();return;}t2paint();}});
+    v.addEventListener('error',()=>{t2.vfetch[it.clip]='bad';render();});}
   t2paint();}
 document.addEventListener('keydown',e=>{if(st.view!=='t2'||/INPUT|SELECT|TEXTAREA/.test((e.target||{}).tagName||''))return;
   if(e.key===' '){e.preventDefault();t2toggle();}else if(e.key===','||e.key==='ArrowLeft'){e.preventDefault();t2step(-1);}else if(e.key==='.'||e.key==='ArrowRight'){e.preventDefault();t2step(1);}});
 
-/* 잔여 시간 τ 구간별 점수 (명세 D.1: 판단 시점마다 계산, τ 구간별 보고). 리포트에 by_tau_bin이 있을 때만 */
-function t2bins(R,H){const bins=pk(R,'by_tau_bin','by_residual_time','tau_bins');if(!bins)return '';
-  const rows=Array.isArray(bins)?bins:Object.entries(bins).map(([k,v])=>({bin:k,...v})),val=x=>x&&typeof x==='object'?(x.status==='computed'?x.value:null):x;
-  const keys=Object.keys(T2MET).filter(k=>rows.some(b=>val((b.metrics||b)[k])!=null));
-  return `<section class="card sec"><h2>잔여 시간 τ 구간별 <span>H ${H}s · 같은 영상의 판단 시점은 한 Source Group</span></h2><table class="ct"><tr><th>τ</th><th>n</th>${keys.map(k=>`<th>${esc(T2MET[k][2])}</th>`).join('')}</tr>
-    ${rows.map(b=>{const m=b.metrics||b;return `<tr><td class="mono">${esc(b.bin||b.label||'')}</td><td>${esc(b.n??'')}</td>${keys.map(k=>{const v=val(m[k]);return `<td>${v!=null?t2fmt(k,v):'<span class="muted">–</span>'}</td>`;}).join('')}</tr>`;}).join('')}</table></section>`;}
+/* 리포트 화면 (backend report 그대로: overall · by_residual_time · event_prediction · lead_time · format_status · excluded) */
+function t2Report(R,H){
+  const ov=R.overall||{},m=k=>k==='event_prediction'||k==='lead_time'?R[k]:ov[k];
+  const tile=k=>{const x=m(k)||{},v=x.status==='computed'?x.value:null;
+    return `<div class="card stat" title="${esc(x.reason||x.ci_reason||'')}"><b>${v!=null?t2fmt(k,v):`<span class="muted" style="font-size:16px">${x.status==='not_computed'?'미산출':'N/A'}</span>`}</b><span>${esc(T2MET[k][0])}${v!=null&&x.numerator!=null&&x.n!=null?` · ${+(+x.numerator).toFixed(3)}/${x.n}`:''}</span>
+      ${v!=null&&x.ci95?`<span class="small muted" style="display:block">95% CI ${t2fmt(k,x.ci95[0])} – ${t2fmt(k,x.ci95[1])}</span>`:v!=null&&x.ci_reason?`<span class="small muted" style="display:block" title="${esc(x.ci_reason)}">CI ${esc(reasonKo(x.ci_reason))}</span>`:v==null&&x.reason?`<span class="small muted" style="display:block">${esc(reasonKo(x.reason))}</span>`:''}</div>`;};
+  const bl=ov.baselines||{},blTxt=Object.keys(T2BASE).filter(k=>bl[k]).map(k=>`${T2BASE[k]} ${bl[k].status==='computed'?t2fmt('target_acc',bl[k].value):'–'}`).join(' · ');
+  const fs=R.format_status||{},fsTxt=['selection','localization'].map(k=>fs[k]?`${k==='selection'?'선택':'위치'} ${Object.entries(fs[k]).map(([s,n])=>(s==='valid'?'통과 ':pstName(s)+' ')+n).join(' · ')}`:'').filter(Boolean).join('  /  ');
+  const ex=Object.entries(R.excluded||{}),bins=Object.entries(R.by_residual_time||{});
+  return `<div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">${Object.keys(T2MET).map(tile).join('')}</div>
+    <div class="row small muted" style="gap:14px">
+      <span>판단 시점 <b>${R.n_requests??'–'}</b> · 채점 대상 <b>${R.n_eligible??'–'}</b> · 영상 ${R.n_source_groups??'–'}</span>
+      ${blTxt?`<span title="같은 분모에서 단순 규칙으로 고른 정확도">기준선(선택): ${esc(blTxt)}</span>`:''}${fsTxt?`<span>형식: ${esc(fsTxt)}</span>`:''}</div>
+    ${ex.length?`<div class="row small" style="gap:6px"><span class="muted">채점 제외</span>${ex.map(([k,n])=>`<span class="pill na" title="${esc(k)}">${esc(reasonKo(k))} ${n}</span>`).join('')}</div>`:''}
+    ${bins.length?`<section class="card sec"><h2>잔여 시간 τ 구간별 <span>H ${H}s · 같은 영상의 판단 시점은 한 Source Group</span></h2><table class="ct"><tr><th>τ</th><th>n</th>${['target_acc','miou','acc50'].map(k=>`<th>${T2MET[k][2]}</th>`).join('')}<th>기준선 큰 Box</th><th></th></tr>
+      ${bins.map(([b,x])=>{const n=(x.target_acc||{}).n;return `<tr><td class="mono">${esc(t2bin(b))}</td><td>${n??'–'}</td>${['target_acc','miou','acc50'].map(k=>{const y=x[k]||{};return `<td>${y.status==='computed'?t2fmt(k,y.value):'<span class="muted">–</span>'}</td>`;}).join('')}
+        <td>${((x.baselines||{}).largest||{}).status==='computed'?t2fmt('target_acc',x.baselines.largest.value):'<span class="muted">–</span>'}</td><td>${x.exploratory&&n?'<span class="small muted">탐색적</span>':''}</td></tr>`;}).join('')}</table></section>`:''}`;
+}
+
 function T2(){
   const el=document.getElementById('app');
   if(t2.state==='idle'){t2Load();return;}
@@ -796,40 +821,46 @@ function T2(){
   const fileBtn=`<label class="btn" title="backend/examples/track2/ 의 JSON 여러 개 + 영상 MP4(파일 이름 = clip_id)">예시 응답·영상 열기<input type="file" multiple accept=".json,.mp4,.webm,.mov,video/*,application/json" hidden onchange="t2Files(this.files)"></label>`;
   if(!t2.items.length){el.innerHTML=`<h1>Track 2 · 영상</h1><div class="card msg"><b>Track 2 결과를 아직 불러오지 못했어요</b>
     <span class="small muted mono">${API_MODE&&api.base?esc(api.base+T2API.runs)+' · ':''}${esc(t2.err)}</span>
-    <span class="small muted">혜승님 예시 응답(<span class="mono">backend/examples/track2/</span>)을 열거나 임시 예시로 화면을 확인하세요.</span>
-    <span class="row">${fileBtn}<button class="btn" onclick="t2Sample()">임시 예시로 보기</button>${API_MODE&&api.base?`<button class="btn" onclick="t2.state='idle';render()">API 다시 시도</button>`:''}</span></div>`;return;}
-  const it=t2cur(),dur=t2dur(it),pct=t=>Math.max(0,Math.min(100,t/dur*100)),same=t2.items.filter(x=>x.clip===it.clip&&x.dec),labs=t2labels(it);
+    <span class="small muted">서버가 꺼져 있으면 <span class="mono">backend/examples/track2/</span>의 JSON 7개를 한 번에 열어 보세요.</span>
+    <span class="row">${fileBtn}${API_MODE&&api.base?`<button class="btn" onclick="t2.state='idle';render()">API 다시 시도</button>`:''}</span></div>`;return;}
+  const it=t2cur(),R=t2.report&&!t2.report._err?t2.report:null,runMeta=(R&&R.run)||t2.runs.find(r=>r.run_id===t2.run)||{};
+  const H=it.hz||(R&&+pk(R,'overall.horizon_s'))||2,dur=t2dur(it),pct=t=>Math.max(0,Math.min(100,t/dur*100)),same=t2.items.filter(x=>x.clip===it.clip&&x.dec);
   const clips=[...new Set(t2.items.map(x=>x.clip))],shortClip=c=>{const m=String(c).match(/_(\d{6})_/);return m?m[1]:String(c);};
   const mk=v=>v==null?'<span class="muted">–</span>':v?'<b style="color:var(--ok)">✓</b>':'<b style="color:var(--bad)">✕</b>';
   const waitOf=x=>x.pred.select.status==='not_returned'&&x.pred.box.status==='not_returned';
-  /* 분모(명세 D.1): Positive · 대상이 t에 보임 · 대상 1명 · 검수 완료. 그 밖은 사유와 함께 채점 제외로 표시 */
-  const exOf=x=>x.review==='Draft'?['warn','정답 검수 전 · 채점 제외','라벨 초안과 비교만']:x.review==='Missing'?['warn','정답 없음 · 채점 제외','']
-    :x.event==='Negative'?['na','Negative · H초 안 충돌 없음','선택·위치는 Positive 문항만 채점']:x.event==='Missing'?['warn','관측 부족 · 채점 제외','영상이 t+H 전에 끝나거나 충돌 시점 미확정']
-    :x.visible===false?['na','대상 가려짐 · 기본 분모 제외','']:x.sc.excluded?['na','채점 제외',reasonKo(x.sc.excluded)]:null;
-  const H=it.hz||(t2.report&&+pk(t2.report,'horizon_s','H_s'))||2,tauOf=x=>x.tau!=null?+x.tau:x.col&&x.dec?(x.col.f-x.dec.f)/x.fps:null,tau=tauOf(it);
-  const evPill=x=>x.event==='Positive'?pill('Positive','dim'):x.event==='Negative'?pill('Negative','dim'):x.event==='Missing'?pill('관측 부족','warn'):'';
-  const chip=x=>`${tauOf(x)!=null?`<span class="small muted">τ ${tauOf(x).toFixed(1)}s</span> `:''}${waitOf(x)?pill('결과 대기','dim'):exOf(x)?pill(x.event==='Negative'?'Negative':'채점 제외','na'):`<span class="small">선택 ${mk(x.sc.select.correct)} Box ${mk(x.sc.box.pass)}</span>`}`;
-  const srcPill=t2.src==='api'?(it.kind==='real'?pill('실제 Run','real'):pill('예시','mock')):t2.src==='files'?pill('예시 파일','mock'):pill('임시 예시 · 가상 값','mock');
-  const R=t2.report&&!t2.report._err?t2.report:null,ps=it.pred.select,pb=it.pred.box,ss=it.sc.select,sb=it.sc.box,ex=exOf(it),wait=waitOf(it),refL=it.review==='Draft'?'라벨 초안':'정답';
-  const verdict=wait?['na','결과 대기 · 아직 추론 전','']:ex||[ss.correct&&sb.pass?'ok':ss.correct===false||sb.pass===false?'bad':'na',`선택 ${ss.correct==null?'미채점':ss.correct?'맞음':'틀림'} · Box ${sb.iou!=null?'IoU '+(+sb.iou).toFixed(2)+(sb.pass==null?'':sb.pass?' 통과':' 미달'):'미채점'}`,''];
+  /* 채점 제외: 백엔드 excluded_reason 그대로 (분모 = 검수 완료 · Positive · 대상 1명 · t에 보임) */
+  const exOf=x=>{const r=String(x.excluded||'');if(x.eligible!==false&&!r)return null;
+    if(r.startsWith('reference_not_reviewed'))return ['warn','정답 검수 전 · 채점 제외',x.review==='Draft'?'라벨 초안과 비교만':''];
+    if(r==='reference_missing')return ['warn','정답 없음 · 채점 제외',''];
+    if(r==='negative_not_in_target_denominator')return ['na','Negative · H초 안 충돌 없음','선택·위치는 Positive 문항만 채점'];
+    return [/missing/.test(r)?'warn':'na',reasonKo(r)+' · 채점 제외',''];};
+  const tau=it.tau;
+  const evPill=x=>x.event==='Positive'?pill('Positive','dim'):x.event==='Negative'?pill('Negative','dim'):x.event==='AfterEvent'?pill('충돌 이후','dim'):x.event==='Missing'?pill('사건 미확정','warn'):'';
+  const chip=x=>`${x.tau!=null?`<span class="small muted">τ ${x.tau.toFixed(1)}s</span> `:''}${waitOf(x)?pill('결과 대기','dim'):exOf(x)?pill(x.event==='Negative'?'Negative':x.review==='Draft'?'초안':'제외','na'):`<span class="small">${mk(x.sc.correct)}${mk(x.sc.pass)}</span>`}`;
+  const kind=runMeta.data_kind,srcPill=t2.src==='files'?pill('예시 파일','mock'):kind==='real'?pill('실제 Run','real'):pill('예시','mock');
+  const ps=it.pred.select,pb=it.pred.box,ex=exOf(it),wait=waitOf(it),refL=it.review==='Draft'?'라벨 초안':'정답';
+  const verdict=wait?['na','결과 대기 · 아직 추론 전','']:ex||[it.sc.correct&&it.sc.pass?'ok':it.sc.correct===false||it.sc.pass===false?'bad':'na',`선택 ${it.sc.correct==null?'미채점':it.sc.correct?'맞음':'틀림'} · Box ${it.sc.iou!=null?'IoU '+(+it.sc.iou).toFixed(2)+(it.sc.pass==null?'':it.sc.pass?' 통과':' 미달'):'미채점'}`,''];
   const okP=v=>v==null?pill('미채점','na'):v?pill('맞음','ok'):pill('틀림','bad');
   const bx=b=>b?`<span class="mono small">[${b.map(v=>Math.round(v)).join(', ')}]</span>`:'<span class="muted small">–</span>';
-  const vurl=t2vid(it),vload=!vurl&&t2.vfetch[it.clip]==='loading';
+  const vurl=t2vid(it),vload=!vurl&&t2.vfetch[it.clip]==='loading',furl=t2abs(it.frameUrl),nurl=t2abs(it.numUrl);
   el.innerHTML=`
   <div class="row"><h1>Track 2 · 영상</h1>${srcPill}${t2.run?`<b class="mono">${esc(t2.run)}</b>`:''}
     ${t2.src==='api'&&t2.runs.length>1?`<select class="sel" aria-label="Track 2 Run" onchange="t2LoadRun(this.value)">${t2.runs.map(r=>`<option value="${esc(r.run_id)}" ${r.run_id===t2.run?'selected':''}>${esc(r.run_id)}</option>`).join('')}</select>`:''}
+    ${R&&(R.versions||{}).reference?`<span class="small muted" title="채점에 쓴 정답 버전">정답 <span class="mono">${esc(R.versions.reference.join(', '))}</span></span>`:''}
     <span class="sp"></span>${fileBtn}${t2.src!=='api'&&API_MODE&&api.base?`<button class="btn" onclick="t2.state='idle';render()">API에서 불러오기</button>`:''}</div>
   ${t2.err?`<div class="note warn">${esc(t2.err)}</div>`:''}
-  ${R?`<div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">${Object.entries(R.metrics||{}).map(([k,m])=>{const x=m&&m.status==='computed'?m.value:null;
-    return `<div class="card stat" title="${esc((m&&m.reason)||'')}"><b>${x!=null?t2fmt(k,x):`<span class="muted" style="font-size:16px">${m&&m.status==='not_computed'?'미산출':'N/A'}</span>`}</b><span>${esc((T2MET[k]||[k])[0])}${x!=null&&m.numerator!=null&&m.n!=null?` · ${m.numerator}/${m.n}`:''}</span>${x!=null&&m.ci95?`<span class="small muted" style="display:block">95% CI ${t2fmt(k,m.ci95[0])} – ${t2fmt(k,m.ci95[1])}</span>`:x==null&&m&&m.reason?`<span class="small muted" style="display:block">${esc(reasonKo(m.reason))}</span>`:''}</div>`;}).join('')}</div>
-    ${R.provisional?'<div class="small muted">진행 중 · 잠정 값</div>':''}${t2bins(R,H)}`:t2.report&&t2.report._err?`<div class="small muted">리포트를 불러오지 못했어요 · ${esc(t2.report._err)}</div>`:''}
+  ${runMeta.official===false?`<div class="note warn">공식 결과 아님 · ${runMeta.response_policy==='valid_responses_collected_across_attempts'?'첫 응답이 아니라 여러 시도 중 유효 응답을 모은 Run':esc(runMeta.response_policy||'official=false')}</div>`:''}
+  ${R?t2Report(R,H):t2.report&&t2.report._err?`<div class="small muted">리포트를 불러오지 못했어요 · ${esc(t2.report._err)}</div>`:''}
   <div class="card clips" style="padding:6px">${clips.map(c=>`<div class="clip"><span><b class="mono">${esc(shortClip(c))}</b> <span class="small muted mono" title="${esc(c)}">${esc(String(c).replace(/^bb_1_\d{6}_/,''))}</span></span>
-    <span class="ds">${t2.items.filter(x=>x.clip===c).map(x=>`<button class="dbtn ${x.id===it.id?'on':''}" title="${esc(x.id)}" onclick="t2pick('${esc(x.id)}')">◆ ${x.dec?`f${x.dec.f} · ${x.dec.t.toFixed(1)}s`:'시점 없음'} ${chip(x)}</button>`).join('')}</span></div>`).join('')}</div>
-  <div class="verdict ${verdict[0]}"><b>${verdict[1]}</b>${verdict[2]?`<span class="small muted">${esc(verdict[2])}</span>`:''}<span class="sp"></span>${evPill(it)}${it.visible===false?pill('대상 가려짐','warn'):''}${it.dec?`<span class="small muted mono" title="판단 시점 t · 잔여 시간 τ = tc − t · 예측 기간 H">t ${it.dec.t.toFixed(2)}s${tau!=null?` · τ ${tau.toFixed(2)}s`:''} · H ${H}s</span>`:''}<span class="small muted mono">${esc(it.id)}</span></div>
+    <span class="ds">${t2.items.filter(x=>x.clip===c).map(x=>`<button class="dbtn ${x.id===it.id?'on':''}" title="${esc(x.id)}" onclick="t2pick('${esc(x.id)}')">◆ ${x.dec?x.dec.t.toFixed(2)+'s':'시점 없음'} ${chip(x)}</button>`).join('')}</span></div>`).join('')}</div>
+  <div class="verdict ${verdict[0]}"><b>${verdict[1]}</b>${verdict[2]?`<span class="small muted">${esc(verdict[2])}</span>`:''}<span class="sp"></span>${evPill(it)}${it.visible===false?pill('대상 가려짐','warn'):''}
+    ${it.dec?`<span class="small muted mono" title="판단 시점 t · 잔여 시간 τ = tc − t · 예측 기간 H">t ${it.dec.t.toFixed(2)}s${tau!=null?` · τ ${tau.toFixed(2)}s`:''} · H ${H}s</span>`:''}<span class="small muted mono">${esc(it.id)}</span></div>
   <div class="grid">
     <div class="left">
-      <div class="stage t2stage" style="aspect-ratio:${it.W}/${it.H}">${vurl?`<video id="t2v" src="${esc(vurl)}" muted playsinline preload="auto"></video>`
-        :vload?'<span class="t2novid">영상 불러오는 중…</span>':`<span class="t2novid" title="${esc(it.clip)}.mp4 를 「예시 응답·영상 열기」로 열면 재생돼요. Box·시점은 영상 없이도 확인 가능">영상 없음 · ${esc(it.clip)}.mp4 열면 재생</span>`}
+      <div class="stage t2stage" style="aspect-ratio:${it.W}/${it.H}">
+        ${furl?`<img id="t2fi" src="${esc(furl)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill" onerror="this.remove()">`:''}
+        ${vurl?`<video id="t2v" src="${esc(vurl)}" muted playsinline preload="auto"></video>`:`<span class="t2novid">${vload?'영상 불러오는 중…':t2.vfetch[it.clip]==='bad'?'영상을 불러오지 못했어요 · 판단 시점 프레임만':`영상 없음 · ${esc(it.clip)}.mp4 열면 재생`}</span>`}
+        ${nurl?`<img id="t2nf" src="${esc(nurl)}" alt="모델 입력 프레임" style="position:absolute;inset:0;width:100%;height:100%;object-fit:fill;display:none" onerror="this.remove()">`:''}
         <svg id="t2svg" viewBox="0 0 ${it.W} ${it.H}" preserveAspectRatio="none"></svg><span class="t2badge" id="t2badge"></span><span class="t2time" id="t2time"></span></div>
       <div class="t2ctl"><button class="btn" id="t2play" onclick="t2toggle()" title="재생/정지 (스페이스)">▶ 재생</button><button class="btn" onclick="t2step(-1)" title="이전 프레임 (← 또는 ,)">‹ 1f</button><button class="btn" onclick="t2step(1)" title="다음 프레임 (→ 또는 .)">1f ›</button>
         <button class="btn" ${it.dec?'':'disabled'} onclick="t2stop();t2seekF(${it.dec?it.dec.f:0})">◆ 판단 시점</button>
@@ -837,76 +868,35 @@ function T2(){
         <label class="tog small"><input type="checkbox" ${t2.stopAtDec?'checked':''} onchange="t2.stopAtDec=this.checked">판단 시점에서 멈춤</label>
         <span class="sp"></span><button class="btn" onclick="t2copy(this)" title="clip·프레임·시각을 복사 (판단 시점 기록용)">시점 복사</button></div>
       <div class="tl" id="t2tl" onpointerdown="t2drag(event)" title="눌러서 이동">
-        ${it.dec?`<span class="inp" style="width:${pct(it.dec.t)}%" title="모델 입력 구간 (판단 시점까지)"></span><span class="fut" style="left:${pct(it.dec.t)}%" title="판단 이후 · 모델 입력 아님"></span>`:''}
-        ${it.inputs.map(t=>`<span class="tk" style="left:${pct(t)}%"></span>`).join('')}
-        ${labs.map(l=>`<span class="lb" style="left:${pct((l.f+.5)/it.fps)}%" title="라벨 프레임 f${l.f}"></span>`).join('')}
-        ${it.dec?`<span class="hw" style="left:${pct(it.dec.t)}%;width:${pct(it.dec.t+H)-pct(it.dec.t)}%" title="예측 기간 H ${H}s (t ~ t+H)"></span>`:''}
-        ${it.col?`<span class="co" style="left:${pct(it.col.t)}%" title="최초 충돌 f${it.col.f} · ${it.col.t.toFixed(2)}s"><b>충돌</b></span>`:''}
-        ${same.map(x=>`<span class="dc ${x.id===it.id?'on':''}" style="left:${pct(x.dec.t)}%" title="판단 시점 f${x.dec.f} · ${x.dec.t.toFixed(2)}s" onpointerdown="event.stopPropagation();t2pick('${esc(x.id)}')"></span>`).join('')}
+        ${it.dec?`<span class="inp" style="width:${pct(it.dec.t)}%" title="모델 입력 구간 (판단 시점까지)"></span><span class="fut" style="left:${pct(it.dec.t)}%" title="판단 이후 · 모델 입력 아님"></span><span class="hw" style="left:${pct(it.dec.t)}%;width:${pct(it.dec.t+H)-pct(it.dec.t)}%" title="예측 기간 H ${H}s (t ~ t+H)"></span>`:''}
+        ${it.col?`<span class="co" style="left:${pct(it.col.t)}%" title="최초 충돌 tc ${it.col.t.toFixed(2)}s"><b>충돌</b></span>`:''}
+        ${same.map(x=>`<span class="dc ${x.id===it.id?'on':''}" style="left:${pct(x.dec.t)}%" title="판단 시점 ${x.dec.t.toFixed(2)}s${x.tau!=null?' · τ '+x.tau.toFixed(2)+'s':''}" onpointerdown="event.stopPropagation();t2pick('${esc(x.id)}')"></span>`).join('')}
         ${Array.from({length:Math.floor(dur)+1},(_,k)=>k).filter(k=>k%2===0&&k>0&&k<dur-.4).map(k=>`<span class="tx" style="left:${pct(k)}%">${k}s</span>`).join('')}
         <span class="ph" id="t2ph"></span></div>
-      <div class="layers">${[['cand','k','후보 번호'],['gt','g',refL],['pred','p','예측'],['lab','l','라벨 프레임']].map(([k,c,l])=>`<button class="ly ${t2.layers[k]?'':'off'}" onclick="t2.layers.${k}=!t2.layers.${k};this.classList.toggle('off');t2paint()"><i class="${c}"></i>${l}</button>`).join('')}
+      <div class="layers">${[['cand','k','후보 번호'],['gt','g',refL],['pred','p','예측'],...(nurl?[['nf','l','모델 입력 프레임']]:[])].map(([k,c,l])=>`<button class="ly ${t2.layers[k]?'':'off'}" onclick="t2.layers.${k}=!t2.layers.${k};this.classList.toggle('off');t2paint()"><i class="${c}"></i>${l}</button>`).join('')}
         <span class="sp"></span><span class="small muted">◆ 판단 시점 t · 파란 구간 = 모델 입력 · 노란 막대 = H · 빨간 선 = 충돌 tc</span></div>
     </div>
     <div class="right">
-      <section class="card sec"><h2>선택 <span>Selection · ${H}초 안에 내 차와 충돌할 보행자 번호</span><span class="sp"></span>${ex||wait?'':okP(ss.correct)}</h2>
-        <div class="cmp"><div class="side gt"><div class="row">${pill(refL,'gt')}<b class="big2">${it.gt.target!=null?'#'+esc(it.gt.target):'–'}</b></div></div>
-          <div class="side pred"><div class="row">${pill('예측','pred')}${ps.status==='valid'?`<b class="big2">#${esc(ps.id)}</b>`:pstPill(ps.status)}</div>${ps.errors.length?`<div class="small mono muted">${esc(ps.errors[0])}</div>`:''}</div></div>
-        ${ss.reason&&!ex?`<div class="small muted" title="${esc(ss.reason)}">${esc(reasonKo(ss.reason))}</div>`:''}</section>
-      <section class="card sec"><h2>위치 <span>Localization · 판단 시점 t의 대상 Box</span><span class="sp"></span>${ex||wait?'':sb.pass==null?pill('미채점','na'):sb.pass?pill('통과','ok'):pill('미달','bad')}</h2>
-        <div class="row"><span class="big2">${!ex&&sb.iou!=null?(+sb.iou).toFixed(2):'–'}</span><span class="small muted">IoU${sb.thr!=null?` · 기준 ${sb.thr}`:''}</span></div>
+      ${it._loading?'<div class="small muted">문항 상세 불러오는 중…</div>':it._err?`<div class="note warn">문항 상세를 불러오지 못했어요 · ${esc(it._err)}</div>`:''}
+      <section class="card sec"><h2>선택 <span>Selection · ${H}초 안에 내 차와 충돌할 보행자 번호</span><span class="sp"></span>${ex||wait?'':okP(it.sc.correct)}</h2>
+        <div class="cmp"><div class="side gt"><div class="row">${pill(refL,'gt')}<b class="big2">${it.gt.targets.length?it.gt.targets.map(x=>'#'+esc(x)).join(' '):'–'}</b></div>${it.cands.length?`<div class="small muted">후보 ${it.cands.length}명</div>`:''}</div>
+          <div class="side pred"><div class="row">${pill('예측','pred')}${ps.status==='valid'?`<b class="big2">#${esc(ps.id)}</b>`:pstPill(ps.status)}</div>${ps.errors.length?`<div class="small mono muted">${esc(ps.errors[0])}</div>`:''}</div></div></section>
+      <section class="card sec"><h2>위치 <span>Localization · 판단 시점 t의 대상 Box</span><span class="sp"></span>${ex||wait?'':it.sc.pass==null?pill('미채점','na'):it.sc.pass?pill('통과','ok'):pill('미달','bad')}</h2>
+        <div class="row"><span class="big2">${!ex&&it.sc.iou!=null?(+it.sc.iou).toFixed(2):'–'}</span><span class="small muted">IoU · 기준 0.5</span></div>
         <div class="cmp"><div class="side gt"><div class="row">${pill(refL,'gt')}</div>${bx(it.gt.box)}</div>
           <div class="side pred"><div class="row">${pill('예측','pred')}${pb.status==='valid'?'':pstPill(pb.status)}</div>${pb.status==='valid'?bx(pb.box):pb.errors.length?`<div class="small mono muted">${esc(pb.errors[0])}</div>`:''}</div></div>
-        ${sb.reason&&!ex?`<div class="small muted" title="${esc(sb.reason)}">${esc(reasonKo(sb.reason))}</div>`:''}</section>
-      ${it.sc.same?`<section class="card sec"><h2>선택·위치 같은 사람</h2>${it.sc.same.status==='computed'?(it.sc.same.value?pill('같은 사람','ok'):pill('다른 사람','bad')):`${none(it.sc.same)}<span class="small muted">${esc(reasonKo(it.sc.same.reason))}</span>`}</section>`:''}
+        ${it.sc.agree!=null?`<div class="small muted" title="선택한 번호의 Box와 예측 Box가 얼마나 겹치는지 (같은 사람을 가리켰는지)">선택 번호 Box ↔ 예측 Box IoU <b>${(+it.sc.agree).toFixed(2)}</b></div>`:''}</section>
       <section class="card sec">
         ${ps.raw||pb.raw?`<details class="more" style="border-top:0;padding-top:0"><summary>모델 원문</summary><div class="body">${ps.raw?`<div class="small muted">선택</div><pre class="raw">${esc(ps.raw)}</pre>`:''}${pb.raw?`<div class="small muted">위치</div><pre class="raw">${esc(pb.raw)}</pre>`:''}</div></details>`:''}
         <details class="more" ${ps.raw||pb.raw?'':'style="border-top:0;padding-top:0"'}><summary>영상·시점 정보</summary><div class="body"><div class="kv">
-          <span>clip</span><span>${esc(it.clip)}</span><span>판단 시점</span><span>${it.dec?`f${it.dec.f} · ${it.dec.t.toFixed(2)}s`:'–'}</span>
-          <span>최초 충돌 tc</span><span>${it.col?`f${it.col.f} · ${it.col.t.toFixed(2)}s`:'미기록'}</span><span>잔여 시간 τ</span><span>${tau!=null?tau.toFixed(2)+'s':'–'}${it.tau==null&&tau!=null?' (tc−t로 계산)':''}</span>
-          <span>예측 기간 H</span><span>${H}s${it.hz||(t2.report&&pk(t2.report,'horizon_s'))?'':' (기본값)'}</span><span>대상 보임</span><span>${it.visible==null?'–':it.visible?'예':'아니오'}</span><span>입력 프레임</span><span>${it.inputs.length?it.inputs.length+'장':'–'}</span>
-          <span>영상</span><span>${it.W}×${it.H} · ${it.fps}fps${it.nF?' · '+it.nF+'프레임':''}</span><span>정답 버전</span><span>${esc(it.refVer||'–')}</span></div></div></details>
+          <span>clip</span><span>${esc(it.clip)}</span><span>판단 시점 t</span><span>${it.dec?`${it.dec.t.toFixed(3)}s · 프레임 ${it.dec.f}${it.labelFrame!=null?` (라벨 ${it.labelFrame})`:''}`:'–'}</span>
+          <span>최초 충돌 tc</span><span>${it.col?it.col.t.toFixed(2)+'s':'미기록'}${it.eventStatus?` · ${esc(it.eventStatus)}`:''}</span><span>잔여 시간 τ</span><span>${tau!=null?tau.toFixed(2)+'s':'–'}${it.bin?` · 구간 ${esc(t2bin(it.bin))}`:''}</span>
+          <span>예측 기간 H</span><span>${H}s</span><span>대상</span><span>${it.visible==null?'–':it.visible?'t에 보임':'가려짐'}${it.targetSrc?` · ${esc(it.targetSrc)}`:''}</span>
+          <span>입력 규칙</span><span>${esc(it.inputRule||'–')}</span><span>영상</span><span>${it.W}×${it.H} · ${it.fps}fps${it.nF?' · '+it.nF+'프레임':''}</span><span>정답 버전</span><span>${esc(it.refVer||'–')}</span></div></div></details>
       </section>
     </div>
   </div>`;
   t2bind();
-}
-/* 임시 예시: 혜승님 예시 응답이 오기 전 화면 확인용 가상 값. clip_id만 data_handoff/track2 후보 이름을 빌림 (영상·라벨 값은 가짜) */
-function t2Sample(){const {report,items}=t2SampleData();
-  t2stop();Object.assign(t2,{src:'sample',state:'ok',err:'',runs:[],run:report.run_id,report,items:items.map(x=>({...t2Item(x),_full:true}))});t2pick(t2.items[0].id,true);render();}
-function t2SampleData(){
-  /* 명세 App. D.1 형식에 맞춘 가상 값: H=2초, τ=tc−t, Positive(0<τ≤H)만 선택·위치 채점 */
-  const fps=15,W=1920,H=1080,HZ=2,lerp=(a,b,u)=>a.map((v,i)=>Math.round(v+(b[i]-v)*u)),iou=(a,b)=>{const w=Math.max(0,Math.min(a[2],b[2])-Math.max(a[0],b[0])),h=Math.max(0,Math.min(a[3],b[3])-Math.max(a[1],b[1])),i=w*h;return +(i/((a[2]-a[0])*(a[3]-a[1])+(b[2]-b[0])*(b[3]-b[1])-i)).toFixed(4);};
-  const pathA=f=>lerp([1100,500,1170,700],[1290,470,1400,800],Math.max(0,Math.min(1,(f-96)/44))),pathB=f=>lerp([1060,520,1120,690],[990,470,1110,780],Math.max(0,Math.min(1,(f-80)/30)));
-  const inputs=d=>{const a=[];for(let t=0;t<=d/fps+1e-9;t+=.2)a.push(+t.toFixed(2));return a;};
-  const scored=(sel,gtId,box,gtBox)=>({select:{status:'computed',correct:sel==null?false:sel===gtId,reason:sel==null?'invalid_output':null},box:{status:'computed',iou:box?iou(box,gtBox):0,threshold:.5,pass:box?iou(box,gtBox)>=.5:false,reason:box?null:'invalid_output'}});
-  const item=(clip,dec,col,cands,gtId,review,sel,box,o={})=>{const gtBox=cands[gtId-1],tau=col==null?null:+((col-dec)/fps).toFixed(3),ev=col==null?'Missing':tau>0&&tau<=HZ?'Positive':'Negative';
-    return {item_id:`t2_${clip.match(/_(\d{6})_/)[1]}_f${dec}`,clip_id:clip,data_kind:'example',horizon_s:HZ,
-    video:{url:null,fps,n_frames:150,width:W,height:H},decision:{frame:dec,time_s:+((dec+.5)/fps).toFixed(3)},first_collision:col==null?null:{frame:col,time_s:+((col+.5)/fps).toFixed(3)},input_frames_s:inputs(dec),
-    candidates:cands.map((b,i)=>({candidate_id:i+1,bbox_xyxy:b})),
-    reference:{annotation_status:review,reference_version:review==='Reviewed'?'t2-example':'t2-example-draft',event_label:ev,residual_time_s:tau,target_visible:true,target_candidate_id:ev==='Negative'?null:gtId,target_bbox_xyxy:ev==='Negative'?null:gtBox},
-    prediction:o.pred||{select:sel==null?{status:'invalid',raw_text:'```json\n{"target_id": '+gtId+'}\n```',format_errors:['JSON parse error: Expecting value: line 1 column 1 (char 0)']}:{status:'valid',raw_text:JSON.stringify({target_id:sel}),target_id:sel},
-      box:{status:'valid',raw_text:JSON.stringify({bbox_xyxy:box}),bbox_xyxy:box}},
-    scoring:o.scoring||(ev==='Negative'?{select:{status:'not_applicable',reason:'not_positive'},box:{status:'not_applicable',reason:'not_positive'}}:scored(sel,gtId,box,gtBox)),frame_labels:o.labels||[]};};
-  const A='bb_1_160630_pedestrian_223_24150',labA=[96,100,104,108,112,116,120,122,124,126,128,130,132,134,136,138].map(f=>({frame:f,boxes:[{bbox_xyxy:pathA(f),is_target:true},{bbox_xyxy:[230,520,300,740]},{bbox_xyxy:[900,470,970,690]}]}));
-  const B='bb_1_180227_pedestrian_123_016',labB=[80,84,88,90,96,100,104].map(f=>({frame:f,boxes:[{bbox_xyxy:pathB(f),is_target:true}]}));
-  const items=[
-    item(A,126,141,[[210,520,290,760],[880,470,960,700],pathA(126),[1500,480,1570,690]],3,'Reviewed',3,[1230,490,1340,770],{labels:labA}),
-    item(A,112,141,[[230,520,300,740],[900,470,970,690],pathA(112),[1480,480,1545,680]],3,'Reviewed',2,[880,460,975,700],{labels:labA}),
-    item(A,100,141,[[240,520,305,735],[910,470,975,685],pathA(100),[1470,480,1535,675]],3,'Reviewed',3,[1100,495,1180,705],{labels:labA}),
-    item(B,90,118,[[400,540,470,720],pathB(90),[1600,520,1660,700]],2,'Reviewed',null,[990,480,1100,760],{labels:labB}),
-    item('bb_1_181002_pedestrian_192_110',100,120,[[700,520,760,690],[1180,520,1250,700]],2,'Draft',1,[1180,520,1250,700],{scoring:{excluded_reason:'reference_not_reviewed',select:{status:'excluded',reason:'reference_not_reviewed'},box:{status:'excluded',reason:'reference_not_reviewed'}}}),
-    item('bb_1_190430_pedestrian_195_138',95,120,[[600,500,680,720],[1300,520,1360,690],[1650,540,1700,680]],1,'Reviewed',null,null,{pred:{select:{status:'not_returned'},box:{status:'not_returned'}},scoring:{select:{status:'pending'},box:{status:'pending'}}})];
-  const done=items.filter(x=>x.reference.annotation_status==='Reviewed'&&x.reference.event_label==='Positive'&&x.scoring.select.status==='computed');
-  const agg=xs=>{const ok=xs.filter(x=>x.scoring.select.correct).length,u=xs.map(x=>x.scoring.box.iou),p=u.filter(v=>v>=.5).length;
-    return {target_acc:{status:'computed',value:xs.length?ok/xs.length:null,numerator:ok,n:xs.length},miou:{status:'computed',value:xs.length?u.reduce((a,b)=>a+b,0)/xs.length:null,n:xs.length},acc_05:{status:'computed',value:xs.length?p/xs.length:null,numerator:p,n:xs.length}};};
-  const ret=items.filter(x=>x.prediction.select.status!=='not_returned');
-  const report={run_id:'T2-EXAMPLE',provisional:true,horizon_s:HZ,metrics:{...agg(done),
-    select_valid:{status:'computed',value:ret.filter(x=>x.prediction.select.status==='valid').length/items.length,numerator:ret.filter(x=>x.prediction.select.status==='valid').length,n:items.length},
-    box_valid:{status:'computed',value:ret.filter(x=>x.prediction.box.status==='valid').length/items.length,numerator:ret.filter(x=>x.prediction.box.status==='valid').length,n:items.length},
-    completion:{status:'not_computed',reason:'event prediction not collected'},lead_time_s:{status:'not_computed',reason:'needs 0.5s decision points'}},
-    by_tau_bin:[['0–1s',0,1],['1–2s',1,2]].map(([bin,lo,hi])=>{const xs=done.filter(x=>x.reference.residual_time_s>lo&&x.reference.residual_time_s<=hi);return {bin,n:xs.length,metrics:agg(xs)};})};
-  return {report,items};
 }
 if(API_MODE){let b='http://localhost:8888';try{b=new URLSearchParams(location.search).get('api')||localStorage.getItem('f3f5_api')||b;}catch(e){}connect(b);}else render();
 </script>

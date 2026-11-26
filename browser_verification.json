@@ -8,7 +8,7 @@
     "F5 real image, polygon, R1-R3, auxiliary navigation",
     "legacy v1.0 preserved",
     "v1.1 real run: auxiliary row, raw output",
-    "T2 decision point, boxes, timeline"
+    "T2 decision points, boxes, timeline, report"
   ],
   "errors": []
 }
