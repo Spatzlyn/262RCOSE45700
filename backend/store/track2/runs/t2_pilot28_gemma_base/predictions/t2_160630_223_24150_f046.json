@@ -1,0 +1,20 @@
+{
+ "select": {
+  "status": "ok",
+  "output_text": "{\"target_id\": 4}",
+  "sha256": "0922b9cf24e4b7c00db9471266a2f63f7155fcd6c623a12b1c110ea860f54a68",
+  "source": "track2_batch27_v1/runs/20261125T130705190663Z/t2_160630_223_24150_f046",
+  "model_team_validation": {
+   "valid": true
+  }
+ },
+ "box": {
+  "status": "ok",
+  "output_text": "{\"bbox_xyxy\":[857,655,978,877]}",
+  "sha256": "adf525cdb57bdf7176fd7b02d13d2b0cfd09890524a20f869946662b05c52e1d",
+  "source": "track2_box5_v4/results/t2_160630_223_24150_f046",
+  "model_team_validation": {
+   "valid": true
+  }
+ }
+}

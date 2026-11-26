@@ -1,0 +1,1345 @@
+{
+ "scorer_version": "backend-track2-0.1.0",
+ "track": "track2",
+ "items": [
+  {
+   "item_id": "t2_160630_223_24150_f007",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 0.4,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     567,
+     601,
+     687,
+     627
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f011",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 0.666667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     607,
+     601,
+     700,
+     623
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f016",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 1.0,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     608,
+     601,
+     700,
+     623
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f021",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 1.333333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     857,
+     577,
+     911,
+     613
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f028",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 1.8,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 5,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     859,
+     649,
+     911,
+     717
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f036",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 2.333333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 5,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     775,
+     878,
+     913,
+     922
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f039",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 2.533333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 5,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     776,
+     877,
+     913,
+     923
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f041",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 2.666667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 5,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     806,
+     877,
+     917,
+     923
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f043",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 2.8,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 5,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     857,
+     737,
+     979,
+     911
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f046",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 3.0,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     857,
+     655,
+     978,
+     877
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f057",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 3.733333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     857,
+     653,
+     978,
+     839
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f099",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 6.533333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     742,
+     847,
+     913,
+     900
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f118",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 7.8,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     742,
+     843,
+     917,
+     900
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f126",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 8.333333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     742,
+     843,
+     913,
+     900
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f138",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 9.133333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 7,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     742,
+     843,
+     913,
+     900
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_160630_223_24150_f147",
+   "clip_id": "bb_1_160630_pedestrian_223_24150",
+   "source_group_id": "bb_1_160630_pedestrian_223_24150",
+   "decision_time_s": 9.733333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 7,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     742,
+     843,
+     917,
+     900
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f031",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 2.0,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     677,
+     809,
+     909,
+     873
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f041",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 2.666667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     745,
+     808,
+     915,
+     872
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f043",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 2.8,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 3,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     745,
+     808,
+     915,
+     873
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f047",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 3.066667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 4,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     778,
+     808,
+     918,
+     862
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f055",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 3.6,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 6,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     778,
+     808,
+     918,
+     862
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f059",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 3.866667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 7,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     778,
+     833,
+     999,
+     913
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_180227_123_016_f062",
+   "clip_id": "bb_1_180227_pedestrian_123_016",
+   "source_group_id": "bb_1_180227_pedestrian_123_016",
+   "decision_time_s": 4.066667,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 7,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     777,
+     833,
+     999,
+     913
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_181002_192_110_f052",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "decision_time_s": 3.4,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     731,
+     373,
+     843,
+     413
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_181002_192_110_f055",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "decision_time_s": 3.6,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     778,
+     377,
+     911,
+     413
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_181002_192_110_f057",
+   "clip_id": "bb_1_181002_pedestrian_192_110",
+   "source_group_id": "bb_1_181002_pedestrian_192_110",
+   "decision_time_s": 3.733333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     798,
+     373,
+     913,
+     413
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_190430_195_138_f132",
+   "clip_id": "bb_1_190430_pedestrian_195_138",
+   "source_group_id": "bb_1_190430_pedestrian_195_138",
+   "decision_time_s": 8.733333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     798,
+     803,
+     902,
+     833
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  },
+  {
+   "item_id": "t2_190430_195_138_f138",
+   "clip_id": "bb_1_190430_pedestrian_195_138",
+   "source_group_id": "bb_1_190430_pedestrian_195_138",
+   "decision_time_s": 9.133333,
+   "data_kind": "real",
+   "gt": {
+    "annotation_status": "Draft",
+    "reference_version": "t2-draft-aihub-isObjectA-20261125",
+    "horizon_s": 2.0,
+    "label": "Missing",
+    "tau_s": null,
+    "bin": null,
+    "eligible": false,
+    "excluded_reason": "reference_not_reviewed (Draft)"
+   },
+   "selection": {
+    "status": "valid",
+    "valid": true,
+    "target_id": 1,
+    "errors": [],
+    "allowed": null,
+    "correct": null
+   },
+   "localization": {
+    "status": "valid",
+    "valid": true,
+    "bbox_xyxy_px": [
+     840,
+     750,
+     910,
+     810
+    ],
+    "errors": [],
+    "gt_box": null,
+    "iou": null,
+    "acc50": null
+   }
+  }
+ ],
+ "summary": {
+  "n_requests": 28,
+  "n_eligible": 0,
+  "n_source_groups": 0,
+  "labels": {
+   "Missing": 28
+  },
+  "excluded": {
+   "reference_not_reviewed (Draft)": 28
+  },
+  "format_status": {
+   "selection": {
+    "valid": 28
+   },
+   "localization": {
+    "valid": 28
+   }
+  },
+  "overall": {
+   "target_acc": {
+    "status": "not_applicable",
+    "value": null,
+    "n": 0,
+    "reason": "no Reviewed Positive item with a single visible target"
+   },
+   "miou": {
+    "status": "not_applicable",
+    "value": null,
+    "n": 0,
+    "reason": "no Reviewed Positive item with a single visible target"
+   },
+   "acc50": {
+    "status": "not_applicable",
+    "value": null,
+    "n": 0,
+    "reason": "no Reviewed Positive item with a single visible target"
+   },
+   "baselines": {
+    "bottom_most": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no Reviewed Positive item with a single visible target"
+    },
+    "largest": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no Reviewed Positive item with a single visible target"
+    },
+    "random_expected": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no Reviewed Positive item with a single visible target"
+    }
+   }
+  },
+  "by_residual_time": {
+   "(0.0,0.5]": {
+    "target_acc": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.0,0.5]"
+    },
+    "miou": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.0,0.5]"
+    },
+    "acc50": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.0,0.5]"
+    },
+    "baselines": {
+     "bottom_most": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.0,0.5]"
+     },
+     "largest": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.0,0.5]"
+     },
+     "random_expected": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.0,0.5]"
+     }
+    },
+    "exploratory": true
+   },
+   "(0.5,1.0]": {
+    "target_acc": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.5,1.0]"
+    },
+    "miou": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.5,1.0]"
+    },
+    "acc50": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (0.5,1.0]"
+    },
+    "baselines": {
+     "bottom_most": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.5,1.0]"
+     },
+     "largest": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.5,1.0]"
+     },
+     "random_expected": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (0.5,1.0]"
+     }
+    },
+    "exploratory": true
+   },
+   "(1.0,1.5]": {
+    "target_acc": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.0,1.5]"
+    },
+    "miou": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.0,1.5]"
+    },
+    "acc50": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.0,1.5]"
+    },
+    "baselines": {
+     "bottom_most": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.0,1.5]"
+     },
+     "largest": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.0,1.5]"
+     },
+     "random_expected": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.0,1.5]"
+     }
+    },
+    "exploratory": true
+   },
+   "(1.5,2.0]": {
+    "target_acc": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.5,2.0]"
+    },
+    "miou": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.5,2.0]"
+    },
+    "acc50": {
+     "status": "not_applicable",
+     "value": null,
+     "n": 0,
+     "reason": "no eligible item with tau in (1.5,2.0]"
+    },
+    "baselines": {
+     "bottom_most": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.5,2.0]"
+     },
+     "largest": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.5,2.0]"
+     },
+     "random_expected": {
+      "status": "not_applicable",
+      "value": null,
+      "n": 0,
+      "reason": "no eligible item with tau in (1.5,2.0]"
+     }
+    },
+    "exploratory": true
+   }
+  },
+  "event_prediction": {
+   "status": "not_computed",
+   "reason": "outputs have no event_prediction field and no observed Negatives yet"
+  },
+  "lead_time": {
+   "status": "not_computed",
+   "reason": "needs event + target predictions at consecutive decision times (0.5 s apart)"
+  }
+ },
+ "result_hash": "9f1113cf56f0efea2d2b3f75d5606c230aafc0b550839342a7ccfcbe919f7198",
+ "run_id": "t2_pilot28_gemma_base",
+ "scorer_commit": "ee8dcee7de00e3d66f88a982a36970a43a275902",
+ "fingerprint": {
+  "scorer_version": "backend-track2-0.1.0",
+  "scorer_commit": "ee8dcee7de00e3d66f88a982a36970a43a275902",
+  "items_hash": "9904e61360055f9874ea67668dfee4319c1ea6001f7c5ec3a10820261169b3f9",
+  "reference_hash": "dfe1f7f2413258ca0169ba8545dc0ce659bc44a7a1f752af79abd63c97ae2ad0",
+  "prediction_hash": "6f3b04b03bf430c56514db7245a61474b63ef791ed19d6dda46980290428cffc",
+  "bootstrap_b": 2000
+ },
+ "reference_versions": [
+  "t2-draft-aihub-isObjectA-20261125"
+ ]
+}

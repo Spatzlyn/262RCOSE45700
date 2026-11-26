@@ -1,0 +1,271 @@
+{
+ "_request": "GET /api/track2/runs/T2-EXAMPLE-RUN/items/t2_180227_123_016_f059",
+ "_note": "SYNTHETIC example: assumed contact frame 64 and made-up predictions, not a result",
+ "run_id": "T2-EXAMPLE-RUN",
+ "item_id": "t2_180227_123_016_f059",
+ "versions": {
+  "scorer": "backend-track2-0.1.0",
+  "scorer_commit": "unknown",
+  "reference": [
+   "t2-EXAMPLE-not-real"
+  ],
+  "result_hash": "29c00c32f599f010bfc5e15272a0bed69f51d1bfd34140a8a7fa67d5159780bf"
+ },
+ "run": {
+  "run_id": "T2-EXAMPLE-RUN",
+  "track": "track2",
+  "data_kind": "example",
+  "label": "Track 2 example (synthetic GT and predictions)"
+ },
+ "input": {
+  "item_id": "t2_180227_123_016_f059",
+  "track": "track2",
+  "data_kind": "real",
+  "clip_id": "bb_1_180227_pedestrian_123_016",
+  "source_group_id": "bb_1_180227_pedestrian_123_016",
+  "video_relpath": "원천데이터_231108_add/VS_차대보행자_영상_횡단보도없음/bb_1_180227_pedestrian_123_016.mp4",
+  "fps": 15,
+  "n_frames": 150,
+  "duration_s": 10.0,
+  "label_frame": 59,
+  "decision_frame_index": 58,
+  "decision_time_s": 3.866667,
+  "width": 1920,
+  "height": 1080,
+  "candidates": [
+   {
+    "candidate_id": 1,
+    "bbox_xyxy_px": [
+     282,
+     532,
+     391,
+     926
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 2,
+    "bbox_xyxy_px": [
+     417,
+     546,
+     536,
+     910
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 3,
+    "bbox_xyxy_px": [
+     568,
+     526,
+     736,
+     934
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 4,
+    "bbox_xyxy_px": [
+     759,
+     580,
+     828,
+     771
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 5,
+    "bbox_xyxy_px": [
+     814,
+     590,
+     888,
+     775
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 6,
+    "bbox_xyxy_px": [
+     1547,
+     385,
+     1693,
+     922
+    ],
+    "source": "aihub_frame_label"
+   },
+   {
+    "candidate_id": 7,
+    "bbox_xyxy_px": [
+     1515,
+     467,
+     1757,
+     930
+    ],
+    "source": "aihub_frame_label"
+   }
+  ],
+  "candidate_order": "left_to_right_by_box_center",
+  "frame_url_available": true,
+  "input_rule": "frames with timestamp <= decision_time_s only (about every 0.2 s plus the last)"
+ },
+ "video_url": "/api/track2/videos/bb_1_180227_pedestrian_123_016",
+ "frame_url": "/api/track2/frames/t2_180227_123_016_f059",
+ "numbered_frame_url": "/api/track2/frames/t2_180227_123_016_f059?numbered=1",
+ "width": 1920,
+ "height": 1080,
+ "decision_time_s": 3.866667,
+ "candidates": [
+  {
+   "candidate_id": 1,
+   "bbox_xyxy_px": [
+    282,
+    532,
+    391,
+    926
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 2,
+   "bbox_xyxy_px": [
+    417,
+    546,
+    536,
+    910
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 3,
+   "bbox_xyxy_px": [
+    568,
+    526,
+    736,
+    934
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 4,
+   "bbox_xyxy_px": [
+    759,
+    580,
+    828,
+    771
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 5,
+   "bbox_xyxy_px": [
+    814,
+    590,
+    888,
+    775
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 6,
+   "bbox_xyxy_px": [
+    1547,
+    385,
+    1693,
+    922
+   ],
+   "source": "aihub_frame_label"
+  },
+  {
+   "candidate_id": 7,
+   "bbox_xyxy_px": [
+    1515,
+    467,
+    1757,
+    930
+   ],
+   "source": "aihub_frame_label"
+  }
+ ],
+ "reference": {
+  "item_id": "t2_180227_123_016_f059",
+  "track": "track2",
+  "annotation_status": "Reviewed",
+  "reference_version": "t2-EXAMPLE-not-real",
+  "event_time_s": 4.2,
+  "event_time_status": "Reviewed",
+  "horizon_s": 2.0,
+  "target_candidate_ids": [
+   6
+  ],
+  "n_targets": 1,
+  "target_visible": true,
+  "target_box_xyxy_px": [
+   1547,
+   385,
+   1693,
+   922
+  ],
+  "target_source": "aihub_isObjectA confirmed by reviewer",
+  "reviewers": [
+   "example"
+  ],
+  "event_frame": 64
+ },
+ "scoring": {
+  "item_id": "t2_180227_123_016_f059",
+  "clip_id": "bb_1_180227_pedestrian_123_016",
+  "source_group_id": "bb_1_180227_pedestrian_123_016",
+  "decision_time_s": 3.866667,
+  "data_kind": "real",
+  "gt": {
+   "annotation_status": "Reviewed",
+   "reference_version": "t2-EXAMPLE-not-real",
+   "horizon_s": 2.0,
+   "label": "Positive",
+   "tau_s": 0.333333,
+   "bin": "(0.0,0.5]",
+   "eligible": true,
+   "excluded_reason": null
+  },
+  "selection": {
+   "status": "invalid",
+   "valid": false,
+   "target_id": null,
+   "errors": [
+    "JSON parse error: Expecting value: line 1 column 1 (char 0)"
+   ],
+   "allowed": [
+    6
+   ],
+   "correct": false
+  },
+  "localization": {
+   "status": "timeout",
+   "valid": false,
+   "bbox_xyxy_px": null,
+   "errors": [
+    "generation timed out (example)"
+   ],
+   "gt_box": [
+    1547,
+    385,
+    1693,
+    922
+   ],
+   "iou": 0.0,
+   "acc50": false
+  }
+ },
+ "prediction_raw": {
+  "select": {
+   "status": "ok",
+   "output_text": "```json\n{\"target_id\": 6}\n```",
+   "error": null
+  },
+  "box": {
+   "status": "timeout",
+   "output_text": null,
+   "error": "generation timed out (example)"
+  }
+ }
+}

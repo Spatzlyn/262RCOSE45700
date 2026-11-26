@@ -1,0 +1,298 @@
+{
+ "_request": "GET /api/track2/runs/T2-EXAMPLE-RUN/report",
+ "_note": "SYNTHETIC example: assumed contact frame 64 and made-up predictions, not a result",
+ "run_id": "T2-EXAMPLE-RUN",
+ "run": {
+  "run_id": "T2-EXAMPLE-RUN",
+  "track": "track2",
+  "data_kind": "example",
+  "label": "Track 2 example (synthetic GT and predictions)"
+ },
+ "versions": {
+  "scorer": "backend-track2-0.1.0",
+  "scorer_commit": "unknown",
+  "reference": [
+   "t2-EXAMPLE-not-real"
+  ],
+  "result_hash": "29c00c32f599f010bfc5e15272a0bed69f51d1bfd34140a8a7fa67d5159780bf"
+ },
+ "n_requests": 7,
+ "n_eligible": 6,
+ "n_source_groups": 1,
+ "labels": {
+  "Negative": 1,
+  "Positive": 6
+ },
+ "excluded": {
+  "negative_not_in_target_denominator": 1
+ },
+ "format_status": {
+  "selection": {
+   "valid": 5,
+   "invalid": 2
+  },
+  "localization": {
+   "valid": 5,
+   "timeout": 2
+  }
+ },
+ "overall": {
+  "target_acc": {
+   "status": "computed",
+   "value": 0.333333,
+   "numerator": 2.0,
+   "n": 6,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "fewer than two Source Groups (clips): interval is N/A"
+  },
+  "miou": {
+   "status": "computed",
+   "value": 0.157501,
+   "numerator": 0.945009,
+   "n": 6,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "fewer than two Source Groups (clips): interval is N/A"
+  },
+  "acc50": {
+   "status": "computed",
+   "value": 0.166667,
+   "numerator": 1.0,
+   "n": 6,
+   "reason": null,
+   "ci95": null,
+   "ci_status": "not_applicable",
+   "ci_reason": "fewer than two Source Groups (clips): interval is N/A"
+  },
+  "baselines": {
+   "bottom_most": {
+    "status": "computed",
+    "value": 0.166667,
+    "numerator": 1.0,
+    "n": 6,
+    "reason": null
+   },
+   "largest": {
+    "status": "computed",
+    "value": 0.333333,
+    "numerator": 2.0,
+    "n": 6,
+    "reason": null
+   },
+   "random_expected": {
+    "status": "computed",
+    "value": 0.228175,
+    "numerator": 1.369048,
+    "n": 6,
+    "reason": null
+   }
+  }
+ },
+ "by_residual_time": {
+  "(0.0,0.5]": {
+   "target_acc": {
+    "status": "computed",
+    "value": 0.5,
+    "numerator": 1.0,
+    "n": 2,
+    "reason": null
+   },
+   "miou": {
+    "status": "computed",
+    "value": 0.268632,
+    "numerator": 0.537264,
+    "n": 2,
+    "reason": null
+   },
+   "acc50": {
+    "status": "computed",
+    "value": 0.5,
+    "numerator": 1.0,
+    "n": 2,
+    "reason": null
+   },
+   "baselines": {
+    "bottom_most": {
+     "status": "computed",
+     "value": 0.0,
+     "numerator": 0.0,
+     "n": 2,
+     "reason": null
+    },
+    "largest": {
+     "status": "computed",
+     "value": 0.0,
+     "numerator": 0.0,
+     "n": 2,
+     "reason": null
+    },
+    "random_expected": {
+     "status": "computed",
+     "value": 0.142857,
+     "numerator": 0.285714,
+     "n": 2,
+     "reason": null
+    }
+   },
+   "exploratory": true
+  },
+  "(0.5,1.0]": {
+   "target_acc": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "miou": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "acc50": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "baselines": {
+    "bottom_most": {
+     "status": "computed",
+     "value": 0.0,
+     "numerator": 0.0,
+     "n": 1,
+     "reason": null
+    },
+    "largest": {
+     "status": "computed",
+     "value": 1.0,
+     "numerator": 1.0,
+     "n": 1,
+     "reason": null
+    },
+    "random_expected": {
+     "status": "computed",
+     "value": 0.166667,
+     "numerator": 0.166667,
+     "n": 1,
+     "reason": null
+    }
+   },
+   "exploratory": true
+  },
+  "(1.0,1.5]": {
+   "target_acc": {
+    "status": "computed",
+    "value": 0.5,
+    "numerator": 1.0,
+    "n": 2,
+    "reason": null
+   },
+   "miou": {
+    "status": "computed",
+    "value": 0.203873,
+    "numerator": 0.407745,
+    "n": 2,
+    "reason": null
+   },
+   "acc50": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 2,
+    "reason": null
+   },
+   "baselines": {
+    "bottom_most": {
+     "status": "computed",
+     "value": 0.5,
+     "numerator": 1.0,
+     "n": 2,
+     "reason": null
+    },
+    "largest": {
+     "status": "computed",
+     "value": 0.5,
+     "numerator": 1.0,
+     "n": 2,
+     "reason": null
+    },
+    "random_expected": {
+     "status": "computed",
+     "value": 0.291667,
+     "numerator": 0.583333,
+     "n": 2,
+     "reason": null
+    }
+   },
+   "exploratory": true
+  },
+  "(1.5,2.0]": {
+   "target_acc": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "miou": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "acc50": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0.0,
+    "n": 1,
+    "reason": null
+   },
+   "baselines": {
+    "bottom_most": {
+     "status": "computed",
+     "value": 0.0,
+     "numerator": 0.0,
+     "n": 1,
+     "reason": null
+    },
+    "largest": {
+     "status": "computed",
+     "value": 0.0,
+     "numerator": 0.0,
+     "n": 1,
+     "reason": null
+    },
+    "random_expected": {
+     "status": "computed",
+     "value": 0.333333,
+     "numerator": 0.333333,
+     "n": 1,
+     "reason": null
+    }
+   },
+   "exploratory": true
+  }
+ },
+ "event_prediction": {
+  "status": "not_computed",
+  "reason": "outputs have no event_prediction field and no observed Negatives yet"
+ },
+ "lead_time": {
+  "status": "not_computed",
+  "reason": "needs event + target predictions at consecutive decision times (0.5 s apart)"
+ },
+ "definitions": {
+  "denominator": "Reviewed, Positive within H, single target visible at decision time",
+  "selection": "TargetAcc = share of items whose chosen candidate is the target",
+  "localization": "IoU of predicted vs GT box at decision time; unreadable box = 0",
+  "residual_time": "tau = first contact time - decision time"
+ }
+}

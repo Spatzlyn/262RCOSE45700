@@ -43,6 +43,10 @@ SMALL_N = 30  # condition subsets below this are marked exploratory
 app = FastAPI(title="Road VLM Benchmark Report API", version=API_VERSION)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
+from backend.app.track2_api import router as track2_router  # noqa: E402
+
+app.include_router(track2_router)
+
 
 # ----------------------------------------------------------------------------- auth
 

@@ -1,0 +1,30 @@
+{
+ "run_id": "t2_pilot28_gemma_base",
+ "track": "track2",
+ "data_kind": "real",
+ "status": "imported",
+ "label": "Track 2 · 28 decision times · Gemma Base (valid responses collected across attempts)",
+ "source": {
+  "git_ref": "6ed56dc607f31a0a3eb6c72547de154300bbe1dc",
+  "path": "ai_model/track2/판단시점_28건_예측결과_인계"
+ },
+ "model": {
+  "model_id": "google/gemma-4-E4B-it",
+  "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"
+ },
+ "response_policy": "valid_responses_collected_across_attempts",
+ "attempt_sources": {
+  "select": {
+   "track2_smoke_f007_v1": 1,
+   "track2_batch27_v1": 13,
+   "track2_repair25_v1": 14
+  },
+  "box": {
+   "track2_f007_box_v2": 1,
+   "track2_batch27_v1": 16,
+   "track2_box5_v4": 5,
+   "track2_repair25_v1": 6
+  }
+ },
+ "official": false
+}

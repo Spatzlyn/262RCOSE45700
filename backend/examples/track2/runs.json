@@ -1,0 +1,15 @@
+{
+ "_request": "GET /api/track2/runs",
+ "_note": "SYNTHETIC example: assumed contact frame 64 and made-up predictions, not a result",
+ "runs": [
+  {
+   "run_id": "T2-EXAMPLE-RUN",
+   "label": "Track 2 example (synthetic GT and predictions)",
+   "data_kind": "example",
+   "n_requests": 7,
+   "n_eligible": 6,
+   "target_acc": 0.333333,
+   "miou": 0.157501
+  }
+ ]
+}

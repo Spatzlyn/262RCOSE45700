@@ -1,0 +1,47 @@
+{
+ "run_id": "v11_a_rev6_pilot6",
+ "data_kind": "real",
+ "schema_version": "1.1-review",
+ "status": "imported",
+ "label": "v1.1 Pilot 6 · prompt_v11_a_rev6 · first response",
+ "source": {
+  "git_ref": "6ed56dc607f31a0a3eb6c72547de154300bbe1dc",
+  "path": "ai_model/track1/파일럿_6건_채점_인계_20261125",
+  "source_run_ids": [
+   "v11_rev6_002_004_20261125_194929",
+   "v11_rev6_20261125_184805"
+  ]
+ },
+ "model": {
+  "model_id": "google/gemma-4-E4B-it",
+  "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c",
+  "quantization": "nf4",
+  "adapter": null
+ },
+ "prompt": {
+  "version": "prompt_v11_a_rev6",
+  "schema_version": "1.1-review",
+  "system_sha256": "5274b3346277810d8f28a7ba085f41d9145bef128d41d5f60f52831d468cfd7d",
+  "task_sha256": "dc423c98df206d7582abc579e119158e30af102d7a28c6b7f02165a06d9be015",
+  "parent": "prompt_v11_a_rev5"
+ },
+ "decoding": {
+  "max_new_tokens": 4096,
+  "do_sample": false,
+  "seed": 42,
+  "image_max_soft_tokens": 280,
+  "enable_thinking": false
+ },
+ "data_version": {
+  "items": "pilot6-v11",
+  "image_sha256": {
+   "pilot_001": "25a9a92a4d6ce456426b031e11b7f7978b9c037c4966dc41ee165de5c1ea93cd",
+   "pilot_002": "03654038896ea54648c2af6e37766671776955ebcc0ff590fff1a721ca2c4585",
+   "pilot_003": "1db084b52ad114dfa0f2b947603d333923b8a82f5cc3edd216a808ee5d563e60",
+   "pilot_004": "d7c5a93a0709009c4484c9f14814d50df8d23faa954e90af3629e9c264a6e918",
+   "pilot_005": "32898195531d822d4e1c3df1ed1816e36e0319bb9ffa007b63fe959e3aaf602f",
+   "pilot_006": "521758954174ef218469f0fe97d5ebb7128fa856ff8350ce7d3727650d89e858"
+  }
+ },
+ "split_version": "v11-pilot-dev"
+}

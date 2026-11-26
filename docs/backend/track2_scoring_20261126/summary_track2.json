@@ -1,0 +1,214 @@
+{
+ "run_id": "t2_pilot28_gemma_base",
+ "track": "track2",
+ "scorer_version": "backend-track2-0.1.0",
+ "scorer_commit": "ee8dcee7de00e3d66f88a982a36970a43a275902",
+ "result_hash": "9f1113cf56f0efea2d2b3f75d5606c230aafc0b550839342a7ccfcbe919f7198",
+ "reference_versions": [
+  "t2-draft-aihub-isObjectA-20261125"
+ ],
+ "response_policy": "valid_responses_collected_across_attempts",
+ "attempt_sources": {
+  "select": {
+   "track2_smoke_f007_v1": 1,
+   "track2_batch27_v1": 13,
+   "track2_repair25_v1": 14
+  },
+  "box": {
+   "track2_f007_box_v2": 1,
+   "track2_batch27_v1": 16,
+   "track2_box5_v4": 5,
+   "track2_repair25_v1": 6
+  }
+ },
+ "official": {
+  "n_requests": 28,
+  "n_eligible": 0,
+  "labels": {
+   "Missing": 28
+  },
+  "excluded": {
+   "reference_not_reviewed (Draft)": 28
+  },
+  "format_status": {
+   "selection": {
+    "valid": 28
+   },
+   "localization": {
+    "valid": 28
+   }
+  },
+  "target_acc": {
+   "status": "not_applicable",
+   "value": null,
+   "n": 0,
+   "reason": "no Reviewed Positive item with a single visible target"
+  },
+  "miou": {
+   "status": "not_applicable",
+   "value": null,
+   "n": 0,
+   "reason": "no Reviewed Positive item with a single visible target"
+  }
+ },
+ "draft_target_diagnostic": {
+  "note": "AI Hub isObjectA target, event time ignored; NOT official",
+  "overall": {
+   "n_items": 28,
+   "select_acc": {
+    "value": 0.5714,
+    "n": 28
+   },
+   "miou": {
+    "value": 0.0,
+    "n": 28
+   },
+   "acc50": {
+    "value": 0.0,
+    "n": 28
+   },
+   "baseline_bottom_most": {
+    "value": 0.6786,
+    "n": 28
+   },
+   "baseline_largest": {
+    "value": 0.8214,
+    "n": 28
+   },
+   "baseline_random_expected": {
+    "value": 0.3449,
+    "n": 28
+   },
+   "multi_candidate_select_acc": {
+    "value": 0.4783,
+    "n": 23
+   }
+  },
+  "by_clip": {
+   "bb_1_160630_pedestrian_223_24150": {
+    "n_items": 16,
+    "select_acc": {
+     "value": 0.625,
+     "n": 16
+    },
+    "miou": {
+     "value": 0.0,
+     "n": 16
+    },
+    "acc50": {
+     "value": 0.0,
+     "n": 16
+    },
+    "baseline_bottom_most": {
+     "value": 0.8125,
+     "n": 16
+    },
+    "baseline_largest": {
+     "value": 1.0,
+     "n": 16
+    },
+    "baseline_random_expected": {
+     "value": 0.1899,
+     "n": 16
+    },
+    "multi_candidate_select_acc": {
+     "value": 0.625,
+     "n": 16
+    }
+   },
+   "bb_1_180227_pedestrian_123_016": {
+    "n_items": 7,
+    "select_acc": {
+     "value": 0.1429,
+     "n": 7
+    },
+    "miou": {
+     "value": 0.0,
+     "n": 7
+    },
+    "acc50": {
+     "value": 0.0,
+     "n": 7
+    },
+    "baseline_bottom_most": {
+     "value": 0.1429,
+     "n": 7
+    },
+    "baseline_largest": {
+     "value": 0.2857,
+     "n": 7
+    },
+    "baseline_random_expected": {
+     "value": 0.2313,
+     "n": 7
+    },
+    "multi_candidate_select_acc": {
+     "value": 0.1429,
+     "n": 7
+    }
+   },
+   "bb_1_181002_pedestrian_192_110": {
+    "n_items": 3,
+    "select_acc": {
+     "value": 1.0,
+     "n": 3
+    },
+    "miou": {
+     "value": 0.0,
+     "n": 3
+    },
+    "acc50": {
+     "value": 0.0,
+     "n": 3
+    },
+    "baseline_bottom_most": {
+     "value": 1.0,
+     "n": 3
+    },
+    "baseline_largest": {
+     "value": 1.0,
+     "n": 3
+    },
+    "baseline_random_expected": {
+     "value": 1.0,
+     "n": 3
+    },
+    "multi_candidate_select_acc": {
+     "value": null,
+     "n": 0
+    }
+   },
+   "bb_1_190430_pedestrian_195_138": {
+    "n_items": 2,
+    "select_acc": {
+     "value": 1.0,
+     "n": 2
+    },
+    "miou": {
+     "value": 0.0,
+     "n": 2
+    },
+    "acc50": {
+     "value": 0.0,
+     "n": 2
+    },
+    "baseline_bottom_most": {
+     "value": 1.0,
+     "n": 2
+    },
+    "baseline_largest": {
+     "value": 1.0,
+     "n": 2
+    },
+    "baseline_random_expected": {
+     "value": 1.0,
+     "n": 2
+    },
+    "multi_candidate_select_acc": {
+     "value": null,
+     "n": 0
+    }
+   }
+  }
+ }
+}

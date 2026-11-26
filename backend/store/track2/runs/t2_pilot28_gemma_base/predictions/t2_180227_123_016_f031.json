@@ -1,0 +1,20 @@
+{
+ "select": {
+  "status": "ok",
+  "output_text": "{\n\"target_id\": 3\n}",
+  "sha256": "543ea9e3efc877b4dae3558a85fdb71b390aac23b8203720565f30d4afa645a7",
+  "source": "track2_repair25_v1/results/t2_180227_123_016_f031",
+  "model_team_validation": {
+   "valid": true
+  }
+ },
+ "box": {
+  "status": "ok",
+  "output_text": "{\"bbox_xyxy\": [677, 809, 909, 873]}",
+  "sha256": "b3026dd408a7a1292b531cca51ef6609c8717935361c7a30e06abdd6eba5df54",
+  "source": "track2_batch27_v1/runs/20261125T130705190663Z/t2_180227_123_016_f031",
+  "model_team_validation": {
+   "valid": true
+  }
+ }
+}

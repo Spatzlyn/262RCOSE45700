@@ -1,0 +1,20 @@
+{
+ "select": {
+  "status": "ok",
+  "output_text": "{\"target_id\": 3}",
+  "sha256": "6591080a04e75534b4f20109f5e4a68acf4423af931cacc54af95b7c1b300675",
+  "source": "track2_batch27_v1/runs/20261125T130705190663Z/t2_160630_223_24150_f016",
+  "model_team_validation": {
+   "valid": true
+  }
+ },
+ "box": {
+  "status": "ok",
+  "output_text": "{\"bbox_xyxy\": [608, 601, 700, 623]}",
+  "sha256": "fdd5ecbefdb5a40fc3aa8264e2815e7e2352b113ad94665475fb41b9ed42e19b",
+  "source": "track2_batch27_v1/runs/20261125T130705190663Z/t2_160630_223_24150_f016",
+  "model_team_validation": {
+   "valid": true
+  }
+ }
+}

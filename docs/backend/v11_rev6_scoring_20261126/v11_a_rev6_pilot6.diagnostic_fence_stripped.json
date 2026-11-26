@@ -1,0 +1,940 @@
+{
+ "scorer_version": "backend-scorer-0.3.0-v11-review",
+ "bootstrap": {
+  "B": 2000,
+  "seed": 20261116
+ },
+ "items": [
+  {
+   "item_id": "pilot_001",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": "P",
+     "match": false
+    },
+    "R3": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "U",
+     "predicted": "P",
+     "match": false
+    },
+    "forward_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "lateral_occlusion": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "bottleneck": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R1": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R3": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  },
+  {
+   "item_id": "pilot_002",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "U",
+     "predicted": "P",
+     "match": false
+    },
+    "R3": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "U",
+     "predicted": "P",
+     "match": false
+    },
+    "forward_occlusion": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "lateral_occlusion": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "bottleneck": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R1": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R3": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  },
+  {
+   "item_id": "pilot_003",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "A",
+     "predicted": "P",
+     "match": false
+    },
+    "R2": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "A",
+     "predicted": "P",
+     "match": false
+    },
+    "forward_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "lateral_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "bottleneck": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  },
+  {
+   "item_id": "pilot_004",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "R3": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "A",
+     "predicted": "NA",
+     "match": false
+    },
+    "forward_occlusion": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "lateral_occlusion": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "bottleneck": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R1": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R3": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  },
+  {
+   "item_id": "pilot_005",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "U",
+     "predicted": "P",
+     "match": false
+    },
+    "R2": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "R3": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "P",
+     "predicted": "NA",
+     "match": false
+    },
+    "forward_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "lateral_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "bottleneck": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R1": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  },
+  {
+   "item_id": "pilot_006",
+   "data_kind": "real",
+   "prediction_status": "valid",
+   "format_errors": [],
+   "annotation_status": "Reviewed",
+   "reference_version": "1.1-pilot6-reviewed-20261125",
+   "schema_version": "1.1-review",
+   "scored": true,
+   "excluded_reason": null,
+   "relations": {
+    "R1": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R2": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "R3": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    }
+   },
+   "context": {
+    "connection_actor": {
+     "expected": "P",
+     "predicted": "P",
+     "match": true
+    },
+    "forward_occlusion": {
+     "expected": "P",
+     "predicted": "A",
+     "match": false
+    },
+    "lateral_occlusion": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    },
+    "bottleneck": {
+     "expected": "A",
+     "predicted": "A",
+     "match": true
+    }
+   },
+   "attributes": {
+    "sidewalk_left": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "sidewalk_right": {
+     "expected": null,
+     "predicted": "P"
+    },
+    "traffic_direction": {
+     "expected": null,
+     "predicted": "Two-way"
+    },
+    "direction_match": {
+     "expected": null,
+     "predicted": "Consistent"
+    }
+   },
+   "diagnostics": {
+    "grounding": null,
+    "evidence": {
+     "R1": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R2": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     },
+     "R3": {
+      "status": "excluded",
+      "reason": "evidence_not_reviewed"
+     }
+    },
+    "benchmark": {
+     "eligible": false,
+     "blockers": [
+      "reference_partial_review"
+     ]
+    }
+   },
+   "action_eval": {
+    "pass": null,
+    "pass_status": "excluded",
+    "excluded_reason": "action_or_object_roles_not_reviewed",
+    "fail_reasons": [],
+    "errors": []
+   }
+  }
+ ],
+ "summary": {
+  "n_requests": 6,
+  "prediction_status_counts": {
+   "valid": 6
+  },
+  "n_scored_items": 6,
+  "excluded_items": {},
+  "excluded_from_actions": {
+   "direction_conflict": 0
+  },
+  "metrics": {
+   "v1_valid": {
+    "status": "computed",
+    "value": 1.0,
+    "numerator": 6,
+    "n": 6,
+    "reason": null,
+    "ci95": [
+     0.609657,
+     1.0
+    ],
+    "ci_status": "wilson",
+    "ci_reason": null
+   },
+   "v2_invalid": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0,
+    "n": 6,
+    "reason": null,
+    "ci95": [
+     0.0,
+     0.390343
+    ],
+    "ci_status": "wilson",
+    "ci_reason": null
+   },
+   "v3_grounding": {
+    "status": "not_applicable",
+    "primary_iou": 0.5,
+    "by_iou": {
+     "0.3": {
+      "status": "not_applicable",
+      "value": null,
+      "reason": "no reviewed reference objects"
+     },
+     "0.5": {
+      "status": "not_applicable",
+      "value": null,
+      "reason": "no reviewed reference objects"
+     },
+     "0.7": {
+      "status": "not_applicable",
+      "value": null,
+      "reason": "no reviewed reference objects"
+     }
+    },
+    "reason": "no reviewed reference objects",
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric not computed"
+   },
+   "v4_evidence": {
+    "status": "not_applicable",
+    "value": null,
+    "numerator": 0,
+    "n": 0,
+    "reason": "no P/U relation with reviewed evidence",
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric not computed"
+   },
+   "v5_relation_macro_f1": {
+    "status": "not_applicable",
+    "value": null,
+    "cells": {
+     "R1.P": {
+      "f1": 0.8,
+      "support": 4,
+      "tp": 4,
+      "fp": 2,
+      "fn": 0
+     },
+     "R1.A": {
+      "f1": 0.0,
+      "support": 1,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1
+     },
+     "R1.U": {
+      "f1": 0.0,
+      "support": 1,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1
+     },
+     "R2.P": {
+      "f1": 0.5,
+      "support": 4,
+      "tp": 2,
+      "fp": 2,
+      "fn": 2
+     },
+     "R2.A": {
+      "f1": null,
+      "support": 0,
+      "tp": 0,
+      "fp": 2,
+      "fn": 0
+     },
+     "R2.U": {
+      "f1": 0.0,
+      "support": 2,
+      "tp": 0,
+      "fp": 0,
+      "fn": 2
+     },
+     "R3.P": {
+      "f1": 0.4,
+      "support": 4,
+      "tp": 1,
+      "fp": 0,
+      "fn": 3
+     },
+     "R3.A": {
+      "f1": 0.5714285714285714,
+      "support": 2,
+      "tp": 2,
+      "fp": 3,
+      "fn": 0
+     },
+     "R3.U": {
+      "f1": null,
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0
+     }
+    },
+    "reason": "V5 needs reviewed GT in all 9 cells; empty: ['R2.A', 'R3.U']",
+    "supported_class_macro_f1": {
+     "value": 0.32449,
+     "n_cells": 7
+    },
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric not computed"
+   },
+   "v6_present_recall": {
+    "status": "computed",
+    "value": 0.583333,
+    "numerator": 7,
+    "n": 12,
+    "reason": null,
+    "ci95": [
+     0.4,
+     0.714286
+    ],
+    "ci_status": "group_bootstrap",
+    "ci_reason": null,
+    "B": 2000,
+    "seed": 20261116,
+    "n_groups": 6,
+    "undefined_rate": 0.0
+   },
+   "v7_false_positive_rate": {
+    "status": "computed",
+    "value": 0.333333,
+    "numerator": 1,
+    "n": 3,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric undefined in some replicates",
+    "B": 2000,
+    "seed": 20261116,
+    "n_groups": 6,
+    "undefined_rate": 0.087
+   },
+   "v8_unknown_recall": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0,
+    "n": 3,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric undefined in some replicates",
+    "B": 2000,
+    "seed": 20261116,
+    "n_groups": 6,
+    "undefined_rate": 0.0135
+   },
+   "v9_over_abstention": {
+    "status": "computed",
+    "value": 0.0,
+    "numerator": 0,
+    "n": 15,
+    "reason": null,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "ci_status": "group_bootstrap",
+    "ci_reason": null,
+    "B": 2000,
+    "seed": 20261116,
+    "n_groups": 6,
+    "undefined_rate": 0.0
+   },
+   "a1_attribute_f1": {
+    "status": "not_applicable",
+    "value": null,
+    "reason": "no attribute GT",
+    "fields": {
+     "sidewalk_left": {
+      "value": null,
+      "per_value_f1": {},
+      "support": {}
+     },
+     "sidewalk_right": {
+      "value": null,
+      "per_value_f1": {},
+      "support": {}
+     },
+     "traffic_direction": {
+      "value": null,
+      "per_value_f1": {},
+      "support": {}
+     },
+     "direction_match": {
+      "value": null,
+      "per_value_f1": {},
+      "support": {}
+     }
+    },
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric not computed"
+   },
+   "a2_direction_na_violation": {
+    "status": "not_applicable",
+    "value": null,
+    "numerator": 0,
+    "n": 0,
+    "reason": "no GT direction_match=Not applicable",
+    "ci95": null,
+    "ci_status": "not_applicable"
+   },
+   "v10_action_pass_rate": {
+    "status": "not_applicable",
+    "value": null,
+    "numerator": 0,
+    "n": 0,
+    "reason": "no scene eligible for action scoring",
+    "ci95": null,
+    "ci_status": "not_applicable"
+   },
+   "v11_required_group_recall": {
+    "status": "not_applicable",
+    "value": null,
+    "numerator": 0,
+    "n": 0,
+    "reason": "no required groups",
+    "ci95": null,
+    "ci_status": "not_applicable",
+    "ci_reason": "metric not computed"
+   },
+   "v12_forbidden_rate": {
+    "status": "not_computed",
+    "value": null,
+    "n": null,
+    "reason": "v1.1 explicit forbidden-action list pending review",
+    "ci95": null,
+    "ci_status": "not_computed"
+   },
+   "v13_statement_error_rate": {
+    "status": "not_computed",
+    "value": null,
+    "n": null,
+    "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+    "ci95": null,
+    "ci_status": "not_computed"
+   },
+   "v14_answer_with_error_rate": {
+    "status": "not_computed",
+    "value": null,
+    "n": null,
+    "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+    "ci95": null,
+    "ci_status": "not_computed"
+   },
+   "explanation_completion_rate": {
+    "status": "not_computed",
+    "value": null,
+    "n": null,
+    "reason": "statement_review_missing: no human statement reviews submitted; not judged automatically",
+    "ci95": null,
+    "ci_status": "not_computed"
+   },
+   "l1_l3_label_quality": {
+    "status": "not_computed",
+    "value": null,
+    "n": null,
+    "reason": "see GET /api/quality (needs two-annotator pre-consensus records)",
+    "ci95": null,
+    "ci_status": "not_computed"
+   }
+  },
+  "schema_version": "1.1-review",
+  "context_metrics": {
+   "connection_actor": {
+    "status": "computed",
+    "value": 0.166667,
+    "numerator": 1,
+    "n": 6,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_computed",
+    "ci_reason": "filled by group bootstrap when applicable"
+   },
+   "forward_occlusion": {
+    "status": "computed",
+    "value": 0.666667,
+    "numerator": 4,
+    "n": 6,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_computed",
+    "ci_reason": "filled by group bootstrap when applicable"
+   },
+   "lateral_occlusion": {
+    "status": "computed",
+    "value": 0.666667,
+    "numerator": 4,
+    "n": 6,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_computed",
+    "ci_reason": "filled by group bootstrap when applicable"
+   },
+   "bottleneck": {
+    "status": "computed",
+    "value": 0.833333,
+    "numerator": 5,
+    "n": 6,
+    "reason": null,
+    "ci95": null,
+    "ci_status": "not_computed",
+    "ci_reason": "filled by group bootstrap when applicable"
+   }
+  }
+ },
+ "result_hash": "0555927acdad63bd703ed6ca76efc97207505cf6a3b111dc21928e1c81657aac"
+}
