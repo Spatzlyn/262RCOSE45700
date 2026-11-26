@@ -25,3 +25,11 @@ def test_diagnostic_matches_model_team_offline_check():
         valid = sorted(r["item_id"] for r in body["items"] if r["prediction_status"] == "valid")
         assert valid == ["pilot_003", "pilot_004"]
     assert store.predictions(RUNS[0])["pilot_001"]["output_text"].lstrip().startswith("```")
+
+
+def test_rev6_run_is_valid_first_response_with_source_runs():
+    body = score("v11_a_rev6_pilot6", diagnostic=False)
+    assert body["summary"]["prediction_status_counts"] == {"valid": 6}
+    preds = store.predictions("v11_a_rev6_pilot6")
+    assert {p["source_run_id"] for p in preds.values()} == {"v11_rev6_20261125_184805", "v11_rev6_002_004_20261125_194929"}
+    assert all(p["decoded_equals_parsed_output_json"] for p in preds.values())

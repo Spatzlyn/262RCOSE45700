@@ -124,3 +124,12 @@ def test_api(tmp_store, tmp_path):
     d = c.get(f"/api/track2/runs/T2-API/items/{its[0]}").json()
     assert d["video_url"] == f"/api/track2/videos/{CLIP}" and d["candidates"]
     assert c.get("/api/track2/runs/T2-API/items", params={"eligible": True}).json()["n"] == rep["n_eligible"]
+
+
+def test_imported_gemma_run_is_flagged_and_not_official():
+    meta = t2.run_meta("t2_pilot28_gemma_base")
+    assert meta["official"] is False and meta["response_policy"] == "valid_responses_collected_across_attempts"
+    res = track2.score_run(t2.requests("t2_pilot28_gemma_base"), t2.items(), t2.references(),
+                           t2.predictions("t2_pilot28_gemma_base"))
+    assert res["summary"]["n_requests"] == 28 and res["summary"]["n_eligible"] == 0
+    assert res["summary"]["format_status"] == {"selection": {"valid": 28}, "localization": {"valid": 28}}

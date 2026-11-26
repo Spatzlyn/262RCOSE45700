@@ -212,6 +212,57 @@ def cmd_import_run(a):
     return {"ok": True, "run_id": a.run_id, "n_requests": len(reqs)}
 
 
+def cmd_import_handoff(a):
+    """Model-team git handoff: <base>/{predictions.jsonl, 문항별_예측_및_출처.csv, outputs/<item>/...}."""
+    import csv as _csv
+    import io
+    import subprocess
+    root = Path(__file__).resolve().parents[2]
+    show = lambda path: subprocess.run(["git", "show", f"{a.ref}:{path}"], cwd=root, capture_output=True,
+                                       check=True).stdout
+    commit = subprocess.run(["git", "rev-parse", a.ref], cwd=root, capture_output=True, text=True,
+                            check=True).stdout.strip()
+    rows = list(_csv.DictReader(io.StringIO(show(f"{a.base}/문항별_예측_및_출처.csv").decode("utf-8-sig"))))
+    its = t2.items()
+    rd = t2.root() / "runs" / a.run_id
+    if (rd / "run.json").exists():
+        return {"ok": False, "errors": [f"run {a.run_id} exists; use a new run_id"]}
+    errors, preds, sources = [], {}, {"select": {}, "box": {}}
+    for r in rows:
+        iid = r["item_id"]
+        it = its.get(iid)
+        if it is None:
+            errors.append(f"{iid}: unknown item")
+            continue
+        if abs(float(r["decision_time_s"]) - it["decision_time_s"]) > 1e-3 or int(r["decision_frame_index"]) != it["decision_frame_index"]:
+            errors.append(f"{iid}: decision time/frame differs from item")
+        if (int(r["width"]), int(r["height"])) != (it["width"], it["height"]):
+            errors.append(f"{iid}: resolution {r['width']}x{r['height']} != item {it['width']}x{it['height']}")
+        pred = {}
+        for task in ("select", "box"):
+            raw = show(f"{a.base}/{r[task + '_raw_path']}")
+            val = show(f"{a.base}/{r[task + '_validation_path']}")
+            if hashlib.sha256(raw).hexdigest() != r[task + "_raw_sha256"]:
+                errors.append(f"{iid}/{task}: raw sha256 mismatch")
+            src = r[task + "_source"]
+            sources[task][src.split("/")[0]] = sources[task].get(src.split("/")[0], 0) + 1
+            pred[task] = {"status": "ok", "output_text": raw.decode("utf-8"), "sha256": r[task + "_raw_sha256"],
+                          "source": src, "model_team_validation": json.loads(val)}
+        preds[iid] = pred
+    if errors:
+        return {"ok": False, "errors": errors}
+    for iid, pred in preds.items():
+        store.write_json(rd / "predictions" / f"{iid}.json", pred)
+    store.write_json(rd / "run.json", {
+        "run_id": a.run_id, "track": "track2", "data_kind": "real", "status": "imported", "label": a.label,
+        "source": {"git_ref": commit, "path": a.base},
+        "model": {"model_id": "google/gemma-4-E4B-it", "revision": "4ecc2ba63bcac23ba4a767fc87025b1450f84c9c"},
+        "response_policy": a.response_policy, "attempt_sources": sources,
+        "official": a.response_policy == "first_response"})
+    store.write_json(rd / "requests.json", [{"item_id": i, "data_kind": "real"} for i in sorted(preds)])
+    return {"ok": True, "run_id": a.run_id, "n_requests": len(preds), "attempt_sources": sources}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="cmd", required=True)
@@ -221,8 +272,13 @@ def main():
     e = sp.add_parser("export"); e.add_argument("out")
     i = sp.add_parser("import-run"); i.add_argument("run_id"); i.add_argument("dir"); i.add_argument("--label", default="")
     i.add_argument("--model-json")
+    h = sp.add_parser("import-handoff"); h.add_argument("run_id"); h.add_argument("--ref", required=True)
+    h.add_argument("--base", required=True); h.add_argument("--label", default="")
+    h.add_argument("--response-policy", default="first_response",
+                   help="first_response | valid_responses_collected_across_attempts")
     a = ap.parse_args()
-    out = {"build": cmd_build, "review": cmd_review, "export": cmd_export, "import-run": cmd_import_run}[a.cmd](a)
+    out = {"build": cmd_build, "review": cmd_review, "export": cmd_export, "import-run": cmd_import_run,
+           "import-handoff": cmd_import_handoff}[a.cmd](a)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     sys.exit(0 if out.get("ok") else 1)
 
