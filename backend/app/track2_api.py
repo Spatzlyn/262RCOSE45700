@@ -6,7 +6,7 @@ GET /api/track2/runs                          Track 2 runs
 GET /api/track2/runs/{run_id}/report          TargetAcc, mIoU, Acc.5 (overall + per residual time), baselines
 GET /api/track2/runs/{run_id}/items           per-item rows (filters: eligible, correct, excluded_reason, clip_id)
 GET /api/track2/runs/{run_id}/items/{item_id} detail: video, decision time, candidates, GT box, predicted box, IoU
-GET /api/track2/videos/{clip_id}              source MP4 (VIDEO_ROOT), supports HTTP Range for seeking
+GET /api/track2/videos/{clip_id}[?original=1] H.264 copy for browsers (original AI Hub MP4 with ?original=1), Range seeking
 GET /api/track2/frames/{item_id}[?numbered=1] decision frame (plain or with neutral candidate numbers)
 """
 from __future__ import annotations
@@ -132,15 +132,19 @@ def run_item(run_id: str, item_id: str):
 
 
 @router.get("/videos/{clip_id}")
-def video(clip_id: str):
+def video(clip_id: str, original: bool = Query(False)):
     it = next((i for i in t2.items().values() if i["clip_id"] == clip_id), None)
     if it is None:
         raise HTTPException(404, f"unknown clip {clip_id}")
+    # browser-playable H.264 copy (tools/transcode_track2_videos.py); the AI Hub original is MPEG-4 Part 2
+    h264 = t2.root() / "videos_h264" / f"{clip_id}.mp4"
+    if h264.is_file() and not original:
+        return FileResponse(h264, media_type="video/mp4", headers={"X-Video-Source": "h264-transcode"})
     root = VIDEO_ROOT.resolve()
     p = (root / it["video_relpath"]).resolve()
     if not p.is_relative_to(root) or not p.is_file():
         raise HTTPException(404, "video file not found under VIDEO_ROOT")
-    return FileResponse(p, media_type="video/mp4")
+    return FileResponse(p, media_type="video/mp4", headers={"X-Video-Source": "original-mpeg4-part2"})
 
 
 @router.get("/frames/{item_id}")

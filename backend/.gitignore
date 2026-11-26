@@ -5,3 +5,4 @@ __pycache__/
 store/cache/
 store/track2/frames/
 store/track2/results/
+store/track2/videos_h264/

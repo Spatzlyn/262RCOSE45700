@@ -1,4 +1,4 @@
-# Starts automatically with the Docker daemon (restart: unless-stopped; docker.service is enabled on boot).
+# Starts automatically with the Docker daemon (restart: always; docker.service is enabled on boot).
 #   cd backend && SCORER_COMMIT=$(git log -1 --format=%H -- scorer app) docker compose up -d --build
 services:
   api:
@@ -9,7 +9,7 @@ services:
         SCORER_COMMIT: ${SCORER_COMMIT:-unknown}
     image: road-vlm-api:latest
     container_name: road-vlm-api
-    restart: unless-stopped
+    restart: always
     env_file:
       # API_WRITE_KEY / WORKER_KEY (not in git). Without it the write and worker APIs answer 503.
       - path: .env
